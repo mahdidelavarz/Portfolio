@@ -49,7 +49,7 @@ const Particle = () => {
       fpsLimit: 60,
       particles: {
         number: {
-          value: 100,
+          value: 250,
           density: {
             enable: true,
             width: 1920,
@@ -63,7 +63,7 @@ const Particle = () => {
           type: "circle",
         },
         opacity: {
-          value: { min: 0.3, max: 1 },
+          value: { min: 0.2, max: 0.6 },
           animation: {
             enable: true,
             speed: 2,
@@ -72,7 +72,7 @@ const Particle = () => {
           },
         },
         size: {
-          value: { min: 1, max: 5 },
+          value: { min: 1, max: 3 },
           animation: {
             enable: true,
             speed: 5,

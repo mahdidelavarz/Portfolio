@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+.gradient-border {
+  position: relative;
+  background: linear-gradient(
+    to right,
+    #a855f7,
+    #ec4899,
+    #ef4444
+  ); /* Gradient for border */
+  padding: 2px; /* Border thickness */
+}
+
+.inner-content {
+  background: transparent; /* Ensures content area is transparent */
+  border-radius: 0.875rem; /* Slightly smaller than outer radius to fit inside (1rem - 2px padding) */
+  height: 100%;
+  width: 100%;
+}
+
+/* Ensure backdrop blur applies correctly */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px); /* Matches Tailwind's backdrop-blur-sm */
+}
