@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useRef, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
-import BlackHole from "./BlackHole";
 
 const Slider: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
