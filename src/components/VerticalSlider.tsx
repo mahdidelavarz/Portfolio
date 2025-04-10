@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useRef, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
+import BlackHole from "./BlackHole";
 
 const Slider: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -127,7 +128,7 @@ const Slider: React.FC = () => {
         ref={sliderRef}
         className="absolute top-0 left-0 w-full h-screen overflow-y-scroll snap-y snap-mandatory scrollbar-hide "
       >
-        <div className="w-full h-screen snap-start flex px-48 py-20 bg-black/20 text-white ">
+        <div className="w-full h-screen snap-start flex px-48 py-20 bg-black/40 text-white ">
           <div className=" w-1/2 py-36 ">
             <h1 className="text-3xl text-stone-300 text-shadow-lg">
               I'm a{" "}
@@ -187,10 +188,18 @@ const Slider: React.FC = () => {
             <div className="w-1 h-2 bg-white rounded-full animate-bounce"></div>
           </div>
         </div>
-        <div className="w-full h-screen snap-start grid grid-cols-2 grid-rows-2 bg-gray-950/20 text-stone-300 text-lg px-48 pt-28 ">
+        <div className="w-full h-screen snap-start grid grid-cols-2 grid-rows-2 bg-slate-950/30 text-stone-300 text-lg px-48 pt-28 ">
           <div className="col-span-1 row-span-1 px-6 flex items-center">
-            <div className="backdrop-blur-sm bg-gradient-to-tl from-[#18707c]/20 via-[#c3b6aa]/20 to-amber-700/20 pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px]">
-              <h2 className="text-2xl mb-4 flex gap-2 items-center text-purple-400 text-shadow-sm text-shadow-slate-800"><Icon icon="la:user-secret" width="36" height="36" className="text-purple-400" /> Who I Am : </h2>
+            <div className="backdrop-blur-l mask-y-from-95% mask-radial-[100%_100%] mask-radial-from-95% backdrop-brightness-100 backdrop-grayscale-100  pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px]">
+              <h2 className="text-2xl mb-4 flex gap-2 items-center text-purple-400 text-shadow-sm text-shadow-slate-800">
+                <Icon
+                  icon="la:user-secret"
+                  width="36"
+                  height="36"
+                  className="text-purple-400"
+                />{" "}
+                Who I Am :{" "}
+              </h2>
               <ul className="list-disc flex flex-col gap-4 text-sm">
                 <li>
                   29 y/o frontend developer with 6+ years of experience crafting
@@ -206,8 +215,16 @@ const Slider: React.FC = () => {
             </div>
           </div>
           <div className="col-span-1 row-span-1 px-6 flex items-center">
-            <div className="backdrop-blur-sm bg-gradient-to-tr from-[#18707c]/20 via-[#c3b6aa]/20 to-amber-700/20 pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px]">
-              <h2 className="text-2xl mb-4 flex gap-2 items-center text-teal-400 text-shadow-sm text-shadow-slate-800"><Icon icon="fluent:window-dev-tools-16-regular" width="36" height="36" className="text-teal-400" />What I Do :</h2>
+            <div className="backdrop-blur-xl mask-y-from-95% mask-radial-[80%_90%] mask-radial-from-100% backdrop-brightness-100 backdrop- pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px">
+              <h2 className="text-2xl mb-4 flex gap-2 items-center text-teal-400 text-shadow-sm text-shadow-slate-800">
+                <Icon
+                  icon="fluent:window-dev-tools-16-regular"
+                  width="36"
+                  height="36"
+                  className="text-teal-400"
+                />
+                What I Do :
+              </h2>
               <ul className="list-disc flex flex-col gap-4 text-sm">
                 <li>
                   Build from scratch? I develop fast, accessible, and visually
@@ -225,8 +242,16 @@ const Slider: React.FC = () => {
             </div>
           </div>
           <div className="col-span-1 row-span-1 px-6">
-            <div className="backdrop-blur-sm bg-gradient-to-bl from-[#18707c]/20 via-[#c3b6aa]/20 to-amber-700/20 pl-8 pr-2 py-6 rounded-2xl w-[530px] h-[250px]">
-              <h2 className="text-2xl mb-4 flex gap-2 text-blue-400 text-shadow-sm text-shadow-slate-800"><Icon icon="pepicons-pencil:handshake" width="36" height="36" className="text-blue-400" />How I Work :</h2>
+            <div className="backdrop-blur-xl mask-y-from-95% mask-radial-[100%_100%] mask-radial-from-95% backdrop-brightness-100 backdrop-  pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px">
+              <h2 className="text-2xl mb-4 flex gap-2 text-blue-400 text-shadow-sm text-shadow-slate-800">
+                <Icon
+                  icon="pepicons-pencil:handshake"
+                  width="36"
+                  height="36"
+                  className="text-blue-400"
+                />
+                How I Work :
+              </h2>
               <ul className="list-disc flex flex-col gap-4 text-sm">
                 <li>
                   Team-first mindset – Collaborate smoothly with designers,
@@ -244,8 +269,16 @@ const Slider: React.FC = () => {
             </div>
           </div>
           <div className="col-span-1 row-span-1 px-6">
-            <div className=" backdrop-blur-sm bg-gradient-to-br from-[#18707c]/20 via-[#c3b6aa]/20 to-amber-700/20 pl-8 pr-2 py-6 rounded-2xl w-[530px] h-[250px]">
-              <h2 className="text-2xl mb-4 flex gap-2 items-center text-yellow-500 text-shadow-sm text-shadow-slate-800"><Icon icon="hugeicons:star-award-01" width="36" height="36" className="text-yellow-500 " />Why Work With Me :</h2>
+            <div className=" backdrop-blur-xl mask-y-from-95% mask-radial-[100%_100%] mask-radial-from-95% backdrop-brightness-100 backdrop-  pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px">
+              <h2 className="text-2xl mb-4 flex gap-2 items-center text-yellow-500 text-shadow-sm text-shadow-slate-800">
+                <Icon
+                  icon="hugeicons:star-award-01"
+                  width="36"
+                  height="36"
+                  className="text-yellow-500 "
+                />
+                Why Work With Me :
+              </h2>
               <ul className="list-disc flex flex-col gap-4 text-sm">
                 <li>
                   Reliable & deadline-oriented – Deliver high-quality work on
@@ -263,16 +296,16 @@ const Slider: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-screen snap-start flex items-center justify-center bg-slate-800/20 text-white">
-          <h1 className="text-4xl">Slide 3</h1>
+        <div className="w-full h-screen snap-start flex items-center justify-center bg-slate-900/30 text-white">
+          <h1 className="">{/* <BlackHole /> */}</h1>
         </div>
-        <div className="w-full h-screen snap-start flex items-center justify-center bg-gray-800/20 text-white">
+        <div className="w-full h-screen snap-start flex items-center justify-center bg-gray-800/30 text-white">
           <h1 className="text-4xl">Slide 4</h1>
         </div>
-        <div className="w-full h-screen snap-start flex items-center justify-center bg-gray-800/20 text-white">
+        <div className="w-full h-screen snap-start flex items-center justify-center bg-gray-700/30 text-white">
           <h1 className="text-4xl">Slide 5</h1>
         </div>
-        <div className="w-full h-screen snap-start flex items-center justify-center bg-gray-800/20 text-white">
+        <div className="w-full h-screen snap-start flex items-center justify-center bg-gray-600/30 text-white">
           <h1 className="text-4xl">Slide 6</h1>
         </div>
       </div>

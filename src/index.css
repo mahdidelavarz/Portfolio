@@ -22,3 +22,21 @@
 .backdrop-blur-sm {
   backdrop-filter: blur(4px); /* Matches Tailwind's backdrop-blur-sm */
 }
+.animate-suck-natural {
+  animation: suckNatural 5s ease-in-out forwards;
+}
+
+@keyframes suckNatural {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(0.1);
+  }
+}
