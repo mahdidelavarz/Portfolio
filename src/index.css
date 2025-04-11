@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+.noScroll {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow: hidden;
+}
+
 .gradient-border {
   position: relative;
   background: linear-gradient(
