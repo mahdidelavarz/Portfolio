@@ -1,5 +1,5 @@
 import "./App.css";
-import Particle from "./components/particle";
+import Particle from "./components/Particle";
 import Slider from "./components/VerticalSlider";
 function App() {
   return (
