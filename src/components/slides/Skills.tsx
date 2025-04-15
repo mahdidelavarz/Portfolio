@@ -41,19 +41,21 @@ const Skills: React.FC = () => {
             )`,
           }}
         />
-        <div className="w-68 h-68 absolute rounded-full backdrop-blur-3xl flex justify-center items-center shadow-inner shadow-slate-800">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          >
-            <Icon
-              icon={isFrontend ? "nonicons:react-16" : "logos:nodejs-icon"}
-              width="186"
-              height="186"
-              color={colorList[colorIndex]}
-            />
-          </motion.div>
-        </div>
+        
+            <div className="w-68 h-68 absolute text-stone-300 rounded-full backdrop-blur-3xl flex flex-col gap-4 justify-center items-center shadow-inner shadow-slate-800 ">
+              {/* <h2 className="text-4xl ">
+                {isFrontend ? "Front End" : "Back End"}
+              </h2>
+              <Icon
+                icon={
+                  isFrontend ? "nonicons:react-16" : "devicon-plain:dot-net"
+                }
+                width="86"
+                height="86"
+              /> */}
+              <img src="../../../public/How-to-become-a-Full-Stack-Web-Developer--451x300 (1).png" alt="" />
+            </div>
+         
         <div className="w-96 h-96 rounded-full absolute border-r-2 border-white/60" />
       </div>
       <div className="w-[50rem] h-96 relative mt-9 z-50">
@@ -95,14 +97,14 @@ const Skills: React.FC = () => {
               />
               {/* Title 1 */}
               <motion.div
-                className="w-24 h-10 bg-blue-500/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
+                className="w-auto px-4 h-10 bg-blue-500/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
                 style={{ top: "-58px", left: "104px" }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                React
+                Frameworks & Libraries
               </motion.div>
 
               {/* Dot 2 */}
@@ -125,14 +127,14 @@ const Skills: React.FC = () => {
               />
               {/* Title 2 */}
               <motion.div
-                className="w-24 h-10 bg-purple-600/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
+                className="w-auto h-10 px-4 bg-purple-600/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
                 style={{ top: "42px", left: "104px" }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
               >
-                Redux
+                Languages & Markup
               </motion.div>
 
               {/* Dot 3 */}
@@ -155,14 +157,14 @@ const Skills: React.FC = () => {
               />
               {/* Title 3 */}
               <motion.div
-                className="w-24 h-10 bg-green-600/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
+                className="w-auto h-10 px-4 bg-green-600/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
                 style={{ top: "171px", left: "104px" }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
               >
-                ReactQuery
+                Styling
               </motion.div>
 
               {/* Dot 4 */}
@@ -185,14 +187,14 @@ const Skills: React.FC = () => {
               />
               {/* Title 4 */}
               <motion.div
-                className="w-24 h-10 bg-blue-600/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
+                className="w-auto h-10 px-4 bg-blue-600/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
                 style={{ top: "300px", left: "104px" }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3, delay: 0.3 }}
               >
-                Context
+                State Management
               </motion.div>
 
               {/* Dot 5 */}
@@ -224,14 +226,14 @@ const Skills: React.FC = () => {
               />
               {/* Title 5 */}
               <motion.div
-                className="w-24 h-10 bg-yellow-500/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
+                className="w-auto h-10 px-4 bg-yellow-500/40 rounded-full backdrop-blur-sm absolute z-50 flex justify-center items-center text-sm"
                 style={{ top: "402px", left: "104px" }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3, delay: 0.4 }}
               >
-                TypeScript
+                Internationalization
               </motion.div>
             </motion.div>
           ) : (
