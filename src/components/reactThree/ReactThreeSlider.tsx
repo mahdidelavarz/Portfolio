@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useRef, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Image as DreiImage,
   ScrollControls,
@@ -10,6 +10,7 @@ import {
 import { easing } from "maath";
 import { ThreeEvent } from "@react-three/fiber";
 import "../../utils/util";
+import ScrollHandler from "./ScrollHandler";
 
 // Props types
 type RigProps = {
@@ -30,15 +31,24 @@ type CarouselProps = {
   count?: number;
 };
 
-function ThreeSlider() {
+type ThreeSliderProps = {
+  onScrollProgress?: (progress: number) => void;
+};
+
+function ThreeSlider({ onScrollProgress }: ThreeSliderProps) {
   return (
-    <div className="w-full h-full m-0 p-0 font-inter [cursor:url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIxMCIgZmlsbD0iI0U4QjA1OSIvPjwvc3ZnPg=='),_auto]">
-      <Canvas camera={{ position: [0, 0, 100], fov: 15 }}>
-        <fog attach="fog" args={["#a79", 8.5, 12]} />
-        <ScrollControls pages={4} infinite>
+    <div
+      className={`w-full h-full m-0 p-0 font-inter cursor-pointer relative`}
+      style={{ pointerEvents: "auto", overflow: "visible" }}
+    >
+      <Canvas camera={{ position: [0, 0, 20], fov: 15 }}>
+        <ScrollControls pages={8} damping={0.05}>
           <Rig rotation={[0.1, 0.5, 0.1]}>
             <Carousel />
           </Rig>
+          {onScrollProgress && (
+            <ScrollHandler onScrollProgress={onScrollProgress} />
+          )}
         </ScrollControls>
       </Canvas>
     </div>
@@ -48,21 +58,22 @@ function ThreeSlider() {
 function Rig({ rotation, children }: RigProps) {
   const ref = useRef<THREE.Group>(null);
   const scroll = useScroll();
+  const { pointer, camera } = useThree();
+
   useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.y = -scroll.offset * Math.PI * 2;
-    }
-    if (state.events?.update) {
-      state.events.update();
+      console.log("Rig rotation:", ref.current.rotation.y); // Debug log
     }
     easing.damp3(
-      state.camera.position,
-      [-state.pointer.x * 2, state.pointer.y + 1.5, 10],
-      0.3,
+      camera.position,
+      [-pointer.x * 2, pointer.y + 1.5, 10],
+      0.1,
       delta
     );
-    state.camera.lookAt(0, 0, 0);
+    camera.lookAt(0, 0, 0);
   });
+
   return (
     <group ref={ref} rotation={rotation}>
       {children}
@@ -74,7 +85,7 @@ function Carousel({ radius = 1.4, count = 8 }: CarouselProps) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
-      url={`/img${(i % 4) + 1}_.jpg`}
+      url={`/img${(i % 8) + 1}_.jpg`}
       position={[
         Math.sin((i / count) * Math.PI * 2) * radius,
         0,
@@ -82,7 +93,7 @@ function Carousel({ radius = 1.4, count = 8 }: CarouselProps) {
       ]}
       rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
       index={i}
-      count={count}
+      count={window.innerWidth > 768 ? 8 : 4}
     />
   ));
 }
@@ -107,8 +118,8 @@ function Card({ url, position, rotation, index, count }: CardProps) {
       }
     };
 
-    window.addEventListener("wheel", preventScroll, { passive: false });
-    window.addEventListener("touchmove", preventScroll, { passive: false });
+    window.addEventListener("wheel", preventScroll, { passive: true });
+    window.addEventListener("touchmove", preventScroll, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", preventScroll);
@@ -146,7 +157,16 @@ function Card({ url, position, rotation, index, count }: CardProps) {
     }
     // Smoothly animate scroll position
     if (targetScroll !== null) {
-      easing.damp(scrollState.current, "value", targetScroll, 0.5, delta, undefined, undefined, 0.01);
+      easing.damp(
+        scrollState.current,
+        "value",
+        targetScroll,
+        0.5,
+        delta,
+        undefined,
+        undefined,
+        0.01
+      );
       scroll.el.scrollTop = scrollState.current.value;
       if (Math.abs(scrollState.current.value - targetScroll) < 0.1) {
         setTargetScroll(null); // Stop animation when close enough
