@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Icon } from "@iconify/react";
+// import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Skills: React.FC = () => {
@@ -25,7 +25,7 @@ const Skills: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-start items-center text-white w-full h-screen snap-start px-48 bg-black/40  mt-9">
+    <div className="flex justify-start items-center text-white w-full h-screen snap-start px-48 bg-black/20  mt-9">
       <div className="flex justify-center items-center relative mt-9">
         <div
           className="w-76 h-76 rounded-full shadow-sm shadow-slate-800"

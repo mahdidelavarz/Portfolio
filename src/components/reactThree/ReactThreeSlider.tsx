@@ -24,27 +24,37 @@ type CardProps = DreiImageProps & {
   rotation: [number, number, number];
   index: number;
   count: number;
+  openModal: boolean;
+  setOpenModal: any;
 };
 
 type CarouselProps = {
   radius?: number;
   count?: number;
+  openModal: boolean;
+  setOpenModal: any;
 };
 
 type ThreeSliderProps = {
   onScrollProgress?: (progress: number) => void;
+  openModal: boolean;
+  setOpenModal: any;
 };
 
-function ThreeSlider({ onScrollProgress }: ThreeSliderProps) {
+function ThreeSlider({
+  onScrollProgress,
+  openModal,
+  setOpenModal,
+}: ThreeSliderProps) {
   return (
     <div
-      className={`w-full h-full m-0 p-0 font-inter cursor-pointer relative`}
+      className={`w-full h-full m-0 p-0 font-inter relative`}
       style={{ pointerEvents: "auto", overflow: "visible" }}
     >
       <Canvas camera={{ position: [0, 0, 20], fov: 15 }}>
         <ScrollControls pages={8} damping={0.05}>
           <Rig rotation={[0.1, 0.5, 0.1]}>
-            <Carousel />
+            <Carousel openModal={openModal} setOpenModal={setOpenModal} />
           </Rig>
           {onScrollProgress && (
             <ScrollHandler onScrollProgress={onScrollProgress} />
@@ -81,7 +91,12 @@ function Rig({ rotation, children }: RigProps) {
   );
 }
 
-function Carousel({ radius = 1.4, count = 8 }: CarouselProps) {
+function Carousel({
+  radius = 1.4,
+  count = 8,
+  openModal,
+  setOpenModal,
+}: CarouselProps) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
@@ -94,6 +109,8 @@ function Carousel({ radius = 1.4, count = 8 }: CarouselProps) {
       rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
       index={i}
       count={window.innerWidth > 768 ? 8 : 4}
+      openModal={openModal}
+      setOpenModal={setOpenModal}
     />
   ));
 }
@@ -103,7 +120,14 @@ type CustomImageMaterial = THREE.Material & {
   zoom?: number;
 };
 
-function Card({ url, position, rotation, index, count }: CardProps) {
+function Card({
+  url,
+  position,
+  rotation,
+  index,
+  count,
+  setOpenModal,
+}: CardProps) {
   const ref = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [targetScroll, setTargetScroll] = useState<number | null>(null);
@@ -134,6 +158,7 @@ function Card({ url, position, rotation, index, count }: CardProps) {
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
+    // setOpenModal(true);
     const targetOffset = index / count;
     setTargetScroll(targetOffset * scroll.el.scrollHeight);
     scrollState.current.value = scroll.el.scrollTop; // Initialize with current scroll

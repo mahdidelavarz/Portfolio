@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 function About() {
   return (
-    <div className="w-full h-screen snap-start grid grid-cols-2 grid-rows-2 bg-slate-950/30 text-stone-300 text-lg px-48 pt-28 ">
+    <div className="w-full h-screen snap-start grid grid-cols-2 grid-rows-2 bg-black/20 text-stone-300 text-lg px-48 pt-28 ">
       <div className="col-span-1 row-span-1 px-5 flex items-center">
         <div className="backdrop-blur-xl backdrop-brightness-80 pl-8 pr-2 py-6 rounded-2xl w-[540px] h-[250px] shadow-inner/30 shadow-purple-600 ">
           <h2 className="text-2xl mb-4 flex gap-2 items-center text-purple-400 text-shadow-sm text-shadow-slate-800">

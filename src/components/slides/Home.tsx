@@ -3,7 +3,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 function Home({ scrollToSlide }: { scrollToSlide: (index: number) => void }) {
   return (
-    <div className="w-full h-screen snap-start flex px-48 py-20 bg-black/40 text-white ">
+    <div className="w-full h-screen snap-start flex px-48 py-20 bg-black/20 text-white ">
       <div className=" w-1/2 py-36 ">
         <h1 className="text-3xl text-stone-300 text-shadow-lg ">
           <div className="flex gap-4 items-center ">
