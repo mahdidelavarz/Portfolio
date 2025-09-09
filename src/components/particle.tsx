@@ -9,7 +9,7 @@ import {
 // if you are going to use `loadFull`, install the "tsparticles" package too.
 import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSlim`, install the "@tsparticles/slim" package too.
 // import { loadBasic } from "@tsparticles/basic"; // if you are going to use `loadBasic`, install the "@tsparticles/basic" package too.
-import whale from "../../public/whale.jpg";
+// import whale from "/whale.jpg";
 
 const Particle = () => {
   const [init, setInit] = useState(false);
@@ -36,16 +36,20 @@ const Particle = () => {
     () => ({
       autoPlay: true,
       background: {
-        image: whale,
+        image: "/whale.jpg",
         size: "80% auto",
         repeat: "no-repeat",
         position: "center",
         opacity: 1,
       },
-      fullScreen: {
+      backgroundMode: {
         enable: true,
         zIndex: 0,
       },
+      // fullScreen: {
+      //   enable: false,
+      //   zIndex: 0,
+      // },
       fpsLimit: 60,
       particles: {
         number: {
@@ -109,15 +113,31 @@ const Particle = () => {
     }),
     []
   );
-  if (init) {
-    return (
+if (init) {
+  return (
+    <div
+      className="fixed inset-0 z-0"
+      style={{
+        backgroundImage: `url(/whale.jpg)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Particles
         id="tsparticles"
         particlesLoaded={particlesLoaded}
-        options={options}
+        options={{
+          ...options,
+          background: {
+            color: { value: "transparent" }, // 👈 Make particle bg transparent
+          },
+        }}
+        className="w-full h-full"
       />
-    );
-  }
+    </div>
+  );
+}
 
   return <></>;
 };
