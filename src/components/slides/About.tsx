@@ -1,698 +1,575 @@
-// import { motion } from "framer-motion";
-// import { Icon } from "@iconify/react/dist/iconify.js";
-// import { useState } from "react";
+// import React, { useState, useEffect, useRef } from "react";
+// import { Icon } from "@iconify/react";
 
-// function About() {
-//   const [activeCard, setActiveCard] = useState(null);
+// interface AboutMeProps {
+//   scrollToSection?: (id: string) => void;
+// }
 
-//   // Animation variants
-//   const containerVariants = {
-//     hidden: { opacity: 0 },
-//     visible: {
-//       opacity: 1,
-//       transition: {
-//         staggerChildren: 0.15,
-//         delayChildren: 0.2
-//       }
-//     }
-//   };
+// function AboutMe({ scrollToSection }: AboutMeProps) {
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [activeSkill, setActiveSkill] = useState(0);
+//   const sectionRef = useRef<HTMLDivElement>(null);
 
-//   const cardVariants = {
-//     hidden: { 
-//       opacity: 0, 
-//       y: 80,
-//       scale: 0.8
-//     },
-//     visible: { 
-//       opacity: 1, 
-//       y: 0,
-//       scale: 1,
-//       transition: {
-//         type: "spring",
-//         stiffness: 80,
-//         damping: 20,
-//         duration: 1
-//       }
-//     }
-//   };
+//   const skills = [
+//     { name: "React.js", level: 95, icon: "logos:react", color: "from-cyan-400 to-blue-500" },
+//     { name: "Next.js", level: 90, icon: "logos:nextjs-icon", color: "from-slate-400 to-slate-600" },
+//     { name: "TypeScript", level: 88, icon: "logos:typescript-icon", color: "from-blue-500 to-blue-700" },
+//     { name: "Tailwind CSS", level: 92, icon: "logos:tailwindcss-icon", color: "from-cyan-400 to-teal-500" },
+//     { name: "JavaScript", level: 94, icon: "logos:javascript", color: "from-yellow-400 to-yellow-600" },
+//     { name: "Node.js", level: 85, icon: "logos:nodejs-icon", color: "from-green-500 to-green-700" }
+//   ];
 
-//   const titleVariants = {
-//     hidden: { opacity: 0, y: -50 },
-//     visible: { 
-//       opacity: 1, 
-//       y: 0,
-//       transition: {
-//         type: "spring",
-//         stiffness: 100,
-//         damping: 15,
-//         duration: 1.2
-//       }
-//     }
-//   };
-
-//   const cards = [
+//   const experiences = [
 //     {
-//       id: 1,
-//       icon: "material-symbols:person-4",
-//       title: "Who I Am",
-//       gradient: "from-cyan-500/15 to-blue-600/15",
-//       borderColor: "border-cyan-400/30",
-//       iconColor: "text-cyan-400",
-//       glowColor: "shadow-cyan-400/20",
-//       items: [
-//         "29 y/o frontend developer with 6+ years of experience",
-//         "Passionate about clean code & pixel-perfect UIs",
-//         "Always learning modern frontend technologies"
-//       ]
+//       year: "2024",
+//       title: "Senior Frontend Developer",
+//       company: "Tech Solutions Inc.",
+//       description: "Leading frontend development team, architecting scalable React applications.",
+//       achievements: ["Led 5+ major projects", "Improved performance by 40%", "Mentored junior developers"]
 //     },
 //     {
-//       id: 2,
-//       icon: "material-symbols:code",
-//       title: "What I Do",
-//       gradient: "from-teal-500/15 to-emerald-600/15",
-//       borderColor: "border-teal-400/30",
-//       iconColor: "text-teal-400",
-//       glowColor: "shadow-teal-400/20",
-//       items: [
-//         "Develop fast, accessible & visually polished frontends",
-//         "Refactor & optimize for better performance",
-//         "Provide framework & UX enhancement guidance"
-//       ]
+//       year: "2023",
+//       title: "Frontend Developer",
+//       company: "Digital Agency Co.",
+//       description: "Developed responsive web applications with modern technologies.",
+//       achievements: ["Built 20+ client projects", "Implemented CI/CD pipelines", "Optimized SEO performance"]
 //     },
 //     {
-//       id: 3,
-//       icon: "material-symbols:handshake",
-//       title: "How I Work",
-//       gradient: "from-indigo-500/15 to-purple-600/15",
-//       borderColor: "border-indigo-400/30",
-//       iconColor: "text-indigo-400",
-//       glowColor: "shadow-indigo-400/20",
-//       items: [
-//         "Team-first mindset with smooth collaboration",
-//         "Clear communication bridging tech & non-tech teams",
-//         "Adaptable & solution-driven approach"
-//       ]
-//     },
-//     {
-//       id: 4,
-//       icon: "material-symbols:star",
-//       title: "Why Choose Me",
-//       gradient: "from-orange-500/15 to-red-600/15",
-//       borderColor: "border-orange-400/30",
-//       iconColor: "text-orange-400",
-//       glowColor: "shadow-orange-400/20",
-//       items: [
-//         "Reliable & deadline-oriented delivery",
-//         "User-focused aesthetic & functional balance",
-//         "Low ego, high impact teamwork priority"
-//       ]
+//       year: "2022",
+//       title: "Junior Developer",
+//       company: "StartUp Hub",
+//       description: "Started career building interactive user interfaces.",
+//       achievements: ["Learned React ecosystem", "Built component library", "Collaborated with design team"]
 //     }
 //   ];
 
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting) {
+//           setIsVisible(true);
+//         }
+//       },
+//       { threshold: 0.1 }
+//     );
+
+//     if (sectionRef.current) {
+//       observer.observe(sectionRef.current);
+//     }
+
+//     return () => observer.disconnect();
+//   }, []);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setActiveSkill((prev) => (prev + 1) % skills.length);
+//     }, 3000);
+
+//     return () => clearInterval(interval);
+//   }, [skills.length]);
+
 //   return (
-//     <div className="w-full h-screen relative overflow-hidden snap-start">
-//       {/* Animated title */}
-//       <motion.div
-//         className="absolute top-8 left-1/2 transform -translate-x-1/2 z-30"
-//         variants={titleVariants}
-//         initial="hidden"
-//         animate="visible"
-//       >
-//         <motion.h1 
-//           className="text-4xl md:text-6xl font-bold text-white text-center tracking-wide"
-//           animate={{
-//             textShadow: [
-//               "0 0 20px rgba(255,255,255,0.3)",
-//               "0 0 40px rgba(255,255,255,0.6)", 
-//               "0 0 20px rgba(255,255,255,0.3)"
-//             ]
-//           }}
-//           transition={{
-//             duration: 4,
-//             repeat: Infinity,
-//             ease: "easeInOut"
-//           }}
-//         >
-//           About{" "}
-//           <motion.span 
-//             className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent"
-//             animate={{
-//               filter: ["hue-rotate(0deg)", "hue-rotate(60deg)", "hue-rotate(0deg)"]
-//             }}
-//             transition={{
-//               duration: 6,
-//               repeat: Infinity,
-//               ease: "easeInOut"
-//             }}
-//           >
-//             Me
-//           </motion.span>
-//         </motion.h1>
-//       </motion.div>
-
-//       {/* Main grid layout */}
-//       <motion.div 
-//         className="absolute inset-0 pt-32 pb-12 px-8 md:px-16 lg:px-20"
-//         variants={containerVariants}
-//         initial="hidden"
-//         animate="visible"
-//       >
-//         <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto">
-//           {cards.map((card, index) => (
-//             <motion.div
-//               key={card.id}
-//               className="relative group"
-//               variants={cardVariants}
-//               onHoverStart={() => setActiveCard(card.id)}
-//               onHoverEnd={() => setActiveCard(null)}
-//               whileHover={{
-//                 scale: 1.03,
-//                 z: 10,
-//                 transition: { type: "spring", stiffness: 300, damping: 30 }
-//               }}
-//             >
-//               <motion.div
-//                 className={`relative h-full bg-gradient-to-br ${card.gradient} backdrop-blur-lg border ${card.borderColor} rounded-2xl p-6 ${card.glowColor} shadow-2xl overflow-hidden`}
-//                 animate={{
-//                   boxShadow: activeCard === card.id
-//                     ? `0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 0 25px ${card.glowColor.split('/')[0].replace('shadow-', 'rgba(').replace('-400', ', 0.3)')}`
-//                     : "0 10px 20px -5px rgba(0, 0, 0, 0.3)"
-//                 }}
-//                 transition={{ duration: 0.3 }}
-//               >
-//                 {/* Animated background overlay */}
-//                 <motion.div
-//                   className={`absolute inset-0 bg-gradient-to-br ${card.gradient.replace('/15', '/5')} opacity-0`}
-//                   animate={{
-//                     opacity: activeCard === card.id ? 1 : 0,
-//                   }}
-//                   transition={{ duration: 0.3 }}
-//                 />
-
-//                 {/* Header */}
-//                 <motion.div 
-//                   className="flex items-center gap-4 mb-6 relative z-10"
-//                   whileHover={{ x: 3 }}
-//                 >
-//                   <motion.div
-//                     className={`p-3 rounded-xl bg-gradient-to-br ${card.gradient} border ${card.borderColor} backdrop-blur-sm`}
-//                     whileHover={{ 
-//                       rotate: [0, -10, 10, 0],
-//                       scale: 1.1
-//                     }}
-//                     transition={{ 
-//                       rotate: { duration: 0.6 },
-//                       scale: { type: "spring", stiffness: 300 }
-//                     }}
-//                   >
-//                     <Icon
-//                       icon={card.icon}
-//                       width="28"
-//                       height="28"
-//                       className={`${card.iconColor} drop-shadow-lg`}
-//                     />
-//                   </motion.div>
-//                   <motion.h2 
-//                     className={`text-xl md:text-2xl font-bold ${card.iconColor}`}
-//                     animate={{
-//                       textShadow: activeCard === card.id 
-//                         ? "0 0 15px currentColor" 
-//                         : "0 2px 4px rgba(0,0,0,0.5)"
-//                     }}
-//                   >
-//                     {card.title}
-//                   </motion.h2>
-//                 </motion.div>
-
-//                 {/* Content */}
-//                 <motion.div className="space-y-3 relative z-10">
-//                   {card.items.map((item, itemIndex) => (
-//                     <motion.div
-//                       key={itemIndex}
-//                       className="flex items-start gap-3 group/item"
-//                       initial={{ opacity: 0, x: -20 }}
-//                       animate={{ opacity: 1, x: 0 }}
-//                       transition={{ 
-//                         delay: 0.6 + (index * 0.1) + (itemIndex * 0.1),
-//                         type: "spring",
-//                         stiffness: 150
-//                       }}
-//                       whileHover={{ x: 6 }}
-//                     >
-//                       <motion.div
-//                         className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.gradient.replace('/15', '')} mt-2 shadow-sm`}
-//                         animate={{
-//                           scale: activeCard === card.id ? [1, 1.3, 1] : 1,
-//                           boxShadow: activeCard === card.id 
-//                             ? `0 0 10px ${card.iconColor.replace('text-', '').replace('-400', '')}` 
-//                             : "0 0 3px rgba(0,0,0,0.3)"
-//                         }}
-//                         transition={{
-//                           scale: { 
-//                             duration: 2, 
-//                             repeat: Infinity,
-//                             ease: "easeInOut"
-//                           }
-//                         }}
-//                       />
-//                       <motion.p
-//                         className="text-gray-200 text-sm md:text-base leading-relaxed group-hover/item:text-white transition-colors duration-200"
-//                         animate={{
-//                           opacity: activeCard === card.id ? 1 : 0.85
-//                         }}
-//                       >
-//                         {item}
-//                       </motion.p>
-//                     </motion.div>
-//                   ))}
-//                 </motion.div>
-
-//                 {/* Floating orbs inside cards */}
-//                 {activeCard === card.id && (
-//                   <div className="absolute inset-0 pointer-events-none overflow-hidden">
-//                     {[...Array(4)].map((_, i) => (
-//                       <motion.div
-//                         key={i}
-//                         className={`absolute w-1 h-1 rounded-full ${card.iconColor.replace('text-', 'bg-')} opacity-60`}
-//                         initial={{
-//                           x: Math.random() * 300,
-//                           y: Math.random() * 200,
-//                           scale: 0
-//                         }}
-//                         animate={{
-//                           y: [Math.random() * 200, -20],
-//                           scale: [0, 1, 0],
-//                           opacity: [0, 0.8, 0]
-//                         }}
-//                         transition={{
-//                           duration: 4,
-//                           delay: i * 0.5,
-//                           repeat: Infinity,
-//                           ease: "easeOut"
-//                         }}
-//                       />
-//                     ))}
-//                   </div>
-//                 )}
-//               </motion.div>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </motion.div>
-
-//       {/* Depth indicators */}
-//       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-//         {[...Array(4)].map((_, i) => (
-//           <motion.div
+//     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+//       {/* Background Overlay for better text readability */}
+//       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/50 to-transparent"></div>
+      
+//       {/* Floating Particles Animation */}
+//       <div className="absolute inset-0 overflow-hidden">
+//         {[...Array(20)].map((_, i) => (
+//           <div
 //             key={i}
-//             className="absolute w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-//             style={{ top: `${25 + i * 20}%` }}
-//             animate={{
-//               opacity: [0.05, 0.15, 0.05],
-//               scaleX: [0.7, 1.1, 0.7],
-//             }}
-//             transition={{
-//               duration: 6 + i,
-//               repeat: Infinity,
-//               delay: i * 1.5,
-//               ease: "easeInOut"
+//             className="absolute w-1 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-pulse"
+//             style={{
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`,
+//               animationDelay: `${Math.random() * 3}s`,
+//               animationDuration: `${2 + Math.random() * 2}s`
 //             }}
 //           />
 //         ))}
 //       </div>
 
-//       {/* Corner accent */}
-//       <motion.div
-//         className="absolute bottom-6 right-6 z-20"
-//         initial={{ opacity: 0, scale: 0 }}
-//         animate={{ opacity: 0.3, scale: 1 }}
-//         transition={{ delay: 1.5, type: "spring" }}
-//       >
-//         <motion.div
-//           className="w-20 h-20 border border-white/20 rounded-full backdrop-blur-sm bg-white/5 flex items-center justify-center"
-//           animate={{
-//             rotate: 360,
-//             boxShadow: [
-//               "0 0 20px rgba(6, 182, 212, 0.2)",
-//               "0 0 40px rgba(6, 182, 212, 0.4)",
-//               "0 0 20px rgba(6, 182, 212, 0.2)"
-//             ]
-//           }}
-//           transition={{
-//             rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-//             boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-//           }}
-//         >
-//           <Icon icon="material-symbols:waves" width="28" height="28" className="text-cyan-400" />
-//         </motion.div>
-//       </motion.div>
+//       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+//         {/* Section Header */}
+//         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+//           <div className="flex items-center justify-center gap-4 mb-6">
+//             <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+//             <span className="text-cyan-400 font-medium tracking-wider text-lg">About Me</span>
+//             <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+//           </div>
+//           <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+//             <span className="bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
+//               Passionate Developer
+//             </span>
+//           </h2>
+//           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+//             Crafting digital experiences that blend creativity with functionality. 
+//             I turn ideas into elegant, performant web applications.
+//           </p>
+//         </div>
+
+//         {/* Main Content Grid */}
+//         <div className="grid lg:grid-cols-2 gap-16 items-start">
+//           {/* Left Column - Story & Experience */}
+//           <div className={`space-y-12 transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
+//             {/* Personal Story */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-cyan-400/30 transition-all duration-500 group">
+//               <div className="flex items-center gap-4 mb-6">
+//                 <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+//                   <Icon icon="mingcute:user-star-fill" width="24" height="24" className="text-white" />
+//                 </div>
+//                 <h3 className="text-2xl font-bold text-white">My Journey</h3>
+//               </div>
+//               <p className="text-slate-300 leading-relaxed mb-4">
+//                 Started as a curious problem-solver with a passion for creating beautiful, functional web experiences. 
+//                 Over the years, I've evolved from writing basic HTML to architecting complex React applications.
+//               </p>
+//               <p className="text-slate-300 leading-relaxed">
+//                 I believe in continuous learning, clean code, and the power of collaboration. Every project is an 
+//                 opportunity to push boundaries and create something meaningful.
+//               </p>
+//             </div>
+
+//             {/* Experience Timeline */}
+//             <div className="space-y-6">
+//               <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+//                 <Icon icon="mingcute:time-line" width="32" height="32" className="text-amber-500" />
+//                 Experience
+//               </h3>
+//               {experiences.map((exp, index) => (
+//                 <div
+//                   key={index}
+//                   className="relative backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 hover:border-amber-500/30 transition-all duration-500 group"
+//                   style={{ animationDelay: `${index * 0.2}s` }}
+//                 >
+//                   <div className="flex items-start gap-4">
+//                     <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform duration-300">
+//                       {exp.year}
+//                     </div>
+//                     <div className="flex-1">
+//                       <h4 className="text-xl font-bold text-white mb-1">{exp.title}</h4>
+//                       <p className="text-cyan-400 font-medium mb-3">{exp.company}</p>
+//                       <p className="text-slate-300 mb-4">{exp.description}</p>
+//                       <div className="flex flex-wrap gap-2">
+//                         {exp.achievements.map((achievement, i) => (
+//                           <span
+//                             key={i}
+//                             className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50"
+//                           >
+//                             {achievement}
+//                           </span>
+//                         ))}
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Right Column - Skills & Stats */}
+//           <div className={`space-y-12 transition-all duration-1000 delay-500 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+//             {/* Skills Section */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500">
+//               <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+//                 <Icon icon="mingcute:code-line" width="32" height="32" className="text-purple-400" />
+//                 Technical Skills
+//               </h3>
+//               <div className="space-y-6">
+//                 {skills.map((skill, index) => (
+//                   <div
+//                     key={index}
+//                     className={`transition-all duration-500 ${activeSkill === index ? 'scale-105' : ''}`}
+//                   >
+//                     <div className="flex items-center justify-between mb-2">
+//                       <div className="flex items-center gap-3">
+//                         <Icon icon={skill.icon} width="24" height="24" />
+//                         <span className="text-white font-medium">{skill.name}</span>
+//                       </div>
+//                       <span className="text-slate-400 font-medium">{skill.level}%</span>
+//                     </div>
+//                     <div className="w-full bg-slate-700 rounded-full h-2">
+//                       <div
+//                         className={`bg-gradient-to-r ${skill.color} h-2 rounded-full transition-all duration-1000 ${
+//                           activeSkill === index ? 'animate-pulse' : ''
+//                         }`}
+//                         style={{
+//                           width: isVisible ? `${skill.level}%` : '0%',
+//                           transitionDelay: `${index * 0.1}s`
+//                         }}
+//                       />
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Stats Cards */}
+//             <div className="grid grid-cols-2 gap-6">
+//               {[
+//                 { icon: "mingcute:trophy-line", number: "50+", label: "Projects", color: "from-yellow-400 to-orange-500" },
+//                 { icon: "mingcute:group-line", number: "30+", label: "Happy Clients", color: "from-green-400 to-emerald-500" },
+//                 { icon: "mingcute:time-line", number: "3+", label: "Years Experience", color: "from-blue-400 to-cyan-500" },
+//                 { icon: "mingcute:star-line", number: "5.0", label: "Rating", color: "from-purple-400 to-pink-500" }
+//               ].map((stat, index) => (
+//                 <div
+//                   key={index}
+//                   className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 text-center hover:scale-105 transition-all duration-300 group"
+//                 >
+//                   <div className={`w-16 h-16 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+//                     <Icon icon={stat.icon} width="28" height="28" className="text-white" />
+//                   </div>
+//                   <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
+//                   <div className="text-slate-400 text-sm">{stat.label}</div>
+//                 </div>
+//               ))}
+//             </div>
+
+//             {/* Call to Action */}
+//             <div className="backdrop-blur-md bg-gradient-to-br from-slate-800/30 to-slate-700/30 border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all duration-500">
+//               <h3 className="text-2xl font-bold text-white mb-4">Let's Work Together</h3>
+//               <p className="text-slate-300 mb-6">
+//                 Ready to bring your ideas to life? Let's create something amazing together.
+//               </p>
+//               <button
+//                 onClick={() => scrollToSection?.("contactme")}
+//                 className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+//               >
+//                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+//                 <div className="relative flex items-center gap-3">
+//                   <Icon icon="mingcute:send-line" width="20" height="20" />
+//                   <span>Get In Touch</span>
+//                 </div>
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
 //     </div>
 //   );
 // }
 
-// export default About;
+// export default AboutMe;
+//! v2
+import React, { useState, useEffect, useRef } from "react";
+import { Icon } from "@iconify/react";
 
+interface AboutMeProps {
+  scrollToSection?: (id: string) => void;
+}
 
-
-//!version 2
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, useInView, useAnimation } from 'framer-motion';
-
-const About = () => {
-  const [activeTab, setActiveTab] = useState('story');
+function AboutMe({ scrollToSection }: AboutMeProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.3 });
-  const controls = useAnimation();
+  const [activeSkill, setActiveSkill] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isInView) {
-      setIsVisible(true);
-      controls.start('visible');
-    }
-  }, [isInView, controls]);
-
-  const tabVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, delay: 0.2, ease: "easeOut" }
-    }
-  };
-
-  const statsVariants = {
-    hidden: { scale: 0 },
-    visible: {
-      scale: 1,
-      transition: { duration: 0.6, delay: 0.4, type: "spring", stiffness: 200 }
-    }
-  };
-
-  const stats = [
-    { label: "Years Experience", value: "3+", icon: "⏱️" },
-    { label: "Projects Completed", value: "50+", icon: "🚀" },
-    { label: "Technologies", value: "15+", icon: "⚡" },
-    { label: "Coffee Cups", value: "∞", icon: "☕" }
+  const skills = [
+    { name: "React.js", level: 95, icon: "logos:react", color: "from-cyan-400 to-blue-500" },
+    { name: "Next.js", level: 90, icon: "logos:nextjs-icon", color: "from-slate-400 to-slate-600" },
+    { name: "TypeScript", level: 88, icon: "logos:typescript-icon", color: "from-blue-500 to-blue-700" },
+    { name: "Tailwind CSS", level: 92, icon: "logos:tailwindcss-icon", color: "from-cyan-400 to-teal-500" },
+    { name: "JavaScript", level: 94, icon: "logos:javascript", color: "from-yellow-400 to-yellow-600" },
+    { name: "Node.js", level: 85, icon: "logos:nodejs-icon", color: "from-green-500 to-green-700" }
   ];
 
-  const tabs = {
-    story: {
-      title: "My Story",
-      content: (
-        <div className="space-y-6">
-          <p className="text-lg text-white/80 leading-relaxed">
-            My journey into web development began during my computer science studies, where I discovered 
-            the perfect blend of creativity and logic that frontend development offers. What started as 
-            curiosity about how websites work evolved into a passion for creating seamless user experiences.
-          </p>
-          <p className="text-lg text-white/80 leading-relaxed">
-            Over the past 3 years, I've evolved from a junior developer at LoveCode to a full-stack 
-            developer at Petco, where I've been instrumental in building an enterprise ERP system from 
-            the ground up. My expertise lies in React ecosystem, but I'm always eager to explore new 
-            technologies and push the boundaries of web development.
-          </p>
-          <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-xl p-6">
-            <h4 className="text-xl font-semibold text-cyan-400 mb-3">Philosophy</h4>
-            <p className="text-white/70">
-              "Clean code is not written by following a set of rules. You don't become a software 
-              craftsman by learning a list of heuristics. Professionalism and craftsmanship come 
-              from values that drive disciplines."
-            </p>
-          </div>
-        </div>
-      )
+  const personalInfo = [
+    { 
+      icon: "mingcute:location-line", 
+      label: "Based in", 
+      value: "Tehran, Iran",
+      color: "from-red-400 to-pink-500" 
     },
-    journey: {
-      title: "Career Journey",
-      content: (
-        <div className="space-y-8">
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-purple-500 to-amber-500"></div>
-            
-            <div className="space-y-8">
-              <motion.div
-                className="relative flex items-start gap-6"
-                variants={contentVariants}
-              >
-                <div className="relative z-10 w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">3</span>
-                </div>
-                <div className="flex-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
-                  <h4 className="text-xl font-semibold text-amber-400 mb-2">Full-Stack Developer</h4>
-                  <p className="text-white/60 mb-2">Petco • 2022 - Present</p>
-                  <p className="text-white/80">
-                    Leading the development of an enterprise ERP system, architecting the entire 
-                    frontend infrastructure from scratch. Working with React, TypeScript, and modern 
-                    state management solutions.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="relative flex items-start gap-6"
-                variants={contentVariants}
-              >
-                <div className="relative z-10 w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">2</span>
-                </div>
-                <div className="flex-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
-                  <h4 className="text-xl font-semibold text-purple-400 mb-2">Frontend Developer</h4>
-                  <p className="text-white/60 mb-2">LoveCode • 2021 - 2022</p>
-                  <p className="text-white/80">
-                    Developed responsive web applications using React and modern CSS frameworks. 
-                    Collaborated with design teams to implement pixel-perfect user interfaces.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="relative flex items-start gap-6"
-                variants={contentVariants}
-              >
-                <div className="relative z-10 w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">1</span>
-                </div>
-                <div className="flex-1 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
-                  <h4 className="text-xl font-semibold text-cyan-400 mb-2">Computer Science Student</h4>
-                  <p className="text-white/60 mb-2">University • 2019 - 2023</p>
-                  <p className="text-white/80">
-                    Studied computer science fundamentals while building side projects and learning 
-                    web development through online courses and practical experience.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      )
+    { 
+      icon: "mingcute:graduation-cap-line", 
+      label: "Education", 
+      value: "Computer Science",
+      color: "from-blue-400 to-cyan-500" 
     },
-    values: {
-      title: "Core Values",
-      content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            {
-              icon: "🎯",
-              title: "Precision",
-              description: "Every pixel matters. I believe in creating interfaces that are not just functional, but pixel-perfect and delightful to use."
-            },
-            {
-              icon: "🚀",
-              title: "Innovation",
-              description: "Staying ahead of the curve with cutting-edge technologies and pushing the boundaries of what's possible on the web."
-            },
-            {
-              icon: "🤝",
-              title: "Collaboration",
-              description: "Great products are built by great teams. I thrive in collaborative environments and value diverse perspectives."
-            },
-            {
-              icon: "📈",
-              title: "Growth",
-              description: "Continuous learning is key in tech. I'm always exploring new frameworks, patterns, and best practices to improve my craft."
-            }
-          ].map((value, index) => (
-            <motion.div
-              key={value.title}
-              className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:border-white/20 transition-all duration-300"
-              variants={statsVariants}
-              whileHover={{ scale: 1.05, y: -5 }}
-            >
-              <div className="text-3xl mb-4">{value.icon}</div>
-              <h4 className="text-xl font-semibold text-white mb-3">{value.title}</h4>
-              <p className="text-white/70">{value.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      )
+    { 
+      icon: "mingcute:calendar-line", 
+      label: "Experience", 
+      value: "3+ Years",
+      color: "from-green-400 to-emerald-500" 
+    },
+    { 
+      icon: "mingcute:heart-line", 
+      label: "Passion", 
+      value: "Clean Code & UX",
+      color: "from-purple-400 to-pink-500" 
     }
-  };
+  ];
+
+  const interests = [
+    { name: "UI/UX Design", icon: "mingcute:palette-line", color: "from-pink-400 to-rose-500" },
+    { name: "Open Source", icon: "mingcute:git-branch-line", color: "from-green-400 to-emerald-500" },
+    { name: "Mobile Development", icon: "mingcute:phone-line", color: "from-blue-400 to-cyan-500" },
+    { name: "AI & Machine Learning", icon: "mingcute:ai-line", color: "from-purple-400 to-violet-500" },
+    { name: "Performance Optimization", icon: "mingcute:lightning-line", color: "from-yellow-400 to-orange-500" },
+    { name: "Team Leadership", icon: "mingcute:group-line", color: "from-indigo-400 to-blue-500" }
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSkill((prev) => (prev + 1) % skills.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [skills.length]);
 
   return (
-    <motion.section
-      ref={ref}
-      className="w-full min-h-screen snap-start flex flex-col justify-center px-8 lg:px-16 py-16 text-white relative overflow-hidden"
-      initial="hidden"
-      animate={controls}
-    >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
+    <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+      {/* Background Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/50 to-transparent"></div>
+      
+      {/* Floating Particles Animation */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <div
             key={i}
-            className="absolute w-32 h-32 rounded-full"
+            className="absolute w-1 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full animate-pulse"
             style={{
-              background: `radial-gradient(circle, ${
-                ['#00d4ff20', '#ff6b6b20', '#4ecdc420', '#a8e6cf20'][i % 4]
-              } 0%, transparent 70%)`,
-              left: `${10 + (i % 4) * 25}%`,
-              top: `${10 + Math.floor(i / 4) * 25}%`,
-            }}
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.5,
-              ease: "easeInOut"
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
             }}
           />
         ))}
       </div>
 
-      {/* Header */}
-      <motion.div
-        className="text-center mb-16"
-        variants={tabVariants}
-      >
-        <motion.h1 
-          className="text-5xl lg:text-7xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-          animate={{ 
-            backgroundPosition: isVisible ? ['0% 50%', '100% 50%', '0% 50%'] : '0% 50%' 
-          }}
-          transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-        >
-          ABOUT ME
-        </motion.h1>
-        <motion.p 
-          className="text-xl text-white/70 max-w-2xl mx-auto"
-          variants={contentVariants}
-        >
-          Get to know the developer behind the code
-        </motion.p>
-      </motion.div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Section Header */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+            <span className="text-cyan-400 font-medium tracking-wider text-lg">About Me</span>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+          </div>
+          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
+              Passionate Developer
+            </span>
+          </h2>
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            Crafting digital experiences that blend creativity with functionality. 
+            I turn ideas into elegant, performant web applications.
+          </p>
+        </div>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Profile */}
-          <motion.div
-            className="lg:col-span-1"
-            variants={contentVariants}
-          >
-            <div className="sticky top-8">
-              <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8 mb-8">
-                <div className="w-32 h-32 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 flex items-center justify-center text-4xl font-black text-white">
-                  MD
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left Column - Story & Personal Info */}
+          <div className={`space-y-12 transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
+            {/* Personal Story */}
+            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-cyan-400/30 transition-all duration-500 group">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Icon icon="mingcute:user-star-fill" width="24" height="24" className="text-white" />
                 </div>
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-2">Mahdi Delavar</h3>
-                  <p className="text-white/60 mb-6">Full-Stack Developer</p>
-                  
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4">
-                    {stats.map((stat, index) => (
-                      <motion.div
-                        key={stat.label}
-                        className="text-center"
-                        variants={statsVariants}
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        <div className="text-2xl mb-1">{stat.icon}</div>
-                        <div className="text-xl font-bold text-cyan-400">{stat.value}</div>
-                        <div className="text-xs text-white/60">{stat.label}</div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
+                <h3 className="text-2xl font-bold text-white">My Journey</h3>
               </div>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                Started as a curious problem-solver with a passion for creating beautiful, functional web experiences. 
+                Over the years, I've evolved from writing basic HTML to architecting complex React applications.
+              </p>
+              <p className="text-slate-300 leading-relaxed mb-4">
+                I believe in continuous learning, clean code, and the power of collaboration. Every project is an 
+                opportunity to push boundaries and create something meaningful.
+              </p>
+              <p className="text-slate-300 leading-relaxed">
+                When I'm not coding, you'll find me exploring new technologies, contributing to open source projects, 
+                or sharing knowledge with the developer community.
+              </p>
+            </div>
 
-              {/* Tab Navigation */}
-              <div className="space-y-2">
-                {Object.entries(tabs).map(([key, tab]) => (
-                  <button
-                    key={key}
-                    onClick={() => setActiveTab(key)}
-                    className={`w-full text-left px-6 py-4 rounded-xl transition-all duration-300 ${
-                      activeTab === key
-                        ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-white shadow-lg'
-                        : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10'
-                    }`}
+            {/* Personal Information */}
+            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500">
+              <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                <Icon icon="mingcute:information-line" width="32" height="32" className="text-purple-400" />
+                Personal Info
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {personalInfo.map((info, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
                   >
-                    {tab.title}
-                  </button>
+                    <div className={`w-10 h-10 bg-gradient-to-br ${info.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon icon={info.icon} width="20" height="20" className="text-white" />
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-sm">{info.label}</p>
+                      <p className="text-white font-medium">{info.value}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
 
-          {/* Right Column - Content */}
-          <motion.div
-            className="lg:col-span-2"
-            variants={contentVariants}
-          >
-            <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-8 min-h-[600px]">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h2 className="text-3xl font-bold mb-8 text-gradient bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                  {tabs[activeTab].title}
-                </h2>
-                {tabs[activeTab].content}
-              </motion.div>
+            {/* Interests & Passions */}
+            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-amber-400/30 transition-all duration-500">
+              <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                <Icon icon="mingcute:sparkles-line" width="32" height="32" className="text-amber-400" />
+                Interests & Focus Areas
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {interests.map((interest, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
+                  >
+                    <div className={`w-8 h-8 bg-gradient-to-br ${interest.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon icon={interest.icon} width="16" height="16" className="text-white" />
+                    </div>
+                    <span className="text-slate-300 font-medium">{interest.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Right Column - Skills & Stats */}
+          <div className={`space-y-12 transition-all duration-1000 delay-500 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+            {/* Skills Section */}
+            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500">
+              <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                <Icon icon="mingcute:code-line" width="32" height="32" className="text-purple-400" />
+                Technical Skills
+              </h3>
+              <div className="space-y-6">
+                {skills.map((skill, index) => (
+                  <div
+                    key={index}
+                    className={`transition-all duration-500 ${activeSkill === index ? 'scale-105' : ''}`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <Icon icon={skill.icon} width="24" height="24" />
+                        <span className="text-white font-medium">{skill.name}</span>
+                      </div>
+                      <span className="text-slate-400 font-medium">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-slate-700 rounded-full h-2">
+                      <div
+                        className={`bg-gradient-to-r ${skill.color} h-2 rounded-full transition-all duration-1000 ${
+                          activeSkill === index ? 'animate-pulse' : ''
+                        }`}
+                        style={{
+                          width: isVisible ? `${skill.level}%` : '0%',
+                          transitionDelay: `${index * 0.1}s`
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-2 gap-6">
+              {[
+                { icon: "mingcute:trophy-line", number: "50+", label: "Projects", color: "from-yellow-400 to-orange-500" },
+                { icon: "mingcute:group-line", number: "30+", label: "Happy Clients", color: "from-green-400 to-emerald-500" },
+                { icon: "mingcute:time-line", number: "3+", label: "Years Experience", color: "from-blue-400 to-cyan-500" },
+                { icon: "mingcute:star-line", number: "5.0", label: "Rating", color: "from-purple-400 to-pink-500" }
+              ].map((stat, index) => (
+                <div
+                  key={index}
+                  className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 text-center hover:scale-105 transition-all duration-300 group"
+                >
+                  <div className={`w-16 h-16 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon icon={stat.icon} width="28" height="28" className="text-white" />
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
+                  <div className="text-slate-400 text-sm">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Philosophy & Approach */}
+            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <Icon icon="mingcute:lightbulb-line" width="28" height="28" className="text-green-400" />
+                Development Philosophy
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-slate-300">
+                    <strong className="text-green-400">User-Centric:</strong> Every line of code should enhance user experience
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-slate-300">
+                    <strong className="text-blue-400">Performance First:</strong> Optimized, scalable solutions for better outcomes
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-slate-300">
+                    <strong className="text-purple-400">Continuous Learning:</strong> Staying updated with latest technologies and best practices
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-slate-300">
+                    <strong className="text-orange-400">Clean Code:</strong> Maintainable, readable, and well-documented solutions
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="backdrop-blur-md bg-gradient-to-br from-slate-800/30 to-slate-700/30 border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all duration-500">
+              <h3 className="text-2xl font-bold text-white mb-4">Let's Work Together</h3>
+              <p className="text-slate-300 mb-6">
+                Ready to bring your ideas to life? Let's create something amazing together.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => scrollToSection?.("contactme")}
+                  className="group relative px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="relative flex items-center gap-3">
+                    <Icon icon="mingcute:send-line" width="20" height="20" />
+                    <span>Get In Touch</span>
+                  </div>
+                </button>
+                <button
+                  onClick={() => scrollToSection?.("experiences")}
+                  className="group relative px-6 py-3 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="relative flex items-center gap-3">
+                    <Icon icon="mingcute:time-line" width="20" height="20" />
+                    <span>View Experience</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Floating Action Buttons */}
-      <motion.div
-        className="absolute top-8 right-8 flex flex-col gap-4"
-        variants={statsVariants}
-      >
-        <motion.button
-          className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-lg"
-          whileHover={{ scale: 1.1, rotate: 180 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          💼
-        </motion.button>
-        <motion.button
-          className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white shadow-lg"
-          whileHover={{ scale: 1.1, rotate: 180 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          📧
-        </motion.button>
-      </motion.div>
-    </motion.section>
+    </div>
   );
-};
+}
 
-export default About;
+export default AboutMe;

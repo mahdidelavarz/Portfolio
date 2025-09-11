@@ -871,16 +871,489 @@
 // export default Experiences;
 
 //!version 3
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, useInView, useAnimation, AnimatePresence } from 'framer-motion';
-import { expo } from 'maath/dist/declarations/src/easing';
+// import React, { useState, useRef, useEffect } from 'react';
+// import { motion, useInView, useAnimation, AnimatePresence } from 'framer-motion';
+// import { expo } from 'maath/dist/declarations/src/easing';
 
- const Experiences = () => {
-  const [selectedExperience, setSelectedExperience] = useState(0);
+//  const Experiences = () => {
+//   const [selectedExperience, setSelectedExperience] = useState(0);
+//   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+//   const ref = useRef(null);
+//   const isInView = useInView(ref, { once: true, threshold: 0.3 });
+//   const controls = useAnimation();
+
+//   const experiences = [
+//     {
+//       id: 0,
+//       company: "Petco",
+//       role: "Full-Stack Developer",
+//       period: "2022 - Present",
+//       duration: "2+ Years",
+//       location: "Tehran, Iran",
+//       type: "Full-Time",
+//       logo: "🏢",
+//       color: "#00d4ff",
+//       description: "Leading the development of an enterprise ERP system from inception to deployment, architecting scalable solutions that serve thousands of users.",
+//       achievements: [
+//         "Architected and built the entire frontend infrastructure from scratch using React, TypeScript, and modern state management",
+//         "Designed and implemented a modular component library increasing development efficiency by 40%",
+//         "Integrated complex APIs and real-time features serving 10,000+ daily active users",
+//         "Mentored junior developers and established coding standards and best practices",
+//         "Optimized application performance resulting in 60% faster load times"
+//       ],
+//       technologies: [
+//         "React", "TypeScript", "Next.js", "Zustand", "TanStack Query",
+//         "Tailwind CSS", "Three.js", "IndexedDB", "SQL Server", "REST APIs"
+//       ],
+//       projects: [
+//         {
+//           name: "ERP Core System",
+//           description: "Complete enterprise resource planning system",
+//           impact: "10,000+ users"
+//         },
+//         {
+//           name: "Real-time Dashboard",
+//           description: "Live analytics and monitoring dashboard",
+//           impact: "24/7 monitoring"
+//         },
+//         {
+//           name: "Mobile PWA",
+//           description: "Progressive web app for mobile users",
+//           impact: "70% mobile adoption"
+//         }
+//       ]
+//     },
+//     {
+//       id: 1,
+//       company: "LoveCode",
+//       role: "Frontend Developer",
+//       period: "2021 - 2022",
+//       duration: "1 Year",
+//       location: "Tehran, Iran",
+//       type: "Full-Time",
+//       logo: "💝",
+//       color: "#ff6b6b",
+//       description: "Developed responsive web applications and collaborated with cross-functional teams to deliver pixel-perfect user interfaces.",
+//       achievements: [
+//         "Developed 15+ responsive web applications using React and modern CSS frameworks",
+//         "Collaborated with UI/UX designers to implement pixel-perfect interfaces",
+//         "Improved website performance by 45% through code optimization and lazy loading",
+//         "Integrated third-party APIs and payment gateways for e-commerce solutions",
+//         "Participated in agile development processes and code reviews"
+//       ],
+//       technologies: [
+//         "React", "JavaScript", "CSS3", "SASS", "Redux", "Axios",
+//         "Bootstrap", "Material-UI", "Git", "Webpack"
+//       ],
+//       projects: [
+//         {
+//           name: "E-commerce Platform",
+//           description: "Full-featured online shopping experience",
+//           impact: "1,000+ products"
+//         },
+//         {
+//           name: "Corporate Website",
+//           description: "Company landing page and blog",
+//           impact: "50% traffic increase"
+//         },
+//         {
+//           name: "Admin Dashboard",
+//           description: "Content management system",
+//           impact: "90% admin efficiency"
+//         }
+//       ]
+//     },
+//     {
+//       id: 2,
+//       company: "Freelance",
+//       role: "Web Developer",
+//       period: "2020 - 2021",
+//       duration: "1+ Year",
+//       location: "Remote",
+//       type: "Contract",
+//       logo: "🚀",
+//       color: "#4ecdc4",
+//       description: "Worked with various clients to deliver custom web solutions, from small business websites to complex web applications.",
+//       achievements: [
+//         "Completed 20+ projects for diverse clients across different industries",
+//         "Built responsive websites from design mockups with 100% client satisfaction",
+//         "Implemented SEO best practices resulting in 200% organic traffic increase",
+//         "Developed custom WordPress themes and plugins",
+//         "Managed full project lifecycle from requirement gathering to deployment"
+//       ],
+//       technologies: [
+//         "HTML5", "CSS3", "JavaScript", "jQuery", "WordPress",
+//         "PHP", "MySQL", "Photoshop", "Figma"
+//       ],
+//       projects: [
+//         {
+//           name: "Restaurant Website",
+//           description: "Online menu and reservation system",
+//           impact: "300% bookings"
+//         },
+//         {
+//           name: "Portfolio Websites",
+//           description: "Creative portfolios for artists and designers",
+//           impact: "10+ clients"
+//         },
+//         {
+//           name: "Business Landing Pages",
+//           description: "Conversion-optimized landing pages",
+//           impact: "Average 25% CTR"
+//         }
+//       ]
+//     }
+//   ];
+
+//   useEffect(() => {
+//     if (isInView) {
+//       controls.start('visible');
+//     }
+//   }, [isInView, controls]);
+
+//   useEffect(() => {
+//     if (!isAutoPlaying) return;
+    
+//     const interval = setInterval(() => {
+//       setSelectedExperience(prev => (prev + 1) % experiences.length);
+//     }, 6000);
+
+//     return () => clearInterval(interval);
+//   }, [isAutoPlaying, experiences.length]);
+
+//   const containerVariants = {
+//     hidden: { opacity: 0 },
+//     visible: {
+//       opacity: 1,
+//       transition: {
+//         staggerChildren: 0.3,
+//         delayChildren: 0.2
+//       }
+//     }
+//   };
+
+//   const itemVariants = {
+//     hidden: { opacity: 0, y: 30 },
+//     visible: {
+//       opacity: 1,
+//       y: 0,
+//       transition: { duration: 0.6, ease: "easeOut" }
+//     }
+//   };
+
+//   const currentExp = experiences[selectedExperience];
+
+//   return (
+//     <motion.section
+//       ref={ref}
+//       className="w-full min-h-screen snap-start flex flex-col justify-center px-8 lg:px-16 py-16 text-white relative overflow-hidden"
+//       initial="hidden"
+//       animate={controls}
+//       variants={containerVariants}
+//     >
+//       {/* Dynamic Background */}
+//       <div className="absolute inset-0 pointer-events-none">
+//         <div 
+//           className="absolute inset-0 opacity-10 transition-all duration-1000"
+//           style={{
+//             background: `radial-gradient(circle at 30% 70%, ${currentExp.color}20 0%, transparent 50%)`
+//           }}
+//         />
+//         {[...Array(15)].map((_, i) => (
+//           <motion.div
+//             key={i}
+//             className="absolute w-2 h-2 rounded-full"
+//             style={{
+//               backgroundColor: `${currentExp.color}40`,
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`
+//             }}
+//             animate={{
+//               scale: [0, 1, 0],
+//               opacity: [0, 1, 0]
+//             }}
+//             transition={{
+//               duration: 3,
+//               repeat: Infinity,
+//               delay: i * 0.2,
+//               ease: "easeInOut"
+//             }}
+//           />
+//         ))}
+//       </div>
+
+//       {/* Header */}
+//       <motion.div className="text-center mb-16" variants={itemVariants}>
+//         <h1 className="text-5xl lg:text-7xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+//           EXPERIENCE
+//         </h1>
+//         <p className="text-xl text-white/70 max-w-2xl mx-auto">
+//           My professional journey in software development
+//         </p>
+//       </motion.div>
+
+//       {/* Main Content */}
+//       <div className="max-w-7xl mx-auto w-full">
+//         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+//           {/* Left Sidebar - Experience List */}
+//           <motion.div className="lg:col-span-1" variants={itemVariants}>
+//             <div className="space-y-4">
+//               {experiences.map((exp, index) => (
+//                 <motion.button
+//                   key={exp.id}
+//                   className={`w-full text-left p-6 rounded-2xl transition-all duration-500 border-2 ${
+//                     selectedExperience === index
+//                       ? `border-[${exp.color}] shadow-2xl`
+//                       : 'border-white/10 hover:border-white/30'
+//                   }`}
+//                   style={{
+//                     backgroundColor: selectedExperience === index ? `${exp.color}15` : 'rgba(255,255,255,0.05)',
+//                     borderColor: selectedExperience === index ? exp.color : 'rgba(255,255,255,0.1)'
+//                   }}
+//                   onClick={() => {
+//                     setSelectedExperience(index);
+//                     setIsAutoPlaying(false);
+//                   }}
+//                   whileHover={{ scale: 1.02, x: 5 }}
+//                   whileTap={{ scale: 0.98 }}
+//                 >
+//                   <div className="flex items-center gap-4 mb-2">
+//                     <div className="text-2xl">{exp.logo}</div>
+//                     <div>
+//                       <h3 className="font-bold text-lg">{exp.company}</h3>
+//                       <p className="text-sm text-white/60">{exp.period}</p>
+//                     </div>
+//                   </div>
+//                   <p className="text-sm text-white/70">{exp.role}</p>
+//                 </motion.button>
+//               ))}
+//             </div>
+
+//             {/* Auto-play Toggle */}
+//             <motion.button
+//               className="w-full mt-6 p-4 rounded-xl bg-white/5 border border-white/20 hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+//               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+//               whileHover={{ scale: 1.02 }}
+//               whileTap={{ scale: 0.98 }}
+//             >
+//               <span className={`text-2xl ${isAutoPlaying ? 'animate-spin' : ''}`}>
+//                 {isAutoPlaying ? '⏸️' : '▶️'}
+//               </span>
+//               <span>{isAutoPlaying ? 'Pause' : 'Play'} Auto</span>
+//             </motion.button>
+//           </motion.div>
+
+//           {/* Right Content - Experience Details */}
+//           <motion.div className="lg:col-span-3" variants={itemVariants}>
+//             <AnimatePresence mode="wait">
+//               <motion.div
+//                 key={selectedExperience}
+//                 initial={{ opacity: 0, x: 50 }}
+//                 animate={{ opacity: 1, x: 0 }}
+//                 exit={{ opacity: 0, x: -50 }}
+//                 transition={{ duration: 0.5 }}
+//                 className="space-y-8"
+//               >
+//                 {/* Experience Header */}
+//                 <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
+//                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+//                     <div className="flex items-center gap-6 mb-4 lg:mb-0">
+//                       <div 
+//                         className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-2xl"
+//                         style={{ 
+//                           backgroundColor: `${currentExp.color}20`,
+//                           boxShadow: `0 0 30px ${currentExp.color}40`
+//                         }}
+//                       >
+//                         {currentExp.logo}
+//                       </div>
+//                       <div>
+//                         <h2 className="text-3xl font-bold">{currentExp.company}</h2>
+//                         <p 
+//                           className="text-xl font-semibold"
+//                           style={{ color: currentExp.color }}
+//                         >
+//                           {currentExp.role}
+//                         </p>
+//                       </div>
+//                     </div>
+                    
+//                     <div className="flex flex-col sm:flex-row gap-4">
+//                       <div className="bg-white/5 rounded-xl p-3 text-center">
+//                         <p className="text-sm text-white/60">Duration</p>
+//                         <p className="font-semibold">{currentExp.duration}</p>
+//                       </div>
+//                       <div className="bg-white/5 rounded-xl p-3 text-center">
+//                         <p className="text-sm text-white/60">Type</p>
+//                         <p className="font-semibold">{currentExp.type}</p>
+//                       </div>
+//                       <div className="bg-white/5 rounded-xl p-3 text-center">
+//                         <p className="text-sm text-white/60">Location</p>
+//                         <p className="font-semibold">{currentExp.location}</p>
+//                       </div>
+//                     </div>
+//                   </div>
+
+//                   <p className="text-white/80 text-lg leading-relaxed">
+//                     {currentExp.description}
+//                   </p>
+//                 </div>
+
+//                 {/* Key Achievements */}
+//                 <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
+//                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+//                     <span style={{ color: currentExp.color }}>🎯</span>
+//                     Key Achievements
+//                   </h3>
+//                   <div className="space-y-4">
+//                     {currentExp.achievements.map((achievement, index) => (
+//                       <motion.div
+//                         key={index}
+//                         className="flex items-start gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300"
+//                         initial={{ opacity: 0, x: -20 }}
+//                         animate={{ opacity: 1, x: 0 }}
+//                         transition={{ delay: index * 0.1 }}
+//                         whileHover={{ x: 5 }}
+//                       >
+//                         <div 
+//                           className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+//                           style={{ backgroundColor: currentExp.color }}
+//                         />
+//                         <p className="text-white/80 leading-relaxed">{achievement}</p>
+//                       </motion.div>
+//                     ))}
+//                   </div>
+//                 </div>
+
+//                 {/* Technologies & Projects */}
+//                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+//                   {/* Technologies */}
+//                   <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
+//                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+//                       <span style={{ color: currentExp.color }}>⚡</span>
+//                       Technologies Used
+//                     </h3>
+//                     <div className="flex flex-wrap gap-3">
+//                       {currentExp.technologies.map((tech, index) => (
+//                         <motion.span
+//                           key={tech}
+//                           className="px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-sm font-medium hover:border-white/40 transition-all duration-300"
+//                           initial={{ opacity: 0, scale: 0 }}
+//                           animate={{ opacity: 1, scale: 1 }}
+//                           transition={{ delay: index * 0.05 }}
+//                           whileHover={{ 
+//                             scale: 1.05,
+//                             backgroundColor: `${currentExp.color}20`,
+//                             borderColor: currentExp.color
+//                           }}
+//                         >
+//                           {tech}
+//                         </motion.span>
+//                       ))}
+//                     </div>
+//                   </div>
+
+//                   {/* Notable Projects */}
+//                   <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
+//                     <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+//                       <span style={{ color: currentExp.color }}>🚀</span>
+//                       Notable Projects
+//                     </h3>
+//                     <div className="space-y-4">
+//                       {currentExp.projects.map((project, index) => (
+//                         <motion.div
+//                           key={project.name}
+//                           className="p-4 bg-white/5 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300"
+//                           initial={{ opacity: 0, y: 20 }}
+//                           animate={{ opacity: 1, y: 0 }}
+//                           transition={{ delay: index * 0.1 }}
+//                           whileHover={{ y: -2, boxShadow: `0 10px 30px ${currentExp.color}20` }}
+//                         >
+//                           <div className="flex justify-between items-start mb-2">
+//                             <h4 className="font-semibold text-white">{project.name}</h4>
+//                             <span 
+//                               className="text-xs px-2 py-1 rounded-full font-medium"
+//                               style={{ 
+//                                 backgroundColor: `${currentExp.color}20`,
+//                                 color: currentExp.color 
+//                               }}
+//                             >
+//                               {project.impact}
+//                             </span>
+//                           </div>
+//                           <p className="text-sm text-white/70">{project.description}</p>
+//                         </motion.div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 {/* Progress Indicator */}
+//                 <div className="flex justify-center items-center gap-3 mt-8">
+//                   {experiences.map((_, index) => (
+//                     <motion.button
+//                       key={index}
+//                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
+//                         selectedExperience === index ? 'w-8' : 'opacity-50'
+//                       }`}
+//                       style={{
+//                         backgroundColor: selectedExperience === index ? currentExp.color : 'rgba(255,255,255,0.3)'
+//                       }}
+//                       onClick={() => {
+//                         setSelectedExperience(index);
+//                         setIsAutoPlaying(false);
+//                       }}
+//                       whileHover={{ scale: 1.2 }}
+//                       whileTap={{ scale: 0.9 }}
+//                     />
+//                   ))}
+//                 </div>
+//               </motion.div>
+//             </AnimatePresence>
+//           </motion.div>
+//         </div>
+//       </div>
+
+//       {/* Floating Stats */}
+//       <motion.div
+//         className="absolute top-8 right-8 bg-black/70 backdrop-blur-xl border border-white/20 rounded-2xl p-6"
+//         variants={itemVariants}
+//       >
+//         <h4 className="font-bold text-center mb-4">Career Stats</h4>
+//         <div className="space-y-3 text-center">
+//           <div>
+//             <div className="text-2xl font-bold text-cyan-400">3+</div>
+//             <div className="text-xs text-white/60">Years</div>
+//           </div>
+//           <div>
+//             <div className="text-2xl font-bold text-purple-400">50+</div>
+//             <div className="text-xs text-white/60">Projects</div>
+//           </div>
+//           <div>
+//             <div className="text-2xl font-bold text-pink-400">15+</div>
+//             <div className="text-xs text-white/60">Technologies</div>
+//           </div>
+//         </div>
+//       </motion.div>
+//     </motion.section>
+//   );
+// }
+// export default Experiences;
+
+//! v4
+
+import React, { useState, useEffect, useRef } from "react";
+import { Icon } from "@iconify/react";
+
+interface ExperiencesProps {
+  scrollToSection?: (id: string) => void;
+}
+
+function Experiences({ scrollToSection }: ExperiencesProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeExperience, setActiveExperience] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.3 });
-  const controls = useAnimation();
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const experiences = [
     {
@@ -891,14 +1364,15 @@ import { expo } from 'maath/dist/declarations/src/easing';
       duration: "2+ Years",
       location: "Tehran, Iran",
       type: "Full-Time",
-      logo: "🏢",
-      color: "#00d4ff",
+      icon: "mingcute:building-2-line",
+      color: "from-cyan-400 to-blue-500",
+      bgColor: "from-cyan-400/10 to-blue-500/10",
       description: "Leading the development of an enterprise ERP system from inception to deployment, architecting scalable solutions that serve thousands of users.",
       achievements: [
-        "Architected and built the entire frontend infrastructure from scratch using React, TypeScript, and modern state management",
-        "Designed and implemented a modular component library increasing development efficiency by 40%",
-        "Integrated complex APIs and real-time features serving 10,000+ daily active users",
-        "Mentored junior developers and established coding standards and best practices",
+        "Architected and built the entire frontend infrastructure from scratch",
+        "Designed modular component library increasing development efficiency by 40%",
+        "Integrated complex APIs serving 10,000+ daily active users",
+        "Mentored junior developers and established coding standards",
         "Optimized application performance resulting in 60% faster load times"
       ],
       technologies: [
@@ -906,21 +1380,9 @@ import { expo } from 'maath/dist/declarations/src/easing';
         "Tailwind CSS", "Three.js", "IndexedDB", "SQL Server", "REST APIs"
       ],
       projects: [
-        {
-          name: "ERP Core System",
-          description: "Complete enterprise resource planning system",
-          impact: "10,000+ users"
-        },
-        {
-          name: "Real-time Dashboard",
-          description: "Live analytics and monitoring dashboard",
-          impact: "24/7 monitoring"
-        },
-        {
-          name: "Mobile PWA",
-          description: "Progressive web app for mobile users",
-          impact: "70% mobile adoption"
-        }
+        { name: "ERP Core System", description: "Complete enterprise resource planning system", impact: "10,000+ users" },
+        { name: "Real-time Dashboard", description: "Live analytics and monitoring dashboard", impact: "24/7 monitoring" },
+        { name: "Mobile PWA", description: "Progressive web app for mobile users", impact: "70% mobile adoption" }
       ]
     },
     {
@@ -931,14 +1393,15 @@ import { expo } from 'maath/dist/declarations/src/easing';
       duration: "1 Year",
       location: "Tehran, Iran",
       type: "Full-Time",
-      logo: "💝",
-      color: "#ff6b6b",
+      icon: "mingcute:heart-line",
+      color: "from-orange-400 to-red-500",
+      bgColor: "from-orange-400/10 to-red-500/10",
       description: "Developed responsive web applications and collaborated with cross-functional teams to deliver pixel-perfect user interfaces.",
       achievements: [
-        "Developed 15+ responsive web applications using React and modern CSS frameworks",
-        "Collaborated with UI/UX designers to implement pixel-perfect interfaces",
-        "Improved website performance by 45% through code optimization and lazy loading",
-        "Integrated third-party APIs and payment gateways for e-commerce solutions",
+        "Developed 15+ responsive web applications using React",
+        "Collaborated with UI/UX designers for pixel-perfect interfaces",
+        "Improved website performance by 45% through optimization",
+        "Integrated third-party APIs and payment gateways",
         "Participated in agile development processes and code reviews"
       ],
       technologies: [
@@ -946,21 +1409,9 @@ import { expo } from 'maath/dist/declarations/src/easing';
         "Bootstrap", "Material-UI", "Git", "Webpack"
       ],
       projects: [
-        {
-          name: "E-commerce Platform",
-          description: "Full-featured online shopping experience",
-          impact: "1,000+ products"
-        },
-        {
-          name: "Corporate Website",
-          description: "Company landing page and blog",
-          impact: "50% traffic increase"
-        },
-        {
-          name: "Admin Dashboard",
-          description: "Content management system",
-          impact: "90% admin efficiency"
-        }
+        { name: "E-commerce Platform", description: "Full-featured online shopping experience", impact: "1,000+ products" },
+        { name: "Corporate Website", description: "Company landing page and blog", impact: "50% traffic increase" },
+        { name: "Admin Dashboard", description: "Content management system", impact: "90% admin efficiency" }
       ]
     },
     {
@@ -971,371 +1422,318 @@ import { expo } from 'maath/dist/declarations/src/easing';
       duration: "1+ Year",
       location: "Remote",
       type: "Contract",
-      logo: "🚀",
-      color: "#4ecdc4",
+      icon: "mingcute:rocket-line",
+      color: "from-purple-400 to-pink-500",
+      bgColor: "from-purple-400/10 to-pink-500/10",
       description: "Worked with various clients to deliver custom web solutions, from small business websites to complex web applications.",
       achievements: [
-        "Completed 20+ projects for diverse clients across different industries",
-        "Built responsive websites from design mockups with 100% client satisfaction",
-        "Implemented SEO best practices resulting in 200% organic traffic increase",
+        "Completed 20+ projects for diverse clients across industries",
+        "Built responsive websites with 100% client satisfaction",
+        "Implemented SEO practices resulting in 200% traffic increase",
         "Developed custom WordPress themes and plugins",
-        "Managed full project lifecycle from requirement gathering to deployment"
+        "Managed full project lifecycle from gathering to deployment"
       ],
       technologies: [
         "HTML5", "CSS3", "JavaScript", "jQuery", "WordPress",
         "PHP", "MySQL", "Photoshop", "Figma"
       ],
       projects: [
-        {
-          name: "Restaurant Website",
-          description: "Online menu and reservation system",
-          impact: "300% bookings"
-        },
-        {
-          name: "Portfolio Websites",
-          description: "Creative portfolios for artists and designers",
-          impact: "10+ clients"
-        },
-        {
-          name: "Business Landing Pages",
-          description: "Conversion-optimized landing pages",
-          impact: "Average 25% CTR"
-        }
+        { name: "Restaurant Website", description: "Online menu and reservation system", impact: "300% bookings" },
+        { name: "Portfolio Websites", description: "Creative portfolios for artists and designers", impact: "10+ clients" },
+        { name: "Business Landing Pages", description: "Conversion-optimized landing pages", impact: "25% avg CTR" }
       ]
     }
   ];
 
   useEffect(() => {
-    if (isInView) {
-      controls.start('visible');
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  }, [isInView, controls]);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
-      setSelectedExperience(prev => (prev + 1) % experiences.length);
-    }, 6000);
+      setActiveExperience((prev) => (prev + 1) % experiences.length);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, experiences.length]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
-  const currentExp = experiences[selectedExperience];
+  const currentExp = experiences[activeExperience];
 
   return (
-    <motion.section
-      ref={ref}
-      className="w-full min-h-screen snap-start flex flex-col justify-center px-8 lg:px-16 py-16 text-white relative overflow-hidden"
-      initial="hidden"
-      animate={controls}
-      variants={containerVariants}
-    >
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute inset-0 opacity-10 transition-all duration-1000"
-          style={{
-            background: `radial-gradient(circle at 30% 70%, ${currentExp.color}20 0%, transparent 50%)`
-          }}
-        />
-        {[...Array(15)].map((_, i) => (
-          <motion.div
+    <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/60 to-transparent"></div>
+      
+      {/* Floating Particles Animation */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(25)].map((_, i) => (
+          <div
             key={i}
-            className="absolute w-2 h-2 rounded-full"
+            className={`absolute w-1 h-1 bg-gradient-to-r ${currentExp.color} rounded-full animate-pulse`}
             style={{
-              backgroundColor: `${currentExp.color}40`,
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
-            animate={{
-              scale: [0, 1, 0],
-              opacity: [0, 1, 0]
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
             }}
           />
         ))}
       </div>
 
-      {/* Header */}
-      <motion.div className="text-center mb-16" variants={itemVariants}>
-        <h1 className="text-5xl lg:text-7xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-          EXPERIENCE
-        </h1>
-        <p className="text-xl text-white/70 max-w-2xl mx-auto">
-          My professional journey in software development
-        </p>
-      </motion.div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Section Header */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+            <span className="text-orange-400 font-medium tracking-wider text-lg">Professional Journey</span>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+          </div>
+          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-white via-slate-200 to-orange-400 bg-clip-text text-transparent">
+              Experience & Growth
+            </span>
+          </h2>
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            A journey through innovation, learning, and delivering exceptional digital solutions 
+            across diverse projects and technologies.
+          </p>
+        </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Left Sidebar - Experience List */}
-          <motion.div className="lg:col-span-1" variants={itemVariants}>
-            <div className="space-y-4">
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Left Sidebar - Experience Timeline */}
+          <div className={`lg:col-span-1 transition-all duration-1000 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
+            <div className="space-y-4 mb-8">
               {experiences.map((exp, index) => (
-                <motion.button
+                <button
                   key={exp.id}
-                  className={`w-full text-left p-6 rounded-2xl transition-all duration-500 border-2 ${
-                    selectedExperience === index
-                      ? `border-[${exp.color}] shadow-2xl`
-                      : 'border-white/10 hover:border-white/30'
+                  className={`w-full text-left p-4 rounded-xl transition-all duration-500 border backdrop-blur-md group ${
+                    activeExperience === index
+                      ? `bg-gradient-to-r ${exp.bgColor} border-slate-600/50 scale-105`
+                      : 'bg-slate-800/30 border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-800/50'
                   }`}
-                  style={{
-                    backgroundColor: selectedExperience === index ? `${exp.color}15` : 'rgba(255,255,255,0.05)',
-                    borderColor: selectedExperience === index ? exp.color : 'rgba(255,255,255,0.1)'
-                  }}
                   onClick={() => {
-                    setSelectedExperience(index);
+                    setActiveExperience(index);
                     setIsAutoPlaying(false);
                   }}
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  whileTap={{ scale: 0.98 }}
                 >
-                  <div className="flex items-center gap-4 mb-2">
-                    <div className="text-2xl">{exp.logo}</div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className={`w-10 h-10 bg-gradient-to-br ${exp.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon icon={exp.icon} width="20" height="20" className="text-white" />
+                    </div>
                     <div>
-                      <h3 className="font-bold text-lg">{exp.company}</h3>
-                      <p className="text-sm text-white/60">{exp.period}</p>
+                      <h3 className="font-bold text-white text-sm">{exp.company}</h3>
+                      <p className="text-xs text-slate-400">{exp.period}</p>
                     </div>
                   </div>
-                  <p className="text-sm text-white/70">{exp.role}</p>
-                </motion.button>
+                  <p className="text-sm text-slate-300">{exp.role}</p>
+                  <div className="flex gap-2 mt-2">
+                    <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
+                      {exp.type}
+                    </span>
+                    <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
+                      {exp.duration}
+                    </span>
+                  </div>
+                </button>
               ))}
             </div>
 
-            {/* Auto-play Toggle */}
-            <motion.button
-              className="w-full mt-6 p-4 rounded-xl bg-white/5 border border-white/20 hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+            {/* Auto-play Control */}
+            <button
+              className="w-full p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-cyan-400/30 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-md"
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <span className={`text-2xl ${isAutoPlaying ? 'animate-spin' : ''}`}>
-                {isAutoPlaying ? '⏸️' : '▶️'}
+              <Icon 
+                icon={isAutoPlaying ? "mingcute:pause-fill" : "mingcute:play-fill"} 
+                width="20" 
+                height="20" 
+                className={`text-cyan-400 ${isAutoPlaying ? 'animate-pulse' : ''}`} 
+              />
+              <span className="text-white font-medium">
+                {isAutoPlaying ? 'Pause Auto' : 'Play Auto'}
               </span>
-              <span>{isAutoPlaying ? 'Pause' : 'Play'} Auto</span>
-            </motion.button>
-          </motion.div>
+            </button>
+
+            {/* Progress Indicators */}
+            <div className="flex justify-center gap-2 mt-6">
+              {experiences.map((_, index) => (
+                <button
+                  key={index}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    activeExperience === index ? 'w-8 bg-gradient-to-r ' + currentExp.color : 'w-2 bg-slate-600'
+                  }`}
+                  onClick={() => {
+                    setActiveExperience(index);
+                    setIsAutoPlaying(false);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
 
           {/* Right Content - Experience Details */}
-          <motion.div className="lg:col-span-3" variants={itemVariants}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedExperience}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-8"
-              >
-                {/* Experience Header */}
-                <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                    <div className="flex items-center gap-6 mb-4 lg:mb-0">
-                      <div 
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-2xl"
-                        style={{ 
-                          backgroundColor: `${currentExp.color}20`,
-                          boxShadow: `0 0 30px ${currentExp.color}40`
-                        }}
-                      >
-                        {currentExp.logo}
-                      </div>
-                      <div>
-                        <h2 className="text-3xl font-bold">{currentExp.company}</h2>
-                        <p 
-                          className="text-xl font-semibold"
-                          style={{ color: currentExp.color }}
-                        >
-                          {currentExp.role}
-                        </p>
-                      </div>
+          <div className={`lg:col-span-2 transition-all duration-1000 delay-400 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+            <div className="space-y-8">
+              {/* Experience Header */}
+              <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6">
+                  <div className="flex items-center gap-4 mb-4 sm:mb-0">
+                    <div className={`w-16 h-16 bg-gradient-to-br ${currentExp.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+                      <Icon icon={currentExp.icon} width="32" height="32" className="text-white" />
                     </div>
-                    
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <div className="bg-white/5 rounded-xl p-3 text-center">
-                        <p className="text-sm text-white/60">Duration</p>
-                        <p className="font-semibold">{currentExp.duration}</p>
-                      </div>
-                      <div className="bg-white/5 rounded-xl p-3 text-center">
-                        <p className="text-sm text-white/60">Type</p>
-                        <p className="font-semibold">{currentExp.type}</p>
-                      </div>
-                      <div className="bg-white/5 rounded-xl p-3 text-center">
-                        <p className="text-sm text-white/60">Location</p>
-                        <p className="font-semibold">{currentExp.location}</p>
-                      </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">{currentExp.company}</h3>
+                      <p className={`text-lg font-semibold bg-gradient-to-r ${currentExp.color} bg-clip-text text-transparent`}>
+                        {currentExp.role}
+                      </p>
+                      <p className="text-slate-400 text-sm">{currentExp.location}</p>
                     </div>
                   </div>
-
-                  <p className="text-white/80 text-lg leading-relaxed">
-                    {currentExp.description}
-                  </p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50">
+                      {currentExp.period}
+                    </span>
+                    <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50">
+                      {currentExp.type}
+                    </span>
+                  </div>
                 </div>
+                
+                <p className="text-slate-300 leading-relaxed text-lg">
+                  {currentExp.description}
+                </p>
+              </div>
 
-                {/* Key Achievements */}
-                <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
-                  <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                    <span style={{ color: currentExp.color }}>🎯</span>
-                    Key Achievements
+              {/* Key Achievements */}
+              <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <Icon icon="mingcute:trophy-line" width="28" height="28" className="text-amber-500" />
+                  Key Achievements
+                </h3>
+                <div className="space-y-3">
+                  {currentExp.achievements.map((achievement, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
+                    >
+                      <div className={`w-2 h-2 bg-gradient-to-r ${currentExp.color} rounded-full mt-2 flex-shrink-0 group-hover:scale-150 transition-transform duration-300`} />
+                      <p className="text-slate-300 leading-relaxed">{achievement}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Technologies & Projects Grid */}
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Technologies */}
+                <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500">
+                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <Icon icon="mingcute:code-line" width="28" height="28" className="text-purple-400" />
+                    Technologies
                   </h3>
-                  <div className="space-y-4">
-                    {currentExp.achievements.map((achievement, index) => (
-                      <motion.div
-                        key={index}
-                        className="flex items-start gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        whileHover={{ x: 5 }}
+                  <div className="flex flex-wrap gap-2">
+                    {currentExp.technologies.map((tech, index) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-2 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-purple-400/50 hover:bg-purple-400/10 transition-all duration-300"
                       >
-                        <div 
-                          className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
-                          style={{ backgroundColor: currentExp.color }}
-                        />
-                        <p className="text-white/80 leading-relaxed">{achievement}</p>
-                      </motion.div>
+                        {tech}
+                      </span>
                     ))}
                   </div>
                 </div>
 
-                {/* Technologies & Projects */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {/* Technologies */}
-                  <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                      <span style={{ color: currentExp.color }}>⚡</span>
-                      Technologies Used
-                    </h3>
-                    <div className="flex flex-wrap gap-3">
-                      {currentExp.technologies.map((tech, index) => (
-                        <motion.span
-                          key={tech}
-                          className="px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-sm font-medium hover:border-white/40 transition-all duration-300"
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.05 }}
-                          whileHover={{ 
-                            scale: 1.05,
-                            backgroundColor: `${currentExp.color}20`,
-                            borderColor: currentExp.color
-                          }}
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Notable Projects */}
-                  <div className="bg-gradient-to-br from-white/10 to-white/[0.02] backdrop-blur-xl border border-white/20 rounded-2xl p-8">
-                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                      <span style={{ color: currentExp.color }}>🚀</span>
-                      Notable Projects
-                    </h3>
-                    <div className="space-y-4">
-                      {currentExp.projects.map((project, index) => (
-                        <motion.div
-                          key={project.name}
-                          className="p-4 bg-white/5 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          whileHover={{ y: -2, boxShadow: `0 10px 30px ${currentExp.color}20` }}
-                        >
-                          <div className="flex justify-between items-start mb-2">
-                            <h4 className="font-semibold text-white">{project.name}</h4>
-                            <span 
-                              className="text-xs px-2 py-1 rounded-full font-medium"
-                              style={{ 
-                                backgroundColor: `${currentExp.color}20`,
-                                color: currentExp.color 
-                              }}
-                            >
-                              {project.impact}
-                            </span>
-                          </div>
-                          <p className="text-sm text-white/70">{project.description}</p>
-                        </motion.div>
-                      ))}
-                    </div>
+                {/* Notable Projects */}
+                <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
+                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <Icon icon="mingcute:rocket-line" width="28" height="28" className="text-green-400" />
+                    Notable Projects
+                  </h3>
+                  <div className="space-y-4">
+                    {currentExp.projects.map((project, index) => (
+                      <div
+                        key={project.name}
+                        className="p-4 bg-slate-700/30 border border-slate-600/30 rounded-xl hover:border-green-400/50 hover:bg-green-400/5 transition-all duration-300"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-semibold text-white">{project.name}</h4>
+                          <span className="text-xs px-2 py-1 bg-green-400/20 text-green-400 rounded-full border border-green-400/30">
+                            {project.impact}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-400">{project.description}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              </div>
 
-                {/* Progress Indicator */}
-                <div className="flex justify-center items-center gap-3 mt-8">
-                  {experiences.map((_, index) => (
-                    <motion.button
-                      key={index}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        selectedExperience === index ? 'w-8' : 'opacity-50'
-                      }`}
-                      style={{
-                        backgroundColor: selectedExperience === index ? currentExp.color : 'rgba(255,255,255,0.3)'
-                      }}
-                      onClick={() => {
-                        setSelectedExperience(index);
-                        setIsAutoPlaying(false);
-                      }}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+              {/* Call to Action */}
+              <div className="backdrop-blur-md bg-gradient-to-br from-slate-800/30 to-slate-700/30 border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all duration-500">
+                <h3 className="text-2xl font-bold text-white mb-4">Ready for Your Next Project?</h3>
+                <p className="text-slate-300 mb-6">
+                  Let's discuss how my experience can help bring your ideas to life.
+                </p>
+                <button
+                  onClick={() => scrollToSection?.("contactme")}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="relative flex items-center gap-3">
+                    <Icon icon="mingcute:message-3-line" width="20" height="20" />
+                    <span>Start a Conversation</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Career Stats - Floating */}
+        <div className={`fixed top-20 right-8 backdrop-blur-md bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+          <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2">
+            <Icon icon="mingcute:chart-line" width="20" height="20" className="text-cyan-400" />
+            Career Stats
+          </h4>
+          <div className="space-y-4 text-center">
+            <div className="p-3 bg-slate-700/30 rounded-lg">
+              <div className="text-2xl font-bold text-cyan-400">3+</div>
+              <div className="text-xs text-slate-400">Years Experience</div>
+            </div>
+            <div className="p-3 bg-slate-700/30 rounded-lg">
+              <div className="text-2xl font-bold text-purple-400">50+</div>
+              <div className="text-xs text-slate-400">Projects Completed</div>
+            </div>
+            <div className="p-3 bg-slate-700/30 rounded-lg">
+              <div className="text-2xl font-bold text-orange-400">15+</div>
+              <div className="text-xs text-slate-400">Technologies</div>
+            </div>
+            <div className="p-3 bg-slate-700/30 rounded-lg">
+              <div className="text-2xl font-bold text-green-400">100%</div>
+              <div className="text-xs text-slate-400">Client Satisfaction</div>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Floating Stats */}
-      <motion.div
-        className="absolute top-8 right-8 bg-black/70 backdrop-blur-xl border border-white/20 rounded-2xl p-6"
-        variants={itemVariants}
-      >
-        <h4 className="font-bold text-center mb-4">Career Stats</h4>
-        <div className="space-y-3 text-center">
-          <div>
-            <div className="text-2xl font-bold text-cyan-400">3+</div>
-            <div className="text-xs text-white/60">Years</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-purple-400">50+</div>
-            <div className="text-xs text-white/60">Projects</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-pink-400">15+</div>
-            <div className="text-xs text-white/60">Technologies</div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.section>
+    </div>
   );
 }
+
 export default Experiences;

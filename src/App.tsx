@@ -1,9 +1,13 @@
+
 import "./App.css";
 import HeaderMenu from "./components/HeaderMenu";
-import Particle from "./components/Particle";
+import Particle from "./components/particle";
 import Section from "./components/Section";
 import About from "./components/slides/About";
+import Education from "./components/slides/Educations";
+import Experiences from "./components/slides/Experiences";
 import Home from "./components/slides/Home";
+import Projects from "./components/slides/Projects";
 function App() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -32,30 +36,15 @@ function App() {
       </Section>
 
       <Section id="educations" title="Educations">
-        <ul className="list-disc list-inside text-left inline-block">
-          <li className="mb-2">
-            🎓 B.Sc. Computer Science — University of Techland (2020–2024)
-          </li>
-          <li>🏫 High School Diploma — Science Stream (2018)</li>
-        </ul>
+        <Education/>
       </Section>
 
       <Section id="experiences" title="Experiences">
-        <ul className="list-disc list-inside text-left inline-block">
-          <li className="mb-2">
-            💻 Frontend Developer Intern — TechCorp (Summer 2023)
-          </li>
-          <li>🛠️ Freelance Web Developer — Remote (2022–Present)</li>
-        </ul>
+       <Experiences/>
       </Section>
 
       <Section id="projects" title="Projects">
-        <ul className="list-disc list-inside text-left inline-block">
-          <li className="mb-2">
-            🌱 EcoTracker — React app to track carbon footprint
-          </li>
-          <li>📚 BookNook — Full-stack book recommendation platform</li>
-        </ul>
+        <Projects/>
       </Section>
 
       <Section id="skills" title="Skills">
