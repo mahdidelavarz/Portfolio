@@ -141,7 +141,7 @@
 //             variants={orbitalVariants}
 //             animate="animate"
 //           />
-          
+
 //           {/* Middle ring with skill indicators */}
 //           <motion.div
 //             className="w-72 h-72 lg:w-80 lg:h-80 rounded-full absolute"
@@ -154,7 +154,7 @@
 //               const radius = 160; // Radius for positioning
 //               const x = Math.cos(radian) * radius;
 //               const y = Math.sin(radian) * radius;
-              
+
 //               return (
 //                 <motion.div
 //                   key={index}
@@ -171,9 +171,9 @@
 //                   whileHover={{ scale: 1.15 }}
 //                   whileTap={{ scale: 0.95 }}
 //                 >
-//                   <span 
+//                   <span
 //                     className="text-lg font-bold"
-//                     style={{ 
+//                     style={{
 //                       color: selectedCategory === index ? category.color : `${category.color}CC`,
 //                       textShadow: '0 0 10px rgba(0,0,0,0.5)'
 //                     }}
@@ -251,7 +251,7 @@
 //                 <span className="text-2xl">{skillCategories[selectedCategory].icon}</span>
 //                 {skillCategories[selectedCategory].title}
 //               </motion.h3>
-              
+
 //               <div className="grid gap-3">
 //                 {skillCategories[selectedCategory].skills.map((skill, skillIndex) => (
 //                   <motion.div
@@ -419,7 +419,7 @@
 //       </motion.div>
 
 //       {/* Skills Grid */}
-//       <div 
+//       <div
 //         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 max-w-6xl"
 //         onMouseEnter={() => setIsAutoPlaying(false)}
 //         onMouseLeave={() => {
@@ -429,7 +429,7 @@
 //       >
 //         {skills.map((skill, index) => {
 //           const isCurrentlyActive = displayedSkill === index;
-          
+
 //           return (
 //             <motion.div
 //               key={skill.name}
@@ -448,7 +448,7 @@
 //                 whileHover={{ scale: 1.05 }}
 //                 animate={{
 //                   borderColor: isCurrentlyActive ? `${skill.color}60` : 'rgba(255,255,255,0.2)',
-//                   boxShadow: isCurrentlyActive 
+//                   boxShadow: isCurrentlyActive
 //                     ? `0 20px 40px rgba(0,0,0,0.4), 0 0 30px ${skill.color}30`
 //                     : '0 10px 25px rgba(0,0,0,0.3)'
 //                 }}
@@ -505,7 +505,7 @@
 //                       exit={{ opacity: 0, scale: 0.9 }}
 //                       transition={{ duration: 0.2 }}
 //                     >
-//                       <h4 
+//                       <h4
 //                         className="text-xl font-bold mb-2 drop-shadow-lg"
 //                         style={{ color: skill.color }}
 //                       >
@@ -515,7 +515,7 @@
 //                         {skill.description}
 //                       </p>
 //                       <div className="absolute top-2 right-2">
-//                         <div 
+//                         <div
 //                           className="w-3 h-3 rounded-full"
 //                           style={{ backgroundColor: skill.color }}
 //                         />
@@ -539,7 +539,7 @@
 //         {categories.map((category, index) => {
 //           const categorySkills = skills.filter(skill => skill.category === category);
 //           const avgLevel = Math.round(categorySkills.reduce((sum, skill) => sum + skill.level, 0) / categorySkills.length);
-          
+
 //           return (
 //             <motion.div
 //               key={category}
@@ -651,7 +651,7 @@
 //   };
 
 //   return (
-//     <div 
+//     <div
 //       className="flex flex-col justify-center items-center text-white w-full min-h-screen snap-start px-8 lg:px-16 relative overflow-hidden"
 //       onMouseMove={handleMouseMove}
 //     >
@@ -689,7 +689,7 @@
 //         animate={{ opacity: 1, scale: 1 }}
 //         transition={{ duration: 1 }}
 //       >
-//         <motion.h1 
+//         <motion.h1
 //           className="text-6xl lg:text-8xl font-black mb-6 tracking-tight"
 //           style={{
 //             background: `linear-gradient(135deg, ${skillStacks[selectedStack].color}, #ffffff, ${skillStacks[selectedStack].color})`,
@@ -705,7 +705,7 @@
 //         >
 //           TECH STACK
 //         </motion.h1>
-//         <motion.p 
+//         <motion.p
 //           className="text-xl text-white/70 font-light tracking-wide"
 //           initial={{ opacity: 0, y: 20 }}
 //           animate={{ opacity: 1, y: 0 }}
@@ -761,8 +761,8 @@
 //                 className="relative group"
 //                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
 //                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
-//                 transition={{ 
-//                   duration: 0.6, 
+//                 transition={{
+//                   duration: 0.6,
 //                   delay: index * 0.15,
 //                   type: "spring",
 //                   stiffness: 200
@@ -782,11 +782,11 @@
 //                     }}
 //                     animate={{
 //                       borderColor: hoveredSkill === index ? skillStacks[selectedStack].color : 'rgba(255,255,255,0.2)',
-//                       boxShadow: hoveredSkill === index 
+//                       boxShadow: hoveredSkill === index
 //                         ? `0 0 40px ${skillStacks[selectedStack].color}50, inset 0 0 20px ${skillStacks[selectedStack].color}20`
 //                         : '0 10px 30px rgba(0,0,0,0.3)'
 //                     }}
-//                     whileHover={{ 
+//                     whileHover={{
 //                       scale: 1.1,
 //                       rotate: '50deg'
 //                     }}
@@ -805,7 +805,7 @@
 //                     >
 //                       {skill.icon}
 //                     </motion.div>
-                    
+
 //                     <motion.h3
 //                       className="text-lg font-bold text-center leading-tight mb-2"
 //                       animate={{
@@ -869,8 +869,8 @@
 //                               <div
 //                                 key={i}
 //                                 className={`w-2 h-2 rounded-full ${
-//                                   i < Math.floor(skill.mastery / 20) 
-//                                     ? 'bg-current' 
+//                                   i < Math.floor(skill.mastery / 20)
+//                                     ? 'bg-current'
 //                                     : 'bg-white/20'
 //                                 }`}
 //                                 style={{ color: skillStacks[selectedStack].color }}
@@ -879,7 +879,7 @@
 //                           </div>
 //                         </div>
 //                         {/* Arrow */}
-//                         <div 
+//                         <div
 //                           className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent"
 //                           style={{ borderTopColor: skillStacks[selectedStack].color }}
 //                         />
@@ -911,18 +911,18 @@
 //           >
 //             <div className="space-y-3">
 //               <div className="flex items-center gap-3">
-//                 <div 
+//                 <div
 //                   className="w-4 h-4 rounded-full"
 //                   style={{ backgroundColor: skillStacks[selectedStack].color }}
 //                 />
 //                 <span className="font-semibold">{skillStacks[selectedStack].title}</span>
 //               </div>
-              
+
 //               <div className="text-sm text-white/70 space-y-1">
 //                 <div>Skills: {skillStacks[selectedStack].skills.length}</div>
 //                 <div>
 //                   Avg Mastery: {Math.round(
-//                     skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.mastery, 0) / 
+//                     skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.mastery, 0) /
 //                     skillStacks[selectedStack].skills.length
 //                   )}%
 //                 </div>
@@ -978,7 +978,7 @@
 //             }}
 //           />
 //         ))}
-        
+
 //         {/* Connecting Lines */}
 //         {[...Array(8)].map((_, i) => (
 //           <motion.div
@@ -1038,17 +1038,17 @@
 //   const [isInteracting, setIsInteracting] = useState(false);
 //   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 //   const containerRef = useRef(null);
-  
+
 //   const mouseX = useMotionValue(0);
 //   const mouseY = useMotionValue(0);
-  
+
 //   const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
 //   const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
 
 //   const skillsData = [
-//     { 
-//       name: "React", 
-//       mastery: 95, 
+//     {
+//       name: "React",
+//       mastery: 95,
 //       exp: "3+ years",
 //       color: "#61dafb",
 //       gradient: "from-blue-400 to-cyan-300",
@@ -1056,9 +1056,9 @@
 //       projects: 25,
 //       icon: "⚛️"
 //     },
-//     { 
-//       name: "Next.js", 
-//       mastery: 90, 
+//     {
+//       name: "Next.js",
+//       mastery: 90,
 //       exp: "2+ years",
 //       color: "#ffffff",
 //       gradient: "from-gray-200 to-white",
@@ -1066,9 +1066,9 @@
 //       projects: 12,
 //       icon: "▲"
 //     },
-//     { 
-//       name: "TypeScript", 
-//       mastery: 88, 
+//     {
+//       name: "TypeScript",
+//       mastery: 88,
 //       exp: "2+ years",
 //       color: "#3178c6",
 //       gradient: "from-blue-600 to-blue-400",
@@ -1076,9 +1076,9 @@
 //       projects: 20,
 //       icon: "📘"
 //     },
-//     { 
-//       name: "Tailwind", 
-//       mastery: 92, 
+//     {
+//       name: "Tailwind",
+//       mastery: 92,
 //       exp: "2+ years",
 //       color: "#06b6d4",
 //       gradient: "from-cyan-500 to-teal-400",
@@ -1086,9 +1086,9 @@
 //       projects: 18,
 //       icon: "🎨"
 //     },
-//     { 
-//       name: "TanStack Query", 
-//       mastery: 85, 
+//     {
+//       name: "TanStack Query",
+//       mastery: 85,
 //       exp: "1+ years",
 //       color: "#ff4154",
 //       gradient: "from-red-500 to-pink-400",
@@ -1096,9 +1096,9 @@
 //       projects: 8,
 //       icon: "🔄"
 //     },
-//     { 
-//       name: "Zustand", 
-//       mastery: 87, 
+//     {
+//       name: "Zustand",
+//       mastery: 87,
 //       exp: "1+ years",
 //       color: "#f97316",
 //       gradient: "from-orange-500 to-amber-400",
@@ -1106,9 +1106,9 @@
 //       projects: 10,
 //       icon: "🐻"
 //     },
-//     { 
-//       name: "Redux", 
-//       mastery: 83, 
+//     {
+//       name: "Redux",
+//       mastery: 83,
 //       exp: "2+ years",
 //       color: "#764abc",
 //       gradient: "from-purple-600 to-violet-400",
@@ -1116,9 +1116,9 @@
 //       projects: 15,
 //       icon: "🔮"
 //     },
-//     { 
-//       name: "Three.js", 
-//       mastery: 84, 
+//     {
+//       name: "Three.js",
+//       mastery: 84,
 //       exp: "1+ years",
 //       color: "#ffffff",
 //       gradient: "from-white to-gray-300",
@@ -1151,7 +1151,7 @@
 //   const selectedSkill = skillsData[selectedSkillIndex];
 
 //   return (
-//     <div 
+//     <div
 //       ref={containerRef}
 //       className="flex justify-center items-center text-white w-full min-h-screen snap-start relative overflow-hidden"
 //       onMouseMove={handleMouseMove}
@@ -1170,7 +1170,7 @@
 //           }}
 //           transition={{ duration: 0.5 }}
 //         />
-        
+
 //         {/* Floating Geometric Shapes */}
 //         {[...Array(8)].map((_, i) => (
 //           <motion.div
@@ -1198,7 +1198,7 @@
 //       </div>
 
 //       <div className="flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24 max-w-7xl mx-auto px-8">
-        
+
 //         {/* 3D Skills Showcase */}
 //         <motion.div
 //           className="relative"
@@ -1214,7 +1214,7 @@
 //             <motion.div
 //               className="absolute top-1/2 left-1/2 w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full z-30"
 //               style={{
-//                 background: `conic-gradient(from 0deg, ${skillsData.map((skill, i) => 
+//                 background: `conic-gradient(from 0deg, ${skillsData.map((skill, i) =>
 //                   `${skill.color} ${(i / skillsData.length) * 100}%, ${skill.color} ${((i + 1) / skillsData.length) * 100}%`
 //                 ).join(', ')})`
 //               }}
@@ -1265,7 +1265,7 @@
 //                     }}
 //                     animate={{
 //                       scale: isActive ? 1.3 : 1,
-//                       boxShadow: isActive 
+//                       boxShadow: isActive
 //                         ? `0 0 40px ${skill.color}50, 0 0 80px ${skill.color}20`
 //                         : '0 0 20px rgba(0,0,0,0.3)'
 //                     }}
@@ -1286,9 +1286,9 @@
 //                         ease: "linear"
 //                       }}
 //                     />
-                    
+
 //                     {/* Skill Initial */}
-//                     <span 
+//                     <span
 //                       className="relative z-10 text-lg font-bold drop-shadow-lg"
 //                       style={{ color: isActive ? skill.color : '#ffffff' }}
 //                     >
@@ -1337,7 +1337,7 @@
 //                 >
 //                   {selectedSkill.name}
 //                 </motion.h2>
-                
+
 //                 <div className="flex items-center gap-4">
 //                   <motion.div
 //                     className="px-3 py-1 rounded-full text-sm font-medium border"
@@ -1362,7 +1362,7 @@
 //                     {selectedSkill.mastery}%
 //                   </span>
 //                 </div>
-                
+
 //                 {/* Circular Progress */}
 //                 <div className="relative w-32 h-32 mx-auto">
 //                   <svg className="w-32 h-32 -rotate-90" viewBox="0 0 100 100">
@@ -1395,7 +1395,7 @@
 //                       strokeDasharray="0 1"
 //                     />
 //                   </svg>
-                  
+
 //                   {/* Center Content */}
 //                   <div className="absolute inset-0 flex flex-col items-center justify-center">
 //                     <motion.span
@@ -1457,7 +1457,7 @@
 //                   }}
 //                   transition={{ duration: 0.3 }}
 //                 />
-                
+
 //                 {/* Skill Name */}
 //                 <div className="flex items-center justify-center h-full px-2">
 //                   <span className="text-xs font-medium text-white/80 group-hover:text-white transition-colors truncate">
@@ -1553,8 +1553,13 @@ const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const skillStacks = {
+  type skillStacksType = {
+    frontend: any;
+    state: any;
+    tools: any;
+    animation: any;
+  };
+  const skillStacks: skillStacksType = {
     frontend: {
       title: "Frontend Development",
       icon: "mingcute:code-line",
@@ -1562,20 +1567,45 @@ const Skills = () => {
       skills: [
         { name: "React", mastery: 95, years: 3, icon: "logos:react" },
         { name: "Next.js", mastery: 90, years: 2, icon: "logos:nextjs-icon" },
-        { name: "TypeScript", mastery: 88, years: 2.5, icon: "logos:typescript-icon" },
-        { name: "Tailwind CSS", mastery: 92, years: 2, icon: "logos:tailwindcss-icon" }
-      ]
+        {
+          name: "TypeScript",
+          mastery: 88,
+          years: 2.5,
+          icon: "logos:typescript-icon",
+        },
+        {
+          name: "Tailwind CSS",
+          mastery: 92,
+          years: 2,
+          icon: "logos:tailwindcss-icon",
+        },
+      ],
     },
     state: {
       title: "State Management",
       icon: "mingcute:settings-3-line",
       color: "from-purple-400 to-pink-500",
       skills: [
-        { name: "Zustand", mastery: 87, years: 1.5, icon: "simple-icons:zustand" },
+        {
+          name: "Zustand",
+          mastery: 87,
+          years: 1.5,
+          icon: "simple-icons:zustand",
+        },
         { name: "Redux", mastery: 83, years: 2, icon: "logos:redux" },
-        { name: "TanStack Query", mastery: 85, years: 1, icon: "logos:react-query-icon" },
-        { name: "React Hook Form", mastery: 86, years: 2, icon: "simple-icons:reacthookform" }
-      ]
+        {
+          name: "TanStack Query",
+          mastery: 85,
+          years: 1,
+          icon: "logos:react-query-icon",
+        },
+        {
+          name: "React Hook Form",
+          mastery: 86,
+          years: 2,
+          icon: "simple-icons:reacthookform",
+        },
+      ],
     },
     animation: {
       title: "Animation & 3D",
@@ -1584,9 +1614,14 @@ const Skills = () => {
       skills: [
         { name: "Framer Motion", mastery: 90, years: 2, icon: "logos:framer" },
         { name: "Three.js", mastery: 84, years: 1, icon: "logos:threejs" },
-        { name: "CSS Animations", mastery: 88, years: 2.5, icon: "logos:css-3" },
-        { name: "GSAP", mastery: 80, years: 1, icon: "simple-icons:greensock" }
-      ]
+        {
+          name: "CSS Animations",
+          mastery: 88,
+          years: 2.5,
+          icon: "logos:css-3",
+        },
+        { name: "GSAP", mastery: 80, years: 1, icon: "simple-icons:greensock" },
+      ],
     },
     tools: {
       title: "Tools & Workflow",
@@ -1596,9 +1631,9 @@ const Skills = () => {
         { name: "Git & GitHub", mastery: 89, years: 3, icon: "logos:git-icon" },
         { name: "Vite", mastery: 85, years: 2, icon: "logos:vitejs" },
         { name: "Webpack", mastery: 78, years: 1.5, icon: "logos:webpack" },
-        { name: "Docker", mastery: 75, years: 1, icon: "logos:docker-icon" }
-      ]
-    }
+        { name: "Docker", mastery: 75, years: 1, icon: "logos:docker-icon" },
+      ],
+    },
   };
 
   const stackKeys = Object.keys(skillStacks);
@@ -1622,7 +1657,7 @@ const Skills = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSelectedStack(prev => {
+      setSelectedStack((prev) => {
         const currentIndex = stackKeys.indexOf(prev);
         return stackKeys[(currentIndex + 1) % stackKeys.length];
       });
@@ -1632,21 +1667,31 @@ const Skills = () => {
   }, [stackKeys]);
 
   const getOverallStats = () => {
-    const allSkills = Object.values(skillStacks).flatMap(stack => stack.skills);
+    const allSkills = Object.values(skillStacks).flatMap(
+      (stack) => stack.skills
+    );
     const totalSkills = allSkills.length;
-    const avgMastery = Math.round(allSkills.reduce((sum, skill) => sum + skill.mastery, 0) / totalSkills);
-    const totalExperience = allSkills.reduce((sum, skill) => sum + skill.years, 0);
-    
+    const avgMastery = Math.round(
+      allSkills.reduce((sum, skill) => sum + skill.mastery, 0) / totalSkills
+    );
+    const totalExperience = allSkills.reduce(
+      (sum, skill) => sum + skill.years,
+      0
+    );
+
     return { totalSkills, avgMastery, totalExperience };
   };
 
   const stats = getOverallStats();
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+    <div
+      ref={sectionRef}
+      className="relative min-h-screen py-20 overflow-hidden"
+    >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-      
+
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(25)].map((_, i) => (
@@ -1657,7 +1702,7 @@ const Skills = () => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
+              animationDuration: `${2 + Math.random() * 2}s`,
             }}
           />
         ))}
@@ -1665,10 +1710,16 @@ const Skills = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div
+          className={`text-center mb-16 transition-all duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
-            <span className="text-cyan-400 font-medium tracking-wider text-lg">Technical Skills</span>
+            <span className="text-cyan-400 font-medium tracking-wider text-lg">
+              Technical Skills
+            </span>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
           </div>
           <h2 className="text-5xl lg:text-6xl font-bold mb-6">
@@ -1682,7 +1733,11 @@ const Skills = () => {
         </div>
 
         {/* Stack Navigation */}
-        <div className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div
+          className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
           <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-2 flex gap-2 flex-wrap justify-center">
             {stackKeys.map((stack) => (
               <button
@@ -1690,12 +1745,14 @@ const Skills = () => {
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-3 ${
                   selectedStack === stack
                     ? `bg-gradient-to-r ${skillStacks[stack].color} text-white shadow-lg`
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : "text-slate-400 hover:text-white hover:bg-white/5"
                 }`}
                 onClick={() => setSelectedStack(stack)}
               >
                 <Icon icon={skillStacks[stack].icon} width="20" height="20" />
-                <span className="hidden sm:inline">{skillStacks[stack].title}</span>
+                <span className="hidden sm:inline">
+                  {skillStacks[stack].title}
+                </span>
               </button>
             ))}
           </div>
@@ -1704,7 +1761,13 @@ const Skills = () => {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Skills Grid */}
           <div className="lg:col-span-3">
-            <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <div
+              className={`transition-all duration-1000 delay-500 ${
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-10 opacity-0"
+              }`}
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
                 {skillStacks[selectedStack].skills.map((skill, index) => (
                   <div
@@ -1727,7 +1790,10 @@ const Skills = () => {
 
                     {/* Circular Progress */}
                     <div className="relative w-20 h-20 mx-auto mb-4">
-                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                      <svg
+                        className="w-20 h-20 transform -rotate-90"
+                        viewBox="0 0 100 100"
+                      >
                         <circle
                           cx="50"
                           cy="50"
@@ -1747,26 +1813,37 @@ const Skills = () => {
                           className="animate-draw-circle"
                           style={{
                             strokeDasharray: `${2 * Math.PI * 40}`,
-                            strokeDashoffset: `${2 * Math.PI * 40 * (1 - skill.mastery / 100)}`,
-                            animationDelay: `${index * 0.2}s`
+                            strokeDashoffset: `${
+                              2 * Math.PI * 40 * (1 - skill.mastery / 100)
+                            }`,
+                            animationDelay: `${index * 0.2}s`,
                           }}
                         />
                         <defs>
-                          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <linearGradient
+                            id="gradient"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="100%"
+                          >
                             <stop offset="0%" stopColor="#06b6d4" />
                             <stop offset="100%" stopColor="#3b82f6" />
                           </linearGradient>
                         </defs>
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-lg font-bold text-white">{skill.mastery}%</span>
+                        <span className="text-lg font-bold text-white">
+                          {skill.mastery}%
+                        </span>
                       </div>
                     </div>
 
                     {/* Experience */}
                     <div className="text-center">
                       <p className="text-sm text-slate-400">
-                        {skill.years} year{skill.years !== 1 ? 's' : ''} experience
+                        {skill.years} year{skill.years !== 1 ? "s" : ""}{" "}
+                        experience
                       </p>
                     </div>
 
@@ -1774,16 +1851,20 @@ const Skills = () => {
                     {hoveredSkill === index && (
                       <div className="absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full backdrop-blur-md bg-slate-900/90 border border-cyan-400/50 rounded-xl p-3 min-w-max z-20">
                         <div className="text-center">
-                          <h4 className="font-bold text-white text-sm mb-1">{skill.name}</h4>
-                          <p className="text-xs text-slate-300 mb-2">Mastery Level: {skill.mastery}%</p>
+                          <h4 className="font-bold text-white text-sm mb-1">
+                            {skill.name}
+                          </h4>
+                          <p className="text-xs text-slate-300 mb-2">
+                            Mastery Level: {skill.mastery}%
+                          </p>
                           <div className="flex justify-center gap-1">
                             {[...Array(5)].map((_, i) => (
                               <div
                                 key={i}
                                 className={`w-2 h-2 rounded-full ${
-                                  i < Math.floor(skill.mastery / 20) 
-                                    ? 'bg-cyan-400' 
-                                    : 'bg-slate-600'
+                                  i < Math.floor(skill.mastery / 20)
+                                    ? "bg-cyan-400"
+                                    : "bg-slate-600"
                                 }`}
                               />
                             ))}
@@ -1800,25 +1881,47 @@ const Skills = () => {
 
           {/* Side Panel - Stats */}
           <div className="lg:col-span-1">
-            <div className={`backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+            <div
+              className={`backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-700 ${
+                isVisible
+                  ? "translate-x-0 opacity-100"
+                  : "translate-x-10 opacity-0"
+              }`}
+            >
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Icon icon="mingcute:chart-bar-line" width="24" height="24" className="text-cyan-400" />
+                <Icon
+                  icon="mingcute:chart-bar-line"
+                  width="24"
+                  height="24"
+                  className="text-cyan-400"
+                />
                 Overview
               </h3>
 
               {/* Current Stack Info */}
               <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-slate-700/30 to-slate-800/30 border border-slate-600/30">
                 <div className="flex items-center gap-3 mb-3">
-                  <Icon icon={skillStacks[selectedStack].icon} width="20" height="20" className="text-cyan-400" />
-                  <span className="font-semibold text-white">{skillStacks[selectedStack].title}</span>
+                  <Icon
+                    icon={skillStacks[selectedStack].icon}
+                    width="20"
+                    height="20"
+                    className="text-cyan-400"
+                  />
+                  <span className="font-semibold text-white">
+                    {skillStacks[selectedStack].title}
+                  </span>
                 </div>
                 <div className="space-y-2 text-sm text-slate-400">
                   <div>Skills: {skillStacks[selectedStack].skills.length}</div>
                   <div>
-                    Avg Mastery: {Math.round(
-                      skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.mastery, 0) / 
-                      skillStacks[selectedStack].skills.length
-                    )}%
+                    Avg Mastery:{" "}
+                    {Math.round(
+                      skillStacks[selectedStack].skills.reduce(
+                        (sum, skill) => sum + skill.mastery,
+                        0
+                      ) / skillStacks[selectedStack].skills.length
+                    )}
+                    %
                   </div>
                 </div>
               </div>
@@ -1826,17 +1929,23 @@ const Skills = () => {
               {/* Overall Stats */}
               <div className="space-y-4">
                 <div className="text-center p-4 rounded-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/20">
-                  <div className="text-2xl font-bold text-white mb-1">{stats.totalSkills}</div>
+                  <div className="text-2xl font-bold text-white mb-1">
+                    {stats.totalSkills}
+                  </div>
                   <div className="text-sm text-slate-400">Total Skills</div>
                 </div>
-                
+
                 <div className="text-center p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-400/20">
-                  <div className="text-2xl font-bold text-white mb-1">{stats.avgMastery}%</div>
+                  <div className="text-2xl font-bold text-white mb-1">
+                    {stats.avgMastery}%
+                  </div>
                   <div className="text-sm text-slate-400">Avg Mastery</div>
                 </div>
-                
+
                 <div className="text-center p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/20">
-                  <div className="text-2xl font-bold text-white mb-1">{stats.totalExperience.toFixed(1)}</div>
+                  <div className="text-2xl font-bold text-white mb-1">
+                    {stats.totalExperience.toFixed(1)}
+                  </div>
                   <div className="text-sm text-slate-400">Total Years</div>
                 </div>
               </div>
@@ -1869,7 +1978,7 @@ const Skills = () => {
             stroke-dashoffset: 0;
           }
         }
-        
+
         @keyframes fill-bar {
           0% {
             width: 0%;
@@ -1878,11 +1987,11 @@ const Skills = () => {
             width: var(--target-width);
           }
         }
-        
+
         .animate-draw-circle {
           animation: draw-circle 1.5s ease-out forwards;
         }
-        
+
         .animate-fill-bar {
           animation: fill-bar 2s ease-out 1s forwards;
           width: 0%;
