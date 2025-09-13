@@ -720,10 +720,575 @@
 // export default Projects;
 //! v3 
 
+// import React, { useState, useEffect, useRef } from "react";
+// import { Icon } from "@iconify/react";
+// import ThreeSlider from "../reactThree/ReactThreeSlider";
+
+
+// interface ProjectsProps {
+//   scrollToSection?: (id: string) => void;
+// }
+
+// function Projects({ scrollToSection }: ProjectsProps) {
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [selectedProject, setSelectedProject] = useState(0);
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [scrollProgress, setScrollProgress] = useState(0);
+//   const sectionRef = useRef<HTMLDivElement>(null);
+
+//   const projects = [
+//     {
+//       id: 1,
+//       title: "E-Commerce Platform",
+//       description: "Full-stack e-commerce solution with real-time inventory, payment processing, and comprehensive admin dashboard for seamless online shopping experience.",
+//       technologies: ["React", "Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
+//       category: "Full Stack",
+//       year: "2024",
+//       status: "Live",
+//       color: "from-blue-400 to-cyan-500",
+//       bgColor: "from-blue-400/10 to-cyan-500/10",
+//       complexity: 95,
+//       duration: "4 months",
+//       teamSize: "3 developers",
+//       highlights: [
+//         "Real-time inventory management",
+//         "Secure payment processing with Stripe",
+//         "Advanced admin dashboard",
+//         "Mobile-responsive design",
+//         "SEO optimized"
+//       ],
+//       metrics: {
+//         users: "10,000+",
+//         performance: "98% uptime",
+//         conversion: "15% increase",
+//         load: "< 2s load time"
+//       },
+//       challenges: "Implementing real-time inventory sync across multiple sales channels while maintaining data consistency and handling high traffic loads during peak sales periods.",
+//       solution: "Built a robust event-driven architecture using WebSocket connections and implemented Redis caching for real-time updates with PostgreSQL for data persistence."
+//     },
+//     {
+//       id: 2,
+//       title: "3D Portfolio Website",
+//       description: "Interactive 3D portfolio featuring Three.js animations, particle systems, and immersive user experience with WebGL shaders and dynamic lighting effects.",
+//       technologies: ["React", "Three.js", "Framer Motion", "Tailwind", "WebGL", "GLSL"],
+//       category: "3D Web",
+//       year: "2024",
+//       status: "In Progress",
+//       color: "from-purple-400 to-pink-500",
+//       bgColor: "from-purple-400/10 to-pink-500/10",
+//       complexity: 90,
+//       duration: "3 months",
+//       teamSize: "Solo project",
+//       highlights: [
+//         "Custom WebGL shaders",
+//         "Physics-based animations",
+//         "Interactive 3D elements",
+//         "Optimized for mobile",
+//         "Dynamic lighting system"
+//       ],
+//       metrics: {
+//         users: "5,000+",
+//         performance: "60fps on mobile",
+//         engagement: "4.2 min avg session",
+//         load: "< 3s initial load"
+//       },
+//       challenges: "Optimizing 3D performance across devices while maintaining visual quality and ensuring smooth interactions on lower-end hardware.",
+//       solution: "Implemented LOD (Level of Detail) system, texture compression, and adaptive quality settings based on device capabilities."
+//     },
+//     {
+//       id: 3,
+//       title: "Task Management Platform",
+//       description: "Collaborative task management solution with real-time updates, team collaboration features, advanced analytics, and intelligent project insights.",
+//       technologies: ["React", "Redux", "Socket.io", "Node.js", "MongoDB", "Chart.js"],
+//       category: "Web App",
+//       year: "2023",
+//       status: "Live",
+//       color: "from-green-400 to-emerald-500",
+//       bgColor: "from-green-400/10 to-emerald-500/10",
+//       complexity: 85,
+//       duration: "5 months",
+//       teamSize: "4 developers",
+//       highlights: [
+//         "Real-time collaboration",
+//         "Advanced analytics dashboard",
+//         "Team performance insights",
+//         "File sharing system",
+//         "Custom workflow automation"
+//       ],
+//       metrics: {
+//         users: "25,000+",
+//         teams: "500+ active teams",
+//         productivity: "30% improvement",
+//         retention: "85% monthly retention"
+//       },
+//       challenges: "Building scalable real-time collaboration features that work seamlessly across different time zones and team sizes.",
+//       solution: "Architected microservices with Socket.io clusters and implemented operational transform algorithms for conflict resolution."
+//     },
+//     {
+//       id: 4,
+//       title: "AI Chat Interface",
+//       description: "Modern conversational AI interface with message streaming, context awareness, multi-language support, and intelligent conversation flow management.",
+//       technologies: ["React", "TypeScript", "WebSocket", "OpenAI API", "Redis", "Python"],
+//       category: "AI/ML",
+//       year: "2024",
+//       status: "Live",
+//       color: "from-orange-400 to-red-500",
+//       bgColor: "from-orange-400/10 to-red-500/10",
+//       complexity: 88,
+//       duration: "3 months",
+//       teamSize: "2 developers",
+//       highlights: [
+//         "Real-time message streaming",
+//         "Context-aware responses",
+//         "Multi-language support",
+//         "Voice-to-text integration",
+//         "Custom AI training pipeline"
+//       ],
+//       metrics: {
+//         messages: "1M+ processed",
+//         response: "< 1s avg response",
+//         accuracy: "94% user satisfaction",
+//         languages: "12 languages"
+//       },
+//       challenges: "Implementing efficient message streaming while maintaining conversation context and handling multiple concurrent users.",
+//       solution: "Built a scalable WebSocket architecture with Redis for session management and implemented streaming protocols for real-time AI responses."
+//     },
+//     {
+//       id: 5,
+//       title: "Analytics Dashboard",
+//       description: "Real-time analytics platform with interactive data visualizations, custom reporting tools, and performance monitoring for business intelligence.",
+//       technologies: ["React", "D3.js", "WebSocket", "Chart.js", "Python", "FastAPI"],
+//       category: "Data Viz",
+//       year: "2024",
+//       status: "Live",
+//       color: "from-amber-400 to-yellow-500",
+//       bgColor: "from-amber-400/10 to-yellow-500/10",
+//       complexity: 92,
+//       duration: "4 months",
+//       teamSize: "3 developers",
+//       highlights: [
+//         "Real-time data streaming",
+//         "Interactive visualizations",
+//         "Custom chart builder",
+//         "Export capabilities",
+//         "Alert system"
+//       ],
+//       metrics: {
+//         dataPoints: "10M+ daily",
+//         dashboards: "500+ active",
+//         queries: "< 200ms avg",
+//         uptime: "99.9% availability"
+//       },
+//       challenges: "Processing and visualizing large datasets in real-time while maintaining smooth user interactions and chart responsiveness.",
+//       solution: "Implemented data streaming with WebSockets, canvas-based rendering for performance, and smart data sampling algorithms."
+//     },
+//     {
+//       id: 6,
+//       title: "Progressive Web App",
+//       description: "Cross-platform PWA with offline capabilities, push notifications, native-like experience, and seamless synchronization across devices.",
+//       technologies: ["React", "PWA", "Service Workers", "IndexedDB", "Push API", "Workbox"],
+//       category: "Mobile",
+//       year: "2023",
+//       status: "Live",
+//       color: "from-cyan-400 to-blue-500",
+//       bgColor: "from-cyan-400/10 to-blue-500/10",
+//       complexity: 87,
+//       duration: "3 months",
+//       teamSize: "2 developers",
+//       highlights: [
+//         "Offline-first architecture",
+//         "Push notifications",
+//         "Native app feel",
+//         "Background sync",
+//         "Install prompts"
+//       ],
+//       metrics: {
+//         installs: "15,000+ installs",
+//         offline: "90% offline usage",
+//         engagement: "60% daily return",
+//         performance: "Lighthouse 95+"
+//       },
+//       challenges: "Creating a seamless offline experience while ensuring data consistency when reconnecting to the network.",
+//       solution: "Implemented comprehensive service worker strategy with background sync and conflict resolution for offline-first functionality."
+//     }
+//   ];
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting) {
+//           setIsVisible(true);
+//         }
+//       },
+//       { threshold: 0.1 }
+//     );
+
+//     if (sectionRef.current) {
+//       observer.observe(sectionRef.current);
+//     }
+
+//     return () => observer.disconnect();
+//   }, []);
+
+//   const handleScrollProgress = (progress: number) => {
+//     setScrollProgress(progress);
+//     const projectIndex = Math.floor(progress * projects.length);
+//     if (projectIndex !== selectedProject && projectIndex < projects.length) {
+//       setSelectedProject(projectIndex);
+//     }
+//   };
+
+//   const currentProject = projects[selectedProject];
+
+//   return (
+//     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+//       {/* Background Overlay */}
+//       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/60 to-transparent"></div>
+      
+//       {/* Dynamic Particles */}
+//       <div className="absolute inset-0 overflow-hidden">
+//         {[...Array(30)].map((_, i) => (
+//           <div
+//             key={i}
+//             className={`absolute w-1 h-1 bg-gradient-to-r ${currentProject.color} rounded-full animate-pulse`}
+//             style={{
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`,
+//               animationDelay: `${Math.random() * 4}s`,
+//               animationDuration: `${2 + Math.random() * 3}s`
+//             }}
+//           />
+//         ))}
+//       </div>
+
+//       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+//         {/* Section Header */}
+//         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+//           <div className="flex items-center justify-center gap-4 mb-6">
+//             <div className="w-16 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
+//             <span className="text-purple-400 font-medium tracking-wider text-lg">Portfolio</span>
+//             <div className="w-16 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
+//           </div>
+//           <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+//             <span className="bg-gradient-to-r from-white via-slate-200 to-purple-400 bg-clip-text text-transparent">
+//               Featured Projects
+//             </span>
+//           </h2>
+//           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+//             A showcase of innovative solutions, cutting-edge technologies, and impactful digital experiences 
+//             that demonstrate expertise across the full development spectrum.
+//           </p>
+//         </div>
+
+//         {/* Main Content Grid */}
+//         <div className="grid lg:grid-cols-2 gap-16 items-center">
+//           {/* Left Column - 3D Slider */}
+//           <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
+//             <div className="relative h-[500px] lg:h-[600px] backdrop-blur-md bg-slate-800/20 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-slate-600/50 transition-all duration-500">
+//               <ThreeSlider
+//                 onScrollProgress={handleScrollProgress}
+//                 openModal={isModalOpen}
+//                 setOpenModal={setIsModalOpen}
+//               />
+              
+//               {/* Overlay Controls */}
+//               <div className="absolute top-4 left-4 z-20">
+//                 <div className="backdrop-blur-md bg-black/40 border border-white/20 rounded-xl p-3">
+//                   <div className="flex items-center gap-2 text-white/80 text-sm">
+//                     <Icon icon="mingcute:mouse-line" width="16" height="16" />
+//                     <span>Scroll to navigate</span>
+//                   </div>
+//                 </div>
+//               </div>
+              
+//               {/* Progress Indicator */}
+//               <div className="absolute bottom-4 left-4 right-4 z-20">
+//                 <div className="backdrop-blur-md bg-black/40 border border-white/20 rounded-xl p-4">
+//                   <div className="flex justify-between items-center mb-2">
+//                     <span className="text-white/80 text-sm font-medium">Project Progress</span>
+//                     <span className="text-white text-sm font-bold">
+//                       {selectedProject + 1} / {projects.length}
+//                     </span>
+//                   </div>
+//                   <div className="w-full bg-white/20 rounded-full h-1.5">
+//                     <div
+//                       className={`h-full bg-gradient-to-r ${currentProject.color} rounded-full transition-all duration-500`}
+//                       style={{ width: `${((selectedProject + 1) / projects.length) * 100}%` }}
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Right Column - Project Details */}
+//           <div className={`space-y-8 transition-all duration-1000 delay-400 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+//             {/* Project Header */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
+//               <div className="flex items-start justify-between mb-6">
+//                 <div>
+//                   <h3 className="text-3xl font-bold text-white mb-2">{currentProject.title}</h3>
+//                   <p className={`text-lg font-semibold bg-gradient-to-r ${currentProject.color} bg-clip-text text-transparent`}>
+//                     {currentProject.category} • {currentProject.year}
+//                   </p>
+//                 </div>
+//                 <div className="flex gap-2">
+//                   <span className={`px-3 py-1 bg-gradient-to-r ${currentProject.bgColor} text-sm rounded-full border border-slate-600/30`}>
+//                     {currentProject.status}
+//                   </span>
+//                 </div>
+//               </div>
+              
+//               <p className="text-slate-300 leading-relaxed text-lg mb-6">
+//                 {currentProject.description}
+//               </p>
+
+//               {/* Project Stats */}
+//               <div className="grid grid-cols-2 gap-4">
+//                 <div className="p-3 bg-slate-700/30 rounded-lg">
+//                   <div className="text-slate-400 text-xs mb-1">Complexity</div>
+//                   <div className="text-white font-bold">{currentProject.complexity}%</div>
+//                 </div>
+//                 <div className="p-3 bg-slate-700/30 rounded-lg">
+//                   <div className="text-slate-400 text-xs mb-1">Duration</div>
+//                   <div className="text-white font-bold">{currentProject.duration}</div>
+//                 </div>
+//                 <div className="p-3 bg-slate-700/30 rounded-lg">
+//                   <div className="text-slate-400 text-xs mb-1">Team Size</div>
+//                   <div className="text-white font-bold">{currentProject.teamSize}</div>
+//                 </div>
+//                 <div className="p-3 bg-slate-700/30 rounded-lg">
+//                   <div className="text-slate-400 text-xs mb-1">Category</div>
+//                   <div className="text-white font-bold">{currentProject.category}</div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Key Highlights */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-amber-400/30 transition-all duration-500">
+//               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+//                 <Icon icon="mingcute:star-line" width="28" height="28" className="text-amber-400" />
+//                 Key Highlights
+//               </h3>
+//               <div className="space-y-3">
+//                 {currentProject.highlights.map((highlight, index) => (
+//                   <div
+//                     key={index}
+//                     className="flex items-start gap-4 p-3 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-all duration-300"
+//                   >
+//                     <div className={`w-2 h-2 bg-gradient-to-r ${currentProject.color} rounded-full mt-2 flex-shrink-0`} />
+//                     <span className="text-slate-300">{highlight}</span>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Technologies & Metrics */}
+//             <div className="grid md:grid-cols-2 gap-8">
+//               {/* Technologies */}
+//               <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500">
+//                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+//                   <Icon icon="mingcute:code-line" width="24" height="24" className="text-cyan-400" />
+//                   Tech Stack
+//                 </h3>
+//                 <div className="flex flex-wrap gap-2">
+//                   {currentProject.technologies.map((tech) => (
+//                     <span
+//                       key={tech}
+//                       className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-cyan-400/50 hover:bg-cyan-400/10 transition-all duration-300"
+//                     >
+//                       {tech}
+//                     </span>
+//                   ))}
+//                 </div>
+//               </div>
+
+//               {/* Project Metrics */}
+//               <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-green-400/30 transition-all duration-500">
+//                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+//                   <Icon icon="mingcute:chart-line" width="24" height="24" className="text-green-400" />
+//                   Key Metrics
+//                 </h3>
+//                 <div className="space-y-3">
+//                   {Object.entries(currentProject.metrics).map(([key, value]) => (
+//                     <div key={key} className="flex justify-between items-center">
+//                       <span className="text-slate-400 text-sm capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+//                       <span className="text-white font-semibold">{value}</span>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Project Navigation */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-purple-400/30 transition-all duration-500">
+//               <div className="flex items-center justify-between mb-4">
+//                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
+//                   <Icon icon="mingcute:grid-line" width="24" height="24" className="text-purple-400" />
+//                   All Projects
+//                 </h3>
+//                 <span className="text-slate-400 text-sm">
+//                   {selectedProject + 1} of {projects.length}
+//                 </span>
+//               </div>
+//               <div className="grid grid-cols-3 gap-2">
+//                 {projects.map((project, index) => (
+//                   <button
+//                     key={project.id}
+//                     className={`relative p-3 rounded-lg border transition-all duration-300 ${
+//                       selectedProject === index 
+//                         ? `bg-gradient-to-r ${project.bgColor} border-slate-600/50` 
+//                         : 'bg-slate-700/30 border-slate-600/30 hover:bg-slate-700/50'
+//                     }`}
+//                     onClick={() => setSelectedProject(index)}
+//                   >
+//                     <div className="text-xs font-medium text-white truncate">
+//                       {project.title}
+//                     </div>
+//                     <div className="text-xs text-slate-400">{project.category}</div>
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Action Buttons */}
+//             <div className="flex gap-4">
+//               <button
+//                 onClick={() => setIsModalOpen(true)}
+//                 className="flex-1 group relative px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1"
+//               >
+//                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+//                 <div className="relative flex items-center justify-center gap-3">
+//                   <Icon icon="mingcute:eye-line" width="20" height="20" />
+//                   <span>View Details</span>
+//                 </div>
+//               </button>
+//               <button
+//                 onClick={() => scrollToSection?.("contactme")}
+//                 className="flex-1 px-6 py-4 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-purple-400 hover:bg-purple-400/10 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-3"
+//               >
+//                 <Icon icon="mingcute:message-3-line" width="20" height="20" />
+//                 <span>Discuss Project</span>
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Challenge & Solution Section */}
+//         <div className={`mt-16 transition-all duration-1000 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+//           <div className="grid md:grid-cols-2 gap-8">
+//             {/* Challenge */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-orange-400/30 transition-all duration-500">
+//               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+//                 <Icon icon="mingcute:question-line" width="28" height="28" className="text-orange-400" />
+//                 The Challenge
+//               </h3>
+//               <p className="text-slate-300 leading-relaxed">
+//                 {currentProject.challenges}
+//               </p>
+//             </div>
+
+//             {/* Solution */}
+//             <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
+//               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+//                 <Icon icon="mingcute:lightbulb-line" width="28" height="28" className="text-green-400" />
+//                 The Solution
+//               </h3>
+//               <p className="text-slate-300 leading-relaxed">
+//                 {currentProject.solution}
+//               </p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Enhanced Modal */}
+//       {isModalOpen && (
+//         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+//           <div
+//             className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+//             onClick={() => setIsModalOpen(false)}
+//           />
+//           <div className="relative max-w-4xl w-full max-h-[90vh] overflow-auto backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl">
+//             <div className="p-8">
+//               <div className="flex justify-between items-start mb-8">
+//                 <div>
+//                   <h2 className={`text-3xl font-bold mb-2 bg-gradient-to-r ${currentProject.color} bg-clip-text text-transparent`}>
+//                     {currentProject.title}
+//                   </h2>
+//                   <p className="text-white/80 text-lg">{currentProject.description}</p>
+//                 </div>
+//                 <button
+//                   className="w-12 h-12 rounded-full bg-slate-700/50 border border-slate-600/50 flex items-center justify-center text-white/80 hover:text-white hover:bg-slate-600/50 transition-all duration-300"
+//                   onClick={() => setIsModalOpen(false)}
+//                 >
+//                   <Icon icon="mingcute:close-line" width="24" height="24" />
+//                 </button>
+//               </div>
+              
+//               {/* Modal content with project details */}
+//               <div className="grid md:grid-cols-2 gap-8">
+//                 <div>
+//                   <h4 className="text-xl font-semibold text-white mb-4">Project Overview</h4>
+//                   <div className="space-y-4">
+//                     {currentProject.highlights.map((highlight, index) => (
+//                       <div key={index} className="flex items-start gap-3">
+//                         <div className={`w-2 h-2 bg-gradient-to-r ${currentProject.color} rounded-full mt-2 flex-shrink-0`} />
+//                         <span className="text-slate-300">{highlight}</span>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+                
+//                 <div>
+//                   <h4 className="text-xl font-semibold text-white mb-4">Technologies</h4>
+//                   <div className="flex flex-wrap gap-2">
+//                     {currentProject.technologies.map((tech) => (
+//                       <span
+//                         key={tech}
+//                         className="px-3 py-2 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50"
+//                       >
+//                         {tech}
+//                       </span>
+//                     ))}
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Floating Stats */}
+//       <div className={`fixed top-20 right-8 backdrop-blur-md bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-800 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+//         <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2">
+//           <Icon icon="mingcute:trophy-line" width="20" height="20" className="text-amber-400" />
+//           Project Stats
+//         </h4>
+//         <div className="space-y-4 text-center">
+//           <div className="p-3 bg-slate-700/30 rounded-lg">
+//             <div className="text-2xl font-bold text-cyan-400">6+</div>
+//             <div className="text-xs text-slate-400">Projects</div>
+//           </div>
+//           <div className="p-3 bg-slate-700/30 rounded-lg">
+//             <div className="text-2xl font-bold text-purple-400">90%</div>
+//             <div className="text-xs text-slate-400">Avg Complexity</div>
+//           </div>
+//           <div className="p-3 bg-slate-700/30 rounded-lg">
+//             <div className="text-2xl font-bold text-green-400">100%</div>
+//             <div className="text-xs text-slate-400">Success Rate</div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Projects;
+// !v3
 import React, { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 import ThreeSlider from "../reactThree/ReactThreeSlider";
-
 
 interface ProjectsProps {
   scrollToSection?: (id: string) => void;
@@ -734,6 +1299,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
   const [selectedProject, setSelectedProject] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeTab, setActiveTab] = useState('overview');
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const projects = [
@@ -745,8 +1311,9 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Full Stack",
       year: "2024",
       status: "Live",
-      color: "from-blue-400 to-cyan-500",
-      bgColor: "from-blue-400/10 to-cyan-500/10",
+      color: "from-cyan-400 to-blue-500",
+      bgColor: "from-cyan-400/10 to-blue-500/10",
+      glowColor: "cyan-400",
       complexity: 95,
       duration: "4 months",
       teamSize: "3 developers",
@@ -774,8 +1341,9 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "3D Web",
       year: "2024",
       status: "In Progress",
-      color: "from-purple-400 to-pink-500",
-      bgColor: "from-purple-400/10 to-pink-500/10",
+      color: "from-purple-400 to-indigo-600",
+      bgColor: "from-purple-400/10 to-indigo-600/10",
+      glowColor: "purple-400",
       complexity: 90,
       duration: "3 months",
       teamSize: "Solo project",
@@ -803,8 +1371,9 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Web App",
       year: "2023",
       status: "Live",
-      color: "from-green-400 to-emerald-500",
-      bgColor: "from-green-400/10 to-emerald-500/10",
+      color: "from-orange-400 to-red-500",
+      bgColor: "from-orange-400/10 to-red-500/10",
+      glowColor: "orange-400",
       complexity: 85,
       duration: "5 months",
       teamSize: "4 developers",
@@ -832,8 +1401,9 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "AI/ML",
       year: "2024",
       status: "Live",
-      color: "from-orange-400 to-red-500",
-      bgColor: "from-orange-400/10 to-red-500/10",
+      color: "from-slate-400 to-gray-600",
+      bgColor: "from-slate-400/10 to-gray-600/10",
+      glowColor: "slate-400",
       complexity: 88,
       duration: "3 months",
       teamSize: "2 developers",
@@ -861,8 +1431,9 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Data Viz",
       year: "2024",
       status: "Live",
-      color: "from-amber-400 to-yellow-500",
-      bgColor: "from-amber-400/10 to-yellow-500/10",
+      color: "from-cyan-400 to-teal-500",
+      bgColor: "from-cyan-400/10 to-teal-500/10",
+      glowColor: "cyan-400",
       complexity: 92,
       duration: "4 months",
       teamSize: "3 developers",
@@ -890,8 +1461,9 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Mobile",
       year: "2023",
       status: "Live",
-      color: "from-cyan-400 to-blue-500",
-      bgColor: "from-cyan-400/10 to-blue-500/10",
+      color: "from-purple-400 to-blue-600",
+      bgColor: "from-purple-400/10 to-blue-600/10",
+      glowColor: "purple-400",
       complexity: 87,
       duration: "3 months",
       teamSize: "2 developers",
@@ -942,77 +1514,86 @@ function Projects({ scrollToSection }: ProjectsProps) {
 
   return (
     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/60 to-transparent"></div>
-      
-      {/* Dynamic Particles */}
+      {/* Animated Fire Particles Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(50)].map((_, i) => (
           <div
             key={i}
-            className={`absolute w-1 h-1 bg-gradient-to-r ${currentProject.color} rounded-full animate-pulse`}
+            className={`absolute w-1 h-1 bg-gradient-to-r ${currentProject.color} rounded-full animate-pulse opacity-60`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animationDuration: `${2 + Math.random() * 3}s`,
+              boxShadow: `0 0 6px ${currentProject.glowColor === 'cyan-400' ? '#22d3ee' : 
+                          currentProject.glowColor === 'purple-400' ? '#c084fc' :
+                          currentProject.glowColor === 'orange-400' ? '#fb923c' :
+                          currentProject.glowColor === 'slate-400' ? '#94a3b8' : '#22d3ee'}`
             }}
           />
         ))}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        {/* Header Section */}
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
-            <span className="text-purple-400 font-medium tracking-wider text-lg">Portfolio</span>
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
+            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+            <span className="text-orange-400 font-bold tracking-wider text-lg uppercase">Portfolio</span>
+            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
           </div>
-          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-slate-200 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-6xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-slate-200 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
               Featured Projects
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            A showcase of innovative solutions, cutting-edge technologies, and impactful digital experiences 
-            that demonstrate expertise across the full development spectrum.
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Innovative solutions crafted with cutting-edge technologies and creative problem-solving
           </p>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - 3D Slider */}
-          <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
-            <div className="relative h-[500px] lg:h-[600px] backdrop-blur-md bg-slate-800/20 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-slate-600/50 transition-all duration-500">
+        {/* Main Layout - Centered 3D Slider with Side Panels */}
+        <div className="relative">
+          {/* Central 3D Slider */}
+          <div className={`relative mx-auto max-w-4xl transition-all duration-1000 delay-200 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}>
+            <div className={`relative h-[400px] lg:h-[500px] backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl shadow-${currentProject.glowColor}/20`}>
               <ThreeSlider
                 onScrollProgress={handleScrollProgress}
                 openModal={isModalOpen}
                 setOpenModal={setIsModalOpen}
               />
               
-              {/* Overlay Controls */}
-              <div className="absolute top-4 left-4 z-20">
-                <div className="backdrop-blur-md bg-black/40 border border-white/20 rounded-xl p-3">
-                  <div className="flex items-center gap-2 text-white/80 text-sm">
-                    <Icon icon="mingcute:mouse-line" width="16" height="16" />
-                    <span>Scroll to navigate</span>
+              {/* Floating Controls */}
+              <div className="absolute top-6 left-6 z-20">
+                <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-600/50 rounded-2xl px-4 py-3">
+                  <div className="flex items-center gap-3 text-slate-300 text-sm font-medium">
+                    <Icon icon="mingcute:mouse-line" width="18" height="18" className="text-orange-400" />
+                    <span>Scroll to explore</span>
                   </div>
                 </div>
               </div>
-              
-              {/* Progress Indicator */}
-              <div className="absolute bottom-4 left-4 right-4 z-20">
-                <div className="backdrop-blur-md bg-black/40 border border-white/20 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-white/80 text-sm font-medium">Project Progress</span>
-                    <span className="text-white text-sm font-bold">
-                      {selectedProject + 1} / {projects.length}
-                    </span>
+
+              {/* Project Counter */}
+              <div className="absolute top-6 right-6 z-20">
+                <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-600/50 rounded-2xl px-4 py-3">
+                  <div className="text-slate-200 font-bold text-lg">
+                    <span className={`text-${currentProject.glowColor}`}>{selectedProject + 1}</span>
+                    <span className="text-slate-500 mx-2">/</span>
+                    <span className="text-slate-400">{projects.length}</span>
                   </div>
-                  <div className="w-full bg-white/20 rounded-full h-1.5">
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="absolute bottom-6 left-6 right-6 z-20">
+                <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-600/50 rounded-2xl p-4">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-slate-300 font-semibold">{currentProject.title}</span>
+                    <span className="text-slate-400 text-sm">{currentProject.category}</span>
+                  </div>
+                  <div className="w-full bg-slate-700/50 rounded-full h-2">
                     <div
-                      className={`h-full bg-gradient-to-r ${currentProject.color} rounded-full transition-all duration-500`}
+                      className={`h-full bg-gradient-to-r ${currentProject.color} rounded-full transition-all duration-500 shadow-lg`}
                       style={{ width: `${((selectedProject + 1) / projects.length) * 100}%` }}
                     />
                   </div>
@@ -1021,182 +1602,188 @@ function Projects({ scrollToSection }: ProjectsProps) {
             </div>
           </div>
 
-          {/* Right Column - Project Details */}
-          <div className={`space-y-8 transition-all duration-1000 delay-400 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
-            {/* Project Header */}
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h3 className="text-3xl font-bold text-white mb-2">{currentProject.title}</h3>
-                  <p className={`text-lg font-semibold bg-gradient-to-r ${currentProject.color} bg-clip-text text-transparent`}>
-                    {currentProject.category} • {currentProject.year}
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <span className={`px-3 py-1 bg-gradient-to-r ${currentProject.bgColor} text-sm rounded-full border border-slate-600/30`}>
-                    {currentProject.status}
-                  </span>
-                </div>
-              </div>
-              
-              <p className="text-slate-300 leading-relaxed text-lg mb-6">
-                {currentProject.description}
-              </p>
-
-              {/* Project Stats */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-3 bg-slate-700/30 rounded-lg">
-                  <div className="text-slate-400 text-xs mb-1">Complexity</div>
-                  <div className="text-white font-bold">{currentProject.complexity}%</div>
-                </div>
-                <div className="p-3 bg-slate-700/30 rounded-lg">
-                  <div className="text-slate-400 text-xs mb-1">Duration</div>
-                  <div className="text-white font-bold">{currentProject.duration}</div>
-                </div>
-                <div className="p-3 bg-slate-700/30 rounded-lg">
-                  <div className="text-slate-400 text-xs mb-1">Team Size</div>
-                  <div className="text-white font-bold">{currentProject.teamSize}</div>
-                </div>
-                <div className="p-3 bg-slate-700/30 rounded-lg">
-                  <div className="text-slate-400 text-xs mb-1">Category</div>
-                  <div className="text-white font-bold">{currentProject.category}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Key Highlights */}
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-amber-400/30 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Icon icon="mingcute:star-line" width="28" height="28" className="text-amber-400" />
-                Key Highlights
+          {/* Left Info Panel */}
+          <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-400 ${isVisible ? '-translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
+            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <Icon icon="mingcute:information-line" width="24" height="24" className={`text-${currentProject.glowColor}`} />
+                Project Info
               </h3>
-              <div className="space-y-3">
-                {currentProject.highlights.map((highlight, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-3 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-all duration-300"
-                  >
-                    <div className={`w-2 h-2 bg-gradient-to-r ${currentProject.color} rounded-full mt-2 flex-shrink-0`} />
-                    <span className="text-slate-300">{highlight}</span>
+              
+              {/* Project Stats Grid */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
+                  <div className="text-slate-400 text-xs mb-1">Complexity</div>
+                  <div className="text-white font-bold text-lg">{currentProject.complexity}%</div>
+                </div>
+                <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
+                  <div className="text-slate-400 text-xs mb-1">Duration</div>
+                  <div className="text-white font-bold text-lg">{currentProject.duration}</div>
+                </div>
+                <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
+                  <div className="text-slate-400 text-xs mb-1">Team</div>
+                  <div className="text-white font-bold text-lg">{currentProject.teamSize}</div>
+                </div>
+                <div className={`bg-gradient-to-r ${currentProject.bgColor} rounded-lg p-3 border border-slate-600/30`}>
+                  <div className="text-slate-400 text-xs mb-1">Status</div>
+                  <div className="text-white font-bold text-lg">{currentProject.status}</div>
+                </div>
+              </div>
+
+              {/* Key Metrics */}
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-slate-300 mb-3">Key Metrics</h4>
+                {Object.entries(currentProject.metrics).slice(0, 3).map(([key, value]) => (
+                  <div key={key} className="flex justify-between items-center py-1">
+                    <span className="text-slate-400 text-sm capitalize">{key}</span>
+                    <span className="text-white font-medium text-sm">{value}</span>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Technologies & Metrics */}
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Technologies */}
-              <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Icon icon="mingcute:code-line" width="24" height="24" className="text-cyan-400" />
-                  Tech Stack
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {currentProject.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-cyan-400/50 hover:bg-cyan-400/10 transition-all duration-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Project Metrics */}
-              <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-green-400/30 transition-all duration-500">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Icon icon="mingcute:chart-line" width="24" height="24" className="text-green-400" />
-                  Key Metrics
-                </h3>
-                <div className="space-y-3">
-                  {Object.entries(currentProject.metrics).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center">
-                      <span className="text-slate-400 text-sm capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className="text-white font-semibold">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Project Navigation */}
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-purple-400/30 transition-all duration-500">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Icon icon="mingcute:grid-line" width="24" height="24" className="text-purple-400" />
-                  All Projects
-                </h3>
-                <span className="text-slate-400 text-sm">
-                  {selectedProject + 1} of {projects.length}
-                </span>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                {projects.map((project, index) => (
-                  <button
-                    key={project.id}
-                    className={`relative p-3 rounded-lg border transition-all duration-300 ${
-                      selectedProject === index 
-                        ? `bg-gradient-to-r ${project.bgColor} border-slate-600/50` 
-                        : 'bg-slate-700/30 border-slate-600/30 hover:bg-slate-700/50'
-                    }`}
-                    onClick={() => setSelectedProject(index)}
+          {/* Right Tech Panel */}
+          <div className={`absolute right-0 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <Icon icon="mingcute:code-line" width="24" height="24" className={`text-${currentProject.glowColor}`} />
+                Tech Stack
+              </h3>
+              
+              <div className="flex flex-wrap gap-2 mb-6">
+                {currentProject.technologies.map((tech, index) => (
+                  <span
+                    key={tech}
+                    className={`px-3 py-2 bg-slate-800/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-${currentProject.glowColor}/50 hover:shadow-sm transition-all duration-300`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="text-xs font-medium text-white truncate">
-                      {project.title}
-                    </div>
-                    <div className="text-xs text-slate-400">{project.category}</div>
-                  </button>
+                    {tech}
+                  </span>
                 ))}
               </div>
-            </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-4">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="flex-1 group relative px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                <div className="relative flex items-center justify-center gap-3">
-                  <Icon icon="mingcute:eye-line" width="20" height="20" />
-                  <span>View Details</span>
+              {/* Quick Navigation */}
+              <div>
+                <h4 className="text-sm font-semibold text-slate-300 mb-3">Quick Navigation</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {projects.slice(0, 4).map((project, index) => (
+                    <button
+                      key={project.id}
+                      className={`p-2 text-xs rounded-lg border transition-all duration-300 ${
+                        selectedProject === index 
+                          ? `bg-gradient-to-r ${project.bgColor} border-slate-600/50 text-white` 
+                          : 'bg-slate-800/30 border-slate-600/30 text-slate-400 hover:bg-slate-700/50 hover:text-white'
+                      }`}
+                      onClick={() => setSelectedProject(index)}
+                    >
+                      <div className="font-medium truncate">{project.title}</div>
+                      <div className="text-xs opacity-75">{project.year}</div>
+                    </button>
+                  ))}
                 </div>
-              </button>
-              <button
-                onClick={() => scrollToSection?.("contactme")}
-                className="flex-1 px-6 py-4 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-purple-400 hover:bg-purple-400/10 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-3"
-              >
-                <Icon icon="mingcute:message-3-line" width="20" height="20" />
-                <span>Discuss Project</span>
-              </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Challenge & Solution Section */}
-        <div className={`mt-16 transition-all duration-1000 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Challenge */}
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-orange-400/30 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Icon icon="mingcute:question-line" width="28" height="28" className="text-orange-400" />
-                The Challenge
-              </h3>
-              <p className="text-slate-300 leading-relaxed">
-                {currentProject.challenges}
-              </p>
-            </div>
+        {/* Bottom Content Section */}
+        <div className={`mt-16 transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          {/* Project Details Tabs */}
+          <div className="max-w-6xl mx-auto">
+            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-8 shadow-2xl">
+              {/* Tab Navigation */}
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
+                {[
+                  { id: 'overview', icon: 'mingcute:eye-line', label: 'Overview' },
+                  { id: 'highlights', icon: 'mingcute:star-line', label: 'Highlights' },
+                  { id: 'challenge', icon: 'mingcute:question-line', label: 'Challenge & Solution' }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                      activeTab === tab.id
+                        ? `bg-gradient-to-r ${currentProject.color} text-white shadow-lg`
+                        : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 border border-slate-600/30'
+                    }`}
+                  >
+                    <Icon icon={tab.icon} width="18" height="18" />
+                    <span>{tab.label}</span>
+                  </button>
+                ))}
+              </div>
 
-            {/* Solution */}
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Icon icon="mingcute:lightbulb-line" width="28" height="28" className="text-green-400" />
-                The Solution
-              </h3>
-              <p className="text-slate-300 leading-relaxed">
-                {currentProject.solution}
-              </p>
+              {/* Tab Content */}
+              <div className="min-h-[300px]">
+                {activeTab === 'overview' && (
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-4">{currentProject.title}</h3>
+                      <p className="text-slate-300 leading-relaxed mb-6 text-lg">
+                        {currentProject.description}
+                      </p>
+                      <div className="flex gap-4">
+                        <button
+                          onClick={() => setIsModalOpen(true)}
+                          className={`px-6 py-3 bg-gradient-to-r ${currentProject.color} rounded-xl font-semibold text-white hover:shadow-lg transition-all duration-300 flex items-center gap-2`}
+                        >
+                          <Icon icon="mingcute:eye-line" width="20" height="20" />
+                          View Details
+                        </button>
+                        <button
+                          onClick={() => scrollToSection?.("contactme")}
+                          className="px-6 py-3 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-orange-400 hover:bg-orange-400/10 transition-all duration-300 flex items-center gap-2"
+                        >
+                          <Icon icon="mingcute:message-3-line" width="20" height="20" />
+                          Discuss
+                        </button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {Object.entries(currentProject.metrics).map(([key, value]) => (
+                        <div key={key} className="bg-slate-800/30 rounded-lg p-4 border border-slate-600/30">
+                          <div className="text-slate-400 text-sm capitalize mb-1">{key.replace(/([A-Z])/g, ' $1')}</div>
+                          <div className="text-white font-bold text-lg">{value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'highlights' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {currentProject.highlights.map((highlight, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300"
+                      >
+                        <div className={`w-3 h-3 bg-gradient-to-r ${currentProject.color} rounded-full mt-1.5 flex-shrink-0 shadow-lg`} />
+                        <span className="text-slate-300 leading-relaxed">{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeTab === 'challenge' && (
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="bg-orange-400/10 rounded-lg p-6 border border-orange-400/20">
+                      <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-2">
+                        <Icon icon="mingcute:question-line" width="24" height="24" />
+                        The Challenge
+                      </h4>
+                      <p className="text-slate-300 leading-relaxed">{currentProject.challenges}</p>
+                    </div>
+                    <div className="bg-cyan-400/10 rounded-lg p-6 border border-cyan-400/20">
+                      <h4 className="text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
+                        <Icon icon="mingcute:lightbulb-line" width="24" height="24" />
+                        The Solution
+                      </h4>
+                      <p className="text-slate-300 leading-relaxed">{currentProject.solution}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -1206,34 +1793,33 @@ function Projects({ scrollToSection }: ProjectsProps) {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+            className="absolute inset-0 bg-slate-900/90 backdrop-blur-xl"
             onClick={() => setIsModalOpen(false)}
           />
-          <div className="relative max-w-4xl w-full max-h-[90vh] overflow-auto backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl">
+          <div className="relative max-w-5xl w-full max-h-[90vh] overflow-auto backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl shadow-2xl">
             <div className="p-8">
               <div className="flex justify-between items-start mb-8">
                 <div>
-                  <h2 className={`text-3xl font-bold mb-2 bg-gradient-to-r ${currentProject.color} bg-clip-text text-transparent`}>
+                  <h2 className={`text-4xl font-bold mb-3 bg-gradient-to-r ${currentProject.color} bg-clip-text text-transparent`}>
                     {currentProject.title}
                   </h2>
-                  <p className="text-white/80 text-lg">{currentProject.description}</p>
+                  <p className="text-slate-300 text-lg leading-relaxed max-w-3xl">{currentProject.description}</p>
                 </div>
                 <button
-                  className="w-12 h-12 rounded-full bg-slate-700/50 border border-slate-600/50 flex items-center justify-center text-white/80 hover:text-white hover:bg-slate-600/50 transition-all duration-300"
+                  className="w-12 h-12 rounded-full bg-slate-800/50 border border-slate-600/50 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all duration-300"
                   onClick={() => setIsModalOpen(false)}
                 >
                   <Icon icon="mingcute:close-line" width="24" height="24" />
                 </button>
               </div>
               
-              {/* Modal content with project details */}
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="text-xl font-semibold text-white mb-4">Project Overview</h4>
-                  <div className="space-y-4">
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="md:col-span-2">
+                  <h4 className="text-2xl font-semibold text-white mb-6">Key Features</h4>
+                  <div className="grid gap-4">
                     {currentProject.highlights.map((highlight, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className={`w-2 h-2 bg-gradient-to-r ${currentProject.color} rounded-full mt-2 flex-shrink-0`} />
+                      <div key={index} className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-600/30">
+                        <div className={`w-2 h-2 bg-gradient-to-r ${currentProject.color} rounded-full flex-shrink-0`} />
                         <span className="text-slate-300">{highlight}</span>
                       </div>
                     ))}
@@ -1241,16 +1827,28 @@ function Projects({ scrollToSection }: ProjectsProps) {
                 </div>
                 
                 <div>
-                  <h4 className="text-xl font-semibold text-white mb-4">Technologies</h4>
+                  <h4 className="text-2xl font-semibold text-white mb-6">Technologies</h4>
                   <div className="flex flex-wrap gap-2">
                     {currentProject.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-2 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50"
+                        className="px-3 py-2 bg-slate-800/50 text-slate-300 text-sm rounded-lg border border-slate-600/50"
                       >
                         {tech}
                       </span>
                     ))}
+                  </div>
+                  
+                  <div className="mt-8">
+                    <h5 className="text-lg font-semibold text-white mb-4">Project Metrics</h5>
+                    <div className="space-y-3">
+                      {Object.entries(currentProject.metrics).map(([key, value]) => (
+                        <div key={key} className="flex justify-between items-center p-3 bg-slate-800/30 rounded-lg">
+                          <span className="text-slate-400 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                          <span className="text-white font-semibold">{value}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1259,24 +1857,48 @@ function Projects({ scrollToSection }: ProjectsProps) {
         </div>
       )}
 
-      {/* Floating Stats */}
-      <div className={`fixed top-20 right-8 backdrop-blur-md bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-800 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
-        <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2">
-          <Icon icon="mingcute:trophy-line" width="20" height="20" className="text-amber-400" />
-          Project Stats
+      {/* Floating Navigation */}
+      <div className={`fixed right-8 top-1/2 -translate-y-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden lg:block`}>
+        <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-4">
+          <div className="space-y-2">
+            {projects.map((project, index) => (
+              <button
+                key={project.id}
+                className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+                  selectedProject === index
+                    ? `bg-gradient-to-r ${project.color} border-transparent shadow-lg`
+                    : 'border-slate-600/50 hover:border-slate-400/50'
+                }`}
+                onClick={() => setSelectedProject(index)}
+                title={project.title}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Floating Stats Card */}
+      <div className={`fixed top-24 left-8 backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-1200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
+        <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2 justify-center">
+          <Icon icon="mingcute:trophy-line" width="20" height="20" className="text-orange-400" />
+          Portfolio Stats
         </h4>
         <div className="space-y-4 text-center">
-          <div className="p-3 bg-slate-700/30 rounded-lg">
+          <div className="p-3 bg-slate-800/30 rounded-lg border border-slate-600/30">
             <div className="text-2xl font-bold text-cyan-400">6+</div>
-            <div className="text-xs text-slate-400">Projects</div>
+            <div className="text-xs text-slate-400">Featured Projects</div>
           </div>
-          <div className="p-3 bg-slate-700/30 rounded-lg">
+          <div className="p-3 bg-slate-800/30 rounded-lg border border-slate-600/30">
             <div className="text-2xl font-bold text-purple-400">90%</div>
             <div className="text-xs text-slate-400">Avg Complexity</div>
           </div>
-          <div className="p-3 bg-slate-700/30 rounded-lg">
-            <div className="text-2xl font-bold text-green-400">100%</div>
+          <div className="p-3 bg-slate-800/30 rounded-lg border border-slate-600/30">
+            <div className="text-2xl font-bold text-orange-400">100%</div>
             <div className="text-xs text-slate-400">Success Rate</div>
+          </div>
+          <div className="p-3 bg-slate-800/30 rounded-lg border border-slate-600/30">
+            <div className="text-2xl font-bold text-green-400">50K+</div>
+            <div className="text-xs text-slate-400">Total Users</div>
           </div>
         </div>
       </div>

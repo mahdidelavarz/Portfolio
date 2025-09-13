@@ -103,13 +103,13 @@ const HeaderMenu: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const slides: NavItem[] = [
-    { id: "home", title: "Home", icon:<Icon icon="solar:home-2-bold" width="24" height="24" /> },
-    { id: "aboutme", title: "About Me", icon: <Icon icon="mingcute:user-warning-fill" width="24" height="24" /> },
-    { id: "educations", title: "Educations", icon: <Icon icon="mdi:account-student" width="24" height="24" /> },
-    { id: "experiences", title: "Experiences", icon: "04" },
-    { id: "projects", title: "Projects", icon: "05" },
-    { id: "skills", title: "Skills", icon: "06" },
-    { id: "contactme", title: "Contact Me", icon: "07" },
+    { id: "home", title: "Home", icon:<Icon icon="solar:home-2-bold" width="30" height="30" /> },
+    { id: "aboutme", title: "About Me", icon: <Icon icon="mingcute:user-warning-fill" width="30" height="30" /> },
+    { id: "educations", title: "Educations", icon: <Icon icon="mdi:account-student" width="30" height="30" /> },
+    { id: "experiences", title: "Experiences", icon: <Icon icon="mingcute:user-star-fill" width="30" height="30" /> },
+    { id: "projects", title: "Projects", icon: <Icon icon="streamline-flex:keyboard-option-setting-gear-solid" width="30" height="30" /> },
+    { id: "skills", title: "Skills", icon:<Icon icon="streamline-flex:artificial-intelligence-brain-chip-solid" width="30" height="30" /> },
+    { id: "contactme", title: "Contact Me", icon: <Icon icon="streamline-ultimate:phone-retro-1-bold" width="30" height="30" /> },
   ];
 
   const scrollToSlide = (id: string) => {
@@ -151,39 +151,39 @@ const HeaderMenu: React.FC = () => {
       onMouseLeave={() => setIsExpanded(false)}
     >
       {/* Background Panel */}
-      <div className={`absolute inset-0 backdrop-blur-md bg-black/10 border border-white/10 rounded-2xl transition-all duration-500 ${
+      <div className={`absolute inset-0 backdrop-blur-md bg-black/10  rounded-2xl transition-all duration-500 ${
         isExpanded ? 'opacity-100' : 'opacity-0'
       }`} />
 
       {/* Navigation Items Container */}
       <div className="relative z-10 py-6">
         {/* Active Indicator Line */}
-        <div 
+        {/* <div 
           className="absolute left-4 w-0.5 bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 rounded-full transition-all duration-500"
           style={{
             height: '32px',
             top: `${24 + slides.findIndex(slide => slide.id === activeSlide) * 56}px`,
           }}
-        />
+        /> */}
 
         {/* Progress Line */}
-        <div className="absolute left-4 top-6 bottom-6 w-0.5 bg-white/20 rounded-full" />
+        {/* <div className="absolute left-4 top-6 bottom-6 w-0.5 bg-white/20 rounded-full" /> */}
 
         {/* Navigation Items */}
         <div className="space-y-2">
-          {slides.map((slide, index) => {
+          {slides.map((slide) => {
             const isActive = activeSlide === slide.id;
             
             return (
               <button
                 key={slide.id}
                 onClick={() => scrollToSlide(slide.id)}
-                className={`group relative w-full flex items-center gap-4 px-4 py-3 transition-all duration-300 hover:scale-105 ${
+                className={`group relative w-full flex items-center gap-4 px-4 py-3 transition-all duration-300 hover:scale-105 cursor-pointer ${
                   isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {/* Dot Indicator */}
-                <div className={`relative z-20 w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                {/* <div className={`relative z-20 w-3 h-3 rounded-full border-2 transition-all duration-300 ${
                   isActive 
                     ? 'bg-gradient-to-r from-cyan-400 to-blue-500 border-cyan-400 scale-125' 
                     : 'border-white/40 group-hover:border-white/60 group-hover:scale-110'
@@ -191,12 +191,13 @@ const HeaderMenu: React.FC = () => {
                   {isActive && (
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 animate-pulse" />
                   )}
-                </div>
+                </div> */}
 
                 {/* Label */}
-                <div className={`overflow-hidden transition-all duration-500 ${
+                <div className={`overflow-hidden transition-all duration-500 flex gap-3 ${
                   isExpanded ? 'w-auto opacity-100' : 'w-0 opacity-0'
                 }`}>
+                  {slide.icon}
                   <span className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                     isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
                   }`}>

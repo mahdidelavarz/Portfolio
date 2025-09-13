@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { Typewriter } from "react-simple-typewriter";
 
@@ -58,16 +58,16 @@ function Home({ scrollToSection }: HomeProps) {
       <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-black/50 to-transparent"></div>
 
       {/* Interactive mouse follower with your color palette */}
-      <div
+      {/* <div
         className="absolute w-80 h-80 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-orange-500/5 rounded-full blur-3xl pointer-events-none transition-all duration-700 ease-out"
         style={{
           left: mousePosition.x - 160,
           top: mousePosition.y - 160,
         }}
-      />
+      /> */}
 
       {/* Floating particles matching fire theme */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
@@ -83,7 +83,7 @@ function Home({ scrollToSection }: HomeProps) {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       {/* Social Media Sidebar - Simplified */}
       <div
@@ -92,12 +92,12 @@ function Home({ scrollToSection }: HomeProps) {
         }`}
       >
         {/* Top line */}
-        <div className="w-px h-16 bg-gradient-to-b from-transparent via-slate-500/50 to-transparent mx-auto"></div>
+        <div className="w-px h-16 bg-gradient-to-b from-transparent via-slate-500/60 to-transparent mx-auto"></div>
         
         {socialLinks.map((social, index) => (
           <button
             key={index}
-            className={`group relative w-12 h-12 rounded-xl backdrop-blur-md bg-black/20 border border-white/10 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-white/20`}
+            className={`group relative w-12 h-12 rounded-xl backdrop-blur-md bg-black/20 border border-white/10 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-white/20 cursor-pointer`}
             style={{ animationDelay: `${index * 0.1}s` }}
             aria-label={social.label}
           >
@@ -127,9 +127,9 @@ function Home({ scrollToSection }: HomeProps) {
             }`}
           >
             {/* Greeting */}
-            <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="flex items-center justify-center gap-4 mb-16">
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
-              <span className="text-cyan-400 font-medium tracking-widest text-lg">
+              <span className="text-cyan-300 font-medium tracking-widest text-lg text-shadow-xs text-shadow-black">
                 HELLO WORLD
               </span>
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
@@ -137,7 +137,7 @@ function Home({ scrollToSection }: HomeProps) {
 
             {/* Name - Bold and Prominent */}
             <h1 className="text-6xl lg:text-8xl font-bold leading-tight mb-6">
-              <div className="bg-gradient-to-r from-white via-slate-200 to-cyan-300 bg-clip-text text-transparent">
+              <div className="bg-gradient-to-r from-cyan-200 via-slate-200 to-cyan-300 bg-clip-text text-transparent">
                 Mahdi Delavar
               </div>
             </h1>
@@ -165,19 +165,19 @@ function Home({ scrollToSection }: HomeProps) {
             </div>
 
             {/* Tagline */}
-            <p className="text-xl text-slate-400/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-300/90 mb-12 max-w-2xl mx-auto leading-relaxed">
               Crafting exceptional digital experiences with modern technologies.
               <br />
-              <span className="text-slate-500">Turning ideas into elegant, performant web applications.</span>
+              <span className="text-slate-400">Turning ideas into elegant, performant web applications.</span>
             </p>
 
             {/* Action Buttons - Simplified */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <button 
-                className="group relative px-10 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1 border border-cyan-500/30"
+                className="group cursor-pointer relative px-10 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-cyan-500/20 hover:-translate-y-1 border border-cyan-500/30"
                 aria-label="Download Resume"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500  to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 <div className="relative flex items-center justify-center gap-3">
                   <Icon icon="hugeicons:note" width="22" height="22" />
                   <span>View Resume</span>
@@ -186,7 +186,7 @@ function Home({ scrollToSection }: HomeProps) {
 
               <button
                 onClick={() => scrollToSection("contactme")}
-                className="group px-10 py-4 border-2 border-slate-600/50 backdrop-blur-md bg-white/5 rounded-2xl font-semibold text-slate-300 hover:text-white hover:border-cyan-400/60 hover:bg-cyan-400/10 transition-all duration-300 hover:-translate-y-1"
+                className="group cursor-pointer px-10 py-4 border-2 border-slate-600/50 backdrop-blur-md bg-white/5 rounded-2xl font-semibold text-slate-300 hover:text-white hover:border-cyan-400/60 hover:bg-cyan-400/10 transition-all duration-300 hover:-translate-y-1"
                 aria-label="Contact Me"
               >
                 <div className="flex items-center justify-center gap-3">

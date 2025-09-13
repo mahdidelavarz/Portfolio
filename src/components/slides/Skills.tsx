@@ -583,452 +583,452 @@
 
 // export default Skills;
 // !_____________________________________________________________________________________________________________________________________option three
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+// import React, { useEffect, useState } from "react";
+// import { motion, AnimatePresence } from "framer-motion";
 
-const Skills = () => {
-  const [selectedStack, setSelectedStack] = useState("frontend");
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+// const Skills = () => {
+//   const [selectedStack, setSelectedStack] = useState("frontend");
+//   const [hoveredSkill, setHoveredSkill] = useState(null);
+//   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const skillStacks = {
-    frontend: {
-      title: "Frontend Mastery",
-      color: "#00d4ff",
-      skills: [
-        { name: "React", mastery: 95, years: 3, icon: "⚛️" },
-        { name: "Next.js", mastery: 90, years: 2, icon: "▲" },
-        { name: "TypeScript", mastery: 88, years: 2.5, icon: "📘" },
-        { name: "Tailwind CSS", mastery: 92, years: 2, icon: "🎨" }
-      ]
-    },
-    state: {
-      title: "State Architecture",
-      color: "#ff6b6b",
-      skills: [
-        { name: "Zustand", mastery: 87, years: 1.5, icon: "🐻" },
-        { name: "Redux", mastery: 83, years: 2, icon: "🔄" },
-        { name: "TanStack Query", mastery: 85, years: 1, icon: "🚀" },
-        { name: "React Hook Form", mastery: 86, years: 2, icon: "📝" }
-      ]
-    },
-    animation: {
-      title: "Interactive Experience",
-      color: "#4ecdc4",
-      skills: [
-        { name: "Framer Motion", mastery: 90, years: 2, icon: "🎭" },
-        { name: "Three.js", mastery: 84, years: 1, icon: "🎲" },
-        { name: "Particle.js", mastery: 88, years: 1.5, icon: "✨" },
-        { name: "PWA", mastery: 85, years: 1, icon: "📱" }
-      ]
-    },
-    data: {
-      title: "Data & Integration",
-      color: "#a8e6cf",
-      skills: [
-        { name: "Axios", mastery: 89, years: 3, icon: "🌐" },
-        { name: "IndexedDB", mastery: 80, years: 1, icon: "💾" },
-        { name: "i18n", mastery: 82, years: 1.5, icon: "🌍" }
-      ]
-    }
-  };
+//   const skillStacks = {
+//     frontend: {
+//       title: "Frontend Mastery",
+//       color: "#00d4ff",
+//       skills: [
+//         { name: "React", mastery: 95, years: 3, icon: "⚛️" },
+//         { name: "Next.js", mastery: 90, years: 2, icon: "▲" },
+//         { name: "TypeScript", mastery: 88, years: 2.5, icon: "📘" },
+//         { name: "Tailwind CSS", mastery: 92, years: 2, icon: "🎨" }
+//       ]
+//     },
+//     state: {
+//       title: "State Architecture",
+//       color: "#ff6b6b",
+//       skills: [
+//         { name: "Zustand", mastery: 87, years: 1.5, icon: "🐻" },
+//         { name: "Redux", mastery: 83, years: 2, icon: "🔄" },
+//         { name: "TanStack Query", mastery: 85, years: 1, icon: "🚀" },
+//         { name: "React Hook Form", mastery: 86, years: 2, icon: "📝" }
+//       ]
+//     },
+//     animation: {
+//       title: "Interactive Experience",
+//       color: "#4ecdc4",
+//       skills: [
+//         { name: "Framer Motion", mastery: 90, years: 2, icon: "🎭" },
+//         { name: "Three.js", mastery: 84, years: 1, icon: "🎲" },
+//         { name: "Particle.js", mastery: 88, years: 1.5, icon: "✨" },
+//         { name: "PWA", mastery: 85, years: 1, icon: "📱" }
+//       ]
+//     },
+//     data: {
+//       title: "Data & Integration",
+//       color: "#a8e6cf",
+//       skills: [
+//         { name: "Axios", mastery: 89, years: 3, icon: "🌐" },
+//         { name: "IndexedDB", mastery: 80, years: 1, icon: "💾" },
+//         { name: "i18n", mastery: 82, years: 1.5, icon: "🌍" }
+//       ]
+//     }
+//   };
 
-  const stackKeys = Object.keys(skillStacks);
+//   const stackKeys = Object.keys(skillStacks);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSelectedStack(prev => {
-        const currentIndex = stackKeys.indexOf(prev);
-        return stackKeys[(currentIndex + 1) % stackKeys.length];
-      });
-    }, 4000);
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setSelectedStack(prev => {
+//         const currentIndex = stackKeys.indexOf(prev);
+//         return stackKeys[(currentIndex + 1) % stackKeys.length];
+//       });
+//     }, 4000);
 
-    return () => clearInterval(interval);
-  }, [stackKeys]);
+//     return () => clearInterval(interval);
+//   }, [stackKeys]);
 
-  const handleMouseMove = (e) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
+//   const handleMouseMove = (e) => {
+//     setMousePosition({ x: e.clientX, y: e.clientY });
+//   };
 
-  return (
-    <div 
-      className="flex flex-col justify-center items-center text-white w-full min-h-screen snap-start px-8 lg:px-16 relative overflow-hidden"
-      onMouseMove={handleMouseMove}
-    >
-      {/* Dynamic Background Grid */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 212, 255, 0.1) 0%, transparent 50%)`
-        }} />
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-px h-16 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
-            style={{
-              left: `${5 + i * 5}%`,
-              top: '0'
-            }}
-            animate={{
-              opacity: [0.1, 0.3, 0.1],
-              scaleY: [0.5, 1, 0.5]
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.1,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
+//   return (
+//     <div 
+//       className="flex flex-col justify-center items-center text-white w-full min-h-screen snap-start px-8 lg:px-16 relative overflow-hidden"
+//       onMouseMove={handleMouseMove}
+//     >
+//       {/* Dynamic Background Grid */}
+//       <div className="absolute inset-0 opacity-10">
+//         <div className="absolute inset-0" style={{
+//           backgroundImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 212, 255, 0.1) 0%, transparent 50%)`
+//         }} />
+//         {[...Array(20)].map((_, i) => (
+//           <motion.div
+//             key={i}
+//             className="absolute w-px h-16 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
+//             style={{
+//               left: `${5 + i * 5}%`,
+//               top: '0'
+//             }}
+//             animate={{
+//               opacity: [0.1, 0.3, 0.1],
+//               scaleY: [0.5, 1, 0.5]
+//             }}
+//             transition={{
+//               duration: 3,
+//               repeat: Infinity,
+//               delay: i * 0.1,
+//               ease: "easeInOut"
+//             }}
+//           />
+//         ))}
+//       </div>
 
-      {/* Header */}
-      <motion.div
-        className="text-center mb-20"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <motion.h1 
-          className="text-6xl lg:text-8xl font-black mb-6 tracking-tight"
-          style={{
-            background: `linear-gradient(135deg, ${skillStacks[selectedStack].color}, #ffffff, ${skillStacks[selectedStack].color})`,
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-            textShadow: '0 0 40px rgba(0, 212, 255, 0.3)'
-          }}
-          animate={{
-            background: `linear-gradient(135deg, ${skillStacks[selectedStack].color}, #ffffff, ${skillStacks[selectedStack].color})`
-          }}
-          transition={{ duration: 0.8 }}
-        >
-          TECH STACK
-        </motion.h1>
-        <motion.p 
-          className="text-xl text-white/70 font-light tracking-wide"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          Crafting digital experiences with cutting-edge technologies
-        </motion.p>
-      </motion.div>
+//       {/* Header */}
+//       <motion.div
+//         className="text-center mb-20"
+//         initial={{ opacity: 0, scale: 0.9 }}
+//         animate={{ opacity: 1, scale: 1 }}
+//         transition={{ duration: 1 }}
+//       >
+//         <motion.h1 
+//           className="text-6xl lg:text-8xl font-black mb-6 tracking-tight"
+//           style={{
+//             background: `linear-gradient(135deg, ${skillStacks[selectedStack].color}, #ffffff, ${skillStacks[selectedStack].color})`,
+//             backgroundClip: 'text',
+//             WebkitBackgroundClip: 'text',
+//             color: 'transparent',
+//             textShadow: '0 0 40px rgba(0, 212, 255, 0.3)'
+//           }}
+//           animate={{
+//             background: `linear-gradient(135deg, ${skillStacks[selectedStack].color}, #ffffff, ${skillStacks[selectedStack].color})`
+//           }}
+//           transition={{ duration: 0.8 }}
+//         >
+//           TECH STACK
+//         </motion.h1>
+//         <motion.p 
+//           className="text-xl text-white/70 font-light tracking-wide"
+//           initial={{ opacity: 0, y: 20 }}
+//           animate={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.8, delay: 0.3 }}
+//         >
+//           Crafting digital experiences with cutting-edge technologies
+//         </motion.p>
+//       </motion.div>
 
-      {/* Stack Navigation */}
-      <motion.div
-        className="flex gap-4 mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      >
-        {stackKeys.map((stack) => (
-          <motion.button
-            key={stack}
-            className={`px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-500 border-2 backdrop-blur-xl ${
-              selectedStack === stack
-                ? 'text-white shadow-2xl'
-                : 'text-white/60 border-white/20 hover:text-white/90 hover:border-white/40'
-            }`}
-            style={{
-              backgroundColor: selectedStack === stack ? `${skillStacks[stack].color}20` : 'rgba(0,0,0,0.3)',
-              borderColor: selectedStack === stack ? skillStacks[stack].color : 'rgba(255,255,255,0.2)',
-              boxShadow: selectedStack === stack ? `0 0 40px ${skillStacks[stack].color}40` : 'none'
-            }}
-            onClick={() => setSelectedStack(stack)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {skillStacks[stack].title}
-          </motion.button>
-        ))}
-      </motion.div>
+//       {/* Stack Navigation */}
+//       <motion.div
+//         className="flex gap-4 mb-16"
+//         initial={{ opacity: 0, y: 30 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.8, delay: 0.5 }}
+//       >
+//         {stackKeys.map((stack) => (
+//           <motion.button
+//             key={stack}
+//             className={`px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-500 border-2 backdrop-blur-xl ${
+//               selectedStack === stack
+//                 ? 'text-white shadow-2xl'
+//                 : 'text-white/60 border-white/20 hover:text-white/90 hover:border-white/40'
+//             }`}
+//             style={{
+//               backgroundColor: selectedStack === stack ? `${skillStacks[stack].color}20` : 'rgba(0,0,0,0.3)',
+//               borderColor: selectedStack === stack ? skillStacks[stack].color : 'rgba(255,255,255,0.2)',
+//               boxShadow: selectedStack === stack ? `0 0 40px ${skillStacks[stack].color}40` : 'none'
+//             }}
+//             onClick={() => setSelectedStack(stack)}
+//             whileHover={{ scale: 1.05 }}
+//             whileTap={{ scale: 0.95 }}
+//           >
+//             {skillStacks[stack].title}
+//           </motion.button>
+//         ))}
+//       </motion.div>
 
-      {/* Skills Hexagon Grid */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={selectedStack}
-          className="relative"
-          initial={{ opacity: 0, rotateY: 90 }}
-          animate={{ opacity: 1, rotateY: 0 }}
-          exit={{ opacity: 0, rotateY: -90 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {skillStacks[selectedStack].skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                className="relative group"
-                initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.15,
-                  type: "spring",
-                  stiffness: 200
-                }}
-                onMouseEnter={() => setHoveredSkill(index)}
-                onMouseLeave={() => setHoveredSkill(null)}
-              >
-                {/* Hexagon Container */}
-                <div className="relative w-36 h-36 lg:w-44 lg:h-44">
-                  {/* Outer Hexagon */}
-                  <motion.div
-                    className="absolute inset-0 rounded-3xl border-2 backdrop-blur-xl"
-                    style={{
-                      backgroundColor: `${skillStacks[selectedStack].color}10`,
-                      borderColor: hoveredSkill === index ? skillStacks[selectedStack].color : 'rgba(255,255,255,0.2)',
-                      transform: 'rotate(45deg)'
-                    }}
-                    animate={{
-                      borderColor: hoveredSkill === index ? skillStacks[selectedStack].color : 'rgba(255,255,255,0.2)',
-                      boxShadow: hoveredSkill === index 
-                        ? `0 0 40px ${skillStacks[selectedStack].color}50, inset 0 0 20px ${skillStacks[selectedStack].color}20`
-                        : '0 10px 30px rgba(0,0,0,0.3)'
-                    }}
-                    whileHover={{ 
-                      scale: 1.1,
-                      rotate: '50deg'
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
+//       {/* Skills Hexagon Grid */}
+//       <AnimatePresence mode="wait">
+//         <motion.div
+//           key={selectedStack}
+//           className="relative"
+//           initial={{ opacity: 0, rotateY: 90 }}
+//           animate={{ opacity: 1, rotateY: 0 }}
+//           exit={{ opacity: 0, rotateY: -90 }}
+//           transition={{ duration: 0.6 }}
+//         >
+//           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+//             {skillStacks[selectedStack].skills.map((skill, index) => (
+//               <motion.div
+//                 key={skill.name}
+//                 className="relative group"
+//                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
+//                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
+//                 transition={{ 
+//                   duration: 0.6, 
+//                   delay: index * 0.15,
+//                   type: "spring",
+//                   stiffness: 200
+//                 }}
+//                 onMouseEnter={() => setHoveredSkill(index)}
+//                 onMouseLeave={() => setHoveredSkill(null)}
+//               >
+//                 {/* Hexagon Container */}
+//                 <div className="relative w-36 h-36 lg:w-44 lg:h-44">
+//                   {/* Outer Hexagon */}
+//                   <motion.div
+//                     className="absolute inset-0 rounded-3xl border-2 backdrop-blur-xl"
+//                     style={{
+//                       backgroundColor: `${skillStacks[selectedStack].color}10`,
+//                       borderColor: hoveredSkill === index ? skillStacks[selectedStack].color : 'rgba(255,255,255,0.2)',
+//                       transform: 'rotate(45deg)'
+//                     }}
+//                     animate={{
+//                       borderColor: hoveredSkill === index ? skillStacks[selectedStack].color : 'rgba(255,255,255,0.2)',
+//                       boxShadow: hoveredSkill === index 
+//                         ? `0 0 40px ${skillStacks[selectedStack].color}50, inset 0 0 20px ${skillStacks[selectedStack].color}20`
+//                         : '0 10px 30px rgba(0,0,0,0.3)'
+//                     }}
+//                     whileHover={{ 
+//                       scale: 1.1,
+//                       rotate: '50deg'
+//                     }}
+//                     transition={{ duration: 0.3 }}
+//                   />
 
-                  {/* Inner Content */}
-                  <div className="absolute inset-0 flex flex-col justify-center items-center p-4">
-                    <motion.div
-                      className="text-4xl mb-2"
-                      animate={{
-                        scale: hoveredSkill === index ? 1.2 : 1,
-                        rotate: hoveredSkill === index ? [0, 10, -10, 0] : 0
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {skill.icon}
-                    </motion.div>
+//                   {/* Inner Content */}
+//                   <div className="absolute inset-0 flex flex-col justify-center items-center p-4">
+//                     <motion.div
+//                       className="text-4xl mb-2"
+//                       animate={{
+//                         scale: hoveredSkill === index ? 1.2 : 1,
+//                         rotate: hoveredSkill === index ? [0, 10, -10, 0] : 0
+//                       }}
+//                       transition={{ duration: 0.3 }}
+//                     >
+//                       {skill.icon}
+//                     </motion.div>
                     
-                    <motion.h3
-                      className="text-lg font-bold text-center leading-tight mb-2"
-                      animate={{
-                        color: hoveredSkill === index ? skillStacks[selectedStack].color : '#ffffff'
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {skill.name}
-                    </motion.h3>
+//                     <motion.h3
+//                       className="text-lg font-bold text-center leading-tight mb-2"
+//                       animate={{
+//                         color: hoveredSkill === index ? skillStacks[selectedStack].color : '#ffffff'
+//                       }}
+//                       transition={{ duration: 0.3 }}
+//                     >
+//                       {skill.name}
+//                     </motion.h3>
 
-                    {/* Circular Progress */}
-                    <div className="relative w-12 h-12">
-                      <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 100 100">
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="45"
-                          stroke="rgba(255,255,255,0.1)"
-                          strokeWidth="6"
-                          fill="none"
-                        />
-                        <motion.circle
-                          cx="50"
-                          cy="50"
-                          r="45"
-                          stroke={skillStacks[selectedStack].color}
-                          strokeWidth="6"
-                          fill="none"
-                          strokeLinecap="round"
-                          initial={{ pathLength: 0 }}
-                          animate={{ pathLength: skill.mastery / 100 }}
-                          transition={{ duration: 1.5, delay: index * 0.2 }}
-                          style={{
-                            strokeDasharray: `${2 * Math.PI * 45}`,
-                            filter: `drop-shadow(0 0 8px ${skillStacks[selectedStack].color})`
-                          }}
-                        />
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-xs font-bold text-white">{skill.mastery}%</span>
-                      </div>
-                    </div>
-                  </div>
+//                     {/* Circular Progress */}
+//                     <div className="relative w-12 h-12">
+//                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 100 100">
+//                         <circle
+//                           cx="50"
+//                           cy="50"
+//                           r="45"
+//                           stroke="rgba(255,255,255,0.1)"
+//                           strokeWidth="6"
+//                           fill="none"
+//                         />
+//                         <motion.circle
+//                           cx="50"
+//                           cy="50"
+//                           r="45"
+//                           stroke={skillStacks[selectedStack].color}
+//                           strokeWidth="6"
+//                           fill="none"
+//                           strokeLinecap="round"
+//                           initial={{ pathLength: 0 }}
+//                           animate={{ pathLength: skill.mastery / 100 }}
+//                           transition={{ duration: 1.5, delay: index * 0.2 }}
+//                           style={{
+//                             strokeDasharray: `${2 * Math.PI * 45}`,
+//                             filter: `drop-shadow(0 0 8px ${skillStacks[selectedStack].color})`
+//                           }}
+//                         />
+//                       </svg>
+//                       <div className="absolute inset-0 flex items-center justify-center">
+//                         <span className="text-xs font-bold text-white">{skill.mastery}%</span>
+//                       </div>
+//                     </div>
+//                   </div>
 
-                  {/* Floating Skill Details */}
-                  <AnimatePresence>
-                    {hoveredSkill === index && (
-                      <motion.div
-                        className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-xl border rounded-xl p-4 min-w-48"
-                        style={{ borderColor: skillStacks[selectedStack].color }}
-                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="text-center">
-                          <h4 className="font-bold text-white mb-1">{skill.name}</h4>
-                          <p className="text-sm text-white/70 mb-2">{skill.years} years experience</p>
-                          <div className="flex justify-center gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <div
-                                key={i}
-                                className={`w-2 h-2 rounded-full ${
-                                  i < Math.floor(skill.mastery / 20) 
-                                    ? 'bg-current' 
-                                    : 'bg-white/20'
-                                }`}
-                                style={{ color: skillStacks[selectedStack].color }}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                        {/* Arrow */}
-                        <div 
-                          className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent"
-                          style={{ borderTopColor: skillStacks[selectedStack].color }}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </AnimatePresence>
+//                   {/* Floating Skill Details */}
+//                   <AnimatePresence>
+//                     {hoveredSkill === index && (
+//                       <motion.div
+//                         className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/90 backdrop-blur-xl border rounded-xl p-4 min-w-48"
+//                         style={{ borderColor: skillStacks[selectedStack].color }}
+//                         initial={{ opacity: 0, y: 10, scale: 0.9 }}
+//                         animate={{ opacity: 1, y: 0, scale: 1 }}
+//                         exit={{ opacity: 0, y: 10, scale: 0.9 }}
+//                         transition={{ duration: 0.2 }}
+//                       >
+//                         <div className="text-center">
+//                           <h4 className="font-bold text-white mb-1">{skill.name}</h4>
+//                           <p className="text-sm text-white/70 mb-2">{skill.years} years experience</p>
+//                           <div className="flex justify-center gap-1">
+//                             {[...Array(5)].map((_, i) => (
+//                               <div
+//                                 key={i}
+//                                 className={`w-2 h-2 rounded-full ${
+//                                   i < Math.floor(skill.mastery / 20) 
+//                                     ? 'bg-current' 
+//                                     : 'bg-white/20'
+//                                 }`}
+//                                 style={{ color: skillStacks[selectedStack].color }}
+//                               />
+//                             ))}
+//                           </div>
+//                         </div>
+//                         {/* Arrow */}
+//                         <div 
+//                           className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent"
+//                           style={{ borderTopColor: skillStacks[selectedStack].color }}
+//                         />
+//                       </motion.div>
+//                     )}
+//                   </AnimatePresence>
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </motion.div>
+//       </AnimatePresence>
 
-      {/* Floating Stats Panel */}
-      <motion.div
-        className="absolute top-20 right-8 bg-black/70 backdrop-blur-xl border border-white/20 rounded-2xl p-6 min-w-64"
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
-      >
-        <h3 className="text-xl font-bold mb-4 text-center">Stack Overview</h3>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedStack}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div 
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: skillStacks[selectedStack].color }}
-                />
-                <span className="font-semibold">{skillStacks[selectedStack].title}</span>
-              </div>
+//       {/* Floating Stats Panel */}
+//       <motion.div
+//         className="absolute top-20 right-8 bg-black/70 backdrop-blur-xl border border-white/20 rounded-2xl p-6 min-w-64"
+//         initial={{ opacity: 0, x: 100 }}
+//         animate={{ opacity: 1, x: 0 }}
+//         transition={{ duration: 0.8, delay: 1 }}
+//       >
+//         <h3 className="text-xl font-bold mb-4 text-center">Stack Overview</h3>
+//         <AnimatePresence mode="wait">
+//           <motion.div
+//             key={selectedStack}
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             exit={{ opacity: 0, y: -20 }}
+//             transition={{ duration: 0.3 }}
+//           >
+//             <div className="space-y-3">
+//               <div className="flex items-center gap-3">
+//                 <div 
+//                   className="w-4 h-4 rounded-full"
+//                   style={{ backgroundColor: skillStacks[selectedStack].color }}
+//                 />
+//                 <span className="font-semibold">{skillStacks[selectedStack].title}</span>
+//               </div>
               
-              <div className="text-sm text-white/70 space-y-1">
-                <div>Skills: {skillStacks[selectedStack].skills.length}</div>
-                <div>
-                  Avg Mastery: {Math.round(
-                    skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.mastery, 0) / 
-                    skillStacks[selectedStack].skills.length
-                  )}%
-                </div>
-                <div>
-                  Total Exp: {skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.years, 0)} years
-                </div>
-              </div>
+//               <div className="text-sm text-white/70 space-y-1">
+//                 <div>Skills: {skillStacks[selectedStack].skills.length}</div>
+//                 <div>
+//                   Avg Mastery: {Math.round(
+//                     skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.mastery, 0) / 
+//                     skillStacks[selectedStack].skills.length
+//                   )}%
+//                 </div>
+//                 <div>
+//                   Total Exp: {skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.years, 0)} years
+//                 </div>
+//               </div>
 
-              {/* Mini Progress Bars */}
-              <div className="space-y-2 mt-4">
-                {skillStacks[selectedStack].skills.map((skill, i) => (
-                  <div key={skill.name} className="flex items-center gap-2">
-                    <span className="text-xs w-16 truncate">{skill.name}</span>
-                    <div className="flex-1 bg-white/10 rounded-full h-1">
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: skillStacks[selectedStack].color }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.mastery}%` }}
-                        transition={{ duration: 0.8, delay: i * 0.1 }}
-                      />
-                    </div>
-                    <span className="text-xs text-white/60 w-8">{skill.mastery}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
+//               {/* Mini Progress Bars */}
+//               <div className="space-y-2 mt-4">
+//                 {skillStacks[selectedStack].skills.map((skill, i) => (
+//                   <div key={skill.name} className="flex items-center gap-2">
+//                     <span className="text-xs w-16 truncate">{skill.name}</span>
+//                     <div className="flex-1 bg-white/10 rounded-full h-1">
+//                       <motion.div
+//                         className="h-full rounded-full"
+//                         style={{ backgroundColor: skillStacks[selectedStack].color }}
+//                         initial={{ width: 0 }}
+//                         animate={{ width: `${skill.mastery}%` }}
+//                         transition={{ duration: 0.8, delay: i * 0.1 }}
+//                       />
+//                     </div>
+//                     <span className="text-xs text-white/60 w-8">{skill.mastery}%</span>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </motion.div>
+//         </AnimatePresence>
+//       </motion.div>
 
-      {/* Neural Network Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full"
-            style={{
-              backgroundColor: `${skillStacks[selectedStack].color}40`,
-              left: `${10 + (i % 4) * 25}%`,
-              top: `${20 + Math.floor(i / 4) * 25}%`
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
-              boxShadow: [`0 0 0px ${skillStacks[selectedStack].color}`, `0 0 20px ${skillStacks[selectedStack].color}`, `0 0 0px ${skillStacks[selectedStack].color}`]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
+//       {/* Neural Network Background */}
+//       <div className="absolute inset-0 pointer-events-none">
+//         {[...Array(12)].map((_, i) => (
+//           <motion.div
+//             key={i}
+//             className="absolute w-2 h-2 rounded-full"
+//             style={{
+//               backgroundColor: `${skillStacks[selectedStack].color}40`,
+//               left: `${10 + (i % 4) * 25}%`,
+//               top: `${20 + Math.floor(i / 4) * 25}%`
+//             }}
+//             animate={{
+//               scale: [1, 1.5, 1],
+//               opacity: [0.3, 0.8, 0.3],
+//               boxShadow: [`0 0 0px ${skillStacks[selectedStack].color}`, `0 0 20px ${skillStacks[selectedStack].color}`, `0 0 0px ${skillStacks[selectedStack].color}`]
+//             }}
+//             transition={{
+//               duration: 2,
+//               repeat: Infinity,
+//               delay: i * 0.2,
+//               ease: "easeInOut"
+//             }}
+//           />
+//         ))}
         
-        {/* Connecting Lines */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`line-${i}`}
-            className="absolute h-px"
-            style={{
-              backgroundColor: `${skillStacks[selectedStack].color}30`,
-              width: '120px',
-              left: `${15 + (i % 3) * 25}%`,
-              top: `${25 + Math.floor(i / 3) * 20}%`,
-              transformOrigin: 'left center',
-              transform: `rotate(${30 + i * 15}deg)`
-            }}
-            animate={{
-              opacity: [0.2, 0.6, 0.2],
-              scaleX: [0.8, 1.2, 0.8]
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
+//         {/* Connecting Lines */}
+//         {[...Array(8)].map((_, i) => (
+//           <motion.div
+//             key={`line-${i}`}
+//             className="absolute h-px"
+//             style={{
+//               backgroundColor: `${skillStacks[selectedStack].color}30`,
+//               width: '120px',
+//               left: `${15 + (i % 3) * 25}%`,
+//               top: `${25 + Math.floor(i / 3) * 20}%`,
+//               transformOrigin: 'left center',
+//               transform: `rotate(${30 + i * 15}deg)`
+//             }}
+//             animate={{
+//               opacity: [0.2, 0.6, 0.2],
+//               scaleX: [0.8, 1.2, 0.8]
+//             }}
+//             transition={{
+//               duration: 3,
+//               repeat: Infinity,
+//               delay: i * 0.3,
+//               ease: "easeInOut"
+//             }}
+//           />
+//         ))}
+//       </div>
 
-      {/* Bottom Proficiency Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-      >
-        <div className="text-sm text-white/60">Overall Proficiency:</div>
-        <div className="w-32 bg-white/10 rounded-full h-2">
-          <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
-            initial={{ width: 0 }}
-            animate={{ width: '87%' }}
-            transition={{ duration: 2, delay: 1.5 }}
-          />
-        </div>
-        <div className="text-sm font-bold text-white">87%</div>
-      </motion.div>
-    </div>
-  );
-};
+//       {/* Bottom Proficiency Indicator */}
+//       <motion.div
+//         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4"
+//         initial={{ opacity: 0, y: 50 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.8, delay: 1.2 }}
+//       >
+//         <div className="text-sm text-white/60">Overall Proficiency:</div>
+//         <div className="w-32 bg-white/10 rounded-full h-2">
+//           <motion.div
+//             className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-purple-500"
+//             initial={{ width: 0 }}
+//             animate={{ width: '87%' }}
+//             transition={{ duration: 2, delay: 1.5 }}
+//           />
+//         </div>
+//         <div className="text-sm font-bold text-white">87%</div>
+//       </motion.div>
+//     </div>
+//   );
+// };
 
-export default Skills;
+// export default Skills;
 // ______________________________________________________________________________________________________________________________option four
 // import React, { useEffect, useState, useRef } from "react";
 // import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
@@ -1544,3 +1544,352 @@ export default Skills;
 // };
 
 // export default Skills;
+
+import React, { useState, useEffect, useRef } from "react";
+import { Icon } from "@iconify/react";
+
+const Skills = () => {
+  const [selectedStack, setSelectedStack] = useState("frontend");
+  const [isVisible, setIsVisible] = useState(false);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const skillStacks = {
+    frontend: {
+      title: "Frontend Development",
+      icon: "mingcute:code-line",
+      color: "from-cyan-400 to-blue-500",
+      skills: [
+        { name: "React", mastery: 95, years: 3, icon: "logos:react" },
+        { name: "Next.js", mastery: 90, years: 2, icon: "logos:nextjs-icon" },
+        { name: "TypeScript", mastery: 88, years: 2.5, icon: "logos:typescript-icon" },
+        { name: "Tailwind CSS", mastery: 92, years: 2, icon: "logos:tailwindcss-icon" }
+      ]
+    },
+    state: {
+      title: "State Management",
+      icon: "mingcute:settings-3-line",
+      color: "from-purple-400 to-pink-500",
+      skills: [
+        { name: "Zustand", mastery: 87, years: 1.5, icon: "simple-icons:zustand" },
+        { name: "Redux", mastery: 83, years: 2, icon: "logos:redux" },
+        { name: "TanStack Query", mastery: 85, years: 1, icon: "logos:react-query-icon" },
+        { name: "React Hook Form", mastery: 86, years: 2, icon: "simple-icons:reacthookform" }
+      ]
+    },
+    animation: {
+      title: "Animation & 3D",
+      icon: "mingcute:magic-2-line",
+      color: "from-amber-400 to-orange-500",
+      skills: [
+        { name: "Framer Motion", mastery: 90, years: 2, icon: "logos:framer" },
+        { name: "Three.js", mastery: 84, years: 1, icon: "logos:threejs" },
+        { name: "CSS Animations", mastery: 88, years: 2.5, icon: "logos:css-3" },
+        { name: "GSAP", mastery: 80, years: 1, icon: "simple-icons:greensock" }
+      ]
+    },
+    tools: {
+      title: "Tools & Workflow",
+      icon: "mingcute:tool-line",
+      color: "from-green-400 to-emerald-500",
+      skills: [
+        { name: "Git & GitHub", mastery: 89, years: 3, icon: "logos:git-icon" },
+        { name: "Vite", mastery: 85, years: 2, icon: "logos:vitejs" },
+        { name: "Webpack", mastery: 78, years: 1.5, icon: "logos:webpack" },
+        { name: "Docker", mastery: 75, years: 1, icon: "logos:docker-icon" }
+      ]
+    }
+  };
+
+  const stackKeys = Object.keys(skillStacks);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSelectedStack(prev => {
+        const currentIndex = stackKeys.indexOf(prev);
+        return stackKeys[(currentIndex + 1) % stackKeys.length];
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [stackKeys]);
+
+  const getOverallStats = () => {
+    const allSkills = Object.values(skillStacks).flatMap(stack => stack.skills);
+    const totalSkills = allSkills.length;
+    const avgMastery = Math.round(allSkills.reduce((sum, skill) => sum + skill.mastery, 0) / totalSkills);
+    const totalExperience = allSkills.reduce((sum, skill) => sum + skill.years, 0);
+    
+    return { totalSkills, avgMastery, totalExperience };
+  };
+
+  const stats = getOverallStats();
+
+  return (
+    <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+      
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(25)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+            <span className="text-cyan-400 font-medium tracking-wider text-lg">Technical Skills</span>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+          </div>
+          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
+              Tech Mastery
+            </span>
+          </h2>
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Expertise across modern web technologies and development tools
+          </p>
+        </div>
+
+        {/* Stack Navigation */}
+        <div className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-2 flex gap-2 flex-wrap justify-center">
+            {stackKeys.map((stack) => (
+              <button
+                key={stack}
+                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-3 ${
+                  selectedStack === stack
+                    ? `bg-gradient-to-r ${skillStacks[stack].color} text-white shadow-lg`
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
+                onClick={() => setSelectedStack(stack)}
+              >
+                <Icon icon={skillStacks[stack].icon} width="20" height="20" />
+                <span className="hidden sm:inline">{skillStacks[stack].title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Skills Grid */}
+          <div className="lg:col-span-3">
+            <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                {skillStacks[selectedStack].skills.map((skill, index) => (
+                  <div
+                    key={`${selectedStack}-${skill.name}`}
+                    className="group backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 hover:-translate-y-1 relative"
+                    onMouseEnter={() => setHoveredSkill(index)}
+                    onMouseLeave={() => setHoveredSkill(null)}
+                  >
+                    {/* Skill Icon */}
+                    <div className="flex justify-center mb-4">
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Icon icon={skill.icon} width="32" height="32" />
+                      </div>
+                    </div>
+
+                    {/* Skill Name */}
+                    <h3 className="text-lg font-bold text-white text-center mb-4 group-hover:text-cyan-400 transition-colors duration-300">
+                      {skill.name}
+                    </h3>
+
+                    {/* Circular Progress */}
+                    <div className="relative w-20 h-20 mx-auto mb-4">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          stroke="rgba(255,255,255,0.1)"
+                          strokeWidth="6"
+                          fill="none"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          stroke="url(#gradient)"
+                          strokeWidth="6"
+                          fill="none"
+                          strokeLinecap="round"
+                          className="animate-draw-circle"
+                          style={{
+                            strokeDasharray: `${2 * Math.PI * 40}`,
+                            strokeDashoffset: `${2 * Math.PI * 40 * (1 - skill.mastery / 100)}`,
+                            animationDelay: `${index * 0.2}s`
+                          }}
+                        />
+                        <defs>
+                          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#06b6d4" />
+                            <stop offset="100%" stopColor="#3b82f6" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold text-white">{skill.mastery}%</span>
+                      </div>
+                    </div>
+
+                    {/* Experience */}
+                    <div className="text-center">
+                      <p className="text-sm text-slate-400">
+                        {skill.years} year{skill.years !== 1 ? 's' : ''} experience
+                      </p>
+                    </div>
+
+                    {/* Hover Details */}
+                    {hoveredSkill === index && (
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full backdrop-blur-md bg-slate-900/90 border border-cyan-400/50 rounded-xl p-3 min-w-max z-20">
+                        <div className="text-center">
+                          <h4 className="font-bold text-white text-sm mb-1">{skill.name}</h4>
+                          <p className="text-xs text-slate-300 mb-2">Mastery Level: {skill.mastery}%</p>
+                          <div className="flex justify-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <div
+                                key={i}
+                                className={`w-2 h-2 rounded-full ${
+                                  i < Math.floor(skill.mastery / 20) 
+                                    ? 'bg-cyan-400' 
+                                    : 'bg-slate-600'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-cyan-400"></div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Side Panel - Stats */}
+          <div className="lg:col-span-1">
+            <div className={`backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-700 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Icon icon="mingcute:chart-bar-line" width="24" height="24" className="text-cyan-400" />
+                Overview
+              </h3>
+
+              {/* Current Stack Info */}
+              <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-slate-700/30 to-slate-800/30 border border-slate-600/30">
+                <div className="flex items-center gap-3 mb-3">
+                  <Icon icon={skillStacks[selectedStack].icon} width="20" height="20" className="text-cyan-400" />
+                  <span className="font-semibold text-white">{skillStacks[selectedStack].title}</span>
+                </div>
+                <div className="space-y-2 text-sm text-slate-400">
+                  <div>Skills: {skillStacks[selectedStack].skills.length}</div>
+                  <div>
+                    Avg Mastery: {Math.round(
+                      skillStacks[selectedStack].skills.reduce((sum, skill) => sum + skill.mastery, 0) / 
+                      skillStacks[selectedStack].skills.length
+                    )}%
+                  </div>
+                </div>
+              </div>
+
+              {/* Overall Stats */}
+              <div className="space-y-4">
+                <div className="text-center p-4 rounded-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/20">
+                  <div className="text-2xl font-bold text-white mb-1">{stats.totalSkills}</div>
+                  <div className="text-sm text-slate-400">Total Skills</div>
+                </div>
+                
+                <div className="text-center p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-400/20">
+                  <div className="text-2xl font-bold text-white mb-1">{stats.avgMastery}%</div>
+                  <div className="text-sm text-slate-400">Avg Mastery</div>
+                </div>
+                
+                <div className="text-center p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/20">
+                  <div className="text-2xl font-bold text-white mb-1">{stats.totalExperience.toFixed(1)}</div>
+                  <div className="text-sm text-slate-400">Total Years</div>
+                </div>
+              </div>
+
+              {/* Proficiency Bar */}
+              <div className="mt-6">
+                <div className="flex justify-between text-sm text-slate-400 mb-2">
+                  <span>Overall Proficiency</span>
+                  <span>{stats.avgMastery}%</span>
+                </div>
+                <div className="w-full bg-slate-700 rounded-full h-2">
+                  <div
+                    className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-1000 animate-fill-bar"
+                    style={{ width: `${stats.avgMastery}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes draw-circle {
+          0% {
+            stroke-dashoffset: ${2 * Math.PI * 40};
+          }
+          100% {
+            stroke-dashoffset: 0;
+          }
+        }
+        
+        @keyframes fill-bar {
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: var(--target-width);
+          }
+        }
+        
+        .animate-draw-circle {
+          animation: draw-circle 1.5s ease-out forwards;
+        }
+        
+        .animate-fill-bar {
+          animation: fill-bar 2s ease-out 1s forwards;
+          width: 0%;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default Skills;

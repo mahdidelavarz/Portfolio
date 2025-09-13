@@ -1342,6 +1342,402 @@
 
 //! v4
 
+// import React, { useState, useEffect, useRef } from "react";
+// import { Icon } from "@iconify/react";
+
+// interface ExperiencesProps {
+//   scrollToSection?: (id: string) => void;
+// }
+
+// function Experiences({ scrollToSection }: ExperiencesProps) {
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [activeExperience, setActiveExperience] = useState(0);
+//   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+//   const sectionRef = useRef<HTMLDivElement>(null);
+
+//   const experiences = [
+//     {
+//       id: 0,
+//       company: "Petco",
+//       role: "Full-Stack Developer",
+//       period: "2022 - Present",
+//       duration: "2+ Years",
+//       location: "Tehran, Iran",
+//       type: "Full-Time",
+//       icon: "mingcute:building-2-line",
+//       color: "from-cyan-400 to-blue-500",
+//       bgColor: "from-cyan-400/10 to-blue-500/10",
+//       description: "Leading the development of an enterprise ERP system from inception to deployment, architecting scalable solutions that serve thousands of users.",
+//       achievements: [
+//         "Architected and built the entire frontend infrastructure from scratch",
+//         "Designed modular component library increasing development efficiency by 40%",
+//         "Integrated complex APIs serving 10,000+ daily active users",
+//         "Mentored junior developers and established coding standards",
+//         "Optimized application performance resulting in 60% faster load times"
+//       ],
+//       technologies: [
+//         "React", "TypeScript", "Next.js", "Zustand", "TanStack Query",
+//         "Tailwind CSS", "Three.js", "IndexedDB", "SQL Server", "REST APIs"
+//       ],
+//       projects: [
+//         { name: "ERP Core System", description: "Complete enterprise resource planning system", impact: "10,000+ users" },
+//         { name: "Real-time Dashboard", description: "Live analytics and monitoring dashboard", impact: "24/7 monitoring" },
+//         { name: "Mobile PWA", description: "Progressive web app for mobile users", impact: "70% mobile adoption" }
+//       ]
+//     },
+//     {
+//       id: 1,
+//       company: "LoveCode",
+//       role: "Frontend Developer",
+//       period: "2021 - 2022",
+//       duration: "1 Year",
+//       location: "Tehran, Iran",
+//       type: "Full-Time",
+//       icon: "mingcute:heart-line",
+//       color: "from-orange-400 to-red-500",
+//       bgColor: "from-orange-400/10 to-red-500/10",
+//       description: "Developed responsive web applications and collaborated with cross-functional teams to deliver pixel-perfect user interfaces.",
+//       achievements: [
+//         "Developed 15+ responsive web applications using React",
+//         "Collaborated with UI/UX designers for pixel-perfect interfaces",
+//         "Improved website performance by 45% through optimization",
+//         "Integrated third-party APIs and payment gateways",
+//         "Participated in agile development processes and code reviews"
+//       ],
+//       technologies: [
+//         "React", "JavaScript", "CSS3", "SASS", "Redux", "Axios",
+//         "Bootstrap", "Material-UI", "Git", "Webpack"
+//       ],
+//       projects: [
+//         { name: "E-commerce Platform", description: "Full-featured online shopping experience", impact: "1,000+ products" },
+//         { name: "Corporate Website", description: "Company landing page and blog", impact: "50% traffic increase" },
+//         { name: "Admin Dashboard", description: "Content management system", impact: "90% admin efficiency" }
+//       ]
+//     },
+//     {
+//       id: 2,
+//       company: "Freelance",
+//       role: "Web Developer",
+//       period: "2020 - 2021",
+//       duration: "1+ Year",
+//       location: "Remote",
+//       type: "Contract",
+//       icon: "mingcute:rocket-line",
+//       color: "from-purple-400 to-pink-500",
+//       bgColor: "from-purple-400/10 to-pink-500/10",
+//       description: "Worked with various clients to deliver custom web solutions, from small business websites to complex web applications.",
+//       achievements: [
+//         "Completed 20+ projects for diverse clients across industries",
+//         "Built responsive websites with 100% client satisfaction",
+//         "Implemented SEO practices resulting in 200% traffic increase",
+//         "Developed custom WordPress themes and plugins",
+//         "Managed full project lifecycle from gathering to deployment"
+//       ],
+//       technologies: [
+//         "HTML5", "CSS3", "JavaScript", "jQuery", "WordPress",
+//         "PHP", "MySQL", "Photoshop", "Figma"
+//       ],
+//       projects: [
+//         { name: "Restaurant Website", description: "Online menu and reservation system", impact: "300% bookings" },
+//         { name: "Portfolio Websites", description: "Creative portfolios for artists and designers", impact: "10+ clients" },
+//         { name: "Business Landing Pages", description: "Conversion-optimized landing pages", impact: "25% avg CTR" }
+//       ]
+//     }
+//   ];
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting) {
+//           setIsVisible(true);
+//         }
+//       },
+//       { threshold: 0.1 }
+//     );
+
+//     if (sectionRef.current) {
+//       observer.observe(sectionRef.current);
+//     }
+
+//     return () => observer.disconnect();
+//   }, []);
+
+//   useEffect(() => {
+//     if (!isAutoPlaying) return;
+    
+//     const interval = setInterval(() => {
+//       setActiveExperience((prev) => (prev + 1) % experiences.length);
+//     }, 5000);
+
+//     return () => clearInterval(interval);
+//   }, [isAutoPlaying, experiences.length]);
+
+//   const currentExp = experiences[activeExperience];
+
+//   return (
+//     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
+//       {/* Background Overlay */}
+//       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/60 to-transparent"></div>
+      
+//       {/* Floating Particles Animation */}
+//       <div className="absolute inset-0 overflow-hidden">
+//         {[...Array(25)].map((_, i) => (
+//           <div
+//             key={i}
+//             className={`absolute w-1 h-1 bg-gradient-to-r ${currentExp.color} rounded-full animate-pulse`}
+//             style={{
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`,
+//               animationDelay: `${Math.random() * 4}s`,
+//               animationDuration: `${2 + Math.random() * 3}s`
+//             }}
+//           />
+//         ))}
+//       </div>
+
+//       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+//         {/* Section Header */}
+//         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+//           <div className="flex items-center justify-center gap-4 mb-6">
+//             <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+//             <span className="text-orange-400 font-medium tracking-wider text-lg">Professional Journey</span>
+//             <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+//           </div>
+//           <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+//             <span className="bg-gradient-to-r from-white via-slate-200 to-orange-400 bg-clip-text text-transparent">
+//               Experience & Growth
+//             </span>
+//           </h2>
+//           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+//             A journey through innovation, learning, and delivering exceptional digital solutions 
+//             across diverse projects and technologies.
+//           </p>
+//         </div>
+
+//         {/* Main Content */}
+//         <div className="grid lg:grid-cols-3 gap-8">
+//           {/* Left Sidebar - Experience Timeline */}
+//           <div className={`lg:col-span-1 transition-all duration-1000 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
+//             <div className="space-y-4 mb-8">
+//               {experiences.map((exp, index) => (
+//                 <button
+//                   key={exp.id}
+//                   className={`w-full text-left p-4 rounded-xl transition-all duration-500 border backdrop-blur-md group ${
+//                     activeExperience === index
+//                       ? `bg-gradient-to-r ${exp.bgColor} border-slate-600/50 scale-105`
+//                       : 'bg-slate-800/30 border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-800/50'
+//                   }`}
+//                   onClick={() => {
+//                     setActiveExperience(index);
+//                     setIsAutoPlaying(false);
+//                   }}
+//                 >
+//                   <div className="flex items-center gap-3 mb-2">
+//                     <div className={`w-10 h-10 bg-gradient-to-br ${exp.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+//                       <Icon icon={exp.icon} width="20" height="20" className="text-white" />
+//                     </div>
+//                     <div>
+//                       <h3 className="font-bold text-white text-sm">{exp.company}</h3>
+//                       <p className="text-xs text-slate-400">{exp.period}</p>
+//                     </div>
+//                   </div>
+//                   <p className="text-sm text-slate-300">{exp.role}</p>
+//                   <div className="flex gap-2 mt-2">
+//                     <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
+//                       {exp.type}
+//                     </span>
+//                     <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
+//                       {exp.duration}
+//                     </span>
+//                   </div>
+//                 </button>
+//               ))}
+//             </div>
+
+//             {/* Auto-play Control */}
+//             <button
+//               className="w-full p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-cyan-400/30 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-md"
+//               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+//             >
+//               <Icon 
+//                 icon={isAutoPlaying ? "mingcute:pause-fill" : "mingcute:play-fill"} 
+//                 width="20" 
+//                 height="20" 
+//                 className={`text-cyan-400 ${isAutoPlaying ? 'animate-pulse' : ''}`} 
+//               />
+//               <span className="text-white font-medium">
+//                 {isAutoPlaying ? 'Pause Auto' : 'Play Auto'}
+//               </span>
+//             </button>
+
+//             {/* Progress Indicators */}
+//             <div className="flex justify-center gap-2 mt-6">
+//               {experiences.map((_, index) => (
+//                 <button
+//                   key={index}
+//                   className={`h-2 rounded-full transition-all duration-300 ${
+//                     activeExperience === index ? 'w-8 bg-gradient-to-r ' + currentExp.color : 'w-2 bg-slate-600'
+//                   }`}
+//                   onClick={() => {
+//                     setActiveExperience(index);
+//                     setIsAutoPlaying(false);
+//                   }}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Right Content - Experience Details */}
+//           <div className={`lg:col-span-2 transition-all duration-1000 delay-400 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
+//             <div className="space-y-8">
+//               {/* Experience Header */}
+//               <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
+//                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6">
+//                   <div className="flex items-center gap-4 mb-4 sm:mb-0">
+//                     <div className={`w-16 h-16 bg-gradient-to-br ${currentExp.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+//                       <Icon icon={currentExp.icon} width="32" height="32" className="text-white" />
+//                     </div>
+//                     <div>
+//                       <h3 className="text-2xl font-bold text-white">{currentExp.company}</h3>
+//                       <p className={`text-lg font-semibold bg-gradient-to-r ${currentExp.color} bg-clip-text text-transparent`}>
+//                         {currentExp.role}
+//                       </p>
+//                       <p className="text-slate-400 text-sm">{currentExp.location}</p>
+//                     </div>
+//                   </div>
+                  
+//                   <div className="flex flex-wrap gap-2">
+//                     <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50">
+//                       {currentExp.period}
+//                     </span>
+//                     <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50">
+//                       {currentExp.type}
+//                     </span>
+//                   </div>
+//                 </div>
+                
+//                 <p className="text-slate-300 leading-relaxed text-lg">
+//                   {currentExp.description}
+//                 </p>
+//               </div>
+
+//               {/* Key Achievements */}
+//               <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
+//                 <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+//                   <Icon icon="mingcute:trophy-line" width="28" height="28" className="text-amber-500" />
+//                   Key Achievements
+//                 </h3>
+//                 <div className="space-y-3">
+//                   {currentExp.achievements.map((achievement, index) => (
+//                     <div
+//                       key={index}
+//                       className="flex items-start gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
+//                     >
+//                       <div className={`w-2 h-2 bg-gradient-to-r ${currentExp.color} rounded-full mt-2 flex-shrink-0 group-hover:scale-150 transition-transform duration-300`} />
+//                       <p className="text-slate-300 leading-relaxed">{achievement}</p>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+
+//               {/* Technologies & Projects Grid */}
+//               <div className="grid md:grid-cols-2 gap-8">
+//                 {/* Technologies */}
+//                 <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500">
+//                   <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+//                     <Icon icon="mingcute:code-line" width="28" height="28" className="text-purple-400" />
+//                     Technologies
+//                   </h3>
+//                   <div className="flex flex-wrap gap-2">
+//                     {currentExp.technologies.map((tech, index) => (
+//                       <span
+//                         key={tech}
+//                         className="px-3 py-2 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-purple-400/50 hover:bg-purple-400/10 transition-all duration-300"
+//                       >
+//                         {tech}
+//                       </span>
+//                     ))}
+//                   </div>
+//                 </div>
+
+//                 {/* Notable Projects */}
+//                 <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
+//                   <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+//                     <Icon icon="mingcute:rocket-line" width="28" height="28" className="text-green-400" />
+//                     Notable Projects
+//                   </h3>
+//                   <div className="space-y-4">
+//                     {currentExp.projects.map((project, index) => (
+//                       <div
+//                         key={project.name}
+//                         className="p-4 bg-slate-700/30 border border-slate-600/30 rounded-xl hover:border-green-400/50 hover:bg-green-400/5 transition-all duration-300"
+//                       >
+//                         <div className="flex justify-between items-start mb-2">
+//                           <h4 className="font-semibold text-white">{project.name}</h4>
+//                           <span className="text-xs px-2 py-1 bg-green-400/20 text-green-400 rounded-full border border-green-400/30">
+//                             {project.impact}
+//                           </span>
+//                         </div>
+//                         <p className="text-sm text-slate-400">{project.description}</p>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               </div>
+
+//               {/* Call to Action */}
+//               <div className="backdrop-blur-md bg-gradient-to-br from-slate-800/30 to-slate-700/30 border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all duration-500">
+//                 <h3 className="text-2xl font-bold text-white mb-4">Ready for Your Next Project?</h3>
+//                 <p className="text-slate-300 mb-6">
+//                   Let's discuss how my experience can help bring your ideas to life.
+//                 </p>
+//                 <button
+//                   onClick={() => scrollToSection?.("contactme")}
+//                   className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+//                 >
+//                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+//                   <div className="relative flex items-center gap-3">
+//                     <Icon icon="mingcute:message-3-line" width="20" height="20" />
+//                     <span>Start a Conversation</span>
+//                   </div>
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Career Stats - Floating */}
+//         <div className={`fixed top-20 right-8 backdrop-blur-md bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+//           <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2">
+//             <Icon icon="mingcute:chart-line" width="20" height="20" className="text-cyan-400" />
+//             Career Stats
+//           </h4>
+//           <div className="space-y-4 text-center">
+//             <div className="p-3 bg-slate-700/30 rounded-lg">
+//               <div className="text-2xl font-bold text-cyan-400">3+</div>
+//               <div className="text-xs text-slate-400">Years Experience</div>
+//             </div>
+//             <div className="p-3 bg-slate-700/30 rounded-lg">
+//               <div className="text-2xl font-bold text-purple-400">50+</div>
+//               <div className="text-xs text-slate-400">Projects Completed</div>
+//             </div>
+//             <div className="p-3 bg-slate-700/30 rounded-lg">
+//               <div className="text-2xl font-bold text-orange-400">15+</div>
+//               <div className="text-xs text-slate-400">Technologies</div>
+//             </div>
+//             <div className="p-3 bg-slate-700/30 rounded-lg">
+//               <div className="text-2xl font-bold text-green-400">100%</div>
+//               <div className="text-xs text-slate-400">Client Satisfaction</div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Experiences;
+// ! v5
 import React, { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 
@@ -1353,6 +1749,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [activeExperience, setActiveExperience] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [activeTab, setActiveTab] = useState('overview');
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const experiences = [
@@ -1367,6 +1764,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
       icon: "mingcute:building-2-line",
       color: "from-cyan-400 to-blue-500",
       bgColor: "from-cyan-400/10 to-blue-500/10",
+      glowColor: "cyan-400",
       description: "Leading the development of an enterprise ERP system from inception to deployment, architecting scalable solutions that serve thousands of users.",
       achievements: [
         "Architected and built the entire frontend infrastructure from scratch",
@@ -1383,6 +1781,13 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
         { name: "ERP Core System", description: "Complete enterprise resource planning system", impact: "10,000+ users" },
         { name: "Real-time Dashboard", description: "Live analytics and monitoring dashboard", impact: "24/7 monitoring" },
         { name: "Mobile PWA", description: "Progressive web app for mobile users", impact: "70% mobile adoption" }
+      ],
+      responsibilities: [
+        "Lead frontend architecture and development decisions",
+        "Collaborate with backend teams on API design and integration",
+        "Mentor junior developers and conduct code reviews",
+        "Optimize application performance and user experience",
+        "Implement responsive design and accessibility standards"
       ]
     },
     {
@@ -1396,6 +1801,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
       icon: "mingcute:heart-line",
       color: "from-orange-400 to-red-500",
       bgColor: "from-orange-400/10 to-red-500/10",
+      glowColor: "orange-400",
       description: "Developed responsive web applications and collaborated with cross-functional teams to deliver pixel-perfect user interfaces.",
       achievements: [
         "Developed 15+ responsive web applications using React",
@@ -1412,6 +1818,13 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
         { name: "E-commerce Platform", description: "Full-featured online shopping experience", impact: "1,000+ products" },
         { name: "Corporate Website", description: "Company landing page and blog", impact: "50% traffic increase" },
         { name: "Admin Dashboard", description: "Content management system", impact: "90% admin efficiency" }
+      ],
+      responsibilities: [
+        "Develop responsive user interfaces with modern frameworks",
+        "Collaborate with design team on UI/UX implementation",
+        "Integrate RESTful APIs and third-party services",
+        "Optimize web applications for performance and accessibility",
+        "Participate in agile development cycles and sprint planning"
       ]
     },
     {
@@ -1423,8 +1836,9 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
       location: "Remote",
       type: "Contract",
       icon: "mingcute:rocket-line",
-      color: "from-purple-400 to-pink-500",
-      bgColor: "from-purple-400/10 to-pink-500/10",
+      color: "from-purple-400 to-indigo-600",
+      bgColor: "from-purple-400/10 to-indigo-600/10",
+      glowColor: "purple-400",
       description: "Worked with various clients to deliver custom web solutions, from small business websites to complex web applications.",
       achievements: [
         "Completed 20+ projects for diverse clients across industries",
@@ -1441,6 +1855,13 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
         { name: "Restaurant Website", description: "Online menu and reservation system", impact: "300% bookings" },
         { name: "Portfolio Websites", description: "Creative portfolios for artists and designers", impact: "10+ clients" },
         { name: "Business Landing Pages", description: "Conversion-optimized landing pages", impact: "25% avg CTR" }
+      ],
+      responsibilities: [
+        "Gather requirements and translate into technical solutions",
+        "Design and develop custom websites and web applications",
+        "Implement SEO best practices and performance optimization",
+        "Provide ongoing maintenance and support to clients",
+        "Manage project timelines and client communication"
       ]
     }
   ];
@@ -1467,7 +1888,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
     
     const interval = setInterval(() => {
       setActiveExperience((prev) => (prev + 1) % experiences.length);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, experiences.length]);
@@ -1476,259 +1897,399 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
 
   return (
     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/60 to-transparent"></div>
-      
-      {/* Floating Particles Animation */}
+      {/* Enhanced Fire Particles Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(25)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <div
             key={i}
-            className={`absolute w-1 h-1 bg-gradient-to-r ${currentExp.color} rounded-full animate-pulse`}
+            className={`absolute w-1 h-1 bg-gradient-to-r ${currentExp.color} rounded-full animate-pulse opacity-70`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animationDuration: `${2 + Math.random() * 3}s`,
+              boxShadow: `0 0 6px ${currentExp.glowColor === 'cyan-400' ? '#22d3ee' : 
+                          currentExp.glowColor === 'orange-400' ? '#fb923c' :
+                          currentExp.glowColor === 'purple-400' ? '#c084fc' : '#22d3ee'}`
             }}
           />
         ))}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        {/* Header Section */}
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
-            <span className="text-orange-400 font-medium tracking-wider text-lg">Professional Journey</span>
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
+            <span className="text-orange-400 font-bold tracking-wider text-lg uppercase">Experience</span>
+            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
           </div>
-          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-slate-200 to-orange-400 bg-clip-text text-transparent">
-              Experience & Growth
+          <h2 className="text-4xl lg:text-6xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-slate-200 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Professional Journey
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            A journey through innovation, learning, and delivering exceptional digital solutions 
-            across diverse projects and technologies.
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            A timeline of growth, innovation, and impactful contributions across diverse projects and technologies
           </p>
         </div>
 
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Sidebar - Experience Timeline */}
-          <div className={`lg:col-span-1 transition-all duration-1000 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
-            <div className="space-y-4 mb-8">
-              {experiences.map((exp, index) => (
-                <button
-                  key={exp.id}
-                  className={`w-full text-left p-4 rounded-xl transition-all duration-500 border backdrop-blur-md group ${
-                    activeExperience === index
-                      ? `bg-gradient-to-r ${exp.bgColor} border-slate-600/50 scale-105`
-                      : 'bg-slate-800/30 border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-800/50'
-                  }`}
-                  onClick={() => {
-                    setActiveExperience(index);
-                    setIsAutoPlaying(false);
-                  }}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-10 h-10 bg-gradient-to-br ${exp.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon icon={exp.icon} width="20" height="20" className="text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-sm">{exp.company}</h3>
-                      <p className="text-xs text-slate-400">{exp.period}</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-slate-300">{exp.role}</p>
-                  <div className="flex gap-2 mt-2">
-                    <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
-                      {exp.type}
-                    </span>
-                    <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
-                      {exp.duration}
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* Auto-play Control */}
-            <button
-              className="w-full p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-cyan-400/30 transition-all duration-300 flex items-center justify-center gap-3 backdrop-blur-md"
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            >
-              <Icon 
-                icon={isAutoPlaying ? "mingcute:pause-fill" : "mingcute:play-fill"} 
-                width="20" 
-                height="20" 
-                className={`text-cyan-400 ${isAutoPlaying ? 'animate-pulse' : ''}`} 
-              />
-              <span className="text-white font-medium">
-                {isAutoPlaying ? 'Pause Auto' : 'Play Auto'}
-              </span>
-            </button>
-
-            {/* Progress Indicators */}
-            <div className="flex justify-center gap-2 mt-6">
-              {experiences.map((_, index) => (
-                <button
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeExperience === index ? 'w-8 bg-gradient-to-r ' + currentExp.color : 'w-2 bg-slate-600'
-                  }`}
-                  onClick={() => {
-                    setActiveExperience(index);
-                    setIsAutoPlaying(false);
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Right Content - Experience Details */}
-          <div className={`lg:col-span-2 transition-all duration-1000 delay-400 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
-            <div className="space-y-8">
+        {/* Central Experience Showcase */}
+        <div className="relative">
+          {/* Main Experience Card */}
+          <div className={`relative mx-auto max-w-5xl transition-all duration-1000 delay-200 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}>
+            <div className={`relative backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl shadow-${currentExp.glowColor}/20`}>
               {/* Experience Header */}
-              <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6">
-                  <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${currentExp.color} rounded-2xl flex items-center justify-center shadow-lg`}>
-                      <Icon icon={currentExp.icon} width="32" height="32" className="text-white" />
+              <div className="p-8 border-b border-slate-700/50">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                  <div className="flex items-center gap-6">
+                    <div className={`w-20 h-20 bg-gradient-to-br ${currentExp.color} rounded-2xl flex items-center justify-center shadow-xl shadow-${currentExp.glowColor}/30`}>
+                      <Icon icon={currentExp.icon} width="40" height="40" className="text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white">{currentExp.company}</h3>
-                      <p className={`text-lg font-semibold bg-gradient-to-r ${currentExp.color} bg-clip-text text-transparent`}>
+                      <h3 className="text-3xl font-bold text-white mb-2">{currentExp.company}</h3>
+                      <p className={`text-xl font-semibold bg-gradient-to-r ${currentExp.color} bg-clip-text text-transparent mb-2`}>
                         {currentExp.role}
                       </p>
-                      <p className="text-slate-400 text-sm">{currentExp.location}</p>
+                      <div className="flex items-center gap-2 text-slate-400">
+                        <Icon icon="mingcute:location-line" width="16" height="16" />
+                        <span>{currentExp.location}</span>
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50">
+                  <div className="flex flex-wrap gap-3">
+                    <span className={`px-4 py-2 bg-gradient-to-r ${currentExp.bgColor} border border-slate-600/50 text-white font-medium rounded-xl`}>
                       {currentExp.period}
                     </span>
-                    <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-sm rounded-full border border-slate-600/50">
+                    <span className="px-4 py-2 bg-slate-800/50 border border-slate-600/50 text-slate-300 font-medium rounded-xl">
                       {currentExp.type}
+                    </span>
+                    <span className="px-4 py-2 bg-slate-800/50 border border-slate-600/50 text-slate-300 font-medium rounded-xl">
+                      {currentExp.duration}
                     </span>
                   </div>
                 </div>
                 
-                <p className="text-slate-300 leading-relaxed text-lg">
+                <p className="text-slate-300 leading-relaxed text-lg mt-6 max-w-4xl">
                   {currentExp.description}
                 </p>
               </div>
 
-              {/* Key Achievements */}
-              <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-slate-600/50 transition-all duration-500">
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <Icon icon="mingcute:trophy-line" width="28" height="28" className="text-amber-500" />
-                  Key Achievements
-                </h3>
-                <div className="space-y-3">
-                  {currentExp.achievements.map((achievement, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
+              {/* Navigation Controls */}
+              <div className="p-6 border-b border-slate-700/50 bg-slate-800/20">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <button
+                      className="p-3 bg-slate-800/50 hover:bg-slate-700/50 border border-slate-600/50 hover:border-slate-500/50 rounded-xl transition-all duration-300 flex items-center justify-center"
+                      onClick={() => setIsAutoPlaying(!isAutoPlaying)}
                     >
-                      <div className={`w-2 h-2 bg-gradient-to-r ${currentExp.color} rounded-full mt-2 flex-shrink-0 group-hover:scale-150 transition-transform duration-300`} />
-                      <p className="text-slate-300 leading-relaxed">{achievement}</p>
+                      <Icon 
+                        icon={isAutoPlaying ? "mingcute:pause-fill" : "mingcute:play-fill"} 
+                        width="20" 
+                        height="20" 
+                        className={`text-${currentExp.glowColor} ${isAutoPlaying ? 'animate-pulse' : ''}`} 
+                      />
+                    </button>
+                    
+                    <div className="text-slate-300 font-medium">
+                      <span className={`text-${currentExp.glowColor}`}>{activeExperience + 1}</span>
+                      <span className="text-slate-500 mx-2">/</span>
+                      <span className="text-slate-400">{experiences.length}</span>
                     </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    {experiences.map((_, index) => (
+                      <button
+                        key={index}
+                        className={`h-3 rounded-full transition-all duration-500 ${
+                          activeExperience === index 
+                            ? `w-8 bg-gradient-to-r ${currentExp.color} shadow-lg` 
+                            : 'w-3 bg-slate-600/50 hover:bg-slate-500/50'
+                        }`}
+                        onClick={() => {
+                          setActiveExperience(index);
+                          setIsAutoPlaying(false);
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Tab Navigation */}
+              <div className="p-6">
+                <div className="flex flex-wrap justify-center gap-2 mb-8">
+                  {[
+                    { id: 'overview', icon: 'mingcute:eye-line', label: 'Overview' },
+                    { id: 'achievements', icon: 'mingcute:trophy-line', label: 'Achievements' },
+                    { id: 'projects', icon: 'mingcute:rocket-line', label: 'Projects' },
+                    { id: 'tech', icon: 'mingcute:code-line', label: 'Tech Stack' }
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`px-4 py-2 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
+                        activeTab === tab.id
+                          ? `bg-gradient-to-r ${currentExp.color} text-white shadow-lg`
+                          : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 border border-slate-600/30'
+                      }`}
+                    >
+                      <Icon icon={tab.icon} width="16" height="16" />
+                      <span>{tab.label}</span>
+                    </button>
                   ))}
                 </div>
-              </div>
 
-              {/* Technologies & Projects Grid */}
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* Technologies */}
-                <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500">
-                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                    <Icon icon="mingcute:code-line" width="28" height="28" className="text-purple-400" />
-                    Technologies
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {currentExp.technologies.map((tech, index) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-2 bg-slate-700/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-purple-400/50 hover:bg-purple-400/10 transition-all duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Notable Projects */}
-                <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
-                  <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                    <Icon icon="mingcute:rocket-line" width="28" height="28" className="text-green-400" />
-                    Notable Projects
-                  </h3>
-                  <div className="space-y-4">
-                    {currentExp.projects.map((project, index) => (
-                      <div
-                        key={project.name}
-                        className="p-4 bg-slate-700/30 border border-slate-600/30 rounded-xl hover:border-green-400/50 hover:bg-green-400/5 transition-all duration-300"
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold text-white">{project.name}</h4>
-                          <span className="text-xs px-2 py-1 bg-green-400/20 text-green-400 rounded-full border border-green-400/30">
-                            {project.impact}
-                          </span>
+                {/* Tab Content */}
+                <div className="min-h-[400px]">
+                  {activeTab === 'overview' && (
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                          <Icon icon="mingcute:user-line" width="24" height="24" className={`text-${currentExp.glowColor}`} />
+                          Key Responsibilities
+                        </h4>
+                        <div className="space-y-3">
+                          {currentExp.responsibilities.map((responsibility, index) => (
+                            <div key={index} className="flex items-start gap-3 p-3 bg-slate-800/30 rounded-lg border border-slate-700/30">
+                              <div className={`w-2 h-2 bg-gradient-to-r ${currentExp.color} rounded-full mt-2 flex-shrink-0`} />
+                              <span className="text-slate-300">{responsibility}</span>
+                            </div>
+                          ))}
                         </div>
-                        <p className="text-sm text-slate-400">{project.description}</p>
                       </div>
-                    ))}
-                  </div>
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                          <Icon icon="mingcute:chart-line" width="24" height="24" className={`text-${currentExp.glowColor}`} />
+                          Impact Metrics
+                        </h4>
+                        <div className="grid grid-cols-2 gap-4">
+                          {currentExp.projects.map((project, index) => (
+                            <div key={index} className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/30">
+                              <div className={`text-2xl font-bold text-${currentExp.glowColor} mb-1`}>
+                                {project.impact.split(' ')[0]}
+                              </div>
+                              <div className="text-xs text-slate-400 uppercase tracking-wide">
+                                {project.impact.split(' ').slice(1).join(' ')}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'achievements' && (
+                    <div>
+                      <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                        <Icon icon="mingcute:trophy-line" width="24" height="24" className="text-amber-400" />
+                        Key Achievements
+                      </h4>
+                      <div className="grid gap-4">
+                        {currentExp.achievements.map((achievement, index) => (
+                          <div
+                            key={index}
+                            className="flex items-start gap-4 p-6 bg-slate-800/30 rounded-xl border border-slate-700/30 hover:border-slate-600/50 hover:bg-slate-800/50 transition-all duration-300 group"
+                          >
+                            <div className="w-8 h-8 bg-amber-400/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-amber-400/30 transition-all duration-300">
+                              <Icon icon="mingcute:check-line" width="16" height="16" className="text-amber-400" />
+                            </div>
+                            <p className="text-slate-300 leading-relaxed text-lg">{achievement}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'projects' && (
+                    <div>
+                      <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                        <Icon icon="mingcute:rocket-line" width="24" height="24" className="text-green-400" />
+                        Notable Projects
+                      </h4>
+                      <div className="grid gap-6">
+                        {currentExp.projects.map((project, index) => (
+                          <div
+                            key={index}
+                            className="p-6 bg-slate-800/30 border border-slate-700/30 rounded-xl hover:border-green-400/50 hover:bg-green-400/5 transition-all duration-300 group"
+                          >
+                            <div className="flex justify-between items-start mb-4">
+                              <h5 className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300">
+                                {project.name}
+                              </h5>
+                              <span className="text-sm px-3 py-1 bg-green-400/20 text-green-400 rounded-full border border-green-400/30 font-medium">
+                                {project.impact}
+                              </span>
+                            </div>
+                            <p className="text-slate-400 leading-relaxed">{project.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'tech' && (
+                    <div>
+                      <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                        <Icon icon="mingcute:code-line" width="24" height="24" className="text-purple-400" />
+                        Technology Stack
+                      </h4>
+                      <div className="flex flex-wrap gap-3">
+                        {currentExp.technologies.map((tech, index) => (
+                          <span
+                            key={tech}
+                            className="px-4 py-3 bg-slate-800/50 text-slate-300 font-medium rounded-xl border border-slate-600/50 hover:border-purple-400/50 hover:bg-purple-400/10 hover:text-white transition-all duration-300"
+                            style={{ animationDelay: `${index * 0.1}s` }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Left Experience Timeline */}
+          <div className={`absolute left-0 top-0 w-72 transition-all duration-1000 delay-400 ${isVisible ? '-translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
+            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Icon icon="mingcute:time-line" width="24" height="24" className="text-orange-400" />
+                Timeline
+              </h3>
+              
+              <div className="space-y-4">
+                {experiences.map((exp, index) => (
+                  <button
+                    key={exp.id}
+                    className={`w-full text-left p-4 rounded-xl transition-all duration-500 border group ${
+                      activeExperience === index
+                        ? `bg-gradient-to-r ${exp.bgColor} border-slate-600/50 scale-105`
+                        : 'bg-slate-800/30 border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-800/50'
+                    }`}
+                    onClick={() => {
+                      setActiveExperience(index);
+                      setIsAutoPlaying(false);
+                    }}
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className={`w-10 h-10 bg-gradient-to-br ${exp.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon icon={exp.icon} width="20" height="20" className="text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-white text-sm">{exp.company}</h4>
+                        <p className="text-xs text-slate-400">{exp.period}</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-slate-300 mb-2">{exp.role}</p>
+                    <div className="flex gap-2">
+                      <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
+                        {exp.type}
+                      </span>
+                      <span className="px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">
+                        {exp.duration}
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Stats Panel */}
+          <div className={`absolute right-0 top-0 w-72 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Icon icon="mingcute:chart-line" width="24" height="24" className="text-cyan-400" />
+                Career Stats
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-slate-800/30 rounded-xl border border-slate-700/30">
+                  <div className="text-2xl font-bold text-cyan-400 mb-1">3+</div>
+                  <div className="text-sm text-slate-400">Years Experience</div>
+                </div>
+                <div className="p-4 bg-slate-800/30 rounded-xl border border-slate-700/30">
+                  <div className="text-2xl font-bold text-purple-400 mb-1">50+</div>
+                  <div className="text-sm text-slate-400">Projects Completed</div>
+                </div>
+                <div className="p-4 bg-slate-800/30 rounded-xl border border-slate-700/30">
+                  <div className="text-2xl font-bold text-orange-400 mb-1">15+</div>
+                  <div className="text-sm text-slate-400">Technologies</div>
+                </div>
+                <div className="p-4 bg-slate-800/30 rounded-xl border border-slate-700/30">
+                  <div className="text-2xl font-bold text-green-400 mb-1">100%</div>
+                  <div className="text-sm text-slate-400">Client Satisfaction</div>
                 </div>
               </div>
 
-              {/* Call to Action */}
-              <div className="backdrop-blur-md bg-gradient-to-br from-slate-800/30 to-slate-700/30 border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all duration-500">
-                <h3 className="text-2xl font-bold text-white mb-4">Ready for Your Next Project?</h3>
-                <p className="text-slate-300 mb-6">
-                  Let's discuss how my experience can help bring your ideas to life.
-                </p>
+              <div className="mt-6 pt-6 border-t border-slate-700/50">
                 <button
                   onClick={() => scrollToSection?.("contactme")}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+                  className={`w-full px-4 py-3 bg-gradient-to-r ${currentExp.color} rounded-xl font-semibold text-white hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                  <div className="relative flex items-center gap-3">
-                    <Icon icon="mingcute:message-3-line" width="20" height="20" />
-                    <span>Start a Conversation</span>
-                  </div>
+                  <Icon icon="mingcute:message-3-line" width="18" height="18" />
+                  <span>Get in Touch</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Career Stats - Floating */}
-        <div className={`fixed top-20 right-8 backdrop-blur-md bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
-          <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2">
-            <Icon icon="mingcute:chart-line" width="20" height="20" className="text-cyan-400" />
-            Career Stats
-          </h4>
-          <div className="space-y-4 text-center">
-            <div className="p-3 bg-slate-700/30 rounded-lg">
-              <div className="text-2xl font-bold text-cyan-400">3+</div>
-              <div className="text-xs text-slate-400">Years Experience</div>
+        {/* Bottom Call to Action */}
+        <div className={`mt-16 max-w-4xl mx-auto transition-all duration-1000 delay-800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-8 text-center shadow-2xl">
+            <h3 className="text-3xl font-bold text-white mb-4">Ready to Collaborate?</h3>
+            <p className="text-slate-300 mb-8 text-lg leading-relaxed max-w-2xl mx-auto">
+              Let's discuss how my experience and expertise can help bring your next project to life.
+              From concept to deployment, I'm here to make it happen.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => scrollToSection?.("contactme")}
+                className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="relative flex items-center justify-center gap-3">
+                  <Icon icon="mingcute:message-3-line" width="20" height="20" />
+                  <span>Start a Conversation</span>
+                </div>
+              </button>
+              <button
+                onClick={() => scrollToSection?.("projects")}
+                className="px-8 py-4 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-orange-400 hover:bg-orange-400/10 transition-all duration-300 hover:-translate-y-1 flex items-center justify-center gap-3"
+              >
+                <Icon icon="mingcute:code-line" width="20" height="20" />
+                <span>View Projects</span>
+              </button>
             </div>
-            <div className="p-3 bg-slate-700/30 rounded-lg">
-              <div className="text-2xl font-bold text-purple-400">50+</div>
-              <div className="text-xs text-slate-400">Projects Completed</div>
-            </div>
-            <div className="p-3 bg-slate-700/30 rounded-lg">
-              <div className="text-2xl font-bold text-orange-400">15+</div>
-              <div className="text-xs text-slate-400">Technologies</div>
-            </div>
-            <div className="p-3 bg-slate-700/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-400">100%</div>
-              <div className="text-xs text-slate-400">Client Satisfaction</div>
-            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating Navigation Dots */}
+      <div className={`fixed right-8 top-1/2 -translate-y-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden lg:block`}>
+        <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-4">
+          <div className="space-y-3">
+            {experiences.map((exp, index) => (
+              <button
+                key={exp.id}
+                className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+                  activeExperience === index
+                    ? `bg-gradient-to-r ${exp.color} border-transparent shadow-lg`
+                    : 'border-slate-600/50 hover:border-slate-400/50'
+                }`}
+                onClick={() => {
+                  setActiveExperience(index);
+                  setIsAutoPlaying(false);
+                }}
+                title={`${exp.company} - ${exp.role}`}
+              />
+            ))}
           </div>
         </div>
       </div>
