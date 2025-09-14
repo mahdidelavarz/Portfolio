@@ -1879,7 +1879,7 @@ const Skills = () => {
             </div>
           </div>
 
-          {/* Side Panel - Stats */}
+          {/* Side Panel - Stats  test*/}
           <div className="lg:col-span-1">
             <div
               className={`backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-700 ${
