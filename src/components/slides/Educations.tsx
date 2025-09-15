@@ -804,14 +804,14 @@ const Education = () => {
         </div>
 
         {/* Footer Message */}
-        <div className={`text-center mt-16 pt-8 border-t border-slate-700/50 transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        {/* <div className={`text-center mt-16 pt-8 border-t border-slate-700/50 transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <p className="text-slate-300 text-lg mb-4">
             Committed to lifelong learning and staying ahead of technology trends
           </p>
           <p className="text-slate-500 text-sm">
             Always exploring new technologies and methodologies to deliver better solutions
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

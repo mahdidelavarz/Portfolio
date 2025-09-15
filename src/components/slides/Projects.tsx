@@ -1515,7 +1515,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
   return (
     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
       {/* Animated Fire Particles Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* <div className="absolute inset-0 overflow-hidden">
         {[...Array(50)].map((_, i) => (
           <div
             key={i}
@@ -1532,7 +1532,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header Section */}
@@ -1603,7 +1603,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
           </div>
 
           {/* Left Info Panel */}
-          <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-400 ${isVisible ? '-translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
+          <div className={`absolute -left-45 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-400 ${isVisible ? '-translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
             <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <Icon icon="mingcute:information-line" width="24" height="24" className={`text-${currentProject.glowColor}`} />
@@ -1644,7 +1644,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
           </div>
 
           {/* Right Tech Panel */}
-          <div className={`absolute right-0 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+          <div className={`absolute -right-45 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
             <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <Icon icon="mingcute:code-line" width="24" height="24" className={`text-${currentProject.glowColor}`} />
@@ -1858,7 +1858,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
       )}
 
       {/* Floating Navigation */}
-      <div className={`fixed right-8 top-1/2 -translate-y-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden lg:block`}>
+      {/* <div className={`fixed right-8 top-1/2 -translate-y-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden lg:block`}>
         <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-4">
           <div className="space-y-2">
             {projects.map((project, index) => (
@@ -1875,10 +1875,10 @@ function Projects({ scrollToSection }: ProjectsProps) {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Floating Stats Card */}
-      <div className={`fixed top-24 left-8 backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-1200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
+      {/* <div className={`fixed top-24 left-8 backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 transition-all duration-1000 delay-1200 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
         <h4 className="font-bold text-white text-center mb-4 flex items-center gap-2 justify-center">
           <Icon icon="mingcute:trophy-line" width="20" height="20" className="text-orange-400" />
           Portfolio Stats
@@ -1901,7 +1901,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
             <div className="text-xs text-slate-400">Total Users</div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

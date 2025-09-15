@@ -73,7 +73,7 @@ function Rig({ rotation, children }: RigProps) {
   useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.y = -scroll.offset * Math.PI * 2;
-      console.log("Rig rotation:", ref.current.rotation.y); // Debug log
+      // console.log("Rig rotation:", ref.current.rotation.y); // Debug log
     }
     easing.damp3(
       camera.position,

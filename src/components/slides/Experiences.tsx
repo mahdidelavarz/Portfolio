@@ -1898,7 +1898,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
   return (
     <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden">
       {/* Enhanced Fire Particles Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* <div className="absolute inset-0 overflow-hidden">
         {[...Array(40)].map((_, i) => (
           <div
             key={i}
@@ -1914,7 +1914,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header Section */}
@@ -1977,7 +1977,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
               </div>
 
               {/* Navigation Controls */}
-              <div className="p-6 border-b border-slate-700/50 bg-slate-800/20">
+              <div className="p-6 border-b border-slate-700/50 bg-slate-800/20 ">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <button
@@ -2155,7 +2155,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
           </div>
 
           {/* Left Experience Timeline */}
-          <div className={`absolute left-0 top-0 w-72 transition-all duration-1000 delay-400 ${isVisible ? '-translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
+          <div className={`absolute -left-55 top-0 w-72 transition-all duration-1000 delay-400 ${isVisible ? '-translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} hidden xl:block`}>
             <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Icon icon="mingcute:time-line" width="24" height="24" className="text-orange-400" />
@@ -2201,7 +2201,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
           </div>
 
           {/* Right Stats Panel */}
-          <div className={`absolute right-0 top-0 w-72 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
+          <div className={`absolute -right-55 top-0 w-72 transition-all duration-1000 delay-600 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden xl:block`}>
             <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Icon icon="mingcute:chart-line" width="24" height="24" className="text-cyan-400" />
@@ -2272,7 +2272,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
       </div>
 
       {/* Floating Navigation Dots */}
-      <div className={`fixed right-8 top-1/2 -translate-y-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden lg:block`}>
+      {/* <div className={`fixed right-20 top-1/2 -translate-y-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} hidden lg:block`}>
         <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-700/50 rounded-2xl p-4">
           <div className="space-y-3">
             {experiences.map((exp, index) => (
@@ -2292,7 +2292,7 @@ function Experiences({ scrollToSection }: ExperiencesProps) {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

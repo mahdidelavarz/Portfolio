@@ -1693,7 +1693,7 @@ const Skills = () => {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
       {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(25)].map((_, i) => (
           <div
             key={i}
@@ -1706,7 +1706,7 @@ const Skills = () => {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}

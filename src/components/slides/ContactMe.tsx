@@ -581,7 +581,7 @@ const ContactMe = ({ scrollToSection }: ContactMeProps) => {
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/50 to-transparent"></div>
       
       {/* Floating Particles Animation */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* <div className="absolute inset-0 overflow-hidden">
         {[...Array(25)].map((_, i) => (
           <div
             key={i}
@@ -594,7 +594,7 @@ const ContactMe = ({ scrollToSection }: ContactMeProps) => {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
@@ -672,7 +672,7 @@ const ContactMe = ({ scrollToSection }: ContactMeProps) => {
             </div>
 
             {/* Quick Stats */}
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
+            {/* <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                 <Icon icon="mingcute:lightning-line" width="28" height="28" className="text-green-400" />
                 Response Time
@@ -693,7 +693,7 @@ const ContactMe = ({ scrollToSection }: ContactMeProps) => {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column - Contact Form */}
