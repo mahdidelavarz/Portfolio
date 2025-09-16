@@ -135,20 +135,20 @@ function AboutMe({ scrollToSection }: AboutMeProps) {
   }, [skills.length]);
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden backdrop-blur-xs">
+    <div ref={sectionRef} className="relative min-h-screen py-20 overflow-hidden ">
       {/* Background Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/50 to-transparent"></div>
+      <div className="absolute inset-0 gradient-hover-besides"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
-            <span className="text-orange-400 font-medium tracking-wider text-lg">About Me</span>
+            <span className="text-orange-400 font-medium tracking-wider text-lg uppercase">About Me</span>
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
           </div>
           <h2 className="text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-[#158288] via-slate-200 to-orange-300 bg-clip-text text-transparent text-shadow-xs ">
+            <span className="bg-gradient-to-r from-cyan-200 via-slate-200 to-cyan-300 bg-clip-text text-transparent">
               Passionate Developer
             </span>
           </h2>

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { Typewriter } from "react-simple-typewriter";
 
@@ -7,19 +6,6 @@ interface HomeProps {
 }
 
 function Home({ scrollToSection }: HomeProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   const socialLinks = [
     {
@@ -55,44 +41,14 @@ function Home({ scrollToSection }: HomeProps) {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Subtle overlay to enhance text readability */}
-      <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-black/50 to-transparent"></div>
-
-      {/* Interactive mouse follower with your color palette */}
-      {/* <div
-        className="absolute w-80 h-80 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-orange-500/5 rounded-full blur-3xl pointer-events-none transition-all duration-700 ease-out"
-        style={{
-          left: mousePosition.x - 160,
-          top: mousePosition.y - 160,
-        }}
-      /> */}
-
-      {/* Floating particles matching fire theme */}
-      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: `linear-gradient(45deg, ${
-                ['#03d7f3', '#c3b6aa', '#f59e0b', '#ef4444', '#8b5cf6'][Math.floor(Math.random() * 5)]
-              }, transparent)`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div> */}
+      <div className="inset-0 gradient-hover-center fixed top-0"></div>
 
       {/* Social Media Sidebar - Simplified */}
       <div
-        className={`fixed left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 transition-all duration-1000 ${
-          isVisible ? "translate-x-0 opacity-100" : "-translate-x-20 opacity-0"
-        }`}
+        className={`fixed left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 transition-all duration-1000 `}
       >
         {/* Top line */}
-        <div className="w-px h-16 bg-gradient-to-b from-transparent via-slate-500/60 to-transparent mx-auto"></div>
+        <div className="w-px h-16 bg-gradient-to-b from-transparent via-white to-transparent mx-auto"></div>
         
         {socialLinks.map((social, index) => (
           <button
@@ -111,7 +67,7 @@ function Home({ scrollToSection }: HomeProps) {
         ))}
         
         {/* Bottom line */}
-        <div className="w-px h-16 bg-gradient-to-b from-transparent via-slate-500/50 to-transparent mx-auto"></div>
+        <div className="w-px h-16 bg-gradient-to-b from-transparent via-slate-200/40 to-transparent mx-auto"></div>
       </div>
 
       {/* Main Content - Centered and Simplified */}
@@ -120,16 +76,12 @@ function Home({ scrollToSection }: HomeProps) {
           
           {/* Main Content */}
           <div
-            className={`transition-all duration-1000 delay-300 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
+            className={`transition-all duration-1000 delay-300 `}
           >
             {/* Greeting */}
             <div className="flex items-center justify-center gap-4 mb-16">
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
-              <span className="text-cyan-300 font-medium tracking-widest text-lg text-shadow-xs text-shadow-black">
+              <span className="text-cyan-300 font-medium tracking-widest text-lg text-shadow-xs text-shadow-black uppercase">
                 HELLO WORLD
               </span>
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
@@ -210,9 +162,7 @@ function Home({ scrollToSection }: HomeProps) {
               ].map((stat, index) => (
                 <div 
                   key={index}
-                  className={`transition-all duration-1000 delay-${500 + index * 100} ${
-                    isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-                  }`}
+                  className={`transition-all duration-1000 delay-${500 + index * 100} `}
                 >
                   <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">
                     {stat.number}

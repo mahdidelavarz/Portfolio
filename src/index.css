@@ -1,9 +1,14 @@
 @import "tailwindcss";
+@import "../public/fonts/fonts.css";
 
 ::-webkit-scrollbar {
   display: none;
 }
 
+html,
+body {
+  font-family: "Vazir";
+}
 
 .gradient-border {
   position: relative;
@@ -14,6 +19,10 @@
     #ef4444
   ); /* Gradient for border */
   padding: 2px; /* Border thickness */
+}
+.gradient-hover-center {
+background: #000;
+background: radial-gradient(circle, rgba(0, 0, 0, 0.87) 0%, rgba(0, 0, 0, 0.67) 18%, rgba(0, 0, 0, 0) 100%);
 }
 
 .inner-content {
