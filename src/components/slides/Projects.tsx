@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Icon } from "@iconify/react";
 import ThreeSlider from "../reactThree/ReactThreeSlider";
-import { ScrollControls } from "@react-three/drei";
-import ScrollHandler from "../reactThree/ScrollHandler";
+
 
 interface ProjectsProps {
   scrollToSection?: (id: string) => void;

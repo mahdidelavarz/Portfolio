@@ -69,3 +69,51 @@ canvas {
   touch-action: none;
   animation: fade-in 1s ease 1s forwards;
 }
+
+@keyframes orbit {
+  0%   { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-slower {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-spin-slower {
+  animation: spin-slower 20s linear infinite;
+}
+@keyframes pull-in {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+    left: 0; 
+    top: 0;
+  }
+}
+
+.animate-pull-in {
+  animation: pull-in 5s linear infinite;
+  position: absolute;
+}
+@keyframes spin-fast {
+  0% { transform: rotate(0deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1.05); }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 3s linear infinite;
+}
