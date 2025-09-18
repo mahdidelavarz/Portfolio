@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+.gradient-hover-center {
+background: #000;
+background: radial-gradient(circle, rgba(0, 0, 0, 0.87) 0%, rgba(0, 0, 0, 0.67) 18%, rgba(0, 0, 0, 0) 100%);
 }
 
 @theme inline {
@@ -23,4 +28,82 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes suckNatural {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(0.1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+canvas {
+  opacity: 0;
+  touch-action: none;
+  animation: fade-in 1s ease 1s forwards;
+}
+
+@keyframes orbit {
+  0%   { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-slower {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-spin-slower {
+  animation: spin-slower 20s linear infinite;
+}
+@keyframes pull-in {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+    left: 0; 
+    top: 0;
+  }
+}
+
+.animate-pull-in {
+  animation: pull-in 5s linear infinite;
+  position: absolute;
+}
+@keyframes spin-fast {
+  0% { transform: rotate(0deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1.05); }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 3s linear infinite;
 }
