@@ -1,5 +1,4 @@
-// components/Section.tsx
-import React from "react";
+import React, { memo } from "react";
 
 interface SectionProps {
   id: string;
@@ -7,12 +6,12 @@ interface SectionProps {
   children: React.ReactNode;
 }
 
-const Section: React.FC<SectionProps> = ({ id, title, children }) => {
+const Section: React.FC<SectionProps> = memo(({ id, title, children }) => {
   return (
     <section
       id={id}
       className="min-h-screen flex items-center justify-center relative"
-      aria-label={title} // improves accessibility & SEO
+      aria-label={title}
     >
       <div className="w-full text-center text-white">
         <div className="text-lg md:text-xl leading-relaxed">
@@ -21,6 +20,8 @@ const Section: React.FC<SectionProps> = ({ id, title, children }) => {
       </div>
     </section>
   );
-};
+});
+
+Section.displayName = "Section";
 
 export default Section;
