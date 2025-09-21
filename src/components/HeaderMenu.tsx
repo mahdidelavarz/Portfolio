@@ -139,7 +139,7 @@ const NavigationButton = React.memo<{
       aria-label={`Navigate to ${item.title}`}
     >
       <div
-        className={`overflow-hidden transition-all duration-300 flex gap-3 ${
+        className={`overflow-hidden transition-all duration-300 flex items-center gap-3 ${
           isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"
         }`}
       >

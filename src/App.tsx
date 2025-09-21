@@ -2,13 +2,13 @@ import "./App.css";
 import HeaderMenu from "./components/HeaderMenu";
 import Particle from "./components/Particle";
 import Section from "./components/Section";
-import About from "./components/slides/About";
-import ContactMe from "./components/slides/ContactMe";
-import Education from "./components/slides/Educations";
-import Experiences from "./components/slides/Experiences";
-import Home from "./components/slides/Home";
-import Projects from "./components/slides/Projects";
-import Skills from "./components/slides/Skills";
+import Home from "./components/server/Home.server";
+import About from "./components/server/About.server";
+import Projects from "./components/server/Projects.server";
+import Experiences from "./components/server/Experiences";
+import ContactMe from "./components/server/ContactMe.server";
+import Education from "./components/server/Education.server";
+import Skills from "./components/server/Skills.server";
 
 function App() {
   // Unified scroll function that ensures proper section positioning
