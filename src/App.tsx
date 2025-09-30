@@ -1,4 +1,5 @@
 import "./App.css";
+import BurgerMenu from "./components/BurgerMenu";
 import HeaderMenu from "./components/HeaderMenu";
 import Particle from "./components/Particle";
 import Section from "./components/Section";
@@ -21,23 +22,23 @@ function App() {
         const rect = element.getBoundingClientRect();
         const currentScrollY = window.pageYOffset;
         const elementTop = rect.top + currentScrollY;
-        
+
         // Set desired offset - distance from top of viewport where section should appear
         const desiredOffset = 80; // 80px from top of viewport
         const targetScrollY = elementTop - desiredOffset;
-        
+
         console.log({
           id,
           elementTop,
           currentScrollY,
           targetScrollY,
-          elementRect: rect
+          elementRect: rect,
         });
 
         // Scroll to the calculated position
         window.scrollTo({
           top: Math.max(0, targetScrollY),
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       }, 100);
     } else {
@@ -49,35 +50,36 @@ function App() {
     <div className="relative text-white min-h-screen overflow-x-hidden">
       {/* Particle Background */}
       <Particle />
-      
+
       {/* Navigation */}
       <HeaderMenu />
-      
+      <BurgerMenu />
+
       {/* Sections */}
       <Section id="home" title="Welcome to My Portfolio">
         <Home scrollToSection={scrollToSection} />
       </Section>
-      
+
       <Section id="aboutme" title="About Me">
         <About />
       </Section>
-      
+
       <Section id="educations" title="Educations">
         <Education />
       </Section>
-      
+
       <Section id="experiences" title="Experiences">
         <Experiences />
       </Section>
-      
+
       <Section id="projects" title="Projects">
         <Projects />
       </Section>
-      
+
       <Section id="skills" title="Skills">
         <Skills />
       </Section>
-      
+
       <Section id="contactme" title="Contact Me">
         <ContactMe />
       </Section>

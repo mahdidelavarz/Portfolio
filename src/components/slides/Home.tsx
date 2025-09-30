@@ -45,7 +45,7 @@ function Home({ scrollToSection }: HomeProps) {
 
       {/* Social Media Sidebar - Simplified */}
       <div
-        className={`fixed left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 transition-all duration-1000 `}
+        className={`fixed left-6 top-1/2 -translate-y-1/2 z-30 lg:flex flex-col gap-3 transition-all duration-1000 hidden`}
       >
         {/* Top line */}
         <div className="w-px h-16 bg-gradient-to-b from-transparent via-white to-transparent mx-auto"></div>
@@ -53,7 +53,7 @@ function Home({ scrollToSection }: HomeProps) {
         {socialLinks.map((social, index) => (
           <button
             key={index}
-            className={`group relative w-12 h-12 rounded-xl backdrop-blur-md bg-black/20 border border-white/10 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-white/20 cursor-pointer`}
+            className={` group relative w-12 h-12 rounded-xl backdrop-blur-md bg-black/20 border border-white/10 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-white/20 cursor-pointer`}
             style={{ animationDelay: `${index * 0.1}s` }}
             aria-label={social.label}
           >

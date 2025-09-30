@@ -109,7 +109,7 @@ const HeaderMenu: React.FC = () => {
 
   return (
     <nav 
-      className={`fixed right-6 top-1/2 -translate-y-1/2 z-50 transition-all duration-500 ${
+      className={`fixed right-6 top-1/2 -translate-y-1/2 z-50 transition-all duration-500 hidden lg:block ${
         isExpanded ? 'w-48' : 'w-16'
       }`}
       onMouseEnter={() => setIsExpanded(true)}
