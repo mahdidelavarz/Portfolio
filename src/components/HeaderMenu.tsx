@@ -133,7 +133,7 @@ const NavigationButton = React.memo<{
   return (
     <button
       onClick={handleClick}
-      className={`group relative w-full flex items-center gap-4 px-4 py-3 transition-all duration-300 hover:scale-105 cursor-pointer ${
+      className={`group relative w-full lg:flex items-center gap-4 px-4 py-3 transition-all duration-300 hover:scale-105 cursor-pointer hidden ${
         isActive ? "text-white" : "text-slate-400 hover:text-slate-200"
       }`}
       aria-label={`Navigate to ${item.title}`}

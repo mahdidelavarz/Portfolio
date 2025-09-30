@@ -1,4 +1,3 @@
-import "./App.css";
 import HeaderMenu from "./components/HeaderMenu";
 import Particle from "./components/Particle";
 import Section from "./components/Section";
@@ -9,6 +8,7 @@ import Experiences from "./components/server/Experiences";
 import ContactMe from "./components/server/ContactMe.server";
 import Education from "./components/server/Education.server";
 import Skills from "./components/server/Skills.server";
+import BurgerMenu from "./components/BurgerMenu";
 
 function App() {
   // Unified scroll function that ensures proper section positioning
@@ -52,6 +52,7 @@ function App() {
       
       {/* Navigation */}
       <HeaderMenu />
+      <BurgerMenu />
       
       {/* Sections */}
       <Section id="home" title="Welcome to My Portfolio">
