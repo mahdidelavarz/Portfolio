@@ -1,5 +1,8 @@
+
+"use client";
 import { useState, useRef } from "react";
 import { Icon } from "@iconify/react";
+// import ModernSlider from "../reactThree/ReactThreeSlider";
 import ThreeSlider from "../reactThree/ReactThreeSlider";
 
 

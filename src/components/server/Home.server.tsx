@@ -1,43 +1,42 @@
 import { Icon } from "@iconify/react";
+import { memo } from "react";
 import { Typewriter } from "react-simple-typewriter";
 
 interface HomeProps {
   scrollToSection: (id: string) => void;
 }
 
-function Home({ scrollToSection }: HomeProps) {
-
-  const socialLinks = [
-    {
-      icon: "line-md:github-loop",
-      color: "text-slate-300 hover:text-white",
-      bg: "hover:bg-slate-800/50",
-      link: "#",
-      label: "GitHub"
-    },
-    {
-      icon: "hugeicons:telegram",
-      color: "text-cyan-400 hover:text-cyan-300",
-      bg: "hover:bg-cyan-900/30",
-      link: "#",
-      label: "Telegram"
-    },
-    {
-      icon: "streamline:linkedin",
-      color: "text-blue-500 hover:text-blue-400",
-      bg: "hover:bg-blue-900/30",
-      link: "#",
-      label: "LinkedIn"
-    },
-    {
-      icon: "lineicons:whatsapp",
-      color: "text-green-500 hover:text-green-400",
-      bg: "hover:bg-green-900/30",
-      link: "#",
-      label: "WhatsApp"
-    },
-  ];
-
+const socialLinks = [
+  {
+    icon: "line-md:github-loop",
+    color: "text-slate-300 hover:text-white",
+    bg: "hover:bg-slate-800/50",
+    link: "#",
+    label: "GitHub"
+  },
+  {
+    icon: "hugeicons:telegram",
+    color: "text-cyan-400 hover:text-cyan-300",
+    bg: "hover:bg-cyan-900/30",
+    link: "#",
+    label: "Telegram"
+  },
+  {
+    icon: "streamline:linkedin",
+    color: "text-blue-500 hover:text-blue-400",
+    bg: "hover:bg-blue-900/30",
+    link: "#",
+    label: "LinkedIn"
+  },
+  {
+    icon: "lineicons:whatsapp",
+    color: "text-green-500 hover:text-green-400",
+    bg: "hover:bg-green-900/30",
+    link: "#",
+    label: "WhatsApp"
+  },
+];
+const Home = memo(function Home({ scrollToSection }: HomeProps) {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Subtle overlay to enhance text readability */}
@@ -107,7 +106,7 @@ function Home({ scrollToSection }: HomeProps) {
                     "Web Architect"
                   ]}
                   loop={0}
-                  cursor
+                  cursor 
                   cursorStyle="|"
                   typeSpeed={100}
                   deleteSpeed={70}
@@ -179,6 +178,6 @@ function Home({ scrollToSection }: HomeProps) {
 
     </div>
   );
-}
+});
 
 export default Home;
