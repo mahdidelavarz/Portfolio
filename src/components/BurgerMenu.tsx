@@ -13,13 +13,59 @@ const BurgerMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const slides: NavItem[] = [
-    { id: "home", title: "Home", icon: <Icon icon="solar:home-2-bold" width="24" height="24" /> },
-    { id: "aboutme", title: "About Me", icon: <Icon icon="mingcute:user-warning-fill" width="24" height="24" /> },
-    { id: "educations", title: "Educations", icon: <Icon icon="mdi:account-student" width="24" height="24" /> },
-    { id: "experiences", title: "Experiences", icon: <Icon icon="mingcute:user-star-fill" width="24" height="24" /> },
-    { id: "projects", title: "Projects", icon: <Icon icon="streamline-flex:keyboard-option-setting-gear-solid" width="24" height="24" /> },
-    { id: "skills", title: "Skills", icon: <Icon icon="streamline-flex:artificial-intelligence-brain-chip-solid" width="24" height="24" /> },
-    { id: "contactme", title: "Contact Me", icon: <Icon icon="streamline-ultimate:phone-retro-1-bold" width="24" height="24" /> },
+    {
+      id: "home",
+      title: "Home",
+      icon: <Icon icon="solar:home-2-bold" width="24" height="24" />,
+    },
+    {
+      id: "aboutme",
+      title: "About Me",
+      icon: <Icon icon="mingcute:user-warning-fill" width="24" height="24" />,
+    },
+    {
+      id: "educations",
+      title: "Educations",
+      icon: <Icon icon="mdi:account-student" width="24" height="24" />,
+    },
+    {
+      id: "experiences",
+      title: "Experiences",
+      icon: <Icon icon="mingcute:user-star-fill" width="24" height="24" />,
+    },
+    {
+      id: "projects",
+      title: "Projects",
+      icon: (
+        <Icon
+          icon="streamline-flex:keyboard-option-setting-gear-solid"
+          width="24"
+          height="24"
+        />
+      ),
+    },
+    {
+      id: "skills",
+      title: "Skills",
+      icon: (
+        <Icon
+          icon="streamline-flex:artificial-intelligence-brain-chip-solid"
+          width="24"
+          height="24"
+        />
+      ),
+    },
+    {
+      id: "contactme",
+      title: "Contact Me",
+      icon: (
+        <Icon
+          icon="streamline-ultimate:phone-retro-1-bold"
+          width="24"
+          height="24"
+        />
+      ),
+    },
   ];
 
   const scrollToSlide = (id: string) => {
@@ -86,7 +132,7 @@ const BurgerMenu: React.FC = () => {
       {/* Burger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-black/40 text-white backdrop-blur-md md:hidden"
+        className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-black/40 text-white backdrop-blur-md lg:hidden"
       >
         <Icon icon="mdi:menu" width="28" height="28" />
       </button>
