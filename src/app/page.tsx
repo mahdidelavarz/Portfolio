@@ -1,5 +1,3 @@
-// app/page.tsx
-import "./globals.css";
 import HeaderMenu from "../components/HeaderMenu";
 import About from "../components/client/About";
 import ContactMe from "../components/client/ContactMe";
