@@ -95,7 +95,7 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
 
             {/* Dynamic Role - Using your typewriter */}
             <div className="text-2xl lg:text-4xl font-light mb-8 min-h-[60px] flex items-center justify-center">
-              <span className="text-slate-300 mr-4">I'm a</span>
+             <span className="text-slate-300 mr-4">I&apos;m a</span>
               <span className="bg-gradient-to-r from-cyan-400 via-orange-400 to-purple-500 bg-clip-text text-transparent font-medium">
                 <Typewriter
                   words={[
