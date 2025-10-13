@@ -854,3 +854,6 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
 Experiences.displayName = "Experiences";
 
 export default Experiences;
+
+
+// now redesign experiences page , in desktop size is not bad , but in mobile size is not simple to track , the timeline section gets changed automaticly and main section is its details , but in mobile size you have to make it some how bolth of them be visible in one page , do your best to create a ui and ux in its best condition

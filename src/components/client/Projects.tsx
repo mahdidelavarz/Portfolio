@@ -1,10 +1,6 @@
-
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Icon } from "@iconify/react";
-// import ModernSlider from "../reactThree/ReactThreeSlider";
-import ThreeSlider from "../reactThree/ReactThreeSlider";
-
 
 interface ProjectsProps {
   scrollToSection?: (id: string) => void;
@@ -12,730 +8,386 @@ interface ProjectsProps {
 
 function Projects({ scrollToSection }: ProjectsProps) {
   const [selectedProject, setSelectedProject] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeTab, setActiveTab] = useState("overview");
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const projects = [
     {
       id: 1,
       title: "E-Commerce Platform",
-      description:
-        "Full-stack e-commerce solution with real-time inventory, payment processing, and comprehensive admin dashboard for seamless online shopping experience.",
-      technologies: [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Stripe",
-        "Prisma",
-        "PostgreSQL",
-      ],
+      subtitle: "Next-Gen Shopping Experience",
+      description: "A comprehensive full-stack e-commerce solution featuring real-time inventory management, AI-powered recommendations, and seamless payment processing. Built with performance and scalability in mind.",
+      technologies: ["React", "Next.js", "TypeScript", "Stripe", "PostgreSQL"],
       category: "Full Stack",
       year: "2024",
-      status: "Live",
-      color: "from-cyan-400 to-blue-500",
-      bgColor: "from-cyan-400/10 to-blue-500/10",
-      glowColor: "cyan-400",
-      complexity: 95,
-      duration: "4 months",
-      teamSize: "3 developers",
-      highlights: [
-        "Real-time inventory management",
-        "Secure payment processing with Stripe",
-        "Advanced admin dashboard",
-        "Mobile-responsive design",
-        "SEO optimized",
-      ],
       metrics: {
-        users: "10,000+",
-        performance: "98% uptime",
-        conversion: "15% increase",
-        load: "< 2s load time",
+        users: { value: "10K+", label: "Active Users", icon: "lucide:users" },
+        performance: { value: "98%", label: "Performance Score", icon: "lucide:trending-up" },
+        conversion: { value: "+15%", label: "Conversion Rate", icon: "lucide:arrow-right" },
       },
-      challenges:
-        "Implementing real-time inventory sync across multiple sales channels while maintaining data consistency and handling high traffic loads during peak sales periods.",
-      solution:
-        "Built a robust event-driven architecture using WebSocket connections and implemented Redis caching for real-time updates with PostgreSQL for data persistence.",
+      image: "/img1_.jpg",
+      color: "from-blue-600 to-indigo-600",
+      features: ["Real-time inventory", "AI recommendations", "Mobile-first design", "Analytics dashboard"]
     },
     {
       id: 2,
       title: "3D Portfolio Website",
-      description:
-        "Interactive 3D portfolio featuring Three.js animations, particle systems, and immersive user experience with WebGL shaders and dynamic lighting effects.",
-      technologies: [
-        "React",
-        "Three.js",
-        "Framer Motion",
-        "Tailwind",
-        "WebGL",
-        "GLSL",
-      ],
+      subtitle: "Immersive Digital Experience",
+      description: "An innovative portfolio featuring cutting-edge Three.js animations and WebGL shaders. Creates an unforgettable user experience with smooth 60fps performance.",
+      technologies: ["React", "Three.js", "WebGL", "GLSL"],
       category: "3D Web",
       year: "2024",
-      status: "In Progress",
-      color: "from-purple-400 to-indigo-600",
-      bgColor: "from-purple-400/10 to-indigo-600/10",
-      glowColor: "purple-400",
-      complexity: 90,
-      duration: "3 months",
-      teamSize: "Solo project",
-      highlights: [
-        "Custom WebGL shaders",
-        "Physics-based animations",
-        "Interactive 3D elements",
-        "Optimized for mobile",
-        "Dynamic lighting system",
-      ],
       metrics: {
-        users: "5,000+",
-        performance: "60fps on mobile",
-        engagement: "4.2 min avg session",
-        load: "< 3s initial load",
+        users: { value: "5K+", label: "Monthly Visitors", icon: "lucide:users" },
+        performance: { value: "60fps", label: "Frame Rate", icon: "lucide:play" },
+        engagement: { value: "4.2min", label: "Avg. Session", icon: "lucide:clock" },
       },
-      challenges:
-        "Optimizing 3D performance across devices while maintaining visual quality and ensuring smooth interactions on lower-end hardware.",
-      solution:
-        "Implemented LOD (Level of Detail) system, texture compression, and adaptive quality settings based on device capabilities.",
+      image: "/img2_.jpg",
+      color: "from-purple-600 to-pink-600",
+      features: ["WebGL shaders", "3D interactions", "Particle effects", "Responsive design"]
     },
     {
       id: 3,
       title: "Task Management Platform",
-      description:
-        "Collaborative task management solution with real-time updates, team collaboration features, advanced analytics, and intelligent project insights.",
-      technologies: [
-        "React",
-        "Redux",
-        "Socket.io",
-        "Node.js",
-        "MongoDB",
-        "Chart.js",
-      ],
+      subtitle: "Team Collaboration Redefined",
+      description: "A powerful collaborative platform with real-time updates, advanced team analytics, and intuitive project tracking. Trusted by hundreds of teams worldwide.",
+      technologies: ["React", "Socket.io", "Node.js", "MongoDB"],
       category: "Web App",
       year: "2023",
-      status: "Live",
-      color: "from-orange-400 to-red-500",
-      bgColor: "from-orange-400/10 to-red-500/10",
-      glowColor: "orange-400",
-      complexity: 85,
-      duration: "5 months",
-      teamSize: "4 developers",
-      highlights: [
-        "Real-time collaboration",
-        "Advanced analytics dashboard",
-        "Team performance insights",
-        "File sharing system",
-        "Custom workflow automation",
-      ],
       metrics: {
-        users: "25,000+",
-        teams: "500+ active teams",
-        productivity: "30% improvement",
-        retention: "85% monthly retention",
+        users: { value: "25K+", label: "Active Users", icon: "lucide:users" },
+        teams: { value: "500+", label: "Teams", icon: "lucide:users" },
+        retention: { value: "85%", label: "Retention Rate", icon: "lucide:trending-up" },
       },
-      challenges:
-        "Building scalable real-time collaboration features that work seamlessly across different time zones and team sizes.",
-      solution:
-        "Architected microservices with Socket.io clusters and implemented operational transform algorithms for conflict resolution.",
+      image: "/img3_.jpg",
+      color: "from-green-600 to-teal-600",
+      features: ["Real-time sync", "Team analytics", "Kanban boards", "Time tracking"]
     },
     {
       id: 4,
       title: "AI Chat Interface",
-      description:
-        "Modern conversational AI interface with message streaming, context awareness, multi-language support, and intelligent conversation flow management.",
-      technologies: [
-        "React",
-        "TypeScript",
-        "WebSocket",
-        "OpenAI API",
-        "Redis",
-        "Python",
-      ],
+      subtitle: "Next-Level Conversational AI",
+      description: "A sophisticated AI chat interface with advanced message streaming, context awareness, and support for multiple languages. Handles millions of conversations with ease.",
+      technologies: ["React", "TypeScript", "OpenAI API", "WebSocket"],
       category: "AI/ML",
       year: "2024",
-      status: "Live",
-      color: "from-slate-400 to-gray-600",
-      bgColor: "from-slate-400/10 to-gray-600/10",
-      glowColor: "slate-400",
-      complexity: 88,
-      duration: "3 months",
-      teamSize: "2 developers",
-      highlights: [
-        "Real-time message streaming",
-        "Context-aware responses",
-        "Multi-language support",
-        "Voice-to-text integration",
-        "Custom AI training pipeline",
-      ],
       metrics: {
-        messages: "1M+ processed",
-        response: "< 1s avg response",
-        accuracy: "94% user satisfaction",
-        languages: "12 languages",
+        messages: { value: "1M+", label: "Messages", icon: "lucide:play" },
+        response: { value: "<1s", label: "Response Time", icon: "lucide:clock" },
+        accuracy: { value: "94%", label: "Accuracy", icon: "lucide:trending-up" },
       },
-      challenges:
-        "Implementing efficient message streaming while maintaining conversation context and handling multiple concurrent users.",
-      solution:
-        "Built a scalable WebSocket architecture with Redis for session management and implemented streaming protocols for real-time AI responses.",
+      image: "/img4_.jpg",
+      color: "from-orange-600 to-red-600",
+      features: ["Stream responses", "Multi-language", "Context memory", "Voice input"]
     },
     {
       id: 5,
       title: "Analytics Dashboard",
-      description:
-        "Real-time analytics platform with interactive data visualizations, custom reporting tools, and performance monitoring for business intelligence.",
-      technologies: [
-        "React",
-        "D3.js",
-        "WebSocket",
-        "Chart.js",
-        "Python",
-        "FastAPI",
-      ],
+      subtitle: "Data Visualization Excellence",
+      description: "A comprehensive real-time analytics platform with stunning interactive visualizations. Processes millions of data points with sub-second response times.",
+      technologies: ["React", "D3.js", "Chart.js", "FastAPI"],
       category: "Data Viz",
       year: "2024",
-      status: "Live",
-      color: "from-cyan-400 to-teal-500",
-      bgColor: "from-cyan-400/10 to-teal-500/10",
-      glowColor: "cyan-400",
-      complexity: 92,
-      duration: "4 months",
-      teamSize: "3 developers",
-      highlights: [
-        "Real-time data streaming",
-        "Interactive visualizations",
-        "Custom chart builder",
-        "Export capabilities",
-        "Alert system",
-      ],
       metrics: {
-        dataPoints: "10M+ daily",
-        dashboards: "500+ active",
-        queries: "< 200ms avg",
-        uptime: "99.9% availability",
+        dataPoints: { value: "10M+", label: "Data Points", icon: "lucide:trending-up" },
+        dashboards: { value: "500+", label: "Dashboards", icon: "lucide:play" },
+        uptime: { value: "99.9%", label: "Uptime", icon: "lucide:clock" },
       },
-      challenges:
-        "Processing and visualizing large datasets in real-time while maintaining smooth user interactions and chart responsiveness.",
-      solution:
-        "Implemented data streaming with WebSockets, canvas-based rendering for performance, and smart data sampling algorithms.",
+      image: "/img5_.jpg",
+      color: "from-cyan-600 to-blue-600",
+      features: ["Real-time updates", "Custom widgets", "Export reports", "API integration"]
     },
     {
       id: 6,
       title: "Progressive Web App",
-      description:
-        "Cross-platform PWA with offline capabilities, push notifications, native-like experience, and seamless synchronization across devices.",
-      technologies: [
-        "React",
-        "PWA",
-        "Service Workers",
-        "IndexedDB",
-        "Push API",
-        "Workbox",
-      ],
+      subtitle: "Cross-Platform Excellence",
+      description: "A cutting-edge PWA with offline capabilities, push notifications, and native-like performance. Delivers seamless experience across all devices.",
+      technologies: ["React", "PWA", "Service Workers", "IndexedDB"],
       category: "Mobile",
       year: "2023",
-      status: "Live",
-      color: "from-purple-400 to-blue-600",
-      bgColor: "from-purple-400/10 to-blue-600/10",
-      glowColor: "purple-400",
-      complexity: 87,
-      duration: "3 months",
-      teamSize: "2 developers",
-      highlights: [
-        "Offline-first architecture",
-        "Push notifications",
-        "Native app feel",
-        "Background sync",
-        "Install prompts",
-      ],
       metrics: {
-        installs: "15,000+ installs",
-        offline: "90% offline usage",
-        engagement: "60% daily return",
-        performance: "Lighthouse 95+",
+        installs: { value: "15K+", label: "Installs", icon: "lucide:users" },
+        offline: { value: "90%", label: "Offline Ready", icon: "lucide:play" },
+        engagement: { value: "60%", label: "Engagement", icon: "lucide:trending-up" },
       },
-      challenges:
-        "Creating a seamless offline experience while ensuring data consistency when reconnecting to the network.",
-      solution:
-        "Implemented comprehensive service worker strategy with background sync and conflict resolution for offline-first functionality.",
+      image: "/img6_.jpg",
+      color: "from-indigo-600 to-purple-600",
+      features: ["Offline mode", "Push notifications", "App shortcuts", "Background sync"]
     },
   ];
 
-  const handleScrollProgress = (progress: number) => {
-    setScrollProgress(progress);
+  const currentProject = projects[selectedProject];
 
-    // Fixed calculation - prevents the "stuck on first slide" issue
-    const projectIndex = Math.min(
-      Math.floor(progress * projects.length),
-      projects.length - 1
-    );
-
-    if (projectIndex !== selectedProject) {
-      setSelectedProject(projectIndex);
+  const handlePrevious = () => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setSelectedProject((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+      setTimeout(() => setIsTransitioning(false), 500);
     }
   };
 
-  const currentProject = projects[selectedProject];
+  const handleNext = () => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setSelectedProject((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+      setTimeout(() => setIsTransitioning(false), 500);
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX.current;
+    
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        handleNext();
+      } else {
+        handlePrevious();
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrevious();
+      if (e.key === "ArrowRight") handleNext();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
-    <div
-      ref={sectionRef}
-      className="relative min-h-screen py-20 overflow-hidden"
-    >
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header Section */}
-        <div className={`text-center mb-12 transition-all duration-1000`}>
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
-            <span className="text-orange-400 font-bold tracking-wider text-lg uppercase">
-              Portfolio
-            </span>
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-slate-200 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Featured Projects
-            </span>
+    <div className="relative min-h-screen py-12 sm:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-green-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+            Featured Projects
           </h2>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Innovative solutions crafted with cutting-edge technologies and
-            creative problem-solving
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Crafting digital experiences that make a difference
           </p>
         </div>
 
-        {/* Main Layout - Centered 3D Slider with Side Panels */}
-        <div className="relative">
-          {/* Central 3D Slider */}
-          <div
-            className={`relative mx-auto max-w-4xl transition-all duration-1000 delay-200 `}
-          >
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left Panel - Slider */}
+          <div className="order-2 lg:order-1">
             <div
-              className={`relative h-[400px] lg:h-[500px] backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl shadow-${currentProject.glowColor}/20`}
+              ref={sliderRef}
+              className="relative bg-white dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
-              <ThreeSlider
-                onScrollProgress={handleScrollProgress}
-                openModal={isModalOpen}
-                setOpenModal={setIsModalOpen}
-              />
-             
-
-              {/* Floating Controls */}
-              <div className="absolute top-6 left-6 z-20">
-                <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-600/50 rounded-2xl px-4 py-3">
-                  <div className="flex items-center gap-3 text-slate-300 text-sm font-medium">
-                    <Icon
-                      icon="mingcute:mouse-line"
-                      width="18"
-                      height="18"
-                      className="text-orange-400"
-                    />
-                    <span>Scroll to explore</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Project Counter */}
-              <div className="absolute top-6 right-6 z-20">
-                <div className="backdrop-blur-lg bg-slate-900/60 border border-slate-600/50 rounded-2xl px-4 py-3">
-                  <div className="text-slate-200 font-bold text-lg">
-                    <span className={`text-${currentProject.glowColor}`}>
-                      {selectedProject + 1}
-                    </span>
-                    <span className="text-slate-500 mx-2">/</span>
-                    <span className="text-slate-400">{projects.length}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="absolute bottom-4 left-6 right-6 z-20">
-                <div className="backdrop-blur-lg bg-slate-900/20 border border-slate-600/50 rounded-2xl p-4">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-slate-300 font-semibold text-sm">
-                      {currentProject.title}
-                    </span>
-                    <span className="text-slate-400 text-xs">
+              {/* Project Image Slider */}
+              <div className="relative h-[300px] sm:h-[400px] lg:h-[450px] overflow-hidden">
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${currentProject.color} opacity-90`}
+                />
+                <img
+                  src={currentProject.image}
+                  alt={currentProject.title}
+                  className={`w-full h-full object-cover transition-all duration-700 ${
+                    isTransitioning ? "scale-110 opacity-0" : "scale-100 opacity-100"
+                  }`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                
+                {/* Overlay Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                  <div className={`transition-all duration-500 ${isTransitioning ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"}`}>
+                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-white text-sm font-medium rounded-full mb-3">
                       {currentProject.category}
                     </span>
-                  </div>
-                  <div className="w-full bg-slate-700/50 rounded-full h-2">
-                    <div
-                      className={`h-full bg-gradient-to-r ${currentProject.color} rounded-full transition-all duration-500 shadow-lg`}
-                      style={{
-                        width: `${
-                          ((selectedProject + 1) / projects.length) * 100
-                        }%`,
-                      }}
-                    />
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
+                      {currentProject.title}
+                    </h3>
+                    <p className="text-white/90 text-lg">
+                      {currentProject.subtitle}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Left Info Panel */}
-          <div
-            className={`absolute -left-45 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-400 hidden xl:block`}
-          >
-            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
-              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Icon
-                  icon="mingcute:information-line"
-                  width="24"
-                  height="24"
-                  className={`text-${currentProject.glowColor}`}
-                />
-                Project Info
-              </h3>
-
-              {/* Project Stats Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
-                  <div className="text-slate-400 text-xs mb-1">Complexity</div>
-                  <div className="text-white font-bold text-lg">
-                    {currentProject.complexity}%
-                  </div>
-                </div>
-                <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
-                  <div className="text-slate-400 text-xs mb-1">Duration</div>
-                  <div className="text-white font-bold text-lg">
-                    {currentProject.duration}
-                  </div>
-                </div>
-                <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
-                  <div className="text-slate-400 text-xs mb-1">Team</div>
-                  <div className="text-white font-bold text-lg">
-                    {currentProject.teamSize}
-                  </div>
-                </div>
-                <div
-                  className={`bg-gradient-to-r ${currentProject.bgColor} rounded-lg p-3 border border-slate-600/30`}
-                >
-                  <div className="text-slate-400 text-xs mb-1">Status</div>
-                  <div className="text-white font-bold text-lg">
-                    {currentProject.status}
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Metrics */}
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-slate-300 mb-3">
-                  Key Metrics
-                </h4>
-                {Object.entries(currentProject.metrics)
-                  .slice(0, 3)
-                  .map(([key, value]) => (
-                    <div
-                      key={key}
-                      className="flex justify-between items-center py-1"
-                    >
-                      <span className="text-slate-400 text-sm capitalize">
-                        {key}
-                      </span>
-                      <span className="text-white font-medium text-sm">
-                        {value}
-                      </span>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Tech Panel */}
-          <div
-            className={`absolute -right-45 top-1/2 -translate-y-1/2 w-80 transition-all duration-1000 delay-600 hidden xl:block`}
-          >
-            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl">
-              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Icon
-                  icon="mingcute:code-line"
-                  width="24"
-                  height="24"
-                  className={`text-${currentProject.glowColor}`}
-                />
-                Tech Stack
-              </h3>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {currentProject.technologies.map((tech, index) => (
-                  <span
-                    key={tech}
-                    className={`px-3 py-2 bg-slate-800/50 text-slate-300 text-sm rounded-lg border border-slate-600/50 hover:border-${currentProject.glowColor}/50 hover:shadow-sm transition-all duration-300`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Quick Navigation */}
-              <div>
-                <h4 className="text-sm font-semibold text-slate-300 mb-3">
-                  Quick Navigation
-                </h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {projects.slice(0, 4).map((project, index) => (
-                    <button
-                      key={project.id}
-                      className={`p-2 text-xs rounded-lg border transition-all duration-300 ${
-                        selectedProject === index
-                          ? `bg-gradient-to-r ${project.bgColor} border-slate-600/50 text-white`
-                          : "bg-slate-800/30 border-slate-600/30 text-slate-400 hover:bg-slate-700/50 hover:text-white"
-                      }`}
-                      onClick={() => setSelectedProject(index)}
-                    >
-                      <div className="font-medium truncate">
-                        {project.title}
-                      </div>
-                      <div className="text-xs opacity-75">{project.year}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Content Section */}
-        <div className={`mt-16 transition-all duration-1000 delay-800`}>
-          {/* Project Details Tabs */}
-          <div className="max-w-6xl mx-auto">
-            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-8 shadow-2xl">
-              {/* Tab Navigation */}
-              <div className="flex flex-wrap justify-center gap-2 mb-8">
-                {[
-                  {
-                    id: "overview",
-                    icon: "mingcute:eye-line",
-                    label: "Overview",
-                  },
-                  {
-                    id: "highlights",
-                    icon: "mingcute:star-line",
-                    label: "Highlights",
-                  },
-                  {
-                    id: "challenge",
-                    icon: "mingcute:question-line",
-                    label: "Challenge & Solution",
-                  },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
-                      activeTab === tab.id
-                        ? `bg-gradient-to-r ${currentProject.color} text-white shadow-lg`
-                        : "bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 border border-slate-600/30"
-                    }`}
-                  >
-                    <Icon icon={tab.icon} width="18" height="18" />
-                    <span>{tab.label}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab Content */}
-              <div className="min-h-[300px]">
-                {activeTab === "overview" && (
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-4">
-                        {currentProject.title}
-                      </h3>
-                      <p className="text-slate-300 leading-relaxed mb-6 text-lg">
-                        {currentProject.description}
-                      </p>
-                      <div className="flex gap-4">
-                        <button
-                          onClick={() => setIsModalOpen(true)}
-                          className={`px-6 py-3 bg-gradient-to-r ${currentProject.color} rounded-xl font-semibold text-white hover:shadow-lg transition-all duration-300 flex items-center gap-2`}
-                        >
-                          <Icon
-                            icon="mingcute:eye-line"
-                            width="20"
-                            height="20"
-                          />
-                          View Details
-                        </button>
-                        <button
-                          onClick={() => scrollToSection?.("contactme")}
-                          className="px-6 py-3 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-orange-400 hover:bg-orange-400/10 transition-all duration-300 flex items-center gap-2"
-                        >
-                          <Icon
-                            icon="mingcute:message-3-line"
-                            width="20"
-                            height="20"
-                          />
-                          Discuss
-                        </button>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      {Object.entries(currentProject.metrics).map(
-                        ([key, value]) => (
-                          <div
-                            key={key}
-                            className="bg-slate-800/30 rounded-lg p-4 border border-slate-600/30"
-                          >
-                            <div className="text-slate-400 text-sm capitalize mb-1">
-                              {key.replace(/([A-Z])/g, " $1")}
-                            </div>
-                            <div className="text-white font-bold text-lg">
-                              {value}
-                            </div>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === "highlights" && (
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {currentProject.highlights.map((highlight, index) => (
-                      <div
-                        key={index}
-                        className="flex items-start gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-600/30 hover:border-slate-500/50 transition-all duration-300"
-                      >
-                        <div
-                          className={`w-3 h-3 bg-gradient-to-r ${currentProject.color} rounded-full mt-1.5 flex-shrink-0 shadow-lg`}
-                        />
-                        <span className="text-slate-300 leading-relaxed">
-                          {highlight}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {activeTab === "challenge" && (
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="bg-orange-400/10 rounded-lg p-6 border border-orange-400/20">
-                      <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-2">
-                        <Icon
-                          icon="mingcute:question-line"
-                          width="24"
-                          height="24"
-                        />
-                        The Challenge
-                      </h4>
-                      <p className="text-slate-300 leading-relaxed">
-                        {currentProject.challenges}
-                      </p>
-                    </div>
-                    <div className="bg-cyan-400/10 rounded-lg p-6 border border-cyan-400/20">
-                      <h4 className="text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
-                        <Icon
-                          icon="mingcute:lightbulb-line"
-                          width="24"
-                          height="24"
-                        />
-                        The Solution
-                      </h4>
-                      <p className="text-slate-300 leading-relaxed">
-                        {currentProject.solution}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-slate-900/90 backdrop-blur-xl"
-            onClick={() => setIsModalOpen(false)}
-          />
-          <div className="relative max-w-5xl w-full max-h-[90vh] overflow-auto backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl shadow-2xl">
-            <div className="p-8">
-              <div className="flex justify-between items-start mb-8">
-                <div>
-                  <h2
-                    className={`text-4xl font-bold mb-3 bg-gradient-to-r ${currentProject.color} bg-clip-text text-transparent`}
-                  >
-                    {currentProject.title}
-                  </h2>
-                  <p className="text-slate-300 text-lg leading-relaxed max-w-3xl">
-                    {currentProject.description}
-                  </p>
-                </div>
+                {/* Navigation Arrows */}
                 <button
-                  className="w-12 h-12 rounded-full bg-slate-800/50 border border-slate-600/50 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all duration-300"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={handlePrevious}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
+                  aria-label="Previous project"
                 >
-                  <Icon icon="mingcute:close-line" width="24" height="24" />
+                  <Icon icon="lucide:chevron-left" className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
+                  aria-label="Next project"
+                >
+                  <Icon icon="lucide:chevron-right" className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="md:col-span-2">
-                  <h4 className="text-2xl font-semibold text-white mb-6">
+              {/* Slider Indicators */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {projects.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedProject(index)}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      index === selectedProject
+                        ? "w-8 bg-white"
+                        : "w-1 bg-white/40 hover:bg-white/60"
+                    }`}
+                    aria-label={`Go to project ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Thumbnail Grid - Desktop Only */}
+            <div className="hidden lg:grid grid-cols-6 gap-3 mt-6">
+              {projects.map((project, index) => (
+                <button
+                  key={project.id}
+                  onClick={() => setSelectedProject(index)}
+                  className={`relative overflow-hidden rounded-xl border-2 transition-all duration-300 group ${
+                    selectedProject === index
+                      ? "border-blue-500 shadow-lg shadow-blue-500/20 scale-105"
+                      : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
+                  }`}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-80 transition-opacity duration-300`} />
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-16 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-2">
+                    <p className="text-[10px] text-white font-medium truncate">
+                      {project.title}
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Panel - Project Details */}
+          <div className="order-1 lg:order-2">
+            <div className={`transition-all duration-500 ${isTransitioning ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"}`}>
+              {/* Project Info Card */}
+              <div className="bg-white dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 dark:border-slate-700/50">
+                {/* Year Badge */}
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                    {currentProject.year} • Project #{selectedProject + 1} of {projects.length}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-8 text-lg">
+                  {currentProject.description}
+                </p>
+
+                {/* Key Features */}
+                <div className="mb-8">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
                     Key Features
                   </h4>
-                  <div className="grid gap-4">
-                    {currentProject.highlights.map((highlight, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-lg border border-slate-600/30"
-                      >
-                        <div
-                          className={`w-2 h-2 bg-gradient-to-r ${currentProject.color} rounded-full flex-shrink-0`}
-                        />
-                        <span className="text-slate-300">{highlight}</span>
+                  <div className="grid grid-cols-2 gap-3">
+                    {currentProject.features.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${currentProject.color}`} />
+                        <span className="text-sm text-slate-600 dark:text-slate-400">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="text-2xl font-semibold text-white mb-6">
-                    Technologies
+                {/* Technologies */}
+                <div className="mb-8">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
+                    Tech Stack
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {currentProject.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-2 bg-slate-800/50 text-slate-300 text-sm rounded-lg border border-slate-600/50"
+                        className="px-4 py-2 bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 text-sm font-medium rounded-xl hover:shadow-md transition-shadow duration-200"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
+                </div>
 
-                  <div className="mt-8">
-                    <h5 className="text-lg font-semibold text-white mb-4">
-                      Project Metrics
-                    </h5>
-                    <div className="space-y-3">
-                      {Object.entries(currentProject.metrics).map(
-                        ([key, value]) => (
-                          <div
-                            key={key}
-                            className="flex justify-between items-center p-3 bg-slate-800/30 rounded-lg"
-                          >
-                            <span className="text-slate-400 capitalize">
-                              {key.replace(/([A-Z])/g, " $1")}
-                            </span>
-                            <span className="text-white font-semibold">
-                              {value}
-                            </span>
-                          </div>
-                        )
-                      )}
-                    </div>
+                {/* Metrics */}
+                <div className="mb-8">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
+                    Impact Metrics
+                  </h4>
+                  <div className="grid grid-cols-3 gap-4">
+                    {Object.entries(currentProject.metrics).map(([key, metric]) => (
+                      <div key={key} className="bg-slate-50 dark:bg-slate-700/30 rounded-xl p-4 text-center hover:shadow-md transition-all duration-200 group">
+                        <Icon icon={metric.icon} className={`w-5 h-5 mx-auto mb-2 text-slate-400 group-hover:text-blue-500 transition-colors`} />
+                        <div className={`text-xl font-bold bg-gradient-to-br ${currentProject.color} bg-clip-text text-transparent`}>
+                          {metric.value}
+                        </div>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                          {metric.label}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
+
+                {/* Actions */}
+                <div className="flex gap-4">
+                  <button
+                    className={`flex-1 px-6 py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group`}
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      View Live
+                      <Icon icon="lucide:external-link" className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </span>
+                  </button>
+                  <button
+                    className="flex-1 px-6 py-3 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-200 group"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      Source Code
+                      <Icon icon="lucide:github" className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Quick Contact */}
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => scrollToSection?.("contactme")}
+                  className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  <span>Interested in working together?</span>
+                  <Icon icon="lucide:arrow-right" className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
