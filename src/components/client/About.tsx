@@ -34,96 +34,108 @@ const JOURNEY_POINTS = [
   },
 ] as const;
 
-const PERSONAL_INFO = [
-  {
-    icon: "mingcute:location-line",
-    label: "Location",
-    value: "Tehran, Iran",
-    color: "from-red-400 to-pink-500",
-  },
-  {
-    icon: "mingcute:mail-line",
-    label: "Email",
-    value: "mahdi@example.com",
-    color: "from-blue-400 to-cyan-500",
-  },
-  {
-    icon: "mingcute:phone-line",
-    label: "Phone",
-    value: "+98 912 345 6789",
-    color: "from-green-400 to-emerald-500",
-  },
-  {
-    icon: "mingcute:calendar-line",
-    label: "Experience",
-    value: "3+ Years",
-    color: "from-purple-400 to-indigo-500",
-  },
-] as const;
-
 const TECHNICAL_SKILLS = [
   {
-    name: "React/Next.js",
-    level: 95,
+    name: "React.js",
+    level: 90,
     icon: "logos:react",
     color: "from-blue-400 to-cyan-500",
+    category: "Frontend",
+  },
+  {
+    name: "Next.js",
+    level: 75,
+    icon: "devicon-plain:nextjs",
+    color: "from-blue-400 to-cyan-500",
+    category: "Frontend",
   },
   {
     name: "TypeScript",
     level: 90,
     icon: "logos:typescript-icon",
     color: "from-blue-600 to-blue-400",
+    category: "Language",
   },
   {
     name: "JavaScript",
-    level: 92,
+    level: 90,
     icon: "logos:javascript",
     color: "from-yellow-400 to-orange-500",
+    category: "Language",
   },
   {
     name: "Tailwind CSS",
-    level: 88,
+    level: 95,
     icon: "logos:tailwindcss-icon",
     color: "from-cyan-400 to-blue-500",
+    category: "Styling",
+  },
+  {
+    name: "Material UI",
+    level: 80,
+    icon: "logos:material-ui",
+    color: "from-blue-500 to-indigo-600",
+    category: "UI Library",
+  },
+  {
+    name: "SQL Server",
+    level: 70,
+    icon: "logos:microsoft-icon",
+    color: "from-red-500 to-orange-600",
+    category: "Database",
+  },
+  {
+    name: "Supabase",
+    level: 70,
+    icon: "logos:supabase-icon",
+    color: "from-green-400 to-emerald-500",
+    category: "Backend",
   },
   {
     name: "Node.js",
-    level: 85,
+    level: 30,
     icon: "logos:nodejs-icon",
     color: "from-green-500 to-green-400",
+    category: "Backend",
+  },
+  {
+    name: ".NET Core",
+    level: 50,
+    icon: "logos:dotnet",
+    color: "from-purple-500 to-purple-600",
+    category: "Backend",
   },
 ] as const;
 
-const INTERESTS = [
+const EXPERTISE_AREAS = [
   {
-    name: "UI/UX Design",
+    title: "Frontend Development",
     icon: "mingcute:palette-line",
-    color: "from-pink-400 to-rose-500",
+    color: "from-pink-500 to-rose-600",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Material UI"],
   },
   {
-    name: "Performance",
+    title: "Backend Development",
+    icon: "mingcute:server-line",
+    color: "from-purple-500 to-indigo-600",
+    skills: ["Node.js", ".NET Core", "RESTful APIs", "Supabase"],
+  },
+  {
+    title: "Database Management",
+    icon: "mingcute:storage-line",
+    color: "from-blue-500 to-cyan-600",
+    skills: ["SQL Server", "Supabase", "Database Design", "Query Optimization"],
+  },
+  {
+    title: "Performance & SEO",
     icon: "mingcute:rocket-line",
-    color: "from-orange-400 to-red-500",
-  },
-  {
-    name: "Clean Code",
-    icon: "mingcute:code-line",
-    color: "from-green-400 to-emerald-500",
-  },
-  {
-    name: "Innovation",
-    icon: "mingcute:lightbulb-line",
-    color: "from-yellow-400 to-amber-500",
-  },
-  {
-    name: "Problem Solving",
-    icon: "mingcute:puzzle-line",
-    color: "from-purple-400 to-indigo-500",
-  },
-  {
-    name: "Team Work",
-    icon: "mingcute:group-line",
-    color: "from-blue-400 to-cyan-500",
+    color: "from-orange-500 to-red-600",
+    skills: [
+      "Code Optimization",
+      "SSR/SSG",
+      "Web Vitals",
+      "SEO Best Practices",
+    ],
   },
 ] as const;
 
@@ -135,19 +147,19 @@ const PHILOSOPHY_POINTS = [
     color: "from-red-400 to-pink-500",
   },
   {
-    icon: "mingcute:speed-line",
+    icon: "eos-icons:performance",
     title: "Performance First",
     description: "Optimized, fast applications that users love",
     color: "from-orange-400 to-yellow-500",
   },
   {
-    icon: "mingcute:refresh-line",
+    icon: "healthicons:clean-hands",
     title: "Clean & Maintainable",
     description: "Write code that's readable and scalable",
     color: "from-green-400 to-emerald-500",
   },
   {
-    icon: "mingcute:diamond-line",
+    icon: "lets-icons:dimond-alt-light",
     title: "Attention to Detail",
     description: "Pixel-perfect implementations with care",
     color: "from-purple-400 to-indigo-500",
@@ -181,67 +193,105 @@ const STATS = [
   },
 ] as const;
 
-// Memoized skill bar component to prevent unnecessary re-renders
+// Memoized skill bar component
 const SkillBar = memo<{
   skill: {
     name: string;
     level: number;
     icon: string;
     color: string;
+    category: string;
   };
   index: number;
   isVisible: boolean;
   isActive: boolean;
 }>(({ skill, index, isVisible, isActive }) => (
-  <div className={`transition-all duration-500 ${isActive ? "scale-105" : ""}`}>
-    <div className="flex items-center justify-between mb-2">
+  <div
+    className={`transition-all duration-300 ${isActive ? "scale-[1.02]" : ""}`}
+  >
+    <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-3">
-        <Icon icon={skill.icon} width={24} height={24} />
-        <span className="text-white font-medium">{skill.name}</span>
+        <div
+          className={`w-10 h-10 rounded-lg bg-slate-800/50 flex items-center justify-center ${
+            isActive ? "ring-2 ring-cyan-400" : ""
+          }`}
+        >
+          <Icon icon={skill.icon} width={32} height={32} />
+        </div>
+        <div>
+          <span className="text-white font-medium block">{skill.name}</span>
+          <span className="text-slate-500 text-xs">{skill.category}</span>
+        </div>
       </div>
-      <span className="text-slate-400 font-medium">{skill.level}%</span>
+      <span className="text-cyan-400 font-semibold text-lg">
+        {skill.level}%
+      </span>
     </div>
-    <div className="w-full bg-slate-700 rounded-full h-2">
+    <div className="w-full bg-slate-800/50 rounded-full h-2 overflow-hidden">
       <div
-        className={`bg-gradient-to-r ${
-          skill.color
-        } h-2 rounded-full transition-all duration-1000 ${
-          isActive ? "animate-pulse" : ""
-        }`}
+        className={`bg-gradient-to-r ${skill.color} h-2 rounded-full transition-all duration-1000 relative`}
         style={{
           width: isVisible ? `${skill.level}%` : "0%",
           transitionDelay: `${index * 0.1}s`,
         }}
-      />
+      >
+        {isActive && (
+          <div className="absolute inset-0 bg-white/20 animate-pulse" />
+        )}
+      </div>
     </div>
   </div>
 ));
 
 SkillBar.displayName = "SkillBar";
 
-// Memoized info card component
-const InfoCard = memo<{
-  info: {
-    label: string;
-    value: string;
-    icon: string;
-    color: string;
-  };
-}>(({ info }) => (
-  <div className="flex items-center gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group">
+// Expertise card component
+const ExpertiseCard = memo<{
+  area: (typeof EXPERTISE_AREAS)[number];
+  index: number;
+  isVisible: boolean;
+}>(({ area, index, isVisible }) => (
+  <div
+    className={`group relative overflow-hidden rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 p-6 hover:border-cyan-400/50 transition-all duration-500 ${
+      isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+    }`}
+    style={{ transitionDelay: `${index * 0.1}s` }}
+  >
+    {/* Gradient overlay on hover */}
     <div
-      className={`w-12 h-12 bg-gradient-to-br ${info.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-    >
-      <Icon icon={info.icon} width={24} height={24} className="text-white" />
-    </div>
-    <div>
-      <p className="text-slate-400 text-sm">{info.label}</p>
-      <p className="text-white font-semibold text-lg">{info.value}</p>
+      className={`absolute inset-0 bg-gradient-to-br ${area.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+    />
+
+    <div className="relative z-10">
+      <div className="flex gap-4 items-center ">
+        <div
+          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+        >
+          <Icon
+            icon={area.icon}
+            width={28}
+            height={28}
+            className="text-white"
+          />
+        </div>
+        <h4 className="text-xl font-bold text-white mb-4">{area.title}</h4>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {area.skills.map((skill) => (
+          <span
+            key={skill}
+            className="px-3 py-1.5 bg-slate-700/50 rounded-lg text-slate-300 text-sm font-medium hover:bg-slate-700 transition-colors duration-200"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
     </div>
   </div>
 ));
 
-InfoCard.displayName = "InfoCard";
+ExpertiseCard.displayName = "ExpertiseCard";
 
 const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -255,12 +305,10 @@ const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
       ([entry]) => {
         if (entry.isIntersecting && !isVisible) {
           setIsVisible(true);
-          // Start skill rotation only when visible
           intervalRef.current = setInterval(() => {
             setActiveSkill((prev) => (prev + 1) % TECHNICAL_SKILLS.length);
           }, 3000);
         } else if (!entry.isIntersecting && isVisible) {
-          // Stop skill rotation when not visible for performance
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
@@ -269,7 +317,7 @@ const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
       },
       {
         threshold: 0.1,
-        rootMargin: "50px", // Start loading slightly before visible
+        rootMargin: "50px",
       }
     );
 
@@ -286,9 +334,8 @@ const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isVisible]);
+  }, [isVisible , activeSkill]);
 
-  // Memoized scroll handlers
   const handleContactClick = useCallback(() => {
     scrollToSection?.("contactme");
   }, [scrollToSection]);
@@ -297,313 +344,234 @@ const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
     scrollToSection?.("experiences");
   }, [scrollToSection]);
 
-  // Memoized animation classes
-  const animationClasses = useMemo(
-    () => ({
-      header: `text-center mb-16 transition-all duration-1000 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      }`,
-      journey: `mb-20 transition-all duration-1000 delay-200 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      }`,
-      personalInfo: `transition-all duration-1000 delay-300 ${
-        isVisible ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
-      }`,
-      skills: `transition-all duration-1000 delay-400 ${
-        isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-      }`,
-      interests: `mb-20 transition-all duration-1000 delay-500 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      }`,
-      stats: `lg:col-span-1 transition-all duration-1000 delay-600 ${
-        isVisible ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
-      }`,
-      philosophy: `lg:col-span-2 transition-all duration-1000 delay-700 ${
-        isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-      }`,
-      cta: `transition-all duration-1000 delay-800 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      }`,
-    }),
-    [isVisible]
-  );
-
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen py-20 overflow-hidden"
+      className="relative min-h-screen py-12 md:py-20 overflow-hidden"
     >
-      {/* Background Overlay for better text readability */}
-      <div className="absolute inset-0 gradient-hover-besides" />
+      {/* Background with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
+        <div
+          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className={animationClasses.header}>
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
-            <span className="text-orange-400 font-medium tracking-wider text-lg uppercase">
+        <div
+          className={`text-center mb-12 md:mb-20 transition-all duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-full border border-cyan-400/30 mb-6">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+            <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
               About Me
             </span>
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
           </div>
-          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-cyan-200 via-slate-200 to-cyan-300 bg-clip-text text-transparent">
-              Passionate Developer
+
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
+              FrontEnd Developer
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed text-shadow-xs text-shadow-slate-900">
-            Crafting digital experiences that blend creativity with
-            functionality. I turn ideas into elegant, performant web
-            applications.
+
+          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            Crafting exceptional digital experiences with modern technologies.
+            Specialized in building scalable, performant web applications.
           </p>
         </div>
 
-        {/* Journey Section */}
-        <div className={animationClasses.journey}>
-          <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-cyan-400/30 transition-all duration-500">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-300 to-blue-500 rounded-xl flex items-center justify-center">
+        {/* Stats Grid - More compact on mobile */}
+        <div
+          className={`grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-20 transition-all duration-1000 delay-100 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          {STATS.map((stat) => (
+            <div key={stat.label} className="relative group">
+              <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
+                <div
+                  className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <Icon
+                    icon={stat.icon}
+                    width={24}
+                    height={24}
+                    className="text-white"
+                  />
+                </div>
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  {stat.number}
+                </div>
+                <div className="text-slate-400 text-sm md:text-base">
+                  {stat.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Expertise Areas */}
+        <div className="mb-12 md:mb-20">
+          <h3
+            className={`text-3xl md:text-4xl font-bold text-white mb-8 md:mb-12 text-center transition-all duration-1000 delay-200 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
+            }`}
+          >
+            Areas of Expertise
+          </h3>
+
+          <div className="grid md:grid-cols-2  gap-4 md:gap-6">
+            {EXPERTISE_AREAS.map((area, index) => (
+              <ExpertiseCard
+                key={area.title}
+                area={area}
+                index={index}
+                isVisible={isVisible}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Technical Skills */}
+        <div
+          className={`mb-12 md:mb-20 transition-all duration-1000 delay-300 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-cyan-400/30 transition-all duration-500">
+            <div className="flex items-center gap-3 mb-8 md:mb-10">
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
                 <Icon
-                  icon="mingcute:user-star-fill"
+                  icon="mingcute:code-line"
                   width={28}
                   height={28}
                   className="text-white"
                 />
               </div>
-              <h3 className="text-3xl font-bold text-white">My Journey</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {JOURNEY_POINTS.map((point, index) => (
-                <div
-                  key={point.title}
-                  className="flex gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
-                >
-                  <div
-                    className={`w-10 h-10 bg-gradient-to-br ${point.color} rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <Icon
-                      icon={point.icon}
-                      width={24}
-                      height={24}
-                      className="text-white"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold mb-2">
-                      {point.title}
-                    </h4>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {point.content}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Personal Info & Skills Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-20">
-          {/* Personal Information */}
-          <div className={animationClasses.personalInfo}>
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-purple-400/30 transition-all duration-500 h-full">
-              <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <Icon
-                  icon="mingcute:information-line"
-                  width={32}
-                  height={32}
-                  className="text-purple-400"
-                />
-                Personal Info
-              </h3>
-              <div className="space-y-4">
-                {PERSONAL_INFO.map((info) => (
-                  <InfoCard key={info.label} info={info} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Technical Skills */}
-          <div className={animationClasses.skills}>
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-cyan-400/30 transition-all duration-500 h-full">
-              <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <Icon
-                  icon="mingcute:code-line"
-                  width={32}
-                  height={32}
-                  className="text-cyan-400"
-                />
+              <h3 className="text-2xl md:text-3xl font-bold text-white">
                 Technical Skills
               </h3>
-              <div className="space-y-6">
-                {TECHNICAL_SKILLS.map((skill, index) => (
-                  <SkillBar
-                    key={skill.name}
-                    skill={skill}
-                    index={index}
-                    isVisible={isVisible}
-                    isActive={activeSkill === index}
-                  />
-                ))}
-              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Interests Section */}
-        <div className={animationClasses.interests}>
-          <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-amber-400/30 transition-all duration-500">
-            <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3 justify-center">
-              <Icon
-                icon="mingcute:sparkles-line"
-                width={32}
-                height={32}
-                className="text-amber-400"
-              />
-              Interests & Focus Areas
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {INTERESTS.map((interest) => (
-                <div
-                  key={interest.name}
-                  className="flex items-center gap-3 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
-                >
-                  <div
-                    className={`w-10 h-10 bg-gradient-to-br ${interest.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <Icon
-                      icon={interest.icon}
-                      width={20}
-                      height={20}
-                      className="text-white"
-                    />
-                  </div>
-                  <span className="text-slate-300 font-medium">
-                    {interest.name}
-                  </span>
-                </div>
+            <div className="grid md:grid-cols-2 gap-6 md:gap-x-28 gap-y-8">
+              {TECHNICAL_SKILLS.map((skill, index) => (
+                <SkillBar
+                  key={skill.name}
+                  skill={skill}
+                  index={index}
+                  isVisible={isVisible}
+                  isActive={activeSkill == index}
+                />
               ))}
             </div>
           </div>
         </div>
 
-        {/* Stats & Philosophy Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-20">
-          {/* Stats Section */}
-          <div className={animationClasses.stats}>
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500 h-full">
-              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <Icon
-                  icon="mingcute:trophy-line"
-                  width={28}
-                  height={28}
-                  className="text-green-400"
-                />
-                Achievements
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {STATS.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="text-center p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
-                  >
+        {/* Development Philosophy */}
+        <div
+          className={`mb-12 md:mb-20 transition-all duration-1000 delay-400 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-purple-400/30 transition-all duration-500">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-3">
+              <Icon
+                icon="mingcute:lightbulb-line"
+                width={32}
+                height={32}
+                className="text-purple-400"
+              />
+              Development Philosophy
+            </h3>
+
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
+              {PHILOSOPHY_POINTS.map((point) => (
+                <div
+                  key={point.title}
+                  className="relative group overflow-hidden rounded-xl bg-slate-700/30 p-5 md:p-6 hover:bg-slate-700/50 transition-all duration-300"
+                >
+                  <div className="flex items-start gap-4">
                     <div
-                      className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-12 h-12 bg-gradient-to-br ${point.color} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
                     >
                       <Icon
-                        icon={stat.icon}
-                        width={20}
-                        height={20}
+                        icon={point.icon}
+                        width={24}
+                        height={24}
                         className="text-white"
                       />
                     </div>
-                    <div className="text-2xl font-bold text-white mb-1">
-                      {stat.number}
-                    </div>
-                    <div className="text-slate-400 text-xs">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Development Philosophy */}
-          <div className={animationClasses.philosophy}>
-            <div className="backdrop-blur-md bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 hover:border-green-400/30 transition-all duration-500 h-full">
-              <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <Icon
-                  icon="mingcute:lightbulb-line"
-                  width={32}
-                  height={32}
-                  className="text-green-400"
-                />
-                Development Philosophy
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {PHILOSOPHY_POINTS.map((point) => (
-                  <div
-                    key={point.title}
-                    className="p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div
-                        className={`w-10 h-10 bg-gradient-to-br ${point.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                      >
-                        <Icon
-                          icon={point.icon}
-                          width={20}
-                          height={20}
-                          className="text-white"
-                        />
-                      </div>
-                      <h4 className="text-white font-semibold">
+                    <div>
+                      <h4 className="text-white font-semibold text-lg mb-2">
                         {point.title}
                       </h4>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                        {point.description}
+                      </p>
                     </div>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {point.description}
-                    </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className={animationClasses.cta}>
-          <div className="backdrop-blur-md bg-gradient-to-br from-slate-800/30 to-slate-700/30 border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/30 transition-all duration-500">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              Let's Work Together
-            </h3>
-            <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
-              Ready to bring your ideas to life? Let's create something amazing
-              together and push the boundaries of what's possible.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={handleContactClick}
-                className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
-                aria-label="Contact me"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                <div className="relative flex items-center gap-3">
-                  <Icon icon="mingcute:send-line" width={20} height={20} />
-                  <span>Get In Touch</span>
-                </div>
-              </button>
-              <button
-                onClick={handleExperienceClick}
-                className="group relative px-8 py-4 bg-transparent border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
-                aria-label="View experience"
-              >
-                <div className="relative flex items-center gap-3">
-                  <Icon icon="mingcute:time-line" width={20} height={20} />
-                  <span>View Experience</span>
-                </div>
-              </button>
+        <div
+          className={`transition-all duration-1000 delay-500 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Let's Build Something Great
+              </h3>
+              <p className="text-slate-400 text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto">
+                Ready to bring your ideas to life? Let's collaborate and create
+                exceptional digital experiences together.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={handleContactClick}
+                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+                  aria-label="Contact me"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <div className="relative flex items-center justify-center gap-2 md:gap-3">
+                    <Icon icon="mingcute:send-line" width={20} height={20} />
+                    <span>Get In Touch</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={handleExperienceClick}
+                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
+                  aria-label="View experience"
+                >
+                  <div className="relative flex items-center justify-center gap-2 md:gap-3">
+                    <Icon
+                      icon="mingcute:briefcase-line"
+                      width={20}
+                      height={20}
+                    />
+                    <span>View Projects</span>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
