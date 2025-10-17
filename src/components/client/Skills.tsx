@@ -1,6 +1,10 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { Icon } from "@iconify/react";
+
+interface SkillsProps {
+  scrollToSection?: (id: string) => void;
+}
 
 // Types
 type Skill = {
@@ -9,239 +13,709 @@ type Skill = {
   years: number;
   icon: string;
   color: string;
+  description: string;
 };
-type StackKey = "frontend" | "state" | "animation" | "tools";
+
+type StackKey = "frontend" | "backend" | "tools" | "design";
+
 type SkillStack = {
   title: string;
   icon: string;
-  color: string; // nav gradient
-  gradientColors: [string, string, string]; // for progress circle
+  color: string;
+  borderColor: string;
+  shadowColor: string;
+  bgGradient: string;
   skills: Skill[];
 };
+
 type SkillStackMap = Record<StackKey, SkillStack>;
 
-const Skills = () => {
+// Skill Card Component
+const SkillCard = memo(
+  ({
+    skill,
+    index,
+    isVisible,
+    isActive,
+    stackColor,
+  }: {
+    skill: Skill;
+    index: number;
+    isVisible: boolean;
+    isActive: boolean;
+    stackColor: string;
+  }) => {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+      if (isVisible && isActive) {
+        const timer = setTimeout(() => {
+          setProgress(skill.mastery);
+        }, index * 100);
+        return () => clearTimeout(timer);
+      } else {
+        setProgress(0);
+      }
+    }, [isVisible, isActive, skill.mastery, index]);
+
+    return (
+      <div
+        className={`relative group transition-all duration-700 ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+        }`}
+        style={{ transitionDelay: `${index * 100}ms` }}
+      >
+        <div className="relative h-full bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2">
+          {/* Gradient overlay on hover */}
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${stackColor} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
+          />
+
+          {/* Icon */}
+          <div className="relative z-10 flex justify-center mb-4">
+            <div
+              className={`w-16 h-16 bg-gradient-to-br ${stackColor} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+            >
+              <Icon icon={skill.icon} className="w-8 h-8 text-white" />
+            </div>
+          </div>
+
+          {/* Name */}
+          <h3 className="relative z-10 text-lg font-bold text-white text-center mb-2">
+            {skill.name}
+          </h3>
+
+          {/* Progress Bar */}
+          <div className="relative z-10 mb-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs text-slate-400">Proficiency</span>
+              <span className="text-xs font-semibold text-cyan-400">
+                {skill.mastery}%
+              </span>
+            </div>
+            <div className="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+              <div
+                className={`h-full bg-gradient-to-r ${stackColor} rounded-full transition-all duration-1000 ease-out`}
+                style={{
+                  width: `${progress}%`,
+                  transitionDelay: `${index * 100}ms`,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Experience */}
+          <div className="relative z-10 flex items-center justify-center gap-2 text-sm text-slate-400">
+            <Icon icon="mingcute:time-line" className="w-4 h-4" />
+            <span>{skill.years} years experience</span>
+          </div>
+
+          {/* Description on hover */}
+          <div className="absolute inset-x-4 -bottom-2 translate-y-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
+            <div className="bg-slate-900/95 backdrop-blur-sm border border-slate-700 rounded-lg p-3 shadow-xl">
+              <p className="text-xs text-slate-300">{skill.description}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+);
+
+SkillCard.displayName = "SkillCard";
+
+// Mobile Skill Slider Component
+const MobileSkillSlider = memo(
+  ({
+    stacks,
+    selectedStack,
+    onSelect,
+  }: {
+    stacks: SkillStackMap;
+    selectedStack: StackKey;
+    onSelect: (key: StackKey) => void;
+  }) => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    return (
+      <div className="relative mb-8 md:hidden">
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {(Object.keys(stacks) as StackKey[]).map((key) => (
+            <button
+              key={key}
+              onClick={() => onSelect(key)}
+              className={`relative flex-shrink-0 snap-center transition-all duration-300 ${
+                selectedStack === key ? "scale-105" : "scale-95 opacity-70"
+              }`}
+            >
+              <div
+                className={`relative px-6 py-3 rounded-xl ${
+                  selectedStack === key
+                    ? `bg-gradient-to-r ${stacks[key].color} text-white shadow-lg ${stacks[key].shadowColor}`
+                    : "bg-slate-800/50 text-slate-400 border border-slate-700/50"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Icon icon={stacks[key].icon} className="w-5 h-5" />
+                  <span className="font-semibold text-sm">
+                    {stacks[key].title}
+                  </span>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  },
+);
+
+MobileSkillSlider.displayName = "MobileSkillSlider";
+
+// Main Skills Component
+const Skills = memo<SkillsProps>(({ scrollToSection }) => {
   const [selectedStack, setSelectedStack] = useState<StackKey>("frontend");
   const [isVisible, setIsVisible] = useState(false);
-  const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
-  const [animateProgress, setAnimateProgress] = useState(false);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const skillStacks: SkillStackMap = {
     frontend: {
       title: "Frontend",
-      icon: "ri:code-s-slash-line",
-      color: "from-blue-400 via-purple-500 to-purple-600",
-      gradientColors: ["#60a5fa", "#8b5cf6", "#6366f1"],
+      icon: "mingcute:code-line",
+      color: "from-cyan-500 to-blue-600",
+      borderColor: "border-cyan-400/50",
+      shadowColor: "shadow-cyan-500/20",
+      bgGradient: "from-cyan-500/10 to-blue-600/10",
       skills: [
-        { name: "React", mastery: 95, years: 3, icon: "logos:react", color: "text-blue-400" },
-        { name: "Next.js", mastery: 90, years: 2, icon: "logos:nextjs-icon", color: "text-white" },
-        { name: "TypeScript", mastery: 88, years: 2.5, icon: "logos:typescript-icon", color: "text-blue-500" },
-        { name: "Tailwind", mastery: 92, years: 2, icon: "logos:tailwindcss-icon", color: "text-teal-400" },
+        {
+          name: "React.js",
+          mastery: 95,
+          years: 3,
+          icon: "logos:react",
+          color: "text-cyan-400",
+          description:
+            "Expert in React hooks, context, and performance optimization",
+        },
+        {
+          name: "Next.js",
+          mastery: 90,
+          years: 2,
+          icon: "logos:nextjs-icon",
+          color: "text-white",
+          description: "Building SSR/SSG applications with optimal performance",
+        },
+        {
+          name: "TypeScript",
+          mastery: 88,
+          years: 2.5,
+          icon: "logos:typescript-icon",
+          color: "text-blue-500",
+          description: "Strong typing for scalable and maintainable code",
+        },
+        {
+          name: "Tailwind CSS",
+          mastery: 92,
+          years: 2,
+          icon: "logos:tailwindcss-icon",
+          color: "text-teal-400",
+          description: "Rapid UI development with utility-first CSS",
+        },
+        {
+          name: "Framer Motion",
+          mastery: 85,
+          years: 1.5,
+          icon: "logos:framer",
+          color: "text-purple-400",
+          description: "Creating smooth animations and interactions",
+        },
+        {
+          name: "Three.js",
+          mastery: 75,
+          years: 1,
+          icon: "logos:threejs",
+          color: "text-white",
+          description: "3D graphics and WebGL experiences",
+        },
       ],
     },
-    state: {
-      title: "State",
-      icon: "ri:settings-4-line",
-      color: "from-purple-400 via-pink-500 to-red-500",
-      gradientColors: ["#a855f7", "#ec4899", "#ef4444"],
+    backend: {
+      title: "Backend",
+      icon: "mingcute:server-line",
+      color: "from-purple-500 to-pink-600",
+      borderColor: "border-purple-400/50",
+      shadowColor: "shadow-purple-500/20",
+      bgGradient: "from-purple-500/10 to-pink-600/10",
       skills: [
-        { name: "Zustand", mastery: 87, years: 1.5, icon: "simple-icons:zustand", color: "text-orange-400" },
-        { name: "Redux", mastery: 83, years: 2, icon: "logos:redux", color: "text-purple-500" },
-        { name: "TanStack", mastery: 85, years: 1, icon: "logos:react-query-icon", color: "text-red-400" },
-        { name: "Hook Form", mastery: 86, years: 2, icon: "simple-icons:reacthookform", color: "text-pink-400" },
-      ],
-    },
-    animation: {
-      title: "Animation",
-      icon: "ri:magic-line",
-      color: "from-amber-400 via-orange-500 to-red-500",
-      gradientColors: ["#fbbf24", "#f97316", "#dc2626"],
-      skills: [
-        { name: "Framer", mastery: 90, years: 2, icon: "logos:framer", color: "text-purple-400" },
-        { name: "Three.js", mastery: 84, years: 1, icon: "logos:threejs", color: "text-green-400" },
-        { name: "CSS", mastery: 88, years: 2.5, icon: "logos:css-3", color: "text-blue-500" },
-        { name: "GSAP", mastery: 80, years: 1, icon: "simple-icons:greensock", color: "text-green-500" },
+        {
+          name: "Node.js",
+          mastery: 85,
+          years: 2.5,
+          icon: "logos:nodejs-icon",
+          color: "text-green-500",
+          description: "Building scalable server-side applications",
+        },
+        {
+          name: "Express.js",
+          mastery: 87,
+          years: 2,
+          icon: "simple-icons:express",
+          color: "text-white",
+          description: "RESTful API development and middleware",
+        },
+        {
+          name: "MongoDB",
+          mastery: 82,
+          years: 2,
+          icon: "logos:mongodb-icon",
+          color: "text-green-500",
+          description: "NoSQL database design and optimization",
+        },
+        {
+          name: "PostgreSQL",
+          mastery: 78,
+          years: 1.5,
+          icon: "logos:postgresql",
+          color: "text-blue-400",
+          description: "Relational database management",
+        },
+        {
+          name: "Redis",
+          mastery: 75,
+          years: 1,
+          icon: "logos:redis",
+          color: "text-red-500",
+          description: "Caching and session management",
+        },
+        {
+          name: "GraphQL",
+          mastery: 72,
+          years: 1,
+          icon: "logos:graphql",
+          color: "text-pink-500",
+          description: "Flexible API queries and mutations",
+        },
       ],
     },
     tools: {
       title: "Tools",
-      icon: "ri:tools-line",
-      color: "from-green-400 via-teal-500 to-blue-500",
-      gradientColors: ["#10b981", "#06b6d4", "#3b82f6"],
+      icon: "mingcute:tool-line",
+      color: "from-emerald-500 to-teal-600",
+      borderColor: "border-emerald-400/50",
+      shadowColor: "shadow-emerald-500/20",
+      bgGradient: "from-emerald-500/10 to-teal-600/10",
       skills: [
-        { name: "Git", mastery: 89, years: 3, icon: "logos:git-icon", color: "text-orange-500" },
-        { name: "Vite", mastery: 85, years: 2, icon: "logos:vitejs", color: "text-yellow-400" },
-        { name: "Webpack", mastery: 78, years: 1.5, icon: "logos:webpack", color: "text-blue-400" },
-        { name: "Docker", mastery: 75, years: 1, icon: "logos:docker-icon", color: "text-blue-500" },
+        {
+          name: "Git",
+          mastery: 90,
+          years: 3,
+          icon: "logos:git-icon",
+          color: "text-orange-500",
+          description: "Version control and collaboration",
+        },
+        {
+          name: "Docker",
+          mastery: 75,
+          years: 1,
+          icon: "logos:docker-icon",
+          color: "text-blue-500",
+          description: "Containerization and deployment",
+        },
+        {
+          name: "Webpack",
+          mastery: 80,
+          years: 2,
+          icon: "logos:webpack",
+          color: "text-blue-400",
+          description: "Module bundling and optimization",
+        },
+        {
+          name: "Vite",
+          mastery: 85,
+          years: 1.5,
+          icon: "logos:vitejs",
+          color: "text-purple-500",
+          description: "Fast build tool for modern web",
+        },
+        {
+          name: "Jest",
+          mastery: 82,
+          years: 2,
+          icon: "logos:jest",
+          color: "text-red-500",
+          description: "Unit testing and test coverage",
+        },
+        {
+          name: "Cypress",
+          mastery: 78,
+          years: 1,
+          icon: "simple-icons:cypress",
+          color: "text-green-500",
+          description: "End-to-end testing automation",
+        },
+      ],
+    },
+    design: {
+      title: "Design",
+      icon: "mingcute:palette-line",
+      color: "from-orange-500 to-red-600",
+      borderColor: "border-orange-400/50",
+      shadowColor: "shadow-orange-500/20",
+      bgGradient: "from-orange-500/10 to-red-600/10",
+      skills: [
+        {
+          name: "Figma",
+          mastery: 85,
+          years: 2,
+          icon: "logos:figma",
+          color: "text-purple-500",
+          description: "UI/UX design and prototyping",
+        },
+        {
+          name: "Photoshop",
+          mastery: 80,
+          years: 3,
+          icon: "logos:adobe-photoshop",
+          color: "text-blue-500",
+          description: "Image editing and manipulation",
+        },
+        {
+          name: "Illustrator",
+          mastery: 75,
+          years: 2,
+          icon: "logos:adobe-illustrator",
+          color: "text-orange-500",
+          description: "Vector graphics and illustrations",
+        },
+        {
+          name: "Blender",
+          mastery: 70,
+          years: 1,
+          icon: "logos:blender",
+          color: "text-blue-400",
+          description: "3D modeling and animation",
+        },
+        {
+          name: "After Effects",
+          mastery: 72,
+          years: 1.5,
+          icon: "logos:adobe-after-effects",
+          color: "text-purple-500",
+          description: "Motion graphics and visual effects",
+        },
+        {
+          name: "Framer",
+          mastery: 88,
+          years: 1,
+          icon: "logos:framer",
+          color: "text-white",
+          description: "Interactive design and prototyping",
+        },
       ],
     },
   };
 
   const stackKeys = Object.keys(skillStacks) as StackKey[];
 
-  // Intersection Observer
+  // Check for mobile viewport
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        setTimeout(() => setAnimateProgress(true), 500);
-      }
-    });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Auto-switch
+  // Intersection observer for animations
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSelectedStack((prev) => {
-        const currentIndex = stackKeys.indexOf(prev);
-        return stackKeys[(currentIndex + 1) % stackKeys.length];
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [stackKeys]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "50px",
+      },
+    );
 
-  // Reset progress animation when stack changes
-  useEffect(() => {
-    if (isVisible) {
-      setAnimateProgress(false);
-      setTimeout(() => setAnimateProgress(true), 200);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
-  }, [selectedStack, isVisible]);
 
-  // Stats
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
+  // Auto-switch stacks
+  useEffect(() => {
+    if (!isMobile) {
+      const interval = setInterval(() => {
+        setSelectedStack((prev) => {
+          const currentIndex = stackKeys.indexOf(prev);
+          return stackKeys[(currentIndex + 1) % stackKeys.length];
+        });
+      }, 8000);
+      return () => clearInterval(interval);
+    }
+  }, [stackKeys, isMobile]);
+
+  const handleContactClick = useCallback(() => {
+    scrollToSection?.("contactme");
+  }, [scrollToSection]);
+
+  // Calculate statistics
   const stats = (() => {
     const allSkills = Object.values(skillStacks).flatMap((s) => s.skills);
     const totalSkills = allSkills.length;
-    const avgMastery = Math.round(allSkills.reduce((sum, s) => sum + s.mastery, 0) / totalSkills);
-    const totalExperience = allSkills.reduce((sum, s) => sum + s.years, 0);
+    const avgMastery = Math.round(
+      allSkills.reduce((sum, s) => sum + s.mastery, 0) / totalSkills,
+    );
+    const totalExperience = Math.max(...allSkills.map((s) => s.years));
     return { totalSkills, avgMastery, totalExperience };
   })();
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen w-full mt-20 overflow-hidden">
-      {/* Header */}
-       <div className={`text-center mb-12 transition-all duration-1000`}>
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
-            <span className="text-orange-400 font-bold tracking-wider text-lg uppercase">
-              skills
+    <div
+      ref={sectionRef}
+      className="relative min-h-screen py-12 md:py-20 overflow-hidden"
+    >
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
+        <div
+          className="absolute bottom-1/4 -right-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/3 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "4s" }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div
+          className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-full border border-cyan-400/30 mb-6">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+            <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
+              Skills
             </span>
-            <div className="w-20 h-px bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
           </div>
-          <h2 className="text-4xl lg:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-slate-200 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-             TECH STACK
+
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
+              Tech Stack
             </span>
           </h2>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Mastering modern technologies to build exceptional digital experiences
+
+          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            Mastering modern technologies to build exceptional digital
+            experiences with performance and scalability in mind.
           </p>
         </div>
 
-      {/* Navigation */}
-      <div className="flex justify-center mb-8">
-        <div className="flex gap-3 backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-4 shadow-2xl">
-          {stackKeys.map((stack) => (
-            <button
-              key={stack}
-              onClick={() => setSelectedStack(stack)}
-              className={`relative px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-3 transition-all ${
-                selectedStack === stack ? "text-white scale-110 bg-gradient-to-r " + skillStacks[stack].color : "text-slate-400 hover:text-white hover:scale-105"
-              }`}
-            >
-              <Icon icon={skillStacks[stack].icon} width="20" />
-              <span className="hidden sm:inline">{skillStacks[stack].title}</span>
-            </button>
+        {/* Stats */}
+        <div
+          className={`grid grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mb-12 transition-all duration-1000 delay-200 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-300">
+            <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+              {stats.totalSkills}+
+            </div>
+            <div className="text-slate-400 text-sm">Technologies</div>
+          </div>
+          <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-purple-400/50 transition-all duration-300">
+            <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+              {stats.avgMastery}%
+            </div>
+            <div className="text-slate-400 text-sm">Avg Mastery</div>
+          </div>
+          <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-emerald-400/50 transition-all duration-300">
+            <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+              {stats.totalExperience}+
+            </div>
+            <div className="text-slate-400 text-sm">Years Exp</div>
+          </div>
+        </div>
+
+        {/* Mobile Slider */}
+        {isMobile && (
+          <MobileSkillSlider
+            stacks={skillStacks}
+            selectedStack={selectedStack}
+            onSelect={setSelectedStack}
+          />
+        )}
+
+        {/* Desktop Navigation */}
+        {!isMobile && (
+          <div
+            className={`flex justify-center mb-12 transition-all duration-1000 delay-300 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
+            }`}
+          >
+            <div className="flex gap-3 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-2">
+              {stackKeys.map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setSelectedStack(key)}
+                  className={`relative px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-3 transition-all duration-300 ${
+                    selectedStack === key
+                      ? `bg-gradient-to-r ${skillStacks[key].color} text-white shadow-lg ${skillStacks[key].shadowColor}`
+                      : "text-slate-400 hover:text-white hover:bg-slate-700/50"
+                  }`}
+                >
+                  <Icon icon={skillStacks[key].icon} className="w-5 h-5" />
+                  <span>{skillStacks[key].title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Skills Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 mb-16">
+          {skillStacks[selectedStack].skills.map((skill, index) => (
+            <SkillCard
+              key={skill.name}
+              skill={skill}
+              index={index}
+              isVisible={isVisible}
+              isActive={true}
+              stackColor={skillStacks[selectedStack].color}
+            />
           ))}
         </div>
-      </div>
 
-      {/* Skills Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-6">
-        {skillStacks[selectedStack].skills.map((skill, i) => (
-          <div
-            key={skill.name}
-            onMouseEnter={() => setHoveredSkill(i)}
-            onMouseLeave={() => setHoveredSkill(null)}
-            className="relative group h-80 transition-transform duration-500 hover:scale-105 backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl py-4 flex flex-col justify-around shadow-2xl"
-          >
-            {/* Icon */}
-           <div className="w-full h-35 flex justify-center items-center">
-             <Icon icon={skill.icon} width="40" className={`mx-auto mb-3 ${skill.color}`} />
-           </div>
-
-            {/* Name */}
-            <h3 className="text-lg font-bold text-white mb-2">{skill.name}</h3>
-
-            {/* Progress Circle */}
-            <div className="relative w-20 h-20 mx-auto my-4">
-              <svg className="w-20 h-20 -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="6" fill="none" />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  stroke={`url(#grad-${selectedStack})`}
-                  strokeWidth="6"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeDasharray={2 * Math.PI * 40}
-                  strokeDashoffset={animateProgress ? 2 * Math.PI * 40 * (1 - skill.mastery / 100) : 2 * Math.PI * 40}
-                  style={{ transition: `stroke-dashoffset 1.2s ease ${i * 0.2}s` }}
-                />
-                <defs>
-                  <linearGradient id={`grad-${selectedStack}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                    {skillStacks[selectedStack].gradientColors.map((c, idx) => (
-                      <stop key={idx} offset={`${idx * 50}%`} stopColor={c} />
-                    ))}
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-white font-bold">{skill.mastery}%</span>
-            </div>
-
-            {/* Experience */}
-            <p className="text-sm text-slate-400">{skill.years}y exp</p>
-
-            {/* Tooltip */}
-            {hoveredSkill === i && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 -translate-y-full bg-slate-900/90 text-white px-4 py-2 rounded-lg text-sm shadow-lg opacity-100 transition">
-                {skill.mastery >= 90 ? "Expert" : skill.mastery >= 80 ? "Advanced" : "Intermediate"}
+        {/* Key Strengths */}
+        <div
+          className={`transition-all duration-1000 delay-400 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
+            Core Competencies
+          </h3>
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-yellow-400/30 transition-all duration-500 group">
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+                  <Icon
+                    icon="mingcute:lightbulb-line"
+                    className="w-7 h-7 text-white"
+                  />
+                </div>
+                <h4 className="text-lg font-semibold text-white mb-3">
+                  Problem Solving
+                </h4>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Strong analytical skills with ability to debug complex issues
+                  and design scalable, efficient solutions.
+                </p>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
+            </div>
 
-      {/* === Bottom Sections === */}
-      <div className="max-w-6xl mx-auto mt-20 px-6 space-y-12">
-        {/* Highlights */}
-        <section>
-          <h2 className="text-2xl font-bold text-white mb-6">Key Strengths</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-8 shadow-2xl text-center">
-              <Icon icon="ri:lightbulb-flash-fill" className="text-yellow-400 mb-3" width="32" />
-              <h3 className="text-lg font-semibold text-white mb-2">Problem Solving</h3>
-              <p className="text-slate-400 text-sm">Strong ability to debug, optimize, and design scalable solutions.</p>
+            <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-blue-400/30 transition-all duration-500 group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4">
+                  <Icon
+                    icon="mingcute:group-line"
+                    className="w-7 h-7 text-white"
+                  />
+                </div>
+                <h4 className="text-lg font-semibold text-white mb-3">
+                  Team Collaboration
+                </h4>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Excellent communication with experience in agile environments
+                  and cross-functional team collaboration.
+                </p>
+              </div>
             </div>
-            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-8 shadow-2xl text-center">
-              <Icon icon="ri:team-fill" className="text-blue-400 mb-3" width="32" />
-              <h3 className="text-lg font-semibold text-white mb-2">Collaboration</h3>
-              <p className="text-slate-400 text-sm">Experience working in cross-functional teams with Git & agile tools.</p>
-            </div>
-            <div className="backdrop-blur-lg bg-slate-900/40 border border-slate-700/60 rounded-3xl p-8 shadow-2xl text-center">
-              <Icon icon="ri:rocket-2-fill" className="text-purple-400 mb-3" width="32" />
-              <h3 className="text-lg font-semibold text-white mb-2">Continuous Learning</h3>
-              <p className="text-slate-400 text-sm">Always exploring new frameworks, libraries, and best practices.</p>
+
+            <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-purple-400/30 transition-all duration-500 group">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4">
+                  <Icon
+                    icon="mingcute:rocket-line"
+                    className="w-7 h-7 text-white"
+                  />
+                </div>
+                <h4 className="text-lg font-semibold text-white mb-3">
+                  Continuous Learning
+                </h4>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Passionate about staying current with latest technologies and
+                  best practices in web development.
+                </p>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+
+        {/* CTA Section */}
+        <div
+          className={`transition-all duration-1000 delay-500 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500" />
+
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Looking for a Skilled Developer?
+              </h3>
+              <p className="text-slate-400 text-base md:text-lg mb-8 max-w-2xl mx-auto">
+                Let's collaborate to bring your ideas to life with modern
+                technologies and best practices.
+              </p>
+
+              <button
+                onClick={handleContactClick}
+                className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
+                aria-label="Get in touch"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div className="relative flex items-center justify-center gap-3">
+                  <Icon icon="mingcute:send-line" className="w-5 h-5" />
+                  <span>Get In Touch</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+});
+
+Skills.displayName = "Skills";
 
 export default Skills;

@@ -1,6 +1,3 @@
-// ============================================================================
-// 1. OPTIMIZED HeaderMenu.tsx - Major Performance Improvements
-// ============================================================================
 "use client";
 
 import { Icon } from "@iconify/react";
