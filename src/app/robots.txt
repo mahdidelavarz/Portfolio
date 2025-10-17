@@ -1,0 +1,57 @@
+# Robots.txt for Mahdi Delavar Portfolio
+# https://www.robotstxt.org/robotstxt.html
+
+# Allow all web crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
+Crawl-delay: 0
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 0
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://mahdi-delavar.vercel.app/sitemap.xml
+Sitemap: https://mahdi-delavar.vercel.app/sitemap-0.xml
+
+# Cache control
+# Note: These are suggestions, not all crawlers respect them
+# Googlebot
+User-agent: Googlebot
+Crawl-delay: 0
+
+# Host (preferred domain - update with your actual domain)
+Host: https://mahdi-delavar.vercel.app

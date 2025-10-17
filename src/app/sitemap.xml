@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Main Sections (for single-page apps with hash navigation) -->
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#home</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#aboutme</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#experiences</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#projects</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#skills</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#educations</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/#contactme</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Resume/CV Download Link (if publicly accessible) -->
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/resume.pdf</loc>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Portfolio Images (Add your actual project images) -->
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/img1_.jpg</loc>
+    <image:image>
+      <image:loc>https://mahdi-delavar.vercel.app/img1_.jpg</image:loc>
+      <image:title>E-Commerce Platform Project</image:title>
+      <image:caption>Full-stack e-commerce solution with React and Next.js</image:caption>
+    </image:image>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/img2_.jpg</loc>
+    <image:image>
+      <image:loc>https://mahdi-delavar.vercel.app/img2_.jpg</image:loc>
+      <image:title>3D Portfolio Website</image:title>
+      <image:caption>Interactive 3D portfolio with Three.js and WebGL</image:caption>
+    </image:image>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/img3_.jpg</loc>
+    <image:image>
+      <image:loc>https://mahdi-delavar.vercel.app/img3_.jpg</image:loc>
+      <image:title>Task Management Platform</image:title>
+      <image:caption>Real-time collaborative platform with Socket.io</image:caption>
+    </image:image>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/img4_.jpg</loc>
+    <image:image>
+      <image:loc>https://mahdi-delavar.vercel.app/img4_.jpg</image:loc>
+      <image:title>AI Chat Interface</image:title>
+      <image:caption>Advanced AI chat interface with OpenAI integration</image:caption>
+    </image:image>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/img5_.jpg</loc>
+    <image:image>
+      <image:loc>https://mahdi-delavar.vercel.app/img5_.jpg</image:loc>
+      <image:title>Analytics Dashboard</image:title>
+      <image:caption>Real-time analytics platform with D3.js visualizations</image:caption>
+    </image:image>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://mahdi-delavar.vercel.app/img6_.jpg</loc>
+    <image:image>
+      <image:loc>https://mahdi-delavar.vercel.app/img6_.jpg</image:loc>
+      <image:title>Progressive Web App</image:title>
+      <image:caption>Cross-platform PWA with offline capabilities</image:caption>
+    </image:image>
+    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
