@@ -90,7 +90,7 @@ const HeaderMenu: React.FC = React.memo(() => {
 
   return (
     <nav
-      className={`fixed right-6 top-1/2 -translate-y-1/2 z-50 transition-all duration-300 ${isExpanded ? "w-48" : "w-16"}`}
+      className={`hidden lg:block fixed right-6 top-1/2 -translate-y-1/2 z-50 transition-all duration-300 ${isExpanded ? "w-48" : "w-16"}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       aria-label="Main navigation"

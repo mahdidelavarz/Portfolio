@@ -1,523 +1,339 @@
 "use client";
-import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { Icon } from "@iconify/react";
 
 interface AboutMeProps {
   scrollToSection?: (id: string) => void;
 }
 
-// Move static data outside component to prevent recreation
-const JOURNEY_POINTS = [
-  {
-    icon: "mingcute:lightbulb-line",
-    title: "Started Web Development",
-    content: "Began my journey with HTML, CSS, and JavaScript",
-    color: "from-yellow-400 to-orange-500",
-  },
-  {
-    icon: "mingcute:code-line",
-    title: "Mastered React",
-    content: "Deep dive into React ecosystem and modern development",
-    color: "from-blue-400 to-cyan-500",
-  },
-  {
-    icon: "mingcute:rocket-line",
-    title: "Advanced Technologies",
-    content: "Explored Next.js, TypeScript, and performance optimization",
-    color: "from-purple-400 to-pink-500",
-  },
-  {
-    icon: "mingcute:trophy-line",
-    title: "Professional Growth",
-    content: "Delivered 50+ projects with 100% client satisfaction",
-    color: "from-green-400 to-emerald-500",
-  },
-] as const;
+// Personal info data
+const PERSONAL_INFO = {
+  name: "Mahdi Delavar",
+  age: 25,
+  location: "Iran",
+  role: "Frontend Developer",
+  experience: "3+ Years",
+  availability: "Open to opportunities",
+} as const;
 
-const TECHNICAL_SKILLS = [
+// Core values
+const CORE_VALUES = [
   {
-    name: "React.js",
-    level: 90,
-    icon: "logos:react",
-    color: "from-blue-400 to-cyan-500",
-    category: "Frontend",
+    icon: "solar:heart-bold",
+    title: "Passion for Code",
+    description: "I love what I do. Every project is an opportunity to learn and grow.",
+    color: "from-red-500 to-pink-600",
   },
   {
-    name: "Next.js",
-    level: 75,
-    icon: "devicon-plain:nextjs",
-    color: "from-blue-400 to-cyan-500",
-    category: "Frontend",
-  },
-  {
-    name: "TypeScript",
-    level: 90,
-    icon: "logos:typescript-icon",
-    color: "from-blue-600 to-blue-400",
-    category: "Language",
-  },
-  {
-    name: "JavaScript",
-    level: 90,
-    icon: "logos:javascript",
-    color: "from-yellow-400 to-orange-500",
-    category: "Language",
-  },
-  {
-    name: "Tailwind CSS",
-    level: 95,
-    icon: "logos:tailwindcss-icon",
-    color: "from-cyan-400 to-blue-500",
-    category: "Styling",
-  },
-  {
-    name: "Material UI",
-    level: 80,
-    icon: "logos:material-ui",
-    color: "from-blue-500 to-indigo-600",
-    category: "UI Library",
-  },
-  {
-    name: "SQL Server",
-    level: 70,
-    icon: "logos:microsoft-icon",
-    color: "from-red-500 to-orange-600",
-    category: "Database",
-  },
-  {
-    name: "Supabase",
-    level: 70,
-    icon: "logos:supabase-icon",
-    color: "from-green-400 to-emerald-500",
-    category: "Backend",
-  },
-  {
-    name: "Node.js",
-    level: 30,
-    icon: "logos:nodejs-icon",
-    color: "from-green-500 to-green-400",
-    category: "Backend",
-  },
-  {
-    name: ".NET Core",
-    level: 50,
-    icon: "logos:dotnet",
-    color: "from-purple-500 to-purple-600",
-    category: "Backend",
-  },
-] as const;
-
-const EXPERTISE_AREAS = [
-  {
-    title: "Frontend Development",
-    icon: "mingcute:palette-line",
-    color: "from-pink-500 to-rose-600",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Material UI"],
-  },
-  {
-    title: "Backend Development",
-    icon: "mingcute:server-line",
-    color: "from-purple-500 to-indigo-600",
-    skills: ["Node.js", ".NET Core", "RESTful APIs", "Supabase"],
-  },
-  {
-    title: "Database Management",
-    icon: "mingcute:storage-line",
+    icon: "solar:users-group-rounded-bold",
+    title: "Collaboration",
+    description: "Great products are built by great teams. I value open communication and teamwork.",
     color: "from-blue-500 to-cyan-600",
-    skills: ["SQL Server", "Supabase", "Database Design", "Query Optimization"],
   },
   {
-    title: "Performance & SEO",
-    icon: "mingcute:rocket-line",
-    color: "from-orange-500 to-red-600",
-    skills: [
-      "Code Optimization",
-      "SSR/SSG",
-      "Web Vitals",
-      "SEO Best Practices",
-    ],
+    icon: "solar:lightbulb-bolt-bold",
+    title: "Innovation",
+    description: "Always exploring new technologies and approaches to solve problems creatively.",
+    color: "from-yellow-500 to-orange-600",
+  },
+  {
+    icon: "solar:graph-up-bold",
+    title: "Continuous Learning",
+    description: "The tech world evolves fast. I stay curious and keep learning every day.",
+    color: "from-purple-500 to-indigo-600",
   },
 ] as const;
 
-const PHILOSOPHY_POINTS = [
+// Soft skills
+const SOFT_SKILLS = [
+  { name: "Problem Solving", icon: "solar:puzzle-bold", level: 95 },
+  { name: "Communication", icon: "solar:chat-round-bold", level: 90 },
+  { name: "Time Management", icon: "solar:clock-circle-bold", level: 88 },
+  { name: "Adaptability", icon: "solar:refresh-circle-bold", level: 92 },
+  { name: "Team Collaboration", icon: "solar:users-group-rounded-bold", level: 90 },
+  { name: "Attention to Detail", icon: "solar:eye-bold", level: 95 },
+] as const;
+
+// Goals and aspirations
+const GOALS = [
   {
-    icon: "mingcute:target-line",
-    title: "User-Centered",
-    description: "Every line of code should enhance user experience",
-    color: "from-red-400 to-pink-500",
+    icon: "solar:rocket-2-bold",
+    title: "Master Advanced React Patterns",
+    description: "Deep dive into advanced state management, performance optimization, and architectural patterns.",
   },
   {
-    icon: "eos-icons:performance",
-    title: "Performance First",
-    description: "Optimized, fast applications that users love",
-    color: "from-orange-400 to-yellow-500",
+    icon: "solar:global-bold",
+    title: "Contribute to Open Source",
+    description: "Give back to the community by contributing to meaningful open-source projects.",
   },
   {
-    icon: "healthicons:clean-hands",
-    title: "Clean & Maintainable",
-    description: "Write code that's readable and scalable",
-    color: "from-green-400 to-emerald-500",
+    icon: "solar:book-2-bold",
+    title: "Share Knowledge",
+    description: "Write technical articles and mentor aspiring developers on their journey.",
   },
   {
-    icon: "lets-icons:dimond-alt-light",
-    title: "Attention to Detail",
-    description: "Pixel-perfect implementations with care",
-    color: "from-purple-400 to-indigo-500",
+    icon: "solar:star-bold",
+    title: "Build Impactful Products",
+    description: "Create solutions that make a real difference in people's lives and businesses.",
   },
 ] as const;
 
-const STATS = [
+// Work approach
+const WORK_APPROACH = [
   {
-    icon: "mingcute:trophy-line",
-    number: "50+",
-    label: "Projects",
-    color: "from-yellow-400 to-orange-500",
+    step: "01",
+    title: "Understand",
+    description: "I start by deeply understanding the problem, user needs, and business goals.",
+    icon: "solar:lightbulb-minimalistic-bold",
   },
   {
-    icon: "mingcute:group-line",
-    number: "30+",
-    label: "Happy Clients",
-    color: "from-green-400 to-emerald-500",
+    step: "02",
+    title: "Plan",
+    description: "Strategic planning with clear milestones, considering scalability and maintainability.",
+    icon: "solar:document-bold",
   },
   {
-    icon: "mingcute:time-line",
-    number: "3+",
-    label: "Years Experience",
-    color: "from-blue-400 to-cyan-500",
+    step: "03",
+    title: "Build",
+    description: "Clean, efficient code with modern best practices and attention to every detail.",
+    icon: "solar:code-square-bold",
   },
   {
-    icon: "mingcute:star-line",
-    number: "5.0",
-    label: "Rating",
-    color: "from-purple-400 to-pink-500",
+    step: "04",
+    title: "Iterate",
+    description: "Continuous improvement through testing, feedback, and optimization.",
+    icon: "solar:refresh-square-bold",
   },
 ] as const;
 
-// Memoized skill bar component
-const SkillBar = memo<{
-  skill: {
-    name: string;
-    level: number;
-    icon: string;
-    color: string;
-    category: string;
-  };
-  index: number;
-  isVisible: boolean;
-  isActive: boolean;
-}>(({ skill, index, isVisible, isActive }) => (
-  <div
-    className={`transition-all duration-300 ${isActive ? "scale-[1.02]" : ""}`}
-  >
-    <div className="flex items-center justify-between mb-3">
-      <div className="flex items-center gap-3">
-        <div
-          className={`w-10 h-10 rounded-lg bg-slate-800/50 flex items-center justify-center ${
-            isActive ? "ring-2 ring-cyan-400" : ""
-          }`}
-        >
-          <Icon icon={skill.icon} width={32} height={32} />
-        </div>
-        <div>
-          <span className="text-white font-medium block">{skill.name}</span>
-          <span className="text-slate-500 text-xs">{skill.category}</span>
-        </div>
-      </div>
-      <span className="text-cyan-400 font-semibold text-lg">
-        {skill.level}%
-      </span>
-    </div>
-    <div className="w-full bg-slate-800/50 rounded-full h-2 overflow-hidden">
-      <div
-        className={`bg-gradient-to-r ${skill.color} h-2 rounded-full transition-all duration-1000 relative`}
-        style={{
-          width: isVisible ? `${skill.level}%` : "0%",
-          transitionDelay: `${index * 0.1}s`,
-        }}
-      >
-        {isActive && (
-          <div className="absolute inset-0 bg-white/20 animate-pulse" />
-        )}
-      </div>
-    </div>
-  </div>
-));
-
-SkillBar.displayName = "SkillBar";
-
-// Expertise card component
-const ExpertiseCard = memo<{
-  area: (typeof EXPERTISE_AREAS)[number];
-  index: number;
-  isVisible: boolean;
-}>(({ area, index, isVisible }) => (
-  <div
-    className={`group relative overflow-hidden rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 p-6 hover:border-cyan-400/50 transition-all duration-500 ${
-      isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-    }`}
-    style={{ transitionDelay: `${index * 0.1}s` }}
-  >
-    {/* Gradient overlay on hover */}
+// Memoized components
+const ValueCard = memo<{ value: typeof CORE_VALUES[number]; index: number; isVisible: boolean }>(
+  ({ value, index, isVisible }) => (
     <div
-      className={`absolute inset-0 bg-gradient-to-br ${area.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-    />
-
-    <div className="relative z-10">
-      <div className="flex gap-4 items-center ">
-        <div
-          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-        >
-          <Icon
-            icon={area.icon}
-            width={28}
-            height={28}
-            className="text-white"
-          />
+      className={`group relative overflow-hidden rounded-xl md:rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-500 ${
+        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+      }`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
+      <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+      <div className="relative z-10">
+        <div className={`w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br ${value.color} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+          <Icon icon={value.icon} width={20} height={20} className="text-white md:w-7 md:h-7" />
         </div>
-        <h4 className="text-xl font-bold text-white mb-4">{area.title}</h4>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {area.skills.map((skill) => (
-          <span
-            key={skill}
-            className="px-3 py-1.5 bg-slate-700/50 rounded-lg text-slate-300 text-sm font-medium hover:bg-slate-700 transition-colors duration-200"
-          >
-            {skill}
-          </span>
-        ))}
+        <h4 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-3">{value.title}</h4>
+        <p className="text-slate-400 leading-relaxed text-xs md:text-sm">{value.description}</p>
       </div>
     </div>
-  </div>
-));
+  )
+);
 
-ExpertiseCard.displayName = "ExpertiseCard";
+ValueCard.displayName = "ValueCard";
 
-const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
+const SoftSkillBar = memo<{ skill: typeof SOFT_SKILLS[number]; index: number; isVisible: boolean }>(
+  ({ skill, index, isVisible }) => (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+            <Icon icon={skill.icon} width={18} height={18} className="text-white" />
+          </div>
+          <span className="text-white font-medium text-sm">{skill.name}</span>
+        </div>
+        <span className="text-cyan-400 font-semibold text-sm">{skill.level}%</span>
+      </div>
+      <div className="w-full bg-slate-800/50 rounded-full h-1.5 overflow-hidden">
+        <div
+          className="bg-gradient-to-r from-cyan-500 to-blue-600 h-1.5 rounded-full transition-all duration-1000"
+          style={{
+            width: isVisible ? `${skill.level}%` : "0%",
+            transitionDelay: `${index * 0.1}s`,
+          }}
+        />
+      </div>
+    </div>
+  )
+);
+
+SoftSkillBar.displayName = "SoftSkillBar";
+
+const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeSkill, setActiveSkill] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Optimized intersection observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
+        if (entry.isIntersecting) {
           setIsVisible(true);
-          intervalRef.current = setInterval(() => {
-            setActiveSkill((prev) => (prev + 1) % TECHNICAL_SKILLS.length);
-          }, 3000);
-        } else if (!entry.isIntersecting && isVisible) {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
         }
       },
-      {
-        threshold: 0.1,
-        rootMargin: "50px",
-      }
+      { threshold: 0.1, rootMargin: "50px" }
     );
 
     const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
-  }, [isVisible , activeSkill]);
+  }, []);
 
   const handleContactClick = useCallback(() => {
     scrollToSection?.("contactme");
   }, [scrollToSection]);
 
-  const handleExperienceClick = useCallback(() => {
-    scrollToSection?.("experiences");
-  }, [scrollToSection]);
-
   return (
-    <div
-      ref={sectionRef}
-      className="relative min-h-screen py-12 md:py-20 overflow-hidden"
-    >
-      {/* Background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
-
-      {/* Animated background elements */}
+    <div ref={sectionRef} className="relative min-h-screen py-12 md:py-20 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 backdrop-blur-md" />
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 -left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div
-          className={`text-center mb-12 md:mb-20 transition-all duration-1000 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
           <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-full border border-cyan-400/30 mb-6">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
-              About Me
-            </span>
+            <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">Get to Know Me</span>
           </div>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
-              FrontEnd Developer
+              More Than Just Code
             </span>
           </h2>
-
-          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Crafting exceptional digital experiences with modern technologies.
-            Specialized in building scalable, performant web applications.
+          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">
+            A passionate developer who believes in creating meaningful digital experiences
           </p>
         </div>
 
-        {/* Stats Grid - More compact on mobile */}
-        <div
-          className={`grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-20 transition-all duration-1000 delay-100 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          {STATS.map((stat) => (
-            <div key={stat.label} className="relative group">
-              <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
-                <div
-                  className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon
-                    icon={stat.icon}
-                    width={24}
-                    height={24}
-                    className="text-white"
-                  />
+        {/* Personal Introduction */}
+        <div className={`mb-12 md:mb-16 transition-all duration-1000 delay-100 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-cyan-400/30 transition-all duration-500">
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              {/* Profile Image Placeholder */}
+              <div className="md:col-span-1 flex flex-col items-center">
+                <div className="w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 relative overflow-hidden group">
+                  <Icon icon="solar:user-bold" width={80} height={80} className="text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
-                  {stat.number}
-                </div>
-                <div className="text-slate-400 text-sm md:text-base">
-                  {stat.label}
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-white mb-2">{PERSONAL_INFO.name}</h3>
+                  <p className="text-cyan-400 font-medium mb-4">{PERSONAL_INFO.role}</p>
+                  <div className="flex flex-wrap justify-center gap-2 text-sm">
+                    <span className="px-3 py-1 bg-slate-700/50 rounded-lg text-slate-300">
+                      <Icon icon="solar:calendar-bold" className="inline mr-1" width={16} />
+                      {PERSONAL_INFO.age} years old
+                    </span>
+                    <span className="px-3 py-1 bg-slate-700/50 rounded-lg text-slate-300">
+                      <Icon icon="solar:map-point-bold" className="inline mr-1" width={16} />
+                      {PERSONAL_INFO.location}
+                    </span>
+                    <span className="px-3 py-1 bg-green-900/30 text-green-400 rounded-lg">
+                      <Icon icon="solar:check-circle-bold" className="inline mr-1" width={16} />
+                      {PERSONAL_INFO.availability}
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              {/* About Text */}
+              <div className="md:col-span-2 space-y-4 text-slate-300 leading-relaxed">
+                <p>
+                  👋 Hi! I'm Mahdi, a frontend developer who's been crafting digital experiences for over 3 years. 
+                  What started as curiosity about how websites work has turned into a genuine passion for creating 
+                  beautiful, functional interfaces that people love to use.
+                </p>
+                <p>
+                  💡 I believe great software isn't just about clean code—it's about understanding people, solving 
+                  real problems, and creating experiences that feel natural and intuitive. Every pixel, every 
+                  interaction, and every line of code matters.
+                </p>
+                <p>
+                  🚀 When I'm not coding, you'll find me exploring new technologies, reading about UX psychology, 
+                  or thinking about how to make the web a better place. I'm always excited to collaborate with 
+                  people who share the same passion for excellence.
+                </p>
+                <p className="text-cyan-400 font-medium">
+                  My goal? To build products that not only work flawlessly but also bring joy to the people who use them.
+                </p>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* Expertise Areas */}
-        <div className="mb-12 md:mb-20">
-          <h3
-            className={`text-3xl md:text-4xl font-bold text-white mb-8 md:mb-12 text-center transition-all duration-1000 delay-200 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            Areas of Expertise
+        {/* Core Values */}
+        <div className="mb-12 md:mb-16">
+          <h3 className={`text-3xl md:text-4xl font-bold text-white mb-8 text-center transition-all duration-1000 delay-200 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+            What Drives Me
           </h3>
-
-          <div className="grid md:grid-cols-2  gap-4 md:gap-6">
-            {EXPERTISE_AREAS.map((area, index) => (
-              <ExpertiseCard
-                key={area.title}
-                area={area}
-                index={index}
-                isVisible={isVisible}
-              />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {CORE_VALUES.map((value, index) => (
+              <ValueCard key={value.title} value={value} index={index} isVisible={isVisible} />
             ))}
           </div>
         </div>
 
-        {/* Technical Skills */}
-        <div
-          className={`mb-12 md:mb-20 transition-all duration-1000 delay-300 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-cyan-400/30 transition-all duration-500">
-            <div className="flex items-center gap-3 mb-8 md:mb-10">
-              <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
-                <Icon
-                  icon="mingcute:code-line"
-                  width={28}
-                  height={28}
-                  className="text-white"
-                />
+        {/* Soft Skills */}
+        <div className={`mb-12 md:mb-16 transition-all duration-1000 delay-300 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-purple-400/30 transition-all duration-500">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                <Icon icon="solar:star-bold" width={24} height={24} className="text-white" />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white">
-                Technical Skills
-              </h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-white">Soft Skills</h3>
             </div>
-
-            <div className="grid md:grid-cols-2 gap-6 md:gap-x-28 gap-y-8">
-              {TECHNICAL_SKILLS.map((skill, index) => (
-                <SkillBar
-                  key={skill.name}
-                  skill={skill}
-                  index={index}
-                  isVisible={isVisible}
-                  isActive={activeSkill == index}
-                />
+            <div className="grid md:grid-cols-2 gap-6">
+              {SOFT_SKILLS.map((skill, index) => (
+                <SoftSkillBar key={skill.name} skill={skill} index={index} isVisible={isVisible} />
               ))}
             </div>
           </div>
         </div>
 
-        {/* Development Philosophy */}
-        <div
-          className={`mb-12 md:mb-20 transition-all duration-1000 delay-400 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-purple-400/30 transition-all duration-500">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-3">
-              <Icon
-                icon="mingcute:lightbulb-line"
-                width={32}
-                height={32}
-                className="text-purple-400"
-              />
-              Development Philosophy
-            </h3>
+        {/* Work Approach */}
+        <div className={`mb-12 md:mb-16 transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+          <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+            My Approach to Work
+          </h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {WORK_APPROACH.map((step, index) => (
+              <div key={step.step} className="relative group">
+                <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl md:rounded-2xl p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-500 h-full">
+                  <div className="text-cyan-400 text-3xl md:text-5xl font-bold opacity-20 mb-2 md:mb-4">{step.step}</div>
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Icon icon={step.icon} width={20} height={20} className="text-white md:w-6 md:h-6" />
+                  </div>
+                  <h4 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-3">{step.title}</h4>
+                  <p className="text-slate-400 text-xs md:text-sm leading-relaxed">{step.description}</p>
+                </div>
+                {index < WORK_APPROACH.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-cyan-400 to-transparent" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
 
+        {/* Goals */}
+        <div className={`hidden lg:flex mb-12 md:mb-16 transition-all duration-1000 delay-500 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+          <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-orange-400/30 transition-all duration-500">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+                <Icon icon="solar:target-bold" width={24} height={24} className="text-white" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white">Goals & Aspirations</h3>
+            </div>
             <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
-              {PHILOSOPHY_POINTS.map((point) => (
-                <div
-                  key={point.title}
-                  className="relative group overflow-hidden rounded-xl bg-slate-700/30 p-5 md:p-6 hover:bg-slate-700/50 transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4">
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-br ${point.color} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <Icon
-                        icon={point.icon}
-                        width={24}
-                        height={24}
-                        className="text-white"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold text-lg mb-2">
-                        {point.title}
-                      </h4>
-                      <p className="text-slate-400 text-sm leading-relaxed">
-                        {point.description}
-                      </p>
-                    </div>
+              {GOALS.map((goal) => (
+                <div key={goal.title} className="flex gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300">
+                  <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon icon={goal.icon} width={20} height={20} className="text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-2">{goal.title}</h4>
+                    <p className="text-slate-400 text-sm leading-relaxed">{goal.description}</p>
                   </div>
                 </div>
               ))}
@@ -525,53 +341,26 @@ const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div
-          className={`transition-all duration-1000 delay-500 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
+        {/* CTA */}
+        <div className={`transition-all duration-1000 delay-600 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
           <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
-            {/* Animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
             <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Let's Build Something Great
+              <Icon icon="solar:chat-round-bold" width={48} height={48} className="text-cyan-400 mx-auto mb-4" />
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Let's Connect
               </h3>
-              <p className="text-slate-400 text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto">
-                Ready to bring your ideas to life? Let's collaborate and create
-                exceptional digital experiences together.
+              <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
-                  onClick={handleContactClick}
-                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
-                  aria-label="Contact me"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <Icon icon="mingcute:send-line" width={20} height={20} />
-                    <span>Get In Touch</span>
-                  </div>
-                </button>
-
-                <button
-                  onClick={handleExperienceClick}
-                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
-                  aria-label="View experience"
-                >
-                  <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <Icon
-                      icon="mingcute:briefcase-line"
-                      width={20}
-                      height={20}
-                    />
-                    <span>View Projects</span>
-                  </div>
-                </button>
-              </div>
+              <button
+                onClick={handleContactClick}
+                className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1"
+              >
+                <span className="flex items-center justify-center gap-3">
+                  <Icon icon="solar:letter-bold" width={20} height={20} />
+                  Get In Touch
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -580,6 +369,6 @@ const AboutMeContent = memo<AboutMeProps>(({ scrollToSection }) => {
   );
 });
 
-AboutMeContent.displayName = "AboutMeContent";
+AboutMe.displayName = "AboutMe";
 
-export default AboutMeContent;
+export default AboutMe;
