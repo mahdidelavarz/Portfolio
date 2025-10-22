@@ -310,21 +310,6 @@ const ContactMe = memo<ContactMeProps>(() => {
       ref={sectionRef}
       className="relative min-h-screen py-12 md:py-20 overflow-hidden"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0" />
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute bottom-1/4 -right-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-        <div
-          className="absolute top-3/4 left-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "4s" }}
-        />
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -333,15 +318,18 @@ const ContactMe = memo<ContactMeProps>(() => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-full border border-cyan-400/30 mb-6">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+         <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
+            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
+            <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
             <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
-              Contact
+             Contact
             </span>
+            <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
+            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-sky-400 to-white bg-clip-text text-transparent">
               Let's Work Together
             </span>
           </h2>

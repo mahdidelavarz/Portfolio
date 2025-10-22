@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 interface ExperiencesProps {
   scrollToSection?: (id: string) => void;
 }
+type Experience = (typeof EXPERIENCES)[number];
 
 // Experience data
 const EXPERIENCES = [
@@ -22,7 +23,7 @@ const EXPERIENCES = [
       "Leading enterprise ERP system development, architecting scalable solutions for thousands of users.",
     highlights: [
       "Built frontend infrastructure from scratch",
-      "40% faster development with component library",
+      "40% faster development with library",
       "Serving 10,000+ daily active users",
       "60% performance improvement",
     ],
@@ -152,7 +153,7 @@ const ExperienceCard = memo(
     showCTA,
     onContactClick,
   }: {
-    experience: (typeof EXPERIENCES)[0];
+    experience: Experience;
     isVisible: boolean;
     showCTA?: boolean;
     onContactClick: () => void;
@@ -163,7 +164,7 @@ const ExperienceCard = memo(
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
-        <div className="relative bg-slate-800/40  border border-slate-700/50 rounded-xl md:rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group">
+        <div className="relative bg-slate-800/40 backdrop-blur-3xl  border border-slate-700/50 rounded-xl md:rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group">
           <div
             className={`absolute inset-0 bg-gradient-to-br ${experience.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
           />
@@ -208,6 +209,7 @@ const ExperienceCard = memo(
                     <Icon icon="solar:clock-circle-bold" width={14} height={14} />
                     {experience.duration}
                   </span>
+                  <br />
                   <span className="flex items-center gap-1">
                     <Icon icon="solar:map-point-bold" width={14} height={14} />
                     {experience.location}
@@ -219,7 +221,7 @@ const ExperienceCard = memo(
 
           {/* Body */}
           <div className="relative p-4 md:p-6">
-            <p className="text-slate-300 mb-6 leading-relaxed text-sm md:text-base">
+            <p className="text-slate-300 mb-6 h-16 leading-relaxed text-sm md:text-base">
               {experience.description}
             </p>
 
@@ -287,25 +289,6 @@ const ExperienceCard = memo(
             </div>
           </div>
 
-          {/* CTA Footer */}
-          {showCTA && (
-            <div className="relative p-4 md:p-6 border-t border-slate-700/50 bg-slate-800/20">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p className="text-slate-300 text-sm">
-                  Interested in working together?
-                </p>
-                <button
-                  onClick={onContactClick}
-                  className="group px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-white text-sm hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 w-full sm:w-auto"
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    Let's Connect
-                    <Icon icon="solar:arrow-right-bold" width={16} height={16} />
-                  </span>
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     );
@@ -387,9 +370,6 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
       ref={sectionRef}
       className="relative min-h-screen py-12 md:py-20 overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0" />
-     
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div
@@ -397,15 +377,18 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-full border border-cyan-400/30 mb-6">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-cyan-400 font-medium tracking-wider text-xs sm:text-sm uppercase">
-              Experience
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
+            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
+            <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
+            <span className="text-cyan-400 font-medium tracking-widest text-sm uppercase">
+              EXPERIENCES
             </span>
+            <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
+            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-sky-400 to-white bg-clip-text text-transparent">
               Professional Journey
             </span>
           </h2>
@@ -418,7 +401,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
         {/* Mobile View */}
         {isMobile ? (
           <div
-            className={`transition-all duration-1000 delay-200 ${
+            className={`transition-all duration-1000 delay-200 h-[55rem] ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
             onTouchStart={handleTouchStart}

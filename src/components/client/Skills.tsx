@@ -60,15 +60,12 @@ const SkillCard = memo(
 
     return (
       <div
-        className={`relative group transition-all duration-700 ${
+        className={`relative group transition-all duration-700  ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
         style={{ transitionDelay: `${index * 100}ms` }}
       >
-        <div className="relative h-full  border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2">
-        
-         
-
+        <div className="relative h-full bg-gray-800/70  border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2 backdrop-blur-3xl">
           {/* Icon */}
           <div className="relative z-10 flex justify-center mb-4">
             <div
@@ -136,7 +133,7 @@ const MobileSkillSlider = memo(
     const scrollRef = useRef<HTMLDivElement>(null);
 
     return (
-      <div className="relative mb-8 md:hidden">
+      <div className="relative mb-8 md:hidden ">
         <div
           ref={scrollRef}
           className="flex gap-3 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide snap-x snap-mandatory"
@@ -623,7 +620,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
               <div className="relative z-10">
                 <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
                   <Icon
-                    icon="mingcute:lightbulb-line"
+                    icon="fa7-solid:puzzle-piece"
                     className="w-7 h-7 text-white"
                   />
                 </div>

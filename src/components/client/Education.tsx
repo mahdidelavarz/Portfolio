@@ -275,7 +275,6 @@ const Education = memo(() => {
                 key={index}
                 className="relative overflow-hidden bg-slate-800/40 backdrop-blur-3xl  border border-slate-700/50 rounded-xl md:rounded-2xl p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-500"
               >
-
                 <div className="relative z-10">
                   {/* Header Section */}
                   <div className="flex flex-col md:flex-row gap-4 md:gap-6 mb-6">
@@ -436,14 +435,17 @@ const Education = memo(() => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-400/30 mb-6">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-cyan-400 font-medium tracking-wider text-xs sm:text-sm uppercase">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
+            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
+            <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
+            <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
               Education & Learning
             </span>
+            <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
+            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-sky-400 to-white bg-clip-text text-transparent">
               Learning Journey
             </span>
           </h2>
