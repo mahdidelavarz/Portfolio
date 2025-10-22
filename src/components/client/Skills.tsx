@@ -65,16 +65,14 @@ const SkillCard = memo(
         }`}
         style={{ transitionDelay: `${index * 100}ms` }}
       >
-        <div className="relative h-full bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2">
-          {/* Gradient overlay on hover */}
-          <div
-            className={`absolute inset-0 bg-gradient-to-br ${stackColor} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
-          />
+        <div className="relative h-full  border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2">
+        
+         
 
           {/* Icon */}
           <div className="relative z-10 flex justify-center mb-4">
             <div
-              className={`w-16 h-16 bg-gradient-to-br ${stackColor} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+              className={`w-16 h-16  rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
             >
               <Icon icon={skill.icon} className="w-8 h-8 text-white" />
             </div>
@@ -492,7 +490,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       className="relative min-h-screen py-12 md:py-20 overflow-hidden"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
+      <div className="absolute inset-0" />
 
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">

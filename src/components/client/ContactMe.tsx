@@ -34,7 +34,7 @@ const FormField = memo(
     options?: { value: string; label: string }[];
   }) => {
     const baseClasses =
-      "w-full px-4 py-3 bg-slate-700/30 backdrop-blur-sm border border-slate-600/50 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300";
+      "w-full px-4 py-3 bg-slate-700/30  border border-slate-600/50 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300";
 
     return (
       <div>
@@ -311,7 +311,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       className="relative min-h-screen py-12 md:py-20 overflow-hidden"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
+      <div className="absolute inset-0" />
 
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -577,7 +577,7 @@ const ContactMe = memo<ContactMeProps>(() => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60  border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10">

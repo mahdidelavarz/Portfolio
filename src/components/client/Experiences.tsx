@@ -6,7 +6,7 @@ interface ExperiencesProps {
   scrollToSection?: (id: string) => void;
 }
 
-// Experience data structure with enhanced visual properties
+// Experience data
 const EXPERIENCES = [
   {
     id: 0,
@@ -16,10 +16,8 @@ const EXPERIENCES = [
     duration: "2+ Years",
     location: "Tabriz, Iran",
     type: "Full-Time",
-    icon: "mingcute:building-line",
+    icon: "solar:buildings-2-bold",
     color: "from-cyan-500 to-blue-600",
-    borderColor: "border-cyan-400/50",
-    shadowColor: "shadow-cyan-500/20",
     description:
       "Leading enterprise ERP system development, architecting scalable solutions for thousands of users.",
     highlights: [
@@ -50,10 +48,8 @@ const EXPERIENCES = [
     duration: "1 Year",
     location: "Tehran, Iran",
     type: "Full-Time",
-    icon: "mingcute:heart-line",
+    icon: "solar:code-bold",
     color: "from-rose-500 to-pink-600",
-    borderColor: "border-rose-400/50",
-    shadowColor: "shadow-rose-500/20",
     description:
       "Developed responsive web applications with pixel-perfect UI implementations.",
     highlights: [
@@ -84,10 +80,8 @@ const EXPERIENCES = [
     duration: "1+ Year",
     location: "Remote",
     type: "Contract",
-    icon: "mingcute:rocket-line",
+    icon: "solar:rocket-bold",
     color: "from-purple-500 to-indigo-600",
-    borderColor: "border-purple-400/50",
-    shadowColor: "shadow-purple-500/20",
     description:
       "Delivered custom web solutions for diverse clients across industries.",
     highlights: [
@@ -103,9 +97,9 @@ const EXPERIENCES = [
       retention: "100%",
     },
   },
-];
+] as const;
 
-// Timeline navigation component for mobile
+// Mobile Timeline Component
 const MobileTimeline = memo(
   ({
     experiences,
@@ -117,51 +111,50 @@ const MobileTimeline = memo(
     onSelect: (index: number) => void;
   }) => {
     return (
-      <div className="flex items-center justify-center gap-2 mb-8">
+      <div className="flex items-center justify-center gap-3 mb-8">
         {experiences.map((exp, index) => (
           <button
             key={exp.id}
             onClick={() => onSelect(index)}
             className={`relative transition-all duration-300 ${
-              index === activeIndex ? "scale-110" : "scale-100 opacity-70"
+              index === activeIndex ? "scale-110" : "scale-100 opacity-50"
             }`}
-            aria-label={`Go to ${exp.company} experience`}
+            aria-label={`View ${exp.company} experience`}
           >
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 ${
                 index === activeIndex
-                  ? `bg-gradient-to-br ${exp.color} shadow-lg ${exp.shadowColor}`
-                  : "bg-slate-700/50 hover:bg-slate-700"
+                  ? `bg-gradient-to-br ${exp.color} shadow-lg`
+                  : "bg-slate-700/50"
               }`}
             >
               <Icon
                 icon={exp.icon}
-                className={`w-5 h-5 ${index === activeIndex ? "text-white" : "text-slate-400"}`}
+                width={20}
+                height={20}
+                className={index === activeIndex ? "text-white" : "text-slate-400"}
               />
             </div>
-            {index === activeIndex && (
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-slate-400 whitespace-nowrap">
-                {exp.company}
-              </div>
-            )}
           </button>
         ))}
       </div>
     );
-  },
+  }
 );
 
 MobileTimeline.displayName = "MobileTimeline";
 
-// Experience card component
+// Experience Card Component
 const ExperienceCard = memo(
   ({
     experience,
     isVisible,
+    showCTA,
     onContactClick,
   }: {
     experience: (typeof EXPERIENCES)[0];
     isVisible: boolean;
+    showCTA?: boolean;
     onContactClick: () => void;
   }) => {
     return (
@@ -170,61 +163,53 @@ const ExperienceCard = memo(
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
-        <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group">
-          {/* Gradient overlay on hover */}
+        <div className="relative bg-slate-800/40  border border-slate-700/50 rounded-xl md:rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group">
           <div
             className={`absolute inset-0 bg-gradient-to-br ${experience.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
           />
 
-          {/* Card Header */}
-          <div className="relative p-6 sm:p-8 border-b border-slate-700/50">
-            <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+          {/* Header */}
+          <div className="relative p-4 md:p-6 border-b border-slate-700/50">
+            <div className="flex items-start gap-3 md:gap-4">
               <div
-                className={`w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br ${experience.color} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
+                className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${experience.color} rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
               >
                 <Icon
                   icon={experience.icon}
-                  className="w-7 h-7 sm:w-8 sm:h-8 text-white"
+                  width={24}
+                  height={24}
+                  className="text-white"
                 />
               </div>
 
-              <div className="flex-1">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
                       {experience.company}
                     </h3>
-                    <p className="text-lg text-cyan-400 font-medium">
+                    <p className="text-base md:text-lg text-cyan-400 font-medium">
                       {experience.role}
                     </p>
                   </div>
                   <span
-                    className={`inline-flex px-3 py-1 bg-gradient-to-r ${experience.color} rounded-full text-xs font-medium text-white self-start`}
+                    className={`inline-flex px-2.5 py-1 bg-gradient-to-r ${experience.color} rounded-full text-xs font-medium text-white self-start flex-shrink-0`}
                   >
                     {experience.type}
                   </span>
                 </div>
 
-                <div className="flex flex-wrap gap-3 sm:gap-4 text-sm text-slate-400">
-                  <span className="flex items-center gap-1.5">
-                    <Icon
-                      icon="mingcute:calendar-line"
-                      className="w-4 h-4 text-slate-500"
-                    />
+                <div className="flex flex-wrap gap-2 md:gap-3 text-xs md:text-sm text-slate-400">
+                  <span className="flex items-center gap-1">
+                    <Icon icon="solar:calendar-bold" width={14} height={14} />
                     {experience.period}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <Icon
-                      icon="mingcute:time-line"
-                      className="w-4 h-4 text-slate-500"
-                    />
+                  <span className="flex items-center gap-1">
+                    <Icon icon="solar:clock-circle-bold" width={14} height={14} />
                     {experience.duration}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <Icon
-                      icon="mingcute:location-line"
-                      className="w-4 h-4 text-slate-500"
-                    />
+                  <span className="flex items-center gap-1">
+                    <Icon icon="solar:map-point-bold" width={14} height={14} />
                     {experience.location}
                   </span>
                 </div>
@@ -232,51 +217,50 @@ const ExperienceCard = memo(
             </div>
           </div>
 
-          {/* Card Body */}
-          <div className="relative p-6 sm:p-8">
-            <p className="text-slate-300 mb-8 leading-relaxed text-base sm:text-lg">
+          {/* Body */}
+          <div className="relative p-4 md:p-6">
+            <p className="text-slate-300 mb-6 leading-relaxed text-sm md:text-base">
               {experience.description}
             </p>
 
             {/* Impact Metrics */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
+            <div className="grid grid-cols-3 gap-2 md:gap-3 mb-6">
               {Object.entries(experience.impact).map(([key, value]) => (
                 <div
                   key={key}
-                  className="relative bg-slate-700/30 backdrop-blur-sm rounded-xl p-3 sm:p-4 text-center hover:bg-slate-700/50 transition-all duration-300 group/metric"
+                  className="bg-slate-700/30 rounded-lg p-2.5 md:p-3 text-center hover:bg-slate-700/50 transition-all duration-300"
                 >
                   <div
-                    className={`text-xl sm:text-2xl font-bold bg-gradient-to-r ${experience.color} bg-clip-text text-transparent group-hover/metric:scale-110 transition-transform duration-300`}
+                    className={`text-lg md:text-xl font-bold bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}
                   >
                     {value}
                   </div>
-                  <div className="text-xs text-slate-500 capitalize mt-1">
+                  <div className="text-xs text-slate-500 capitalize mt-0.5">
                     {key}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Key Highlights */}
-            <div className="mb-8">
-              <h4 className="font-semibold text-white mb-4 flex items-center gap-2">
-                <Icon
-                  icon="mingcute:trophy-line"
-                  className="w-5 h-5 text-amber-400"
-                />
+            {/* Achievements */}
+            <div className="mb-6">
+              <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
+                <Icon icon="solar:star-shine-bold" width={18} height={18} className="text-amber-400" />
                 Key Achievements
               </h4>
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="space-y-2">
                 {experience.highlights.map((highlight, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-3 p-3 bg-slate-700/20 rounded-lg hover:bg-slate-700/30 transition-colors duration-300"
+                    className="flex items-start gap-2 p-2.5 bg-slate-700/20 rounded-lg"
                   >
                     <Icon
-                      icon="mingcute:check-circle-fill"
-                      className={`w-5 h-5 flex-shrink-0 mt-0.5 bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}
+                      icon="solar:check-circle-bold"
+                      width={16}
+                      height={16}
+                      className={`flex-shrink-0 mt-0.5 bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}
                     />
-                    <span className="text-sm text-slate-300 leading-relaxed">
+                    <span className="text-xs md:text-sm text-slate-300 leading-relaxed">
                       {highlight}
                     </span>
                   </div>
@@ -286,18 +270,15 @@ const ExperienceCard = memo(
 
             {/* Technologies */}
             <div>
-              <h4 className="font-semibold text-white mb-4 flex items-center gap-2">
-                <Icon
-                  icon="mingcute:code-line"
-                  className="w-5 h-5 text-blue-400"
-                />
-                Technologies Used
+              <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
+                <Icon icon="solar:programming-bold" width={18} height={18} className="text-blue-400" />
+                Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
                 {experience.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1.5 bg-slate-700/30 backdrop-blur-sm border border-slate-600/50 text-xs font-medium text-slate-300 rounded-lg hover:border-cyan-400/50 hover:bg-slate-700/50 transition-all duration-300"
+                    className="px-2.5 py-1 bg-slate-700/30 border border-slate-600/50 text-xs font-medium text-slate-300 rounded-lg hover:border-cyan-400/50 transition-all duration-300"
                   >
                     {tech}
                   </span>
@@ -306,28 +287,21 @@ const ExperienceCard = memo(
             </div>
           </div>
 
-          {/* Card Footer - CTA for last card */}
-          {experience.id === 0 && (
-            <div className="relative p-6 sm:p-8 border-t border-slate-700/50 bg-slate-800/20">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <p className="text-slate-300 text-sm sm:text-base">
-                    Interested in working together?
-                  </p>
-                </div>
+          {/* CTA Footer */}
+          {showCTA && (
+            <div className="relative p-4 md:p-6 border-t border-slate-700/50 bg-slate-800/20">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p className="text-slate-300 text-sm">
+                  Interested in working together?
+                </p>
                 <button
                   onClick={onContactClick}
-                  className="group relative px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-0.5 w-full sm:w-auto"
-                  aria-label="Contact me"
+                  className="group px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-white text-sm hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 w-full sm:w-auto"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  <div className="relative flex items-center justify-center gap-2">
-                    <span>Let's Connect</span>
-                    <Icon
-                      icon="mingcute:arrow-right-line"
-                      className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                    />
-                  </div>
+                  <span className="flex items-center justify-center gap-2">
+                    Let's Connect
+                    <Icon icon="solar:arrow-right-bold" width={16} height={16} />
+                  </span>
                 </button>
               </div>
             </div>
@@ -335,12 +309,12 @@ const ExperienceCard = memo(
         </div>
       </div>
     );
-  },
+  }
 );
 
 ExperienceCard.displayName = "ExperienceCard";
 
-// Main Experiences component
+// Main Component
 const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -348,40 +322,28 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
 
-  // Check for mobile viewport
+  // Check mobile viewport
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Intersection observer for animations
+  // Intersection observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
-      {
-        threshold: 0.1,
-        rootMargin: "50px",
-      },
+      { threshold: 0.1, rootMargin: "50px" }
     );
 
     const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
@@ -397,34 +359,25 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
     setActiveIndex((prev) => (prev === EXPERIENCES.length - 1 ? 0 : prev + 1));
   }, []);
 
-  // Touch handling for mobile swipe
+  // Touch handlers
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   }, []);
 
   const handleTouchEnd = useCallback(
     (e: React.TouchEvent) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX.current - touchEndX;
-
+      const diff = touchStartX.current - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          handleNext();
-        } else {
-          handlePrevious();
-        }
+        diff > 0 ? handleNext() : handlePrevious();
       }
     },
-    [handleNext, handlePrevious],
+    [handleNext, handlePrevious]
   );
 
-  // Auto-rotate experiences on desktop
+  // Auto-rotate on desktop
   useEffect(() => {
     if (!isMobile) {
-      const interval = setInterval(() => {
-        handleNext();
-      }, 8000);
-
+      const interval = setInterval(handleNext, 8000);
       return () => clearInterval(interval);
     }
   }, [isMobile, handleNext]);
@@ -434,20 +387,11 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
       ref={sectionRef}
       className="relative min-h-screen py-12 md:py-20 overflow-hidden"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute bottom-1/3 -left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+      {/* Background */}
+      <div className="absolute inset-0" />
+     
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div
           className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
@@ -455,20 +399,19 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
         >
           <div className="inline-flex items-center gap-3 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-full border border-cyan-400/30 mb-6">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
+            <span className="text-cyan-400 font-medium tracking-wider text-xs sm:text-sm uppercase">
               Experience
             </span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent">
               Professional Journey
             </span>
           </h2>
 
-          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Building innovative solutions and delivering exceptional results
-            across different roles and industries.
+          <p className="text-base md:text-lg text-slate-400 max-w-3xl mx-auto px-4">
+            Building innovative solutions and delivering exceptional results across different roles
           </p>
         </div>
 
@@ -476,40 +419,32 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
         {isMobile ? (
           <div
             className={`transition-all duration-1000 delay-200 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
+              isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Mobile Timeline */}
             <MobileTimeline
               experiences={EXPERIENCES}
               activeIndex={activeIndex}
               onSelect={setActiveIndex}
             />
 
-            {/* Mobile Experience Card */}
-            <div className="mt-12">
-              <ExperienceCard
-                experience={EXPERIENCES[activeIndex]}
-                isVisible={isVisible}
-                onContactClick={handleContactClick}
-              />
-            </div>
+            <ExperienceCard
+              experience={EXPERIENCES[activeIndex]}
+              isVisible={isVisible}
+              showCTA={activeIndex === 0}
+              onContactClick={handleContactClick}
+            />
 
             {/* Mobile Navigation */}
             <div className="flex items-center justify-center gap-4 mt-6">
               <button
                 onClick={handlePrevious}
-                className="p-3 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl hover:border-cyan-400/50 transition-all duration-300"
-                aria-label="Previous experience"
+                className="p-2.5 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-cyan-400/50 transition-all"
+                aria-label="Previous"
               >
-                <Icon
-                  icon="mingcute:arrow-left-line"
-                  className="w-5 h-5 text-slate-400"
-                />
+                <Icon icon="solar:alt-arrow-left-bold" width={20} height={20} className="text-slate-400" />
               </button>
 
               <div className="flex gap-2">
@@ -517,44 +452,40 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                   <button
                     key={index}
                     onClick={() => setActiveIndex(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
                       index === activeIndex
                         ? `w-8 bg-gradient-to-r ${EXPERIENCES[activeIndex].color}`
-                        : "w-2 bg-slate-600"
+                        : "w-1.5 bg-slate-600"
                     }`}
-                    aria-label={`Go to experience ${index + 1}`}
+                    aria-label={`Experience ${index + 1}`}
                   />
                 ))}
               </div>
 
               <button
                 onClick={handleNext}
-                className="p-3 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl hover:border-cyan-400/50 transition-all duration-300"
-                aria-label="Next experience"
+                className="p-2.5 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-cyan-400/50 transition-all"
+                aria-label="Next"
               >
-                <Icon
-                  icon="mingcute:arrow-right-line"
-                  className="w-5 h-5 text-slate-400"
-                />
+                <Icon icon="solar:alt-arrow-right-bold" width={20} height={20} className="text-slate-400" />
               </button>
             </div>
           </div>
         ) : (
-          /* Desktop View - Timeline Layout */
-          <div className="space-y-8">
+          /* Desktop View */
+          <div className="space-y-6">
             {EXPERIENCES.map((experience, index) => (
               <div
                 key={experience.id}
                 className={`transition-all duration-1000 ${
-                  isVisible
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-10 opacity-0"
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <ExperienceCard
                   experience={experience}
                   isVisible={isVisible}
+                  showCTA={index === 0}
                   onContactClick={handleContactClick}
                 />
               </div>
@@ -562,37 +493,33 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
           </div>
         )}
 
-        {/* Bottom CTA Section - Desktop Only */}
+        {/* Bottom CTA - Desktop Only */}
         {!isMobile && (
           <div
-            className={`mt-16 transition-all duration-1000 delay-500 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
+            className={`mt-12 transition-all duration-1000 delay-500 ${
+              isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
+            <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/50 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500" />
 
               <div className="relative z-10">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                <Icon icon="solar:chat-round-bold" width={48} height={48} className="text-cyan-400 mx-auto mb-4" />
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
                   Ready for New Challenges
                 </h3>
-                <p className="text-slate-400 text-base md:text-lg mb-8 max-w-2xl mx-auto">
-                  Looking for a skilled developer to join your team? Let's
-                  discuss how I can contribute to your success.
+                <p className="text-slate-400 text-base mb-6 max-w-2xl mx-auto">
+                  Looking for a skilled developer? Let's discuss how I can contribute to your success.
                 </p>
 
                 <button
                   onClick={handleContactClick}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
-                  aria-label="Get in touch"
+                  className="group px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  <div className="relative flex items-center justify-center gap-3">
-                    <Icon icon="mingcute:send-line" className="w-5 h-5" />
-                    <span>Get In Touch</span>
-                  </div>
+                  <span className="flex items-center justify-center gap-2">
+                    <Icon icon="solar:letter-bold" width={20} height={20} />
+                    Get In Touch
+                  </span>
                 </button>
               </div>
             </div>

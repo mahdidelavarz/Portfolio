@@ -40,7 +40,7 @@ const socialLinks = [
 const Home = memo(function Home({ scrollToSection }: HomeProps) {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <div className="inset-0 gradient-hover-center fixed top-0 backdrop-blur-sm"></div>
+      <div className="inset-0 gradient-hover-center fixed top-0 "></div>
 
       {/* Desktop Social Links Sidebar */}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 lg:flex flex-col gap-3 transition-all duration-1000 hidden">

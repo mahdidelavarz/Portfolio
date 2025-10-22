@@ -184,13 +184,6 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
 
   return (
     <div ref={sectionRef} className="relative min-h-screen py-12 md:py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 backdrop-blur-md" />
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-      </div>
-
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>

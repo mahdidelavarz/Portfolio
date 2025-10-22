@@ -182,7 +182,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
           <div className="order-2 lg:order-1">
             <div
               ref={sliderRef}
-              className="relative bg-white dark:bg-slate-800/50 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50"
+              className="relative bg-white dark:bg-slate-800/50  rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50"
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
