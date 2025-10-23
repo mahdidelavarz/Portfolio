@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import HeaderMenu from "../components/HeaderMenu";
 import Section from "../components/Section";
-import ParticleWrapper from "@/components/ParticleWrapper";
+// import ParticleWrapper from "@/components/ParticleWrapper";
 import HomeSection from "@/components/HomeSection";
 import BurgerMenu from "@/components/BurgerMenu";
 
@@ -380,14 +380,15 @@ export default function Page() {
       {/* Main container with semantic HTML */}
       <div className="relative text-white min-h-screen overflow-x-hidden">
         {/* Background effects */}
-        <ParticleWrapper />
+        {/* <ParticleWrapper /> */}
 
         {/* Navigation */}
         <HeaderMenu />
         <BurgerMenu />
 
         {/* Main content */}
-        <main role="main" aria-label="Portfolio Content">
+        <main role="main" aria-label="Portfolio Content" >
+           <div className="inset-0 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950 fixed top-0 "></div>
           {/* Hero Section */}
           <Section
             id="home"
