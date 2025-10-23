@@ -484,7 +484,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen py-12 md:py-20 overflow-hidden"
+      className="relative min-h-screen py-12 md:py-20 overflow-hidden bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950"
     >
       {/* Background gradient */}
       <div className="absolute inset-0" />

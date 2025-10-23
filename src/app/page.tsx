@@ -388,7 +388,7 @@ export default function Page() {
 
         {/* Main content */}
         <main role="main" aria-label="Portfolio Content" >
-           <div className="inset-0 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950 fixed top-0 "></div>
+           {/* <div className="inset-0 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950 fixed top-0 "></div> */}
           {/* Hero Section */}
           <Section
             id="home"
@@ -451,7 +451,7 @@ export default function Page() {
 
         {/* Footer */}
         <footer
-          className="py-8 text-center text-slate-400 border-t border-slate-800"
+          className="h-25 flex flex-col items-center justify-center text-center text-slate-400 border-t border-slate-800 absolute bottom-0 w-full z-50"
           role="contentinfo"
           aria-label="Footer"
         >

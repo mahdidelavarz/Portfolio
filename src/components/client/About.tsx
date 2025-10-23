@@ -225,7 +225,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen py-12 md:py-20 overflow-hidden"
+      className="relative min-h-screen py-12 md:py-20 overflow-hidden bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950"
     >
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}

@@ -244,7 +244,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
   }, []);
 
   return (
-    <div className="relative min-h-screen py-12 sm:py-20  overflow-hidden">
+    <div className="relative min-h-screen py-12 sm:py-20  overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">

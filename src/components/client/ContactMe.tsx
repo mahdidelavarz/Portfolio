@@ -308,7 +308,7 @@ const ContactMe = memo<ContactMeProps>(() => {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen py-12 md:py-20 overflow-hidden"
+      className="relative min-h-screen py-12 md:py-20 overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950"
     >
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -561,7 +561,7 @@ const ContactMe = memo<ContactMeProps>(() => {
 
         {/* Footer CTA */}
         <div
-          className={`mt-16 transition-all duration-1000 delay-500 ${
+          className={`mt-16 mb-15 transition-all duration-1000 delay-500 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
