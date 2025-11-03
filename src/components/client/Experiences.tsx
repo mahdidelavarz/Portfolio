@@ -164,7 +164,7 @@ const ExperienceCard = memo(
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
-        <div className="relative bg-slate-800/40 backdrop-blur-3xl  border border-slate-700/50 rounded-xl md:rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group">
+        <div className="relative bg-slate-800/40 backdrop-blur-3xl border border-slate-700/50 rounded-xl md:rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500 group">
           <div
             className={`absolute inset-0 bg-gradient-to-br ${experience.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
           />
@@ -288,7 +288,6 @@ const ExperienceCard = memo(
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );
@@ -302,6 +301,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
 
@@ -335,12 +335,20 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
   }, [scrollToSection]);
 
   const handlePrevious = useCallback(() => {
-    setActiveIndex((prev) => (prev === 0 ? EXPERIENCES.length - 1 : prev - 1));
-  }, []);
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setActiveIndex((prev) => (prev === 0 ? EXPERIENCES.length - 1 : prev - 1));
+      setTimeout(() => setIsTransitioning(false), 500);
+    }
+  }, [isTransitioning]);
 
   const handleNext = useCallback(() => {
-    setActiveIndex((prev) => (prev === EXPERIENCES.length - 1 ? 0 : prev + 1));
-  }, []);
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setActiveIndex((prev) => (prev === EXPERIENCES.length - 1 ? 0 : prev + 1));
+      setTimeout(() => setIsTransitioning(false), 500);
+    }
+  }, [isTransitioning]);
 
   // Touch handlers
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -357,34 +365,43 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
     [handleNext, handlePrevious]
   );
 
-  // Auto-rotate on desktop
+  // Auto-rotate
   useEffect(() => {
-    if (!isMobile) {
-      const interval = setInterval(handleNext, 8000);
-      return () => clearInterval(interval);
-    }
-  }, [isMobile, handleNext]);
+    const interval = setInterval(handleNext, 8000);
+    return () => clearInterval(interval);
+  }, [handleNext]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrevious();
+      if (e.key === "ArrowRight") handleNext();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleNext, handlePrevious]);
+
+  const currentExperience = EXPERIENCES[activeIndex];
 
   return (
     <div
       ref={sectionRef}
       className="relative min-h-screen py-12 md:py-20 overflow-hidden bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950"
     >
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10  mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div
           className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
-            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-6">
             <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
             <span className="text-cyan-400 font-medium tracking-widest text-sm uppercase">
               EXPERIENCES
             </span>
             <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
-            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
@@ -414,7 +431,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
             />
 
             <ExperienceCard
-              experience={EXPERIENCES[activeIndex]}
+              experience={currentExperience}
               isVisible={isVisible}
               showCTA={activeIndex === 0}
               onContactClick={handleContactClick}
@@ -437,7 +454,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                     onClick={() => setActiveIndex(index)}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       index === activeIndex
-                        ? `w-8 bg-gradient-to-r ${EXPERIENCES[activeIndex].color}`
+                        ? `w-8 bg-gradient-to-r ${currentExperience.color}`
                         : "w-1.5 bg-slate-600"
                     }`}
                     aria-label={`Experience ${index + 1}`}
@@ -455,55 +472,136 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
             </div>
           </div>
         ) : (
-          /* Desktop View */
-          <div className="space-y-6">
-            {EXPERIENCES.map((experience, index) => (
-              <div
-                key={experience.id}
-                className={`transition-all duration-1000 ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <ExperienceCard
-                  experience={experience}
-                  isVisible={isVisible}
-                  showCTA={index === 0}
-                  onContactClick={handleContactClick}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Bottom CTA - Desktop Only */}
-        {!isMobile && (
+          /* Desktop Slider View */
           <div
-            className={`mt-12 transition-all duration-1000 delay-500 ${
+            className={`transition-all duration-1000 delay-200 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/50 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10">
-                <Icon icon="solar:chat-round-bold" width={48} height={48} className="text-cyan-400 mx-auto mb-4" />
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                  Ready for New Challenges
-                </h3>
-                <p className="text-slate-400 text-base mb-6 max-w-2xl mx-auto">
-                  Looking for a skilled developer? Let's discuss how I can contribute to your success.
-                </p>
-
+            {/* Desktop Timeline Navigation */}
+            <div className="flex items-center justify-center gap-4 mb-12">
+              {EXPERIENCES.map((exp, index) => (
                 <button
-                  onClick={handleContactClick}
-                  className="group px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300"
+                  key={exp.id}
+                  onClick={() => setActiveIndex(index)}
+                  className={`relative group transition-all duration-300 ${
+                    index === activeIndex ? "scale-110" : "scale-100 opacity-60 hover:opacity-100"
+                  }`}
+                  aria-label={`View ${exp.company} experience`}
                 >
-                  <span className="flex items-center justify-center gap-2">
-                    <Icon icon="solar:letter-bold" width={20} height={20} />
-                    Get In Touch
-                  </span>
+                  <div
+                    className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                      index === activeIndex
+                        ? `bg-gradient-to-br ${exp.color} shadow-lg shadow-${exp.color}/20`
+                        : "bg-slate-700/50 hover:bg-slate-700"
+                    }`}
+                  >
+                    <Icon
+                      icon={exp.icon}
+                      width={28}
+                      height={28}
+                      className={index === activeIndex ? "text-white" : "text-slate-400"}
+                    />
+                  </div>
+                  
+                  {/* Company name tooltip */}
+                  <div className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium transition-opacity duration-200 ${
+                    index === activeIndex ? "text-white" : "text-slate-500"
+                  }`}>
+                    {exp.company}
+                  </div>
+
+                  {/* Connection line */}
+                  {index < EXPERIENCES.length - 1 && (
+                    <div className="absolute top-1/2 -right-4 w-4 h-0.5 bg-slate-700" />
+                  )}
                 </button>
+              ))}
+            </div>
+
+            {/* Main Slider Card */}
+            <div className="relative max-w-6xl px-8 mx-auto">
+              {/* Navigation Arrows */}
+              <button
+                onClick={handlePrevious}
+                disabled={isTransitioning}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 p-3 bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-xl hover:border-cyan-400/50 hover:bg-slate-800 transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Previous experience"
+              >
+                <Icon
+                  icon="solar:alt-arrow-left-bold"
+                  width={24}
+                  height={24}
+                  className="text-slate-300 group-hover:text-cyan-400 group-hover:-translate-x-1 transition-all"
+                />
+              </button>
+
+              <button
+                onClick={handleNext}
+                disabled={isTransitioning}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 p-3 bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-xl hover:border-cyan-400/50 hover:bg-slate-800 transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Next experience"
+              >
+                <Icon
+                  icon="solar:alt-arrow-right-bold"
+                  width={24}
+                  height={24}
+                  className="text-slate-300 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"
+                />
+              </button>
+
+              {/* Card with transition */}
+              <div className={`transition-all duration-500 ${
+                isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+              }`}>
+                <ExperienceCard
+                  experience={currentExperience}
+                  isVisible={isVisible}
+                  onContactClick={handleContactClick}
+                />
+              </div>
+
+              {/* Progress indicators */}
+              <div className="flex items-center justify-center gap-2 mt-8">
+                {EXPERIENCES.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveIndex(index)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      index === activeIndex
+                        ? `w-12 bg-gradient-to-r ${currentExperience.color}`
+                        : "w-1.5 bg-slate-600 hover:bg-slate-500"
+                    }`}
+                    aria-label={`Go to experience ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-16 max-w-5xl mx-auto">
+              <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/50 transition-all duration-500 group">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="relative z-10">
+                  <Icon icon="solar:chat-round-bold" width={48} height={48} className="text-cyan-400 mx-auto mb-4" />
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                    Ready for New Challenges
+                  </h3>
+                  <p className="text-slate-400 text-base mb-6 max-w-2xl mx-auto">
+                    Looking for a skilled developer? Let's discuss how I can contribute to your success.
+                  </p>
+
+                  <button
+                    onClick={handleContactClick}
+                    className="group/btn px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      <Icon icon="solar:letter-bold" width={20} height={20} />
+                      Get In Touch
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -244,40 +244,38 @@ function Projects({ scrollToSection }: ProjectsProps) {
   }, []);
 
   return (
-    <div className="relative min-h-screen py-12 sm:py-20  overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
+    <div className="relative min-h-screen py-12 sm:py-20 overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
-          {/* <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" /> */}
+        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-6">
           <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
           <span className="text-cyan-500 font-medium tracking-wider text-sm uppercase">
             projects
           </span>
           <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
-          {/* <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" /> */}
         </div>
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
           <span className="bg-gradient-to-r from-white via-sky-500 to-white bg-clip-text text-transparent">
-             Featured Projects
+            Featured Projects
           </span>
         </h2>
 
         <p className="text-base md:text-lg text-slate-500 max-w-3xl mx-auto px-4">
-           Crafting digital experiences that make a difference
+          Crafting digital experiences that make a difference
         </p>
 
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mt-20">
           {/* Left Panel - Slider */}
-          <div className="order-2 lg:order-1">
+          <div className="order-1 lg:order-1 ">
             <div
               ref={sliderRef}
-              className="relative bg-white dark:bg-slate-800/50  rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50"
+              className="relative bg-white dark:bg-slate-800/50 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50"
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
               {/* Project Image Slider */}
-              <div className="relative h-[300px] sm:h-[500px] lg:h-[450px] overflow-hidden">
+              <div className="relative h-[300px] sm:h-[400px] lg:h-[450px] overflow-hidden">
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${currentProject.color} opacity-90`}
                 />
@@ -293,7 +291,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
                 {/* Overlay Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
                   <div
                     className={`transition-all duration-500 ${
                       isTransitioning
@@ -301,13 +299,13 @@ function Projects({ scrollToSection }: ProjectsProps) {
                         : "translate-y-0 opacity-100"
                     }`}
                   >
-                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-white text-sm font-medium rounded-full mb-3">
+                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-medium rounded-full mb-2 sm:mb-3">
                       {currentProject.category}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
                       {currentProject.title}
                     </h3>
-                    <p className="text-white/90 text-lg">
+                    <p className="text-white/90 text-sm sm:text-base lg:text-lg">
                       {currentProject.subtitle}
                     </p>
                   </div>
@@ -316,33 +314,33 @@ function Projects({ scrollToSection }: ProjectsProps) {
                 {/* Navigation Arrows */}
                 <button
                   onClick={handlePrevious}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
+                  className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
                   aria-label="Previous project"
                 >
                   <Icon
                     icon="lucide:chevron-left"
-                    className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform"
+                    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform"
                   />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
+                  className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
                   aria-label="Next project"
                 >
                   <Icon
                     icon="lucide:chevron-right"
-                    className="w-6 h-6 group-hover:translate-x-0.5 transition-transform"
+                    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform"
                   />
                 </button>
               </div>
 
               {/* Slider Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-1 lg:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 {projects.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedProject(index)}
-                    className={`h-1 rounded-full transition-all duration-300 ${
+                    className={`h-1 rounded-full transition-all duration-300  ${
                       index === selectedProject
                         ? "w-8 bg-white"
                         : "w-1 bg-white/40 hover:bg-white/60"
@@ -385,7 +383,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
           </div>
 
           {/* Right Panel - Project Details */}
-          <div className="order-1 lg:order-2">
+          <div className="order-2 lg:order-2">
             <div
               className={`transition-all duration-500 ${
                 isTransitioning
@@ -393,33 +391,33 @@ function Projects({ scrollToSection }: ProjectsProps) {
                   : "opacity-100 translate-x-0"
               }`}
             >
-              {/* Project Info Card */}
-              <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-700/50">
+              {/* Project Info Card - Fixed height on desktop */}
+              <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-slate-700/50 lg:h-[750px] flex flex-col">
                 {/* Year Badge */}
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-sm font-medium text-slate-500">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <span className="text-xs sm:text-sm font-medium text-slate-500">
                     {currentProject.year} • Project #{selectedProject + 1} of{" "}
                     {projects.length}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="text-slate-300 leading-relaxed mb-8 text-lg">
+                <p className="text-slate-300 leading-relaxed mb-6 sm:mb-8 text-sm sm:text-base lg:text-lg">
                   {currentProject.description}
                 </p>
 
                 {/* Key Features */}
-                <div className="mb-8">
-                  <h4 className="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">
+                <div className="mb-6 sm:mb-8">
+                  <h4 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 sm:mb-4 uppercase tracking-wider">
                     Key Features
                   </h4>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {currentProject.features.map((feature, index) => (
                       <div key={index} className="flex items-center gap-2 justify-center">
                         <div
                           className={`w-2 h-2 rounded-full bg-gradient-to-br ${currentProject.color}`}
                         />
-                        <span className="text-sm text-slate-500">
+                        <span className="text-xs sm:text-sm text-slate-500">
                           {feature}
                         </span>
                       </div>
@@ -428,15 +426,15 @@ function Projects({ scrollToSection }: ProjectsProps) {
                 </div>
 
                 {/* Technologies */}
-                <div className="mb-8">
-                  <h4 className="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">
+                <div className="mb-6 sm:mb-8">
+                  <h4 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 sm:mb-4 uppercase tracking-wider">
                     Tech Stack
                   </h4>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {currentProject.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-4 py-2 bg-slate-100 dark:bg-slate-700/50 text-slate-300 text-sm font-medium rounded-xl hover:shadow-md transition-shadow duration-200"
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-100 dark:bg-slate-700/50 text-slate-300 text-xs sm:text-sm font-medium rounded-xl hover:shadow-md transition-shadow duration-200"
                       >
                         {tech}
                       </span>
@@ -445,27 +443,27 @@ function Projects({ scrollToSection }: ProjectsProps) {
                 </div>
 
                 {/* Metrics */}
-                <div className="mb-8">
-                  <h4 className="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">
+                <div className="mb-6 sm:mb-8 flex-grow">
+                  <h4 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 sm:mb-4 uppercase tracking-wider">
                     Impact Metrics
                   </h4>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
                     {Object.entries(currentProject.metrics).map(
                       ([key, metric]) => (
                         <div
                           key={key}
-                          className="bg-slate-700/30 rounded-xl p-4 text-center hover:shadow-md transition-all duration-200 group"
+                          className="bg-slate-700/30 rounded-xl p-2 sm:p-4 text-center hover:shadow-md transition-all duration-200 group"
                         >
                           <Icon
                             icon={metric.icon}
-                            className={`w-5 h-5 mx-auto mb-2 text-slate-500 group-hover:text-blue-500 transition-colors`}
+                            className={`w-4 h-4 sm:w-5 sm:h-5 mx-auto mb-1 sm:mb-2 text-slate-500 group-hover:text-blue-500 transition-colors`}
                           />
                           <div
-                            className={`text-xl font-bold bg-gradient-to-br ${currentProject.color} bg-clip-text text-transparent`}
+                            className={`text-base sm:text-xl font-bold bg-gradient-to-br ${currentProject.color} bg-clip-text text-transparent`}
                           >
                             {metric.value}
                           </div>
-                          <div className="text-xs text-slate-500 mt-1">
+                          <div className="text-[10px] sm:text-xs text-slate-500 mt-1">
                             {metric.label}
                           </div>
                         </div>
@@ -475,24 +473,24 @@ function Projects({ scrollToSection }: ProjectsProps) {
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto">
                   <button
-                    className={`flex-1 px-6 py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group`}
+                    className={`flex-1 px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group text-sm sm:text-base`}
                   >
                     <span className="flex items-center justify-center gap-2">
                       View Live
                       <Icon
                         icon="lucide:external-link"
-                        className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                       />
                     </span>
                   </button>
-                  <button className="flex-1 px-6 py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group">
+                  <button className="flex-1 px-4 py-2.5 sm:px-6 sm:py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group text-sm sm:text-base">
                     <span className="flex items-center justify-center gap-2">
                       Source Code
                       <Icon
                         icon="lucide:github"
-                        className="w-4 h-4 group-hover:rotate-12 transition-transform"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform"
                       />
                     </span>
                   </button>
