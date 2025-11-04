@@ -1,7 +1,60 @@
-'use client';
-
 import React from 'react';
+import Link from 'next/link';
 import { Icon } from '@iconify/react';
+import { type Metadata } from 'next';
+import GoBackButton from '@/components/GoBackBtn';
+
+
+// Define metadata for the 404 page
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Page Not Found | Mahdi Delavar",
+    description: "The page you are looking for does not exist. Return to the homepage of Mahdi Delavar's Frontend Developer Portfolio.",
+    robots: {
+      index: false, // Prevent indexing of 404 pages
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
+    alternates: {
+      canonical: "https://mahdidelavar.ir", // Canonical points to homepage
+    },
+    other: {
+      "ld+json": [
+        // WebPage Schema for 404 page
+        JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Page Not Found",
+          url: "https://mahdidelavar.ir/404", // Generic URL for 404
+          description: "The page you are looking for does not exist on Mahdi Delavar's Frontend Developer Portfolio.",
+          mainEntity: {
+            "@type": "CreativeWork",
+            "@id": "https://mahdidelavar.ir/#not-found",
+            name: "404 Page",
+            description: "This is a 404 error page indicating that the requested resource was not found.",
+          },
+        }),
+        // WebSite Schema to maintain site context
+        JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": "https://mahdidelavar.ir/#website",
+          url: "https://mahdidelavar.ir",
+          name: "Mahdi Delavar Portfolio",
+          description: "Frontend Developer Portfolio showcasing projects and skills",
+          publisher: {
+            "@type": "Person",
+            "@id": "https://mahdidelavar.ir/#person",
+            name: "Mahdi Delavar",
+          },
+        }),
+      ],
+    },
+  };
+}
 
 export default function NotFound() {
   return (
@@ -25,21 +78,16 @@ export default function NotFound() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button
-            onClick={() => window.location.href = '/'}
+          <Link
+            href="/"
             className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:-translate-y-0.5"
           >
             <Icon icon="mdi:home" className="w-5 h-5 group-hover:scale-110 transition-transform" />
             Go Home
-          </button>
-          
-          <button
-            onClick={() => window.history.back()}
-            className="group flex items-center gap-2 px-6 py-3 bg-slate-800 text-slate-300 rounded-lg font-medium border border-slate-700 hover:border-slate-600 hover:bg-slate-700 transition-all duration-300"
-          >
-            <Icon icon="mdi:arrow-left" className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            Go Back
-          </button>
+          </Link>
+
+          {/* Use the client component for the "Go Back" button */}
+          <GoBackButton />
         </div>
 
         {/* Decorative Elements */}
