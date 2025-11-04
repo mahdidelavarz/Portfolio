@@ -139,7 +139,7 @@ const structuredData = {
       description:
         "Experienced Frontend Developer with 3+ years of expertise in React, Next.js, TypeScript, and modern web technologies. Passionate about creating exceptional user experiences and scalable web applications.",
       url: "https://mahdidelavar.ir",
-      email: "mahdi.delavar@email.com",
+      email: "mdelever77@gmail.com",
       telephone: "+989123456789",
       address: {
         "@type": "PostalAddress",
@@ -317,7 +317,7 @@ const structuredData = {
           name: "How can I contact Mahdi Delavar for a project?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "You can contact me through the contact form on my portfolio website, email me at mahdi.delavar@email.com, or reach out via LinkedIn or GitHub.",
+            text: "You can contact me through the contact form on my portfolio website, email me at mdelever77@gmail.com, or reach out via LinkedIn or GitHub.",
           },
         },
         {

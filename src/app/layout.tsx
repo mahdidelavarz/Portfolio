@@ -126,7 +126,7 @@ description:
     yandex: "your-yandex-verification-code",
     yahoo: "your-yahoo-verification-code",
     other: {
-      me: ["mahdi.delavar@email.com", "https://github.com/mahdidelavarz"],
+      me: ["mdelever77@gmail.com", "https://github.com/mahdidelavarz"],
     },
   },
   manifest: "/manifest.json",
@@ -233,7 +233,7 @@ export default function RootLayout({
                 "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies",
               image: "https://mahdidelavar.ir/profile-image.jpg",
               url: "https://mahdidelavar.ir",
-              email: "mahdi.delavar@email.com",
+              email: "mdelever77@gmail.com",
               telephone: "+989123456789",
               jobTitle: "Frontend Developer",
               worksFor: {

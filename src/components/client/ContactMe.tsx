@@ -156,12 +156,12 @@ const ContactMe = memo<ContactMeProps>(() => {
     {
       id: "email",
       label: "Email",
-      value: "mahdi.delavar@email.com",
+      value: "mdelever77@gmail.com",
       icon: "mingcute:mail-line",
       color: "from-cyan-500 to-blue-600",
       borderColor: "border-cyan-400/50",
       shadowColor: "shadow-cyan-500/20",
-      action: () => (window.location.href = "mailto:mahdi.delavar@email.com"),
+      action: () => (window.location.href = "mailto:mdelever77@gmail.com"),
     },
     {
       id: "phone",
@@ -579,7 +579,7 @@ const ContactMe = memo<ContactMeProps>(() => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="mailto:mahdi.delavar@email.com"
+                  href="mailto:mdelever77@gmail.com"
                   className="group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
