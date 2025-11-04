@@ -28,12 +28,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mahdidelavar.ir"),
- title: {
-  default: "Mahdi Delavar | Frontend Developer - React & Next.js",
-  template: "%s | Mahdi Delavar",
-},
-description:
-  "Frontend Developer specializing in React, Next.js, and TypeScript. 3+ years of experience building scalable web apps.",
+  title: {
+    default: "Mahdi Delavar | Frontend Developer - React & Next.js",
+    template: "%s | Mahdi Delavar",
+  },
+  description:
+    "Frontend Developer specializing in React, Next.js, and TypeScript. 3+ years of experience building scalable web apps.",
 
   keywords: [
     "Frontend Developer",
@@ -217,6 +217,24 @@ export default function RootLayout({
           type="application/atom+xml"
           title="Atom"
           href="/atom.xml"
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: "Mahdi Delavar Portfolio",
+              url: "https://mahdidelavar.ir",
+              description:
+                "Frontend Developer Portfolio showcasing projects and skills",
+              mainEntity: {
+                "@type": "Person",
+                "@id": "https://mahdidelavar.ir/#person",
+              },
+            }),
+          }}
         />
 
         {/* Structured Data - Person Schema */}
