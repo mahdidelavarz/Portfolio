@@ -232,58 +232,56 @@ export default function RootLayout({
               mainEntity: {
                 "@type": "Person",
                 "@id": "https://mahdidelavar.ir/#person",
+                name: "Mahdi Delavar",
+                alternateName: "Mahdi",
+                description:
+                  "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies",
+                image: "https://mahdidelavar.ir/profile-image.jpg",
+                url: "https://mahdidelavar.ir",
+                email: "mdelever77@gmail.com",
+                telephone: "+989123456789",
+                jobTitle: "Frontend Developer",
+                worksFor: {
+                  "@type": "Organization",
+                  name: "Petco",
+                },
+                alumniOf: {
+                  "@type": "EducationalOrganization",
+                  name: "Actual University Name",
+                  url: "https://university-website.com",
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "City",
+                    addressCountry: "Country",
+                  },
+                },
+                knowsAbout: [
+                  "Frontend Development",
+                  "React.js",
+                  "Next.js",
+                  "TypeScript",
+                  "JavaScript",
+                  "UI/UX Design",
+                  "Web Development",
+                  "Software Engineering",
+                ],
+                sameAs: [
+                  "https://github.com/mahdidelavarz",
+                  "https://linkedin.com/in/mahdi-delavar",
+                  "https://twitter.com/mahdi_delavar",
+                  "https://t.me/mahdi_delavar",
+                ],
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Tehran",
+                  addressCountry: "Iran",
+                },
+                nationality: "Iranian",
+                mainEntityOfPage: {
+                  "@type": "WebPage",
+                  "@id": "https://mahdidelavar.ir",
+                },
               },
-            }),
-          }}
-        />
-
-        {/* Structured Data - Person Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "@id": "https://mahdidelavar.ir/#person",
-              name: "Mahdi Delavar",
-              alternateName: "Mahdi",
-              description:
-                "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies",
-              image: "https://mahdidelavar.ir/profile-image.jpg",
-              url: "https://mahdidelavar.ir",
-              email: "mdelever77@gmail.com",
-              telephone: "+989123456789",
-              jobTitle: "Frontend Developer",
-              worksFor: {
-                "@type": "Organization",
-                name: "Petco",
-              },
-              alumniOf: {
-                "@type": "EducationalOrganization",
-                name: "Your University",
-              },
-              knowsAbout: [
-                "Frontend Development",
-                "React.js",
-                "Next.js",
-                "TypeScript",
-                "JavaScript",
-                "UI/UX Design",
-                "Web Development",
-                "Software Engineering",
-              ],
-              sameAs: [
-                "https://github.com/mahdidelavarz",
-                "https://linkedin.com/in/mahdi-delavar",
-                "https://twitter.com/mahdi_delavar",
-                "https://t.me/mahdi_delavar",
-              ],
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Tehran",
-                addressCountry: "Iran",
-              },
-              nationality: "Iranian",
             }),
           }}
         />
