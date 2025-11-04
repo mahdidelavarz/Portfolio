@@ -44,8 +44,8 @@ User-agent: MJ12bot
 Disallow: /
 
 # Sitemap location
-Sitemap: https://mahdi-delavar.vercel.app/sitemap.xml
-Sitemap: https://mahdi-delavar.vercel.app/sitemap-0.xml
+Sitemap: https://mahdidelavar.ir/sitemap.xml
+Sitemap: https://mahdidelavar.ir/sitemap-0.xml
 
 # Cache control
 # Note: These are suggestions, not all crawlers respect them
@@ -54,4 +54,4 @@ User-agent: Googlebot
 Crawl-delay: 0
 
 # Host (preferred domain - update with your actual domain)
-Host: https://mahdi-delavar.vercel.app
+Host: https://mahdidelavar.ir

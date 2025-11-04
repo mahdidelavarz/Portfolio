@@ -57,52 +57,32 @@ const Education = dynamic(() => import("@/components/client/Education"), {
 
 // Enhanced metadata for SEO
 export const metadata: Metadata = {
-  title:
-    "Mahdi Delavar | Frontend Developer Portfolio - React, Next.js & TypeScript Expert",
+  title: "Mahdi Delavar | Frontend Developer - React & Next.js Expert",
   description:
-    "Frontend Developer with 3+ years of experience specializing in React, Next.js, TypeScript, and modern web technologies. View my portfolio showcasing 50+ successful projects, technical skills, and professional experience in building scalable web applications.",
+    "Frontend Developer specializing in React, Next.js, and TypeScript. Explore 50+ projects and my 3+ years of experience building scalable web apps.",
   keywords: [
-    "Mahdi Delavar",
     "Frontend Developer",
     "React Developer",
     "Next.js Developer",
     "TypeScript Expert",
-    "JavaScript Developer",
-    "UI/UX Engineer",
-    "Web Developer",
-    "Full Stack Developer",
-    "Tehran Developer",
-    "Iran Frontend Developer",
-    "Remote Developer",
-    "Freelance Developer",
-    "React.js",
-    "Next.js 14",
-    "TypeScript",
-    "Tailwind CSS",
-    "Node.js",
-    "Web Development",
-    "Software Engineer",
-    "Portfolio",
-    "Hire Frontend Developer",
+    "Web Developer Iran",
+    "Mahdi Delavar",
   ],
-  authors: [{ name: "Mahdi Delavar", url: "https://mahdi-delavar.vercel.app" }],
-  creator: "Mahdi Delavar",
-  publisher: "Mahdi Delavar",
   alternates: {
-    canonical: "https://mahdi-delavar.vercel.app",
+    canonical: "https://mahdidelavar.ir",
   },
   openGraph: {
-    title: "Mahdi Delavar - Senior Frontend Developer Portfolio",
+    title: "Mahdi Delavar - Frontend Developer Portfolio",
     description:
-      "Experienced Frontend Developer specializing in React, Next.js, and TypeScript. 3+ years of experience, 50+ projects delivered with 100% client satisfaction.",
-    url: "https://mahdi-delavar.vercel.app",
+      "React & Next.js expert with 3+ years of experience. Explore 50+ web projects built for performance and scalability.",
+    url: "https://mahdidelavar.ir",
     siteName: "Mahdi Delavar Portfolio",
     images: [
       {
-        url: "https://mahdi-delavar.vercel.app/og-image.png",
+        url: "https://mahdidelavar.ir/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Mahdi Delavar - Frontend Developer Portfolio",
+        alt: "Mahdi Delavar Portfolio Preview",
       },
     ],
     locale: "en_US",
@@ -110,28 +90,15 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mahdi Delavar - Frontend Developer Portfolio",
+    title: "Mahdi Delavar - Frontend Developer",
     description:
-      "Experienced Frontend Developer specializing in React, Next.js, and TypeScript. View my portfolio and let's build something amazing together.",
+      "React, Next.js & TypeScript Developer with 3+ years experience and 50+ completed projects.",
     creator: "@mahdi_delavar",
-    images: ["https://mahdi-delavar.vercel.app/twitter-image.png"],
+    images: ["https://mahdidelavar.ir/twitter-image.png"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-  },
+  robots: { index: true, follow: true },
 };
+
 
 // Comprehensive structured data for SEO
 const structuredData = {
@@ -139,39 +106,39 @@ const structuredData = {
   "@graph": [
     {
       "@type": "ProfilePage",
-      "@id": "https://mahdi-delavar.vercel.app/#webpage",
-      url: "https://mahdi-delavar.vercel.app",
+      "@id": "https://mahdidelavar.ir/#webpage",
+      url: "https://mahdidelavar.ir",
       name: "Mahdi Delavar - Frontend Developer Portfolio",
       isPartOf: {
-        "@id": "https://mahdi-delavar.vercel.app/#website",
+        "@id": "https://mahdidelavar.ir/#website",
       },
       about: {
-        "@id": "https://mahdi-delavar.vercel.app/#person",
+        "@id": "https://mahdidelavar.ir/#person",
       },
       dateModified: new Date().toISOString(),
       description:
         "Professional portfolio of Mahdi Delavar, a Frontend Developer specializing in React, Next.js, and modern web technologies.",
       breadcrumb: {
-        "@id": "https://mahdi-delavar.vercel.app/#breadcrumb",
+        "@id": "https://mahdidelavar.ir/#breadcrumb",
       },
       inLanguage: "en-US",
       potentialAction: [
         {
           "@type": "ReadAction",
-          target: ["https://mahdi-delavar.vercel.app"],
+          target: ["https://mahdidelavar.ir"],
         },
       ],
     },
     {
       "@type": "Person",
-      "@id": "https://mahdi-delavar.vercel.app/#person",
+      "@id": "https://mahdidelavar.ir/#person",
       name: "Mahdi Delavar",
       alternateName: "Mahdi",
-      image: "https://mahdi-delavar.vercel.app/profile-photo.jpg",
+      image: "https://mahdidelavar.ir/profile-photo.jpg",
       jobTitle: "Senior Frontend Developer",
       description:
         "Experienced Frontend Developer with 3+ years of expertise in React, Next.js, TypeScript, and modern web technologies. Passionate about creating exceptional user experiences and scalable web applications.",
-      url: "https://mahdi-delavar.vercel.app",
+      url: "https://mahdidelavar.ir",
       email: "mahdi.delavar@email.com",
       telephone: "+989123456789",
       address: {
@@ -267,20 +234,20 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://mahdi-delavar.vercel.app/#website",
-      url: "https://mahdi-delavar.vercel.app",
+      "@id": "https://mahdidelavar.ir/#website",
+      url: "https://mahdidelavar.ir",
       name: "Mahdi Delavar Portfolio",
       description:
         "Frontend Developer Portfolio - React, Next.js & TypeScript Expert",
       publisher: {
-        "@id": "https://mahdi-delavar.vercel.app/#person",
+        "@id": "https://mahdidelavar.ir/#person",
       },
       potentialAction: {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
           urlTemplate:
-            "https://mahdi-delavar.vercel.app/?search={search_term_string}",
+            "https://mahdidelavar.ir/?search={search_term_string}",
         },
         "query-input": "required name=search_term_string",
       },
@@ -288,19 +255,19 @@ const structuredData = {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mahdi-delavar.vercel.app/#breadcrumb",
+      "@id": "https://mahdidelavar.ir/#breadcrumb",
       itemListElement: [
         {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://mahdi-delavar.vercel.app",
+          item: "https://mahdidelavar.ir",
         },
       ],
     },
     {
       "@type": "ItemList",
-      "@id": "https://mahdi-delavar.vercel.app/#skills",
+      "@id": "https://mahdidelavar.ir/#skills",
       name: "Technical Skills",
       itemListElement: [
         {
@@ -327,7 +294,7 @@ const structuredData = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://mahdi-delavar.vercel.app/#faq",
+      "@id": "https://mahdidelavar.ir/#faq",
       mainEntity: [
         {
           "@type": "Question",
@@ -379,8 +346,6 @@ export default function Page() {
 
       {/* Main container with semantic HTML */}
       <div className="relative text-white min-h-screen overflow-x-hidden">
-        {/* Background effects */}
-        {/* <ParticleWrapper /> */}
 
         {/* Navigation */}
         <HeaderMenu />
@@ -388,7 +353,6 @@ export default function Page() {
 
         {/* Main content */}
         <main role="main" aria-label="Portfolio Content" >
-           {/* <div className="inset-0 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950 fixed top-0 "></div> */}
           {/* Hero Section */}
           <Section
             id="home"

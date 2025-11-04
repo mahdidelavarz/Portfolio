@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mahdi-delavar.vercel.app"),
+  metadataBase: new URL("https://mahdidelavar.ir"),
   title: {
     default:
       "Mahdi Delavar | Frontend Developer Portfolio - React & Next.js Expert",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Mahdi Delavar",
-      url: "https://mahdi-delavar.vercel.app",
+      url: "https://mahdidelavar.ir",
     },
   ],
   creator: "Mahdi Delavar",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mahdi-delavar.vercel.app",
+    url: "https://mahdidelavar.ir",
     siteName: "Mahdi Delavar - Frontend Developer Portfolio",
     title: "Mahdi Delavar | Frontend Developer Portfolio",
     description:
@@ -114,10 +114,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://mahdi-delavar.vercel.app",
+    canonical: "https://mahdidelavar.ir",
     languages: {
-      "en-US": "https://mahdi-delavar.vercel.app",
-      "fa-IR": "https://mahdi-delavar.vercel.app/fa",
+      "en-US": "https://mahdidelavar.ir",
+      "fa-IR": "https://mahdidelavar.ir/fa",
     },
   },
   category: "technology",
@@ -158,8 +158,8 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   classification: "Portfolio, Developer, Frontend, React, Next.js",
   generator: "Next.js",
-  archives: ["https://mahdi-delavar.vercel.app/archive"],
-  assets: ["https://mahdi-delavar.vercel.app/assets"],
+  archives: ["https://mahdidelavar.ir/archive"],
+  assets: ["https://mahdidelavar.ir/assets"],
 };
 
 export default function RootLayout({
@@ -204,7 +204,7 @@ export default function RootLayout({
         />
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://mahdi-delavar.vercel.app" />
+        <link rel="canonical" href="https://mahdidelavar.ir" />
 
         {/* Alternative formats */}
         <link
@@ -227,13 +227,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              "@id": "https://mahdi-delavar.vercel.app/#person",
+              "@id": "https://mahdidelavar.ir/#person",
               name: "Mahdi Delavar",
               alternateName: "Mahdi",
               description:
                 "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies",
-              image: "https://mahdi-delavar.vercel.app/profile-image.jpg",
-              url: "https://mahdi-delavar.vercel.app",
+              image: "https://mahdidelavar.ir/profile-image.jpg",
+              url: "https://mahdidelavar.ir",
               email: "mahdi.delavar@email.com",
               telephone: "+989123456789",
               jobTitle: "Frontend Developer",
@@ -283,25 +283,25 @@ export default function RootLayout({
                   "@type": "ListItem",
                   position: 1,
                   name: "Home",
-                  item: "https://mahdi-delavar.vercel.app",
+                  item: "https://mahdidelavar.ir",
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
                   name: "About",
-                  item: "https://mahdi-delavar.vercel.app#aboutme",
+                  item: "https://mahdidelavar.ir#aboutme",
                 },
                 {
                   "@type": "ListItem",
                   position: 3,
                   name: "Projects",
-                  item: "https://mahdi-delavar.vercel.app#projects",
+                  item: "https://mahdidelavar.ir#projects",
                 },
                 {
                   "@type": "ListItem",
                   position: 4,
                   name: "Contact",
-                  item: "https://mahdi-delavar.vercel.app#contactme",
+                  item: "https://mahdidelavar.ir#contactme",
                 },
               ],
             }),
@@ -315,20 +315,20 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "@id": "https://mahdi-delavar.vercel.app/#website",
-              url: "https://mahdi-delavar.vercel.app",
+              "@id": "https://mahdidelavar.ir/#website",
+              url: "https://mahdidelavar.ir",
               name: "Mahdi Delavar Portfolio",
               description:
                 "Frontend Developer Portfolio showcasing projects and skills",
               publisher: {
-                "@id": "https://mahdi-delavar.vercel.app/#person",
+                "@id": "https://mahdidelavar.ir/#person",
               },
               potentialAction: {
                 "@type": "SearchAction",
                 target: {
                   "@type": "EntryPoint",
                   urlTemplate:
-                    "https://mahdi-delavar.vercel.app/?search={search_term_string}",
+                    "https://mahdidelavar.ir/?search={search_term_string}",
                 },
                 "query-input": "required name=search_term_string",
               },
