@@ -152,6 +152,7 @@ const ContactMe = memo<ContactMeProps>(() => {
   const [submitStatus, setSubmitStatus] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
 
+
   const contactMethods = [
     {
       id: "email",
@@ -166,7 +167,7 @@ const ContactMe = memo<ContactMeProps>(() => {
     {
       id: "phone",
       label: "Phone",
-      value: "+98 912 345 6789",
+      value: "+98 902 557 4357",
       icon: "mingcute:phone-line",
       color: "from-emerald-500 to-teal-600",
       borderColor: "border-emerald-400/50",
@@ -181,7 +182,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       color: "from-sky-500 to-blue-600",
       borderColor: "border-sky-400/50",
       shadowColor: "shadow-sky-500/20",
-      action: () => window.open("https://t.me/mahdi_delavar", "_blank"),
+      action: () => window.open("https://t.me/osis13", "_blank"),
     },
     {
       id: "linkedin",
@@ -192,7 +193,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       borderColor: "border-purple-400/50",
       shadowColor: "shadow-purple-500/20",
       action: () =>
-        window.open("https://linkedin.com/in/mahdi-delavar", "_blank"),
+        window.open("https://www.linkedin.com/in/mahdi-delavar-5338ba280", "_blank"),
     },
     {
       id: "github",
