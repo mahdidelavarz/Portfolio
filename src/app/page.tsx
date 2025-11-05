@@ -140,7 +140,7 @@ const structuredData = {
         "Experienced Frontend Developer with 3+ years of expertise in React, Next.js, TypeScript, and modern web technologies. Passionate about creating exceptional user experiences and scalable web applications.",
       url: "https://mahdidelavar.ir",
       email: "mdelever77@gmail.com",
-      telephone: "+989123456789",
+      telephone: "+989025574357",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Tehran",
@@ -149,10 +149,10 @@ const structuredData = {
       },
       sameAs: [
         "https://github.com/mahdidelavarz",
-        "https://linkedin.com/in/mahdi-delavar",
+        "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
         "https://twitter.com/mahdi_delavar",
-        "https://t.me/mahdi_delavar",
-        "https://wa.me/989123456789",
+        "https://t.me/osis13",
+        "https://wa.me/09025574357"
       ],
       knowsAbout: [
         "Frontend Development",
@@ -193,7 +193,7 @@ const structuredData = {
         occupationLocation: [
           {
             "@type": "City",
-            name: "Tehran",
+            name: "Tabriz",
           },
         ],
         experienceRequirements: {
@@ -219,7 +219,7 @@ const structuredData = {
       worksFor: {
         "@type": "Organization",
         name: "Petco",
-        url: "https://petco.com",
+        url: "https://pumpturbine.co/en/",
       },
       memberOf: [
         {

@@ -274,9 +274,9 @@ export default function RootLayout({
               ],
               sameAs: [
                 "https://github.com/mahdidelavarz",
-                "https://linkedin.com/in/mahdi-delavar",
-                "https://twitter.com/mahdi_delavar",
-                "https://t.me/mahdi_delavar",
+                "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
+                "https://wa.me/09025574357",
+                "https://t.me/osis13",
               ],
               address: {
                 "@type": "PostalAddress",
