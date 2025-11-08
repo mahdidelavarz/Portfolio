@@ -294,18 +294,6 @@ const ContactMe = memo<ContactMeProps>(() => {
 
   const handleSubmit = useCallback(async (e: React.MouseEvent) => {
     e.preventDefault();
-    // Check if EmailJS is configured
-    if (EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" || 
-        EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" || 
-        EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
-      setSubmitStatus("error");
-      setErrorMessage("EmailJS is not configured. Please check the setup instructions.");
-      setTimeout(() => {
-        setSubmitStatus("");
-        setErrorMessage("");
-      }, 7000);
-      return;
-    }
     
     // Validate required fields
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
@@ -324,7 +312,7 @@ const ContactMe = memo<ContactMeProps>(() => {
 
     try {
       // Initialize EmailJS
-      emailjs.init(EMAILJS_PUBLIC_KEY);
+      emailjs.init(EMAILJS_PUBLIC_KEY!);
 
       // Prepare template parameters
       const templateParams = {
@@ -339,8 +327,8 @@ const ContactMe = memo<ContactMeProps>(() => {
 
       // Send email using EmailJS
       const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+        EMAILJS_SERVICE_ID!,
+        EMAILJS_TEMPLATE_ID!,
         templateParams,
         EMAILJS_PUBLIC_KEY
       );
