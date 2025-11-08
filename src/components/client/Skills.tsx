@@ -60,7 +60,7 @@ const SkillCard = memo(
 
     return (
       <div
-        className={`relative group transition-all duration-700  ${
+        className={`w-39 lg:w-45 relative group transition-all duration-700  ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
         style={{ transitionDelay: `${index * 100}ms` }}
@@ -221,10 +221,10 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           description: "Rapid UI development with utility-first CSS",
         },
         {
-          name: "Framer Motion",
+          name: "TanStack Query",
           mastery: 85,
           years: 1.5,
-          icon: "logos:framer",
+          icon: "logos:react-query-icon",
           color: "text-purple-400",
           description: "Creating smooth animations and interactions",
         },
@@ -232,7 +232,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Three.js",
           mastery: 75,
           years: 1,
-          icon: "logos:threejs",
+          icon: "simple-icons:threedotjs",
           color: "text-white",
           description: "3D graphics and WebGL experiences",
         },
@@ -247,20 +247,12 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       bgGradient: "from-purple-500/10 to-pink-600/10",
       skills: [
         {
-          name: "Node.js",
-          mastery: 85,
-          years: 2.5,
-          icon: "logos:nodejs-icon",
-          color: "text-green-500",
-          description: "Building scalable server-side applications",
-        },
-        {
-          name: "Express.js",
-          mastery: 87,
-          years: 2,
-          icon: "simple-icons:express",
-          color: "text-white",
-          description: "RESTful API development and middleware",
+          name: ".Net Core",
+          mastery: 75,
+          years: 1,
+          icon: "skill-icons:dotnet",
+          color: "text-red-500",
+          description: "Caching and session management",
         },
         {
           name: "MongoDB",
@@ -271,28 +263,20 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           description: "NoSQL database design and optimization",
         },
         {
-          name: "PostgreSQL",
+          name: "SQL Server",
           mastery: 78,
           years: 1.5,
-          icon: "logos:postgresql",
+          icon: "vscode-icons:file-type-sql",
           color: "text-blue-400",
           description: "Relational database management",
         },
         {
-          name: "Redis",
-          mastery: 75,
-          years: 1,
-          icon: "logos:redis",
-          color: "text-red-500",
-          description: "Caching and session management",
-        },
-        {
-          name: "GraphQL",
-          mastery: 72,
-          years: 1,
-          icon: "logos:graphql",
-          color: "text-pink-500",
-          description: "Flexible API queries and mutations",
+          name: "Supabase",
+          mastery: 78,
+          years: 1.5,
+          icon: "devicon:supabase",
+          color: "text-blue-400",
+          description: "Relational database management",
         },
       ],
     },
@@ -377,38 +361,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           icon: "logos:adobe-photoshop",
           color: "text-blue-500",
           description: "Image editing and manipulation",
-        },
-        {
-          name: "Illustrator",
-          mastery: 75,
-          years: 2,
-          icon: "logos:adobe-illustrator",
-          color: "text-orange-500",
-          description: "Vector graphics and illustrations",
-        },
-        {
-          name: "Blender",
-          mastery: 70,
-          years: 1,
-          icon: "logos:blender",
-          color: "text-blue-400",
-          description: "3D modeling and animation",
-        },
-        {
-          name: "After Effects",
-          mastery: 72,
-          years: 1.5,
-          icon: "logos:adobe-after-effects",
-          color: "text-purple-500",
-          description: "Motion graphics and visual effects",
-        },
-        {
-          name: "Framer",
-          mastery: 88,
-          years: 1,
-          icon: "logos:framer",
-          color: "text-white",
-          description: "Interactive design and prototyping",
         },
       ],
     },
@@ -592,7 +544,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         )}
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 mb-16">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-16"> 
           {skillStacks[selectedStack].skills.map((skill, index) => (
             <SkillCard
               key={skill.name}

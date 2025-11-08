@@ -30,10 +30,14 @@ const EXPERIENCES = [
     technologies: [
       "React",
       "TypeScript",
-      "Next.js",
       "Zustand",
       "TanStack Query",
       "Tailwind CSS",
+      "SQL Server",
+      "Git",
+      "CI/CD",
+      "Stimulsoft",
+      "PWA"
     ],
     impact: {
       users: "10K+",
@@ -61,9 +65,13 @@ const EXPERIENCES = [
     ],
     technologies: [
       "React",
+      "Next.js",
       "JavaScript",
+      "TypeScript",
       "SASS",
+      "Tailwind CSS",
       "Redux",
+      "Tanstack/react-query",
       "Material-UI",
       "Git",
     ],
@@ -91,7 +99,21 @@ const EXPERIENCES = [
       "200% traffic increase with SEO",
       "Full project lifecycle management",
     ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "MySQL"],
+    technologies: [
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "MongoDB",
+      "Supabase",
+      "OpenAI API",
+      "Chart.js",
+      "Google OAuth",
+      "Git",
+    ],
     impact: {
       clients: "20+",
       traffic: "+200%",
@@ -133,7 +155,9 @@ const MobileTimeline = memo(
                 icon={exp.icon}
                 width={20}
                 height={20}
-                className={index === activeIndex ? "text-white" : "text-slate-400"}
+                className={
+                  index === activeIndex ? "text-white" : "text-slate-400"
+                }
               />
             </div>
           </button>
@@ -206,7 +230,11 @@ const ExperienceCard = memo(
                     {experience.period}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Icon icon="solar:clock-circle-bold" width={14} height={14} />
+                    <Icon
+                      icon="solar:clock-circle-bold"
+                      width={14}
+                      height={14}
+                    />
                     {experience.duration}
                   </span>
                   <br />
@@ -247,7 +275,12 @@ const ExperienceCard = memo(
             {/* Achievements */}
             <div className="mb-6">
               <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
-                <Icon icon="solar:star-shine-bold" width={18} height={18} className="text-amber-400" />
+                <Icon
+                  icon="solar:star-shine-bold"
+                  width={18}
+                  height={18}
+                  className="text-amber-400"
+                />
                 Key Achievements
               </h4>
               <div className="space-y-2">
@@ -273,7 +306,12 @@ const ExperienceCard = memo(
             {/* Technologies */}
             <div>
               <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
-                <Icon icon="solar:programming-bold" width={18} height={18} className="text-blue-400" />
+                <Icon
+                  icon="solar:programming-bold"
+                  width={18}
+                  height={18}
+                  className="text-blue-400"
+                />
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -337,7 +375,9 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
   const handlePrevious = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
-      setActiveIndex((prev) => (prev === 0 ? EXPERIENCES.length - 1 : prev - 1));
+      setActiveIndex((prev) =>
+        prev === 0 ? EXPERIENCES.length - 1 : prev - 1
+      );
       setTimeout(() => setIsTransitioning(false), 500);
     }
   }, [isTransitioning]);
@@ -345,7 +385,9 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
   const handleNext = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
-      setActiveIndex((prev) => (prev === EXPERIENCES.length - 1 ? 0 : prev + 1));
+      setActiveIndex((prev) =>
+        prev === EXPERIENCES.length - 1 ? 0 : prev + 1
+      );
       setTimeout(() => setIsTransitioning(false), 500);
     }
   }, [isTransitioning]);
@@ -411,7 +453,8 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
           </h2>
 
           <p className="text-base md:text-lg text-slate-400 max-w-3xl mx-auto px-4">
-            Building innovative solutions and delivering exceptional results across different roles
+            Building innovative solutions and delivering exceptional results
+            across different roles
           </p>
         </div>
 
@@ -419,7 +462,9 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
         {isMobile ? (
           <div
             className={`transition-all duration-1000 delay-200 h-[55rem] ${
-              isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
             }`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
@@ -444,7 +489,12 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 className="p-2.5 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-cyan-400/50 transition-all"
                 aria-label="Previous"
               >
-                <Icon icon="solar:alt-arrow-left-bold" width={20} height={20} className="text-slate-400" />
+                <Icon
+                  icon="solar:alt-arrow-left-bold"
+                  width={20}
+                  height={20}
+                  className="text-slate-400"
+                />
               </button>
 
               <div className="flex gap-2">
@@ -467,7 +517,12 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 className="p-2.5 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-cyan-400/50 transition-all"
                 aria-label="Next"
               >
-                <Icon icon="solar:alt-arrow-right-bold" width={20} height={20} className="text-slate-400" />
+                <Icon
+                  icon="solar:alt-arrow-right-bold"
+                  width={20}
+                  height={20}
+                  className="text-slate-400"
+                />
               </button>
             </div>
           </div>
@@ -475,7 +530,9 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
           /* Desktop Slider View */
           <div
             className={`transition-all duration-1000 delay-200 ${
-              isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
             }`}
           >
             {/* Desktop Timeline Navigation */}
@@ -485,7 +542,9 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                   key={exp.id}
                   onClick={() => setActiveIndex(index)}
                   className={`relative group transition-all duration-300 ${
-                    index === activeIndex ? "scale-110" : "scale-100 opacity-60 hover:opacity-100"
+                    index === activeIndex
+                      ? "scale-110"
+                      : "scale-100 opacity-60 hover:opacity-100"
                   }`}
                   aria-label={`View ${exp.company} experience`}
                 >
@@ -500,21 +559,20 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                       icon={exp.icon}
                       width={28}
                       height={28}
-                      className={index === activeIndex ? "text-white" : "text-slate-400"}
+                      className={
+                        index === activeIndex ? "text-white" : "text-slate-400"
+                      }
                     />
                   </div>
-                  
+
                   {/* Company name tooltip */}
-                  <div className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium transition-opacity duration-200 ${
-                    index === activeIndex ? "text-white" : "text-slate-500"
-                  }`}>
+                  <div
+                    className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-medium transition-opacity duration-200 ${
+                      index === activeIndex ? "text-white" : "text-slate-500"
+                    }`}
+                  >
                     {exp.company}
                   </div>
-
-                  {/* Connection line */}
-                  {index < EXPERIENCES.length - 1 && (
-                    <div className="absolute top-1/2 -right-4 w-4 h-0.5 bg-slate-700" />
-                  )}
                 </button>
               ))}
             </div>
@@ -551,9 +609,13 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
               </button>
 
               {/* Card with transition */}
-              <div className={`transition-all duration-500 ${
-                isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
-              }`}>
+              <div
+                className={`transition-all duration-500 ${
+                  isTransitioning
+                    ? "opacity-0 scale-95"
+                    : "opacity-100 scale-100"
+                }`}
+              >
                 <ExperienceCard
                   experience={currentExperience}
                   isVisible={isVisible}
@@ -584,12 +646,18 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative z-10">
-                  <Icon icon="solar:chat-round-bold" width={48} height={48} className="text-cyan-400 mx-auto mb-4" />
+                  <Icon
+                    icon="solar:chat-round-bold"
+                    width={48}
+                    height={48}
+                    className="text-cyan-400 mx-auto mb-4"
+                  />
                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
                     Ready for New Challenges
                   </h3>
                   <p className="text-slate-400 text-base mb-6 max-w-2xl mx-auto">
-                    Looking for a skilled developer? Let's discuss how I can contribute to your success.
+                    Looking for a skilled developer? Let's discuss how I can
+                    contribute to your success.
                   </p>
 
                   <button

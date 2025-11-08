@@ -43,7 +43,7 @@ const ONLINE_COURSES = [
     title: "Advanced React Development",
     platform: "Meta Frontend Professional",
     duration: "6 months",
-    completed: "2023",
+    completed: "2022",
     certificate: "Meta Certified",
     rating: 4.9,
     description:
@@ -75,7 +75,7 @@ const ONLINE_COURSES = [
     platform: "Three.js Journey",
     duration: "4 months",
     completed: "2023",
-    certificate: "Certified",
+    certificate: "Self-Paced",
     rating: 4.9,
     description:
       "Complete 3D web development course covering fundamentals to advanced techniques",

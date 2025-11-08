@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { Icon } from "@iconify/react";
+import emailjs from "@emailjs/browser";
 
 interface ContactMeProps {
   scrollToSection?: (id: string) => void;
@@ -34,7 +35,7 @@ const FormField = memo(
     options?: { value: string; label: string }[];
   }) => {
     const baseClasses =
-      "w-full px-4 py-3 bg-slate-700/30  border border-slate-600/50 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300";
+      "w-full px-4 py-3 bg-slate-700/90  border border-slate-600/50 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300";
 
     return (
       <div>
@@ -56,7 +57,7 @@ const FormField = memo(
             name={name}
             value={value}
             onChange={onChange}
-            className={baseClasses}
+            className={baseClasses }
           >
             <option value="">Select {label}</option>
             {options?.map((option) => (
@@ -149,9 +150,14 @@ const ContactMe = memo<ContactMeProps>(() => {
     timeline: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<"" | "success" | "error">("");
+  const [errorMessage, setErrorMessage] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // EmailJS Configuration - Replace with your actual IDs from https://dashboard.emailjs.com
+  const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ;
+  const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ;
+  const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ;
 
   const contactMethods = [
     {
@@ -172,7 +178,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       color: "from-emerald-500 to-teal-600",
       borderColor: "border-emerald-400/50",
       shadowColor: "shadow-emerald-500/20",
-      action: () => (window.location.href = "tel:+989123456789"),
+      action: () => (window.location.href = "tel:+989025574357"),
     },
     {
       id: "telegram",
@@ -286,25 +292,95 @@ const ContactMe = memo<ContactMeProps>(() => {
     [],
   );
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    // Check if EmailJS is configured
+    if (EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" || 
+        EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" || 
+        EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+      setSubmitStatus("error");
+      setErrorMessage("EmailJS is not configured. Please check the setup instructions.");
+      setTimeout(() => {
+        setSubmitStatus("");
+        setErrorMessage("");
+      }, 7000);
+      return;
+    }
+    
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setSubmitStatus("error");
+      setErrorMessage("Please fill in all required fields.");
+      setTimeout(() => {
+        setSubmitStatus("");
+        setErrorMessage("");
+      }, 5000);
+      return;
+    }
 
-    // Simulate API call
-    setTimeout(() => {
+    setIsSubmitting(true);
+    setSubmitStatus("");
+    setErrorMessage("");
+
+    try {
+      // Initialize EmailJS
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        budget: formData.budget || "Not specified",
+        timeline: formData.timeline || "Not specified",
+        to_email: "mdelever77@gmail.com",
+      };
+
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+          budget: "",
+          timeline: "",
+        });
+        setTimeout(() => setSubmitStatus(""), 5000);
+      }
+    } catch (error: any) {
+      console.error("EmailJS Error:", error);
+      setSubmitStatus("error");
+      
+      // Provide more specific error messages
+      let errorMsg = "Failed to send message. Please try again or contact me directly.";
+      
+      if (error.text) {
+        errorMsg = error.text;
+      } else if (error.message) {
+        errorMsg = error.message;
+      } else if (typeof error === 'string') {
+        errorMsg = error;
+      }
+      
+      setErrorMessage(errorMsg);
+      setTimeout(() => {
+        setSubmitStatus("");
+        setErrorMessage("");
+      }, 7000);
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        budget: "",
-        timeline: "",
-      });
-      setTimeout(() => setSubmitStatus(""), 5000);
-    }, 2000);
-  }, []);
+    }
+  }, [formData, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY]);
 
   return (
     <div
@@ -320,13 +396,11 @@ const ContactMe = memo<ContactMeProps>(() => {
           }`}
         >
          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
-            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
             <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
             <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
              Contact
             </span>
             <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
-            {/* <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" /> */}
           </div>
 
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
@@ -446,7 +520,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                 Send Message
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-5">
                 {/* Name & Email */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
@@ -512,7 +586,7 @@ const ContactMe = memo<ContactMeProps>(() => {
 
                 {/* Submit Button */}
                 <button
-                  type="submit"
+                  onClick={handleSubmit}
                   disabled={isSubmitting}
                   className="group relative w-full px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -543,7 +617,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                       icon="mingcute:check-circle-fill"
                       width="24"
                       height="24"
-                      className="text-emerald-400"
+                      className="text-emerald-400 flex-shrink-0"
                     />
                     <div>
                       <p className="font-medium text-emerald-400">
@@ -555,7 +629,27 @@ const ContactMe = memo<ContactMeProps>(() => {
                     </div>
                   </div>
                 )}
-              </form>
+
+                {/* Error Message */}
+                {submitStatus === "error" && (
+                  <div className="bg-red-500/10 backdrop-blur-sm border border-red-400/30 rounded-xl p-4 flex items-center gap-3">
+                    <Icon
+                      icon="mingcute:alert-circle-fill"
+                      width="24"
+                      height="24"
+                      className="text-red-400 flex-shrink-0"
+                    />
+                    <div>
+                      <p className="font-medium text-red-400">
+                        Failed to send message
+                      </p>
+                      <p className="text-sm text-red-400/70">
+                        {errorMessage}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

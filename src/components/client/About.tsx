@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { Icon } from "@iconify/react";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 
 interface AboutMeProps {
   scrollToSection?: (id: string) => void;
