@@ -1,10 +1,54 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { Icon } from "@iconify/react";
+import { Metadata } from "next";
 
 interface AboutMeProps {
   scrollToSection?: (id: string) => void;
 }
+
+// export const metadata: Metadata = {
+//   title: "Mahdi Delavar | Frontend Developer - React & Next.js Expert",
+//   description:
+//     "Frontend Developer specializing in React, Next.js, and TypeScript. Explore 50+ projects and my 3+ years of experience building scalable web apps.",
+//   keywords: [
+//     "Frontend Developer",
+//     "React Developer",
+//     "Next.js Developer",
+//     "TypeScript Expert",
+//     "Web Developer Iran",
+//     "Mahdi Delavar",
+//   ],
+//   alternates: {
+//     canonical: "https://mahdidelavar.ir",
+//   },
+//   openGraph: {
+//     title: "Mahdi Delavar - Frontend Developer Portfolio",
+//     description:
+//       "React & Next.js expert with 3+ years of experience. Explore 50+ web projects built for performance and scalability.",
+//     url: "https://mahdidelavar.ir",
+//     siteName: "Mahdi Delavar Portfolio",
+//     images: [
+//       {
+//         url: "https://mahdidelavar.ir/og-image.png",
+//         width: 1200,
+//         height: 630,
+//         alt: "Mahdi Delavar Portfolio Preview",
+//       },
+//     ],
+//     locale: "en_US",
+//     type: "website",
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "Mahdi Delavar - Frontend Developer",
+//     description:
+//       "React, Next.js & TypeScript Developer with 3+ years experience and 50+ completed projects.",
+//     creator: "@mahdi_delavar",
+//     images: ["https://mahdidelavar.ir/twitter-image.png"],
+//   },
+//   robots: { index: true, follow: true },
+// };
 
 // Personal info data
 const PERSONAL_INFO = {

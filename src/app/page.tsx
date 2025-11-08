@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import HeaderMenu from "../components/HeaderMenu";
 import Section from "../components/Section";
-// import ParticleWrapper from "@/components/ParticleWrapper";
 import HomeSection from "@/components/HomeSection";
 import BurgerMenu from "@/components/BurgerMenu";
 
