@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Mahdi Delavar | Frontend Developer & UI Engineer</title>
+  <!-- Google Fonts & simple reset -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    /* A4 paper size for international standards */
+    .resume {
+      max-width: 210mm; /* A4 width */
+      min-height: 297mm; /* A4 height */
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .resume-inner {
+      padding: 25mm 20mm;
+    }
+
+    /* Professional summary section */
+    .summary {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-left: 4px solid #0ea5e9;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      border-radius: 4px;
+    }
+
+    .summary p {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    /* header section */
+    .header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #0f3b5c;
+    }
+
+    .name-title h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .name-title .tagline {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0369a1;
+      display: inline-block;
+    }
+
+    .contact-info {
+      text-align: right;
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    .contact-info p {
+      margin: 4px 0;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .contact-info i {
+      width: 20px;
+      color: #0ea5e9;
+    }
+
+    .contact-info a {
+      color: #1e40af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-info a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    /* two column layout */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 32px;
+    }
+
+    /* left sidebar */
+    .sidebar {
+      border-right: 1px solid #e2e8f0;
+      padding-right: 24px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #1e40af;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    /* skills categorization */
+    .skills-category {
+      margin-bottom: 18px;
+    }
+
+    .category-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .category-title i {
+      color: #0ea5e9;
+      font-size: 0.8rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-badge {
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .skill-badge.primary {
+      background: #dbeafe;
+      border-color: #93c5fd;
+      color: #1e40af;
+    }
+
+    /* education */
+    .edu-item {
+      margin-bottom: 16px;
+    }
+
+    .edu-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0f172a;
+    }
+
+    .edu-meta {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* languages */
+    .language-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .language-name {
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    .language-level {
+      font-size: 0.8rem;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    /* right side content */
+    .experience-item, .project-item {
+      margin-bottom: 26px;
+    }
+
+    .exp-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .exp-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .exp-date {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .exp-company {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #1e40af;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .exp-company i {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .exp-desc {
+      font-size: 0.88rem;
+      color: #334155;
+      margin-left: 0;
+      padding-left: 0;
+      list-style-position: inside;
+    }
+
+    .exp-desc li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .exp-desc li::before {
+      content: "▸";
+      color: #0ea5e9;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* project styling */
+    .project-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .project-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0f172a;
+    }
+
+    .project-tech {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-tech span {
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: #475569;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .project-links {
+      font-size: 0.8rem;
+    }
+
+    .project-links a {
+      color: #1d4ed8;
+      text-decoration: none;
+      margin-left: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* achievement highlights */
+    .achievement {
+      background: #f0f9ff;
+      border-left: 3px solid #0ea5e9;
+      padding: 10px 14px;
+      margin-top: 12px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.85rem;
+      color: #334155;
+    }
+
+    /* responsive */
+    @media (max-width: 780px) {
+      .resume-inner {
+        padding: 16px;
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .sidebar {
+        border-right: 0;
+        padding-right: 0;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 20px;
+      }
+      .header-row {
+        flex-direction: column;
+        align-items: start;
+        gap: 16px;
+      }
+      .contact-info {
+        text-align: left;
+      }
+      .contact-info p {
+        justify-content: flex-start;
+      }
+    }
+
+    /* print styles - optimized for international A4 */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+        font-size: 12pt;
+      }
+      
+      .resume {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+        min-height: auto;
+        margin: 0;
+      }
+      
+      .resume-inner {
+        padding: 15mm 15mm;
+      }
+      
+      .skill-badge {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      a {
+        text-decoration: none;
+        color: #000 !important;
+      }
+      
+      .project-links a {
+        color: #000 !important;
+      }
+      
+      .summary {
+        background: #f8fafc !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="resume">
+  <div class="resume-inner">
+    <!-- Header -->
+    <div class="header-row">
+      <div class="name-title">
+        <h1>Mahdi Delavar</h1>
+        <div class="tagline">Frontend Developer & UI Engineer</div>
+      </div>
+      <div class="contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> Tabriz, Iran</p>
+        <p><i class="fas fa-phone-alt"></i> +98 902 557 4357</p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a></p>
+        <p>
+          <i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/mahdidelavar-5338ba280" target="_blank">LinkedIn</a>
+          &nbsp;•&nbsp;
+          <i class="fab fa-github"></i> <a href="https://github.com/mahdidelavar2" target="_blank">GitHub</a>
+          &nbsp;•&nbsp;
+          <i class="fas fa-globe"></i> <a href="https://mahdidelavar.ir" target="_blank">Portfolio</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Professional Summary -->
+    <div class="summary">
+      <p>Results-driven Frontend Developer with 2+ years of experience building scalable web applications and enterprise solutions. Proficient in modern JavaScript frameworks (React, Next.js) and cloud technologies. Demonstrated expertise in developing ERP systems, real-time applications, and optimizing user interfaces for performance. Strong collaborator experienced in remote and on-site agile environments.</p>
+    </div>
+
+    <!-- Two column layout -->
+    <div class="two-col-grid">
+      <!-- LEFT COLUMN -->
+      <div class="sidebar">
+        <!-- Technical Skills -->
+        <div class="section">
+          <div class="section-title">Technical Skills</div>
+          
+          <div class="skills-category">
+            <div class="category-title"><i class="fas fa-code"></i> Frontend</div>
+            <div class="skills-list">
+              <span class="skill-badge primary">React</span>
+              <span class="skill-badge primary">TypeScript</span>
+              <span class="skill-badge primary">Next.js</span>
+              <span class="skill-badge">Tailwind CSS</span>
+              <span class="skill-badge">Redux</span>
+              <span class="skill-badge">TanStack Query</span>
+              <span class="skill-badge">React Hook Form</span>
+              <span class="skill-badge">Zustand</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <div class="category-title"><i class="fas fa-server"></i> Backend & DevOps</div>
+            <div class="skills-list">
+              <span class="skill-badge">Node.js</span>
+              <span class="skill-badge">PostgreSQL</span>
+              <span class="skill-badge">SQL Server</span>
+              <span class="skill-badge">Docker</span>
+              <span class="skill-badge">Docker Compose</span>
+              <span class="skill-badge">REST APIs</span>
+              <span class="skill-badge">WebSockets</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <div class="category-title"><i class="fas fa-tools"></i> Tools & Platforms</div>
+            <div class="skills-list">
+              <span class="skill-badge">Git & GitHub</span>
+              <span class="skill-badge">Microsoft Azure</span>
+              <span class="skill-badge">CI/CD</span>
+              <span class="skill-badge">Jira</span>
+              <span class="skill-badge">Figma</span>
+              <span class="skill-badge">PWA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="section">
+          <div class="section-title">Education</div>
+          <div class="edu-item">
+            <div class="edu-title">Bachelor of Computer Engineering</div>
+            <div class="edu-meta">Islamic Azad University, Tabriz</div>
+            <div class="edu-meta">September 2023 – Present</div>
+            <div class="edu-meta">GPA: 16/20 (3.2/4.0 equivalent)</div>
+            <div class="edu-meta"><em>Focus: Web Technologies & Software Architecture</em></div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="section">
+          <div class="section-title">Languages</div>
+          <div class="language-item">
+            <div class="language-name">Persian (Farsi)</div>
+            <div class="language-level">Native</div>
+          </div>
+          <div class="language-item">
+            <div class="language-name">English</div>
+            <div class="language-level">Professional Working</div>
+          </div>
+          <div class="language-item">
+            <div class="language-name">Azerbaijani</div>
+            <div class="language-level">Native</div>
+          </div>
+        </div>
+
+        <!-- Core Competencies -->
+        <div class="section">
+          <div class="section-title">Core Competencies</div>
+          <div class="skills-list">
+            <span class="skill-badge">Enterprise Software</span>
+            <span class="skill-badge">UI/UX Principles</span>
+            <span class="skill-badge">Agile Development</span>
+            <span class="skill-badge">API Integration</span>
+            <span class="skill-badge">Performance Optimization</span>
+            <span class="skill-badge">Cross-functional Collaboration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="main-content">
+        <!-- Work Experience -->
+        <div class="section">
+          <div class="section-title">Professional Experience</div>
+          
+          <div class="experience-item">
+            <div class="exp-header">
+              <span class="exp-title">Frontend Developer</span>
+              <span class="exp-date">Jul 2024 – Present</span>
+            </div>
+            <div class="exp-company">Petco <i class="fas fa-map-marker-alt"></i> Tabriz, Iran</div>
+            <ul class="exp-desc">
+              <li>Engineered a comprehensive ERP system using React, TypeScript, and Tailwind CSS, serving 50+ daily users across multiple departments</li>
+              <li>Implemented advanced state management with Zustand and efficient data fetching patterns using TanStack Query, reducing API calls by 40%</li>
+              <li>Developed responsive UI components that improved mobile usability by 35% and decreased loading times by 25% through code splitting</li>
+              <li>Integrated with .NET Core APIs and SQL Server databases, ensuring seamless data synchronization and system reliability</li>
+              <li>Established Git workflows and documentation standards, improving team collaboration efficiency by 30%</li>
+            </ul>
+            <div class="achievement">
+              <strong>Key Achievement:</strong> Delivered the ERP system 2 weeks ahead of schedule while maintaining 99.8% uptime in production
+            </div>
+          </div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <span class="exp-title">Frontend Developer</span>
+              <span class="exp-date">May 2023 – Jul 2024</span>
+            </div>
+            <div class="exp-company">Lovelcode <i class="fas fa-laptop-house"></i> Remote</div>
+            <ul class="exp-desc">
+              <li>Developed 8+ client-facing web applications using React, TypeScript, and Redux, meeting diverse business requirements</li>
+              <li>Built reusable component libraries that accelerated development cycles by 25% across multiple projects</li>
+              <li>Collaborated with design teams to implement pixel-perfect interfaces, achieving 95%+ design fidelity</li>
+              <li>Optimized application performance, resulting in Lighthouse scores above 90 for core web vitals</li>
+              <li>Participated in agile ceremonies and code reviews, maintaining high code quality standards</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="section">
+          <div class="section-title">Key Projects</div>
+          
+          <div class="project-item">
+            <div class="project-header">
+              <span class="project-name">GhabzHub – Financial Management Platform</span>
+              <div class="project-links">
+                <a href="https://ghabzhub.ir" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+              </div>
+            </div>
+            <div class="project-tech">
+              <span>React</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
+              <span>REST APIs</span>
+            </div>
+            <div class="project-desc">Production financial platform serving 500+ monthly active users. Implemented optimized data tables and dashboard visualizations that reduced data processing time by 30%.</div>
+          </div>
+
+          <div class="project-item">
+            <div class="project-header">
+              <span class="project-name">LinkVault – Smart Bookmark Manager</span>
+              <div class="project-links">
+                <a href="https://github.com/mahdidelavarz/linkvault.git" target="_blank"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+            <div class="project-tech">
+              <span>Next.js</span>
+              <span>PostgreSQL</span>
+              <span>Docker</span>
+              <span>Authentication</span>
+            </div>
+            <div class="project-desc">Full-stack application with advanced search, tagging, and categorization features. Containerized with Docker Compose for seamless deployment across environments.</div>
+          </div>
+
+          <div class="project-item">
+            <div class="project-header">
+              <span class="project-name">Real-time Chat Application</span>
+              <div class="project-links">
+                <a href="https://github.com/mahdidelavarz/chat-app.git" target="_blank"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+            <div class="project-tech">
+              <span>React</span>
+              <span>Node.js</span>
+              <span>Socket.io</span>
+              <span>WebSockets</span>
+            </div>
+            <div class="project-desc">Implemented real-time messaging with rooms, user presence, and message history. Achieved sub-100ms message delivery latency for 100+ concurrent users.</div>
+          </div>
+
+          <div class="project-item">
+            <div class="project-header">
+              <span class="project-name">Professional Portfolio</span>
+              <div class="project-links">
+                <a href="https://mahdidelavar.ir" target="_blank"><i class="fas fa-globe"></i> Visit</a>
+              </div>
+            </div>
+            <div class="project-tech">
+              <span>React</span>
+              <span>Tailwind CSS</span>
+              <span>Responsive Design</span>
+              <span>Performance</span>
+            </div>
+            <div class="project-desc">Modern portfolio with 95+ Lighthouse performance score, optimized for international recruiters and technical hiring managers.</div>
+          </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="section no-print">
+          <div class="section-title">Additional Information</div>
+          <div class="project-desc">
+            <p><i class="fas fa-certificate"></i> Actively contributing to open-source projects and staying updated with latest frontend trends</p>
+            <p><i class="fas fa-rocket"></i> Available for remote positions worldwide. Willing to relocate for exceptional opportunities</p>
+            <p><i class="fas fa-clock"></i> Timezone: IRST (UTC+3:30) but flexible with working hours for international teams</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 0.75rem; text-align: center; color: #64748b; line-height: 1.6;">
+      <p><i class="fas fa-file-pdf"></i> PDF optimized for international A4 standards • References available upon request</p>
+      <p>Last updated: May 2024 • <a href="mailto:mdelever77@gmail.com" style="color: #3b82f6;">Contact for opportunities</a></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

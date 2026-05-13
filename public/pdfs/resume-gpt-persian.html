@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مهدی دلاور – رزومه</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ========== فونت وزیرمتن (لوکال) ========== */
+   @font-face {
+  font-family: "Vazir";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Vazir";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/Vazirmatn-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Vazir";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/fonts//Vazirmatn-Black.woff2") format("woff2");
+}
+
+
+    /* ========== استایل‌های اصلی ========== */
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Vazir', sans-serif;
+      background: #f5f7fa;
+      color: #1d2d3a;
+      line-height: 1.9;
+      direction: rtl;
+    }
+
+    .resume {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 18px;
+      padding: 50px 60px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border-bottom: 3px solid #0f4c75;
+      padding-bottom: 25px;
+      margin-bottom: 40px;
+    }
+
+    .name h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #0f1c2e;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #26648e;
+      margin-top: 6px;
+    }
+
+    .contact p {
+      margin: 6px 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact i {
+      width: 18px;
+      text-align: center;
+      color: #26648e;
+    }
+
+    a {
+      color: #0f4c75;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #0f4c75;
+      border-right: 4px solid #0f4c75;
+      padding-right: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Skills */
+    .skill-group {
+      margin-bottom: 14px;
+    }
+
+    .skill-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #22394b;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      padding: 6px 12px;
+      background: #eef3f7;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      border: 1px solid #dce5ee;
+      font-weight: 500;
+    }
+
+    /* Experience */
+    .exp-item {
+      margin-bottom: 24px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color: #0f1c2e;
+    }
+
+    .exp-company {
+      color: #26648e;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .exp-desc {
+      padding-right: 18px;
+    }
+
+    .exp-desc li {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      list-style: none;
+      position: relative;
+      padding-right: 16px;
+    }
+
+    .exp-desc li::before {
+      content: "◂";
+      color: #0f4c75;
+      font-weight: bold;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    /* Projects - استایل جدید */
+    .project-item {
+      margin-bottom: 24px;
+      padding: 18px 20px;
+      background: #fafcfd;
+      border-radius: 12px;
+      border: 1px solid #e6edf3;
+      transition: all 0.2s ease;
+    }
+
+    .project-item:hover {
+      border-color: #c4d7e6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .project-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .project-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0f1c2e;
+    }
+
+    .project-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #0f4c75;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .project-link:hover {
+      color: #1a6fa0;
+      text-decoration: none;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tech-badge {
+      padding: 4px 10px;
+      background: #e8f0f8;
+      color: #0f4c75;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: #375063;
+      line-height: 1.7;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e6edf3;
+      margin: 20px 0;
+    }
+
+    /* Print / PDF */
+    @media print {
+      body { padding: 0; background: white; }
+      .resume { box-shadow: none; padding: 20px 35px; }
+      a { color: black; }
+      .project-item { 
+        background: white; 
+        border: 1px solid #ddd; 
+        box-shadow: none; 
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="resume">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="name">
+      <h1>مهدی دلاور</h1>
+      <div class="tagline">توسعه‌دهنده فرانت‌اند و مهندس رابط کاربری</div>
+    </div>
+
+    <div class="contact">
+      <p><i class="fas fa-map-marker-alt"></i> تبریز، ایران</p>
+      <p><i class="fas fa-phone"></i> ۰۹۰۲۵۵۷۴۳۵۷</p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a></p>
+      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/mahdidelavar-5338ba280">linkedin.com/in/mahdidelavar</a></p>
+      <p><i class="fab fa-github"></i> <a href="https://github.com/mahdidelavar2">github.com/mahdidelavar2</a></p>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="grid">
+
+    <!-- ستون سمت راست -->
+    <div>
+
+      <div class="section">
+        <div class="section-title">مهارت‌های فنی</div>
+
+        <div class="skill-group">
+          <div class="skill-title">فرانت‌اند</div>
+          <div class="skills">
+            <span class="badge">React</span>
+            <span class="badge">Next.js</span>
+            <span class="badge">TypeScript</span>
+            <span class="badge">Tailwind CSS</span>
+            <span class="badge">Redux</span>
+            <span class="badge">Zustand</span>
+            <span class="badge">TanStack Query</span>
+            <span class="badge">React Hook Form</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-title">بک‌اند و DevOps</div>
+          <div class="skills">
+            <span class="badge">Node.js (مقدماتی)</span>
+            <span class="badge">Docker</span>
+            <span class="badge">Docker Compose</span>
+            <span class="badge">SQL Server</span>
+            <span class="badge">PostgreSQL</span>
+            <span class="badge">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-title">ابزارها</div>
+          <div class="skills">
+            <span class="badge">Git / GitHub</span>
+            <span class="badge">Azure</span>
+            <span class="badge">CI/CD مقدماتی</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">تحصیلات</div>
+        <div>
+          <div style="font-weight:600;">کارشناسی مهندسی کامپیوتر</div>
+          <div style="color:#375063; font-size:0.9rem;">دانشگاه آزاد اسلامی، تبریز | ۱۴۰۲ – تاکنون</div>
+          <div style="margin-top:6px; font-size:0.85rem;">معدل: ۱۶/۲۰. گرایش مهندسی نرم‌افزار و توسعه وب.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ستون سمت چپ -->
+    <div>
+      <div class="section">
+        <div class="section-title">تجربیات حرفه‌ای</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span>توسعه‌دهنده فرانت‌اند</span>
+            <span>۱۴۰۳ – تاکنون</span>
+          </div>
+          <div class="exp-company">پتکو · تبریز</div>
+          <ul class="exp-desc">
+            <li>توسعه یک پلتفرم ERP با عملکرد بالا با استفاده از React، TypeScript، Tailwind و ابزارهای مدرن فرانت‌اند.</li>
+            <li>پیاده‌سازی مدیریت وضعیت مقیاس‌پذیر با Zustand و دریافت کارآمد داده با TanStack Query.</li>
+            <li>همکاری نزدیک با تیم‌های بک‌اند در یکپارچه‌سازی سرویس‌های NET Core. و پایگاه داده SQL Server.</li>
+            <li>بهبود عملکرد و یکپارچگی رابط کاربری از طریق کامپوننت‌های قابل استفاده مجدد و الگوهای معماری تمیز.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span>توسعه‌دهنده فرانت‌اند</span>
+            <span>۱۴۰۲ – ۱۴۰۳</span>
+          </div>
+          <div class="exp-company">لاول‌کد · دورکاری</div>
+          <ul class="exp-desc">
+            <li>ساخت برنامه‌های تحت وب واکنش‌گرا برای مشتریان متعدد با استفاده از React، TypeScript، Redux و Tailwind.</li>
+            <li>ارائه کد تمیز و قابل نگهداری همراه با همکاری با طراحان و توسعه‌دهندگان بک‌اند.</li>
+            <li>تبدیل طرح‌های UI/UX به رابط‌های کاربری دقیق و آماده تولید.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">پروژه‌های شاخص</div>
+
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-name">وب‌سایت نمونه‌کار</span>
+            <a href="https://mahdidelavar.ir" class="project-link">
+              <i class="fas fa-external-link-alt"></i> mahdidelavar.ir
+            </a>
+          </div>
+          <div class="project-tech">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">Tailwind CSS</span>
+            <span class="tech-badge">Responsive Design</span>
+          </div>
+          <div class="project-desc">نمونه‌کار شخصی با طراحی مدرن و امتیاز ۹۵+ در Lighthouse. کاملاً واکنش‌گرا و بهینه‌سازی شده برای موتورهای جستجو.</div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-name">برنامه چت بلادرنگ</span>
+            <a href="https://github.com/mahdidelavarz/chat-app" class="project-link">
+              <i class="fab fa-github"></i> گیت‌هاب
+            </a>
+          </div>
+          <div class="project-tech">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Socket.io</span>
+            <span class="tech-badge">WebSockets</span>
+          </div>
+          <div class="project-desc">پیام‌رسان بلادرنگ با پشتیبانی از اتاق‌های گفتگو، پیام خصوصی و وضعیت حضور کاربران. تأخیر زیر ۱۰۰ میلی‌ثانیه برای ۱۰۰+ کاربر همزمان.</div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-name">LinkVault – مدیر بوکمارک هوشمند</span>
+            <a href="https://github.com/mahdidelavarz/linkvault" class="project-link">
+              <i class="fab fa-github"></i> گیت‌هاب
+            </a>
+          </div>
+          <div class="project-tech">
+            <span class="tech-badge">Next.js</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Docker</span>
+            <span class="tech-badge">NextAuth.js</span>
+          </div>
+          <div class="project-desc">اپلیکیشن فول‌استک مدیریت لینک با جستجوی پیشرفته، برچسب‌گذاری، دسته‌بندی و احراز هویت. کانتینرسازی کامل با Docker Compose.</div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-name">قبض‌هاب – داشبورد مالی</span>
+            <a href="https://ghabzhub.ir" class="project-link">
+              <i class="fas fa-external-link-alt"></i> ghabzhub.ir
+            </a>
+          </div>
+          <div class="project-tech">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">REST APIs</span>
+            <span class="tech-badge">Tailwind CSS</span>
+          </div>
+          <div class="project-desc">پلتفرم مالی عملیاتی با ۵۰۰+ کاربر فعال ماهانه. بهبود ۳۰٪ کارایی گردش کار با جداول داده بهینه و نمودارهای داشبورد.</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

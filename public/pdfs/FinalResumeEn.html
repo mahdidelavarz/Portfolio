@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mehdi Delavar – Resume</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <style>
+      /* ========== Vazir Font (CDN) ========== */
+      @font-face {
+        font-family: "Vazir";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: "Vazir";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: "Vazir";
+        font-style: normal;
+        font-weight: 900;
+        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Black.woff2") format("woff2");
+      }
+
+      /* ========== Main Styles (LTR) ========== */
+      body {
+        margin: 0;
+        padding: 40px;
+        font-family: "Vazir", sans-serif;
+        background: #f5f7fa;
+        color: #1d2d3a;
+        line-height: 1.9;
+        direction: ltr;
+      }
+
+      .resume {
+        max-width: 1050px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 18px;
+        padding: 50px 60px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Header */
+      .header-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 34px;
+        border-bottom: 2px solid #e9eff4;
+        padding-bottom: 28px;
+      }
+
+      .name-title h1 {
+        font-size: 2.9rem;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+        color: #0b2b44;
+        margin-bottom: 8px;
+        line-height: 1.2;
+      }
+
+      .name-title .tagline {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e5a7c;
+        background: #eaf3fb;
+        display: inline-block;
+        padding: 5px 16px;
+        border-radius: 30px;
+        letter-spacing: 0.2px;
+      }
+
+      .contact-info {
+        text-align: right;
+        font-size: 0.9rem;
+        color: #2a3b4e;
+        background: #f9fcff;
+        padding: 12px 18px;
+        border-radius: 18px;
+        border: 1px solid #eaf0f6;
+      }
+
+      .contact-info p {
+        margin: 7px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .contact-info i {
+        width: 20px;
+        color: #1d6f9c;
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      .contact-info a {
+        color: #1e3b54;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+        border-bottom: 1px solid transparent;
+      }
+
+      .contact-info a:hover {
+        color: #0b5e86;
+        border-bottom: 1px solid #0b5e86;
+      }
+
+      /* Layout */
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+        gap: 20px;
+      }
+
+      .section {
+        margin-bottom: 28px;
+      }
+
+      .section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #0f4c75;
+        border-left: 4px solid #0f4c75;
+        padding-left: 10px;
+        letter-spacing: 0.5px;
+      }
+
+      /* Skills */
+      .skill-group {
+        margin-bottom: 14px;
+      }
+
+      .skill-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        color: #22394b;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .badge {
+        width: 130px;
+        text-align: center;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        background: #eef3f7;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        border: 1px solid #dce5ee;
+        font-weight: 500;
+      }
+
+      /* Experience */
+      .exp-item {
+        margin-bottom: 24px;
+      }
+
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 4px;
+        color: #0f1c2e;
+      }
+
+      .exp-company {
+        color: #26648e;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .exp-desc {
+        padding-left: 18px;
+        margin: 0;
+      }
+
+      .exp-desc li {
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        list-style: none;
+        position: relative;
+        padding-left: 16px;
+      }
+
+      .exp-desc li::before {
+        content: "▸";
+        color: #0f4c75;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      /* Architecture Highlight */
+      .arch-highlight {
+        background: #f0f6fb;
+        border-left: 3px solid #0f4c75;
+        padding: 14px 16px;
+        margin-top: 14px;
+        border-radius: 6px;
+      }
+
+      .arch-highlight .arch-title {
+        font-weight: 700;
+        font-size: 0.88rem;
+        color: #0f1c2e;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .arch-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+
+      .arch-tag {
+        padding: 4px 10px;
+        background: white;
+        border: 1px solid #c4d7e6;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #1a4d6e;
+      }
+
+      /* Projects */
+      .project-item {
+        margin-bottom: 24px;
+        padding: 18px 20px;
+        background: #fafcfd;
+        border-radius: 12px;
+        border: 1px solid #e6edf3;
+        transition: all 0.2s ease;
+      }
+
+      .project-item:hover {
+        border-color: #c4d7e6;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .project-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .project-name {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #0f1c2e;
+      }
+
+      .project-link {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #0f4c75;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .project-link:hover {
+        color: #1a6fa0;
+        text-decoration: none;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .tech-badge {
+        padding: 4px 10px;
+        background: #e8f0f8;
+        color: #0f4c75;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      .project-desc {
+        font-size: 0.88rem;
+        color: #375063;
+        line-height: 1.7;
+      }
+      .primary {
+        background: #dfe9f3;
+        color: rgb(36, 33, 33);
+      }
+      .fas {
+        color: #1a6fa0;
+      }
+
+      hr {
+        border: 0;
+        height: 1px;
+        background: #e6edf3;
+        margin: 20px 0;
+      }
+
+      /* Print / PDF – compact & A4‑friendly */
+      @page {
+        size: A4;
+        margin: 10mm;
+      }
+
+      @media print {
+        html, body {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+
+        body {
+          padding: 0;
+          background: white;
+          font-size: 13px;
+        }
+
+        .resume {
+          max-width: 100%;
+          box-shadow: none;
+          border-radius: 0;
+          padding: 10mm 12mm;
+        }
+
+        .header-row {
+          margin-bottom: 10px;
+          padding-bottom: 10px;
+          page-break-inside: avoid;
+          page-break-after: avoid;
+        }
+
+        .name-title h1 {
+          font-size: 2.2rem;
+          margin-bottom: 4px;
+        }
+
+        .name-title .tagline {
+          font-size: 0.9rem;
+          padding: 4px 12px;
+        }
+
+        .contact-info {
+          font-size: 0.8rem;
+          padding: 8px 12px;
+        }
+
+        .contact-info p {
+          margin: 4px 0;
+        }
+
+        .grid {
+          gap: 12px;
+        }
+
+        .section {
+          margin-bottom: 14px;
+          page-break-inside: avoid;
+        }
+
+        .section-title {
+          font-size: 1rem;
+          margin-bottom: 8px;
+          page-break-after: avoid;
+        }
+
+        .badge {
+          width: 110px;
+          padding-top: 4px;
+          padding-bottom: 4px;
+          font-size: 0.7rem;
+        }
+
+        .skill-title {
+          font-size: 0.8rem;
+          margin-bottom: 4px;
+        }
+
+        .skill-group {
+          margin-bottom: 10px;
+        }
+
+        .exp-item {
+          margin-bottom: 16px;
+          page-break-inside: avoid;
+        }
+
+        .exp-header {
+          font-size: 0.9rem;
+          page-break-after: avoid;
+        }
+
+        .exp-company {
+          font-size: 0.85rem;
+          margin-bottom: 4px;
+        }
+
+        .exp-desc li {
+          font-size: 0.8rem;
+          margin-bottom: 4px;
+        }
+
+        .arch-highlight {
+          padding: 10px 12px;
+          margin-top: 8px;
+        }
+
+        .arch-highlight .arch-title {
+          font-size: 0.8rem;
+          margin-bottom: 4px;
+        }
+
+        .arch-tag {
+          font-size: 0.7rem;
+          padding: 2px 8px;
+        }
+
+        .project-item {
+          padding: 12px 16px;
+          margin-bottom: 16px;
+          page-break-inside: avoid;
+        }
+
+        .project-name {
+          font-size: 0.95rem;
+        }
+
+        .project-desc {
+          font-size: 0.8rem;
+        }
+
+        .project-link {
+          font-size: 0.8rem;
+        }
+
+        /* keep links readable */
+        a {
+          color: black;
+          text-decoration: none;
+        }
+      }
+
+      /* RTL adjustments override – LTR so left border remains */
+      ul, ol {
+        padding-left: 0;
+      }
+      .section-title {
+        border-right: none;
+        border-left: 4px solid #0f4c75;
+        padding-right: 0;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="resume">
+      <!-- Header -->
+      <div class="header-row">
+        <div class="name-title">
+          <h1>Mehdi Delavar</h1>
+          <div class="tagline">Front-End Developer & UI Engineer</div>
+        </div>
+        <div class="contact-info">
+          <p><i class="fas fa-map-marker-alt"></i> Tabriz, Iran</p>
+          <p><i class="fas fa-phone-alt"></i> +98 902 557 4357</p>
+          <p>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a>
+          </p>
+          <p>
+            <i class="fab fa-linkedin"></i>
+            <a
+              href="https://www.linkedin.com/in/mahdidelavar-5338ba280"
+              target="_blank"
+              >linkedin.com/in/mahdidelavar</a
+            >
+            &nbsp;&nbsp;<i class="fab fa-github"></i>
+            <a href="https://github.com/mahdidelavarz" target="_blank"
+              >github.com/mahdidelavarz</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="grid">
+        <!-- Right Column (Sidebar) -->
+        <div>
+          <div class="section">
+            <div class="section-title">
+              <span><i class="fas fa-code"></i></span> Technical Skills
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-title">
+                <span><i class="fas fa-palette"></i></span> Front-End
+              </div>
+              <div class="skills">
+                <span class="badge primary"> React.js</span>
+                <span class="badge primary"> Next.js</span>
+                <span class="badge primary"> TypeScript</span>
+                <br />
+                <span class="badge primary"> Tailwind CSS</span>
+                <span class="badge primary"> Redux</span>
+                <span class="badge primary"> Zustand</span>
+                <span class="badge primary"> TanStack Query</span>
+                <span class="badge primary"> React Hook Form</span>
+                <span class="badge primary"> Ant Design</span>
+                <span class="badge primary"> Shadcn UI</span>
+                <br />
+                <span class="badge primary"> Jest</span>
+                <span class="badge primary"> Vitest</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-title">
+                <span><i class="fas fa-cog"></i></span> Backend & DevOps (Basic)
+              </div>
+              <div class="skills">
+                <span class="badge"> Node.js</span>
+                <span class="badge"> Express</span>
+                <span class="badge"> Docker</span>
+                <span class="badge"> Docker Compose</span>
+                <span class="badge"> SQL Server</span>
+                <span class="badge"> PostgreSQL</span>
+                <span class="badge"> REST APIs</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="skill-title">
+                <span><i class="fas fa-tools"></i></span> Tools
+              </div>
+              <div class="skills">
+                <span class="badge"> Git / GitHub</span>
+                <span class="badge"> Azure</span>
+                <span class="badge"> Basic CI/CD</span>
+                <span class="badge"> Stimulsoft report</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-title">
+                <span><i class="fas fa-handshake"></i></span> Soft Skills
+              </div>
+              <div class="skills">
+                <span class="badge">Problem Solving</span>
+                <span class="badge">Teamwork</span>
+                <span class="badge">Time Management</span>
+                <span class="badge">Analytical Thinking</span>
+                <span class="badge">Effective Communication</span>
+                <span class="badge">Adaptability</span>
+                <span class="badge">Continuous Learning</span>
+                <span class="badge">Documentation</span>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">Education</div>
+              <div>
+                <div style="font-weight: 600">B.Sc. in Computer Engineering</div>
+                <div style="color: #375063; font-size: 0.9rem">
+                  Islamic Azad University, Tabriz | 2023 – Present
+                </div>
+                <div style="margin-top: 6px; font-size: 0.85rem">
+                  GPA: 16/20. Focus on Software Engineering & Web Development.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left Column (Main Content) -->
+        <div>
+          <div class="section">
+            <div class="section-title">Professional Experience</div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <span>Front-End Developer</span>
+                <span>2024 – Present</span>
+              </div>
+              <div class="exp-company">Petco · Tabriz</div>
+              <ul class="exp-desc">
+                <li>
+                  Developing an enterprise ERP platform with React, TypeScript, and Tailwind — serving 200+ daily active users across multiple departments.
+                </li>
+                <li>
+                  Implementing scalable state management with Zustand and optimized data fetching using TanStack Query (reducing API calls by 40%).
+                </li>
+                <li>
+                  Collaborating with the backend team to integrate .NET Core APIs and SQL Server database.
+                </li>
+                <li>
+                  Improving mobile UI performance by 35% and reducing load time by 25% through code splitting and optimized components.
+                </li>
+              </ul>
+
+              <!-- Architecture Highlight -->
+              <div class="arch-highlight">
+                <div class="arch-title">
+                  <i class="fas fa-layer-group"></i> Implemented Architecture
+                </div>
+                <div
+                  style="
+                    font-size: 0.9rem;
+                    color: #375063;
+                    line-height: 2.2;
+                    margin-left: 18px;
+                  "
+                >
+                  <strong
+                    ><i class="fas fa-caret-right"></i> Advanced Table
+                    System</strong
+                  >
+                  <ul
+                    style="
+                      margin: 6px 0 12px 0;
+                      padding-left: 18px;
+                      list-style: none;
+                    "
+                  >
+                    <li style="margin-bottom: 4px">
+                      ▸ Sorting, multi-filtering (exact, like, range, date range)
+                    </li>
+                    <li style="margin-bottom: 4px">
+                      ▸ Global & advanced search (AND/OR), pagination
+                    </li>
+                    <li style="margin-bottom: 4px">
+                      ▸ Row selection, batch actions, responsive design for mobile
+                    </li>
+                  </ul>
+
+                  <strong
+                    ><i class="fas fa-caret-right"></i> Tab Management
+                    System</strong
+                  >
+                  <ul
+                    style="
+                      margin: 6px 0 12px 0;
+                      padding-left: 18px;
+                      list-style: none;
+                    "
+                  >
+                    <li style="margin-bottom: 4px">
+                      ▸ Zustand-based implementation with Drag & Drop support
+                    </li>
+                    <li style="margin-bottom: 4px">
+                      ▸ localStorage persistence, synchronization with React Router
+                    </li>
+                    <li style="margin-bottom: 4px">
+                      ▸ Supports temporary and permanent tabs
+                    </li>
+                  </ul>
+
+                  <strong
+                    ><i class="fas fa-caret-right"></i> PageShell for CRUD
+                    Pages</strong
+                  >
+                  <ul
+                    style="
+                      margin: 6px 0 12px 0;
+                      padding-left: 18px;
+                      list-style: none;
+                    "
+                  >
+                    <li style="margin-bottom: 4px">
+                      ▸ Nested View, Selection Modal, file upload
+                    </li>
+                    <li style="margin-bottom: 4px">
+                      ▸ Digital signature and reporting
+                    </li>
+                  </ul>
+
+                  <strong
+                    ><i class="fas fa-caret-right"></i> Service Factory & Hook
+                    Factory</strong
+                  >
+                  <ul
+                    style="
+                      margin: 6px 0 0 0;
+                      padding-left: 18px;
+                      list-style: none;
+                    "
+                  >
+                    <li style="margin-bottom: 4px">
+                      ▸ Build client/server services and TanStack Query-based hooks
+                    </li>
+                    <li style="margin-bottom: 4px">
+                      ▸ Validation with React Hook Form, error handling with Toast Notifications
+                    </li>
+                  </ul>
+                </div>
+                <div class="arch-tags">
+                  <span class="arch-tag">Zustand</span>
+                  <span class="arch-tag">TanStack Query</span>
+                  <span class="arch-tag">React Router</span>
+                  <span class="arch-tag">Gridify</span>
+                  <span class="arch-tag">REST API</span>
+                  <span class="arch-tag">localStorage Persistence</span>
+                  <span class="arch-tag">Drag & Drop</span>
+                  <span class="arch-tag">RTL Support</span>
+                  <span class="arch-tag">React Hook Form</span>
+                  <span class="arch-tag">Microsoft Azure</span>
+                  <span class="arch-tag">IIS</span>
+                  <span class="arch-tag">CI/CD</span>
+                  <span class="arch-tag">Stimulsoft report</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-header">
+                <span>Front-End Developer</span>
+                <span>2023 – 2024</span>
+              </div>
+              <div class="exp-company">LoveCode · Remote</div>
+              <ul class="exp-desc">
+                <li>
+                  Built responsive web applications for various clients using React, TypeScript, Redux, and Tailwind CSS.
+                </li>
+                <li>
+                  Delivered clean, maintainable code while collaborating with designers and backend developers.
+                </li>
+                <li>
+                  Converted UI/UX designs into production-ready, pixel-perfect interfaces.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Featured Projects</div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <span class="project-name">Portfolio Website</span>
+                <a href="https://mahdidelavar.ir" class="project-link">
+                  <i class="fas fa-external-link-alt"></i> mahdidelavar.ir
+                </a>
+              </div>
+              <div class="project-tech">
+                <span class="tech-badge">Next.js</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind CSS</span>
+                <span class="tech-badge">Responsive Design</span>
+              </div>
+              <p class="project-desc">
+                Personal portfolio with modern, fully responsive design, optimized for search engines.
+              </p>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <span class="project-name">Bermod – Messaging App</span>
+                <a
+                  href="https://github.com/mahdidelavarz/chat-app"
+                  class="project-link"
+                >
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+              <div class="project-tech">
+                <span class="tech-badge">Next.js</span>
+                <span class="tech-badge">Express</span>
+                <span class="tech-badge">TypeOrm</span>
+                <span class="tech-badge">Tailwind</span>
+                <span class="tech-badge">Socket.io</span>
+                <span class="tech-badge">WebSockets</span>
+              </div>
+              <div class="project-desc">
+                Bermod messenger with support for chat rooms, private messaging, and user presence status. Sub-100ms latency for 100+ concurrent users.
+              </div>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <span class="project-name">LinkVault – Smart Bookmark Manager</span>
+                <a
+                  href="https://github.com/mahdidelavarz/linkvault"
+                  class="project-link"
+                >
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+              <div class="project-tech">
+                <span class="tech-badge">Next.js</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">NextAuth.js</span>
+              </div>
+              <div class="project-desc">
+                Full-stack link management application with advanced search, tagging, categorization, and authentication. Fully containerized with Docker Compose.
+              </div>
+            </div>
+
+            <div class="project-item">
+              <div class="project-header">
+                <span class="project-name">Freelancering – Freelance Platform</span>
+                <a
+                  href="https://github.com/mahdidelavarz/freelancering-App.git"
+                  class="project-link"
+                >
+                  <i class="fab fa-github"></i> GitHub (In Development)
+                </a>
+              </div>
+              <div class="project-tech">
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Tailwind CSS</span>
+                <span class="tech-badge">React Query</span>
+                <span class="tech-badge">Context/Reducer</span>
+                <span class="tech-badge">Kavehnegar</span>
+                <span class="tech-badge">Framer Motion</span>
+                <span class="tech-badge">Headless UI</span>
+              </div>
+              <div class="project-desc">
+                Freelance platform with three panels: freelancer, employer, and admin. Phone number registration with SMS verification. Employers create projects, freelancers submit proposals, admin manages everything and approves users.
+                <span style="font-size: 0.8rem; color: #888"
+                  >⚠️ In development — final version not yet released.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
