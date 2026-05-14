@@ -7,7 +7,24 @@ import React, {
   useMemo,
   memo,
 } from "react";
-import { Icon } from "@iconify/react";
+
+import {
+  LogosJavascriptIcon,
+  LogosReactIcon,
+  LogosThreeJsIcon,
+  LogosTypescriptBold,
+  SolarBookBold,
+  SolarCalendarBold,
+  SolarCheckCircleBold,
+  SolarClockCircleBoldIcon,
+  SolarDiplomaBold,
+  SolarDiplomaVerifiedBold,
+  SolarDocumentText,
+  SolarMapPoindBold,
+  SolarMonitorBold,
+  SolarStarBold,
+  SolarStarShineBold,
+} from "@/icons/icons";
 
 // Formal Education Data
 const FORMAL_EDUCATION = [
@@ -54,7 +71,7 @@ const ONLINE_COURSES = [
       "Performance Optimization",
       "Testing",
     ],
-    icon: "logos:react",
+    icon: LogosReactIcon,
     color: "from-blue-400 to-cyan-500",
   },
   {
@@ -67,7 +84,7 @@ const ONLINE_COURSES = [
     description:
       "Deep dive into TypeScript's advanced type system and best practices",
     skills: ["Advanced Types", "Generics", "Decorators", "Module Systems"],
-    icon: "logos:typescript-icon",
+    icon: LogosTypescriptBold,
     color: "from-blue-600 to-blue-400",
   },
   {
@@ -80,7 +97,7 @@ const ONLINE_COURSES = [
     description:
       "Complete 3D web development course covering fundamentals to advanced techniques",
     skills: ["3D Graphics", "WebGL", "Shaders", "Animation"],
-    icon: "logos:threejs",
+    icon: LogosThreeJsIcon,
     color: "from-slate-600 to-slate-400",
   },
   {
@@ -92,7 +109,7 @@ const ONLINE_COURSES = [
     rating: 4.7,
     description: "Comprehensive full-stack curriculum with hands-on projects",
     skills: ["JavaScript", "Node.js", "Express", "MongoDB"],
-    icon: "logos:javascript",
+    icon: LogosJavascriptIcon,
     color: "from-yellow-400 to-orange-500",
   },
 ] as const;
@@ -100,25 +117,25 @@ const ONLINE_COURSES = [
 // Learning Stats
 const LEARNING_STATS = [
   {
-    icon: "solar:book-bold",
+    icon: SolarBookBold,
     number: "15+",
     label: "Courses",
     color: "from-cyan-400 to-blue-500",
   },
   {
-    icon: "solar:clock-circle-bold",
+    icon: SolarClockCircleBoldIcon,
     number: "500+",
     label: "Study Hours",
     color: "from-purple-400 to-pink-500",
   },
   {
-    icon: "solar:diploma-verified-bold",
+    icon: SolarDiplomaVerifiedBold,
     number: "10+",
     label: "Certificates",
     color: "from-amber-400 to-orange-500",
   },
   {
-    icon: "solar:star-bold",
+    icon: SolarStarBold,
     number: "4.8",
     label: "Avg Rating",
     color: "from-green-400 to-emerald-500",
@@ -127,8 +144,8 @@ const LEARNING_STATS = [
 
 // Tabs
 const TABS = [
-  { id: "formal", label: "University", icon: "solar:diploma-bold" },
-  { id: "online", label: "Online Courses", icon: "solar:monitor-bold" },
+  { id: "formal", label: "University", icon: SolarDiplomaBold },
+  { id: "online", label: "Online Courses", icon: SolarMonitorBold },
 ] as const;
 
 // Memoized TabButton
@@ -149,7 +166,7 @@ const TabButton = memo<{
       onClick={handleClick}
       aria-label={`View ${tab.label}`}
     >
-      <Icon icon={tab.icon} width={18} height={18} />
+      <tab.icon width={18} height={18} />
       <span className="hidden sm:inline">{tab.label}</span>
       <span className="sm:hidden">{tab.label.split(" ")[0]}</span>
     </button>
@@ -177,7 +194,7 @@ const CourseCard = memo<{
         <div
           className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${course.color} rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
         >
-          <Icon icon={course.icon} width={28} height={28} />
+          <course.icon width={28} height={28} />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-base md:text-lg font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors line-clamp-2">
@@ -186,12 +203,7 @@ const CourseCard = memo<{
           <p className="text-slate-400 text-xs md:text-sm">{course.platform}</p>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
-          <Icon
-            icon="solar:star-bold"
-            width={14}
-            height={14}
-            className="text-yellow-400"
-          />
+          <SolarStarBold width={14} height={14} className="text-yellow-400" />
           <span className="text-sm font-semibold text-white">
             {course.rating}
           </span>
@@ -206,11 +218,11 @@ const CourseCard = memo<{
       {/* Info Row */}
       <div className="flex items-center gap-3 mb-4 text-xs md:text-sm">
         <div className="flex items-center gap-1.5 text-slate-400">
-          <Icon icon="solar:clock-circle-bold" width={16} height={16} />
+          <SolarClockCircleBoldIcon width={16} height={16} />
           <span>{course.duration}</span>
         </div>
         <div className="flex items-center gap-1.5 text-slate-400">
-          <Icon icon="solar:calendar-bold" width={16} height={16} />
+          <SolarCalendarBold width={16} height={16} />
           <span>{course.completed}</span>
         </div>
         <div className="flex items-center gap-1.5 px-2 py-1 bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
@@ -249,7 +261,7 @@ const Education = memo(() => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: "50px" }
+      { threshold: 0.1, rootMargin: "50px" },
     );
 
     const currentRef = sectionRef.current;
@@ -279,8 +291,7 @@ const Education = memo(() => {
                   {/* Header Section */}
                   <div className="flex flex-col md:flex-row gap-4 md:gap-6 mb-6">
                     <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0">
-                      <Icon
-                        icon="solar:diploma-bold"
+                      <SolarDiplomaBold
                         width={32}
                         height={32}
                         className="text-white"
@@ -294,11 +305,7 @@ const Education = memo(() => {
                         {edu.institution}
                       </p>
                       <p className="text-slate-400 text-sm flex items-center gap-1.5">
-                        <Icon
-                          icon="solar:map-point-bold"
-                          width={16}
-                          height={16}
-                        />
+                        <SolarMapPoindBold width={16} height={16} />
                         {edu.location}
                       </p>
                     </div>
@@ -329,8 +336,7 @@ const Education = memo(() => {
                   {/* Description */}
                   <div className="mb-6">
                     <h4 className="text-base md:text-lg font-bold text-white mb-3 flex items-center gap-2">
-                      <Icon
-                        icon="solar:document-text-bold"
+                      <SolarDocumentText
                         width={20}
                         height={20}
                         className="text-purple-400"
@@ -345,8 +351,7 @@ const Education = memo(() => {
                   {/* Highlights */}
                   <div className="mb-6">
                     <h5 className="text-base md:text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                      <Icon
-                        icon="solar:star-shine-bold"
+                      <SolarStarShineBold
                         width={20}
                         height={20}
                         className="text-amber-400"
@@ -359,8 +364,7 @@ const Education = memo(() => {
                           key={idx}
                           className="flex items-start gap-2 text-slate-300 text-xs md:text-sm bg-slate-700/20 rounded-lg p-2.5"
                         >
-                          <Icon
-                            icon="solar:check-circle-bold"
+                          <SolarCheckCircleBold
                             width={16}
                             height={16}
                             className="text-green-400 flex-shrink-0 mt-0.5"
@@ -374,8 +378,7 @@ const Education = memo(() => {
                   {/* Subjects Grid */}
                   <div className="border-t border-slate-700/50 pt-6">
                     <h4 className="text-base md:text-lg font-bold text-white mb-4 flex items-center gap-2">
-                      <Icon
-                        icon="solar:book-2-bold"
+                      <SolarBookBold
                         width={20}
                         height={20}
                         className="text-cyan-400"
@@ -469,12 +472,7 @@ const Education = memo(() => {
                 <div
                   className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}
                 >
-                  <Icon
-                    icon={stat.icon}
-                    width={22}
-                    height={22}
-                    className="text-white"
-                  />
+                  <stat.icon width={22} height={22} className="text-white" />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold text-white mb-1">
                   {stat.number}

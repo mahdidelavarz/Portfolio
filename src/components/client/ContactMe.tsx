@@ -1,7 +1,29 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback, memo } from "react";
-import { Icon } from "@iconify/react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  memo,
+  SVGProps,
+} from "react";
 import emailjs from "@emailjs/browser";
+import {
+  MingcuteAlertCircleFill,
+  MingcuteArrowRightUpLine,
+  MingcuteCalendarLine,
+  MingcuteCheckCircleFill,
+  MingcuteGithubLine,
+  MingcuteLinkedinLine,
+  MingcuteMailLine,
+  MingcutePhoneLine,
+  MingcuteRocketLine,
+  MingcuteSendLine,
+  MingcuteStarLine,
+  MingcuteTelegramLine,
+  MingcuteTimeLine,
+  MingcuteTrophyLine,
+} from "@/icons/icons";
 
 interface ContactMeProps {
   scrollToSection?: (id: string) => void;
@@ -57,7 +79,7 @@ const FormField = memo(
             name={name}
             value={value}
             onChange={onChange}
-            className={baseClasses }
+            className={baseClasses}
           >
             <option value="">Select {label}</option>
             {options?.map((option) => (
@@ -95,7 +117,7 @@ const ContactMethodCard = memo(
       id: string;
       label: string;
       value: string;
-      icon: string;
+      icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
       color: string;
       borderColor: string;
       shadowColor: string;
@@ -119,7 +141,7 @@ const ContactMethodCard = memo(
         <div
           className={`relative w-14 h-14 bg-gradient-to-br ${method.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
         >
-          <Icon icon={method.icon} className="w-7 h-7 text-white" />
+          <method.icon className="w-7 h-7 text-white" />
         </div>
 
         <div className="relative flex-1">
@@ -127,10 +149,7 @@ const ContactMethodCard = memo(
           <p className="text-sm text-slate-400">{method.value}</p>
         </div>
 
-        <Icon
-          icon="mingcute:arrow-right-up-line"
-          className="relative w-5 h-5 text-slate-400 group-hover:text-cyan-400 transition-colors"
-        />
+        <MingcuteArrowRightUpLine className="relative w-5 h-5 text-slate-400 group-hover:text-cyan-400 transition-colors" />
       </button>
     );
   },
@@ -150,20 +169,22 @@ const ContactMe = memo<ContactMeProps>(() => {
     timeline: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"" | "success" | "error">("");
+  const [submitStatus, setSubmitStatus] = useState<"" | "success" | "error">(
+    "",
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ;
-  const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ;
-  const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ;
+  const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+  const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+  const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
   const contactMethods = [
     {
       id: "email",
       label: "Email",
       value: "mdelever77@gmail.com",
-      icon: "mingcute:mail-line",
+      icon: MingcuteMailLine,
       color: "from-cyan-500 to-blue-600",
       borderColor: "border-cyan-400/50",
       shadowColor: "shadow-cyan-500/20",
@@ -173,7 +194,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       id: "phone",
       label: "Phone",
       value: "+98 902 557 4357",
-      icon: "mingcute:phone-line",
+      icon: MingcutePhoneLine,
       color: "from-emerald-500 to-teal-600",
       borderColor: "border-emerald-400/50",
       shadowColor: "shadow-emerald-500/20",
@@ -183,7 +204,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       id: "telegram",
       label: "Telegram",
       value: "@mahdi_delavar",
-      icon: "mingcute:telegram-line",
+      icon: MingcuteTelegramLine,
       color: "from-sky-500 to-blue-600",
       borderColor: "border-sky-400/50",
       shadowColor: "shadow-sky-500/20",
@@ -193,18 +214,21 @@ const ContactMe = memo<ContactMeProps>(() => {
       id: "linkedin",
       label: "LinkedIn",
       value: "mahdi-delavar",
-      icon: "mingcute:linkedin-line",
+      icon: MingcuteLinkedinLine,
       color: "from-purple-500 to-indigo-600",
       borderColor: "border-purple-400/50",
       shadowColor: "shadow-purple-500/20",
       action: () =>
-        window.open("https://www.linkedin.com/in/mahdi-delavar-5338ba280", "_blank"),
+        window.open(
+          "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
+          "_blank",
+        ),
     },
     {
       id: "github",
       label: "GitHub",
       value: "mahdidelavarz",
-      icon: "mingcute:github-line",
+      icon: MingcuteGithubLine,
       color: "from-slate-600 to-slate-800",
       borderColor: "border-slate-500/50",
       shadowColor: "shadow-slate-600/20",
@@ -216,25 +240,25 @@ const ContactMe = memo<ContactMeProps>(() => {
     {
       value: "50+",
       label: "Projects",
-      icon: "mingcute:rocket-line",
+      icon: MingcuteRocketLine,
       color: "from-cyan-500 to-blue-600",
     },
     {
       value: "24h",
       label: "Response",
-      icon: "mingcute:time-line",
+      icon: MingcuteTimeLine,
       color: "from-purple-500 to-pink-600",
     },
     {
       value: "100%",
       label: "Satisfaction",
-      icon: "mingcute:star-line",
+      icon: MingcuteStarLine,
       color: "from-emerald-500 to-teal-600",
     },
     {
       value: "3+",
       label: "Years Exp",
-      icon: "mingcute:trophy-line",
+      icon: MingcuteTrophyLine,
       color: "from-orange-500 to-red-600",
     },
   ];
@@ -291,90 +315,98 @@ const ContactMe = memo<ContactMeProps>(() => {
     [],
   );
 
-  const handleSubmit = useCallback(async (e: React.MouseEvent) => {
-    e.preventDefault();
-    
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-      setSubmitStatus("error");
-      setErrorMessage("Please fill in all required fields.");
-      setTimeout(() => {
-        setSubmitStatus("");
-        setErrorMessage("");
-      }, 5000);
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault();
 
-    setIsSubmitting(true);
-    setSubmitStatus("");
-    setErrorMessage("");
-
-    try {
-      // Initialize EmailJS
-      emailjs.init(EMAILJS_PUBLIC_KEY!);
-
-      // Prepare template parameters
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        budget: formData.budget || "Not specified",
-        timeline: formData.timeline || "Not specified",
-        to_email: "mdelever77@gmail.com",
-      };
-
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        EMAILJS_SERVICE_ID!,
-        EMAILJS_TEMPLATE_ID!,
-        templateParams,
-        EMAILJS_PUBLIC_KEY
-      );
-
-      if (response.status === 200) {
-        setSubmitStatus("success");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-          budget: "",
-          timeline: "",
-        });
-        setTimeout(() => setSubmitStatus(""), 5000);
+      // Validate required fields
+      if (
+        !formData.name ||
+        !formData.email ||
+        !formData.subject ||
+        !formData.message
+      ) {
+        setSubmitStatus("error");
+        setErrorMessage("Please fill in all required fields.");
+        setTimeout(() => {
+          setSubmitStatus("");
+          setErrorMessage("");
+        }, 5000);
+        return;
       }
-    } catch (error: any) {
-      console.error("EmailJS Error:", error);
-      setSubmitStatus("error");
-      
-      // Provide more specific error messages
-      let errorMsg = "Failed to send message. Please try again or contact me directly.";
-      
-      if (error.text) {
-        errorMsg = error.text;
-      } else if (error.message) {
-        errorMsg = error.message;
-      } else if (typeof error === 'string') {
-        errorMsg = error;
+
+      setIsSubmitting(true);
+      setSubmitStatus("");
+      setErrorMessage("");
+
+      try {
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY!);
+
+        // Prepare template parameters
+        const templateParams = {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          budget: formData.budget || "Not specified",
+          timeline: formData.timeline || "Not specified",
+          to_email: "mdelever77@gmail.com",
+        };
+
+        // Send email using EmailJS
+        const response = await emailjs.send(
+          EMAILJS_SERVICE_ID!,
+          EMAILJS_TEMPLATE_ID!,
+          templateParams,
+          EMAILJS_PUBLIC_KEY,
+        );
+
+        if (response.status === 200) {
+          setSubmitStatus("success");
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: "",
+            budget: "",
+            timeline: "",
+          });
+          setTimeout(() => setSubmitStatus(""), 5000);
+        }
+      } catch (error: any) {
+        console.error("EmailJS Error:", error);
+        setSubmitStatus("error");
+
+        // Provide more specific error messages
+        let errorMsg =
+          "Failed to send message. Please try again or contact me directly.";
+
+        if (error.text) {
+          errorMsg = error.text;
+        } else if (error.message) {
+          errorMsg = error.message;
+        } else if (typeof error === "string") {
+          errorMsg = error;
+        }
+
+        setErrorMessage(errorMsg);
+        setTimeout(() => {
+          setSubmitStatus("");
+          setErrorMessage("");
+        }, 7000);
+      } finally {
+        setIsSubmitting(false);
       }
-      
-      setErrorMessage(errorMsg);
-      setTimeout(() => {
-        setSubmitStatus("");
-        setErrorMessage("");
-      }, 7000);
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [formData, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY]);
+    },
+    [formData, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY],
+  );
 
   return (
     <div
       ref={sectionRef}
       className="relative min-h-screen py-12 md:py-20 overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950"
     >
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div
@@ -382,10 +414,10 @@ const ContactMe = memo<ContactMeProps>(() => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-         <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full  mb-6">
             <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
             <span className="text-cyan-400 font-medium tracking-wider text-sm uppercase">
-             Contact
+              Contact
             </span>
             <div className="h-[1.5px] w-18 bg-gradient-to-l from-transparent via-cyan-500 to-transparent animate-pulse" />
           </div>
@@ -421,7 +453,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                 <div
                   className={`w-10 h-10 bg-gradient-to-br ${stat.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}
                 >
-                  <Icon icon={stat.icon} className="w-5 h-5 text-white" />
+                  <stat.icon className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold text-white mb-1">
                   {stat.value}
@@ -470,10 +502,7 @@ const ContactMe = memo<ContactMeProps>(() => {
               {/* Working Hours */}
               <div className="mt-6 p-6 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl">
                 <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-                  <Icon
-                    icon="mingcute:time-line"
-                    className="w-5 h-5 text-cyan-400"
-                  />
+                  <MingcuteTimeLine className="w-5 h-5 text-cyan-400" />
                   Working Hours
                 </h4>
                 <div className="space-y-2 text-sm">
@@ -586,11 +615,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                       </>
                     ) : (
                       <>
-                        <Icon
-                          icon="mingcute:send-line"
-                          width="20"
-                          height="20"
-                        />
+                        <MingcuteSendLine width="20" height="20" />
                         Send Message
                       </>
                     )}
@@ -600,8 +625,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                 {/* Success Message */}
                 {submitStatus === "success" && (
                   <div className="bg-emerald-500/10 backdrop-blur-sm border border-emerald-400/30 rounded-xl p-4 flex items-center gap-3">
-                    <Icon
-                      icon="mingcute:check-circle-fill"
+                    <MingcuteCheckCircleFill
                       width="24"
                       height="24"
                       className="text-emerald-400 flex-shrink-0"
@@ -620,8 +644,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                 {/* Error Message */}
                 {submitStatus === "error" && (
                   <div className="bg-red-500/10 backdrop-blur-sm border border-red-400/30 rounded-xl p-4 flex items-center gap-3">
-                    <Icon
-                      icon="mingcute:alert-circle-fill"
+                    <MingcuteAlertCircleFill
                       width="24"
                       height="24"
                       className="text-red-400 flex-shrink-0"
@@ -630,9 +653,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                       <p className="font-medium text-red-400">
                         Failed to send message
                       </p>
-                      <p className="text-sm text-red-400/70">
-                        {errorMessage}
-                      </p>
+                      <p className="text-sm text-red-400/70">{errorMessage}</p>
                     </div>
                   </div>
                 )}
@@ -666,7 +687,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                   <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <Icon icon="mingcute:mail-line" width={20} height={20} />
+                    <MingcuteMailLine width={20} height={20} />
                     <span>Email Me</span>
                   </div>
                 </a>
@@ -678,11 +699,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                   className="group relative px-6 md:px-8 py-3 md:py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <Icon
-                      icon="mingcute:calendar-line"
-                      width={20}
-                      height={20}
-                    />
+                    <MingcuteCalendarLine width={20} height={20} />
                     <span>Schedule Call</span>
                   </div>
                 </a>

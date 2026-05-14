@@ -1,4 +1,11 @@
-import { Icon } from "@iconify/react";
+import {
+  HugeIconsNote,
+  HugeIconsTelegram,
+  LineMdGithubLoop,
+  LineWhatsapp,
+  MageEmail,
+  StLinkedin,
+} from "@/icons/icons";
 import { memo } from "react";
 import { Typewriter } from "react-simple-typewriter";
 
@@ -8,28 +15,28 @@ interface HomeProps {
 
 const socialLinks = [
   {
-    icon: "line-md:github-loop",
+    icon: LineMdGithubLoop,
     color: "text-slate-300 hover:text-white",
     bg: "hover:bg-slate-800/50",
     link: "https://github.com/mahdidelavarz",
     label: "GitHub",
   },
   {
-    icon: "hugeicons:telegram",
+    icon: HugeIconsTelegram,
     color: "text-cyan-400 hover:text-cyan-300",
     bg: "hover:bg-cyan-900/30",
     link: "https://t.me/osis13",
     label: "Telegram",
   },
   {
-    icon: "streamline:linkedin",
+    icon: StLinkedin,
     color: "text-blue-500 hover:text-blue-400",
     bg: "hover:bg-blue-900/30",
     link: "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
     label: "LinkedIn",
   },
   {
-    icon: "lineicons:whatsapp",
+    icon: LineWhatsapp,
     color: "text-green-500 hover:text-green-400",
     bg: "hover:bg-green-900/30",
     link: "https://wa.me/09025574357",
@@ -40,7 +47,6 @@ const socialLinks = [
 const Home = memo(function Home({ scrollToSection }: HomeProps) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
-
       {/* Desktop Social Links Sidebar */}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 lg:flex flex-col gap-3 transition-all duration-1000 hidden">
         <div className="w-px h-16 bg-gradient-to-b from-transparent via-white to-transparent mx-auto"></div>
@@ -57,8 +63,7 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
               style={{ animationDelay: `${index * 0.1}s` }}
               aria-label={social.label}
             >
-              <Icon
-                icon={social.icon}
+              <social.icon
                 width="20"
                 height="20"
                 className="mx-auto transition-all duration-300"
@@ -124,7 +129,7 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 <div className="relative flex items-center justify-center gap-2 sm:gap-3">
-                  <Icon icon="hugeicons:note" width="20" height="20" />
+                  <HugeIconsNote width="20" height="20" />
                   <span>Download Resume</span>
                 </div>
               </a>
@@ -135,8 +140,7 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
                 aria-label="Contact Me"
               >
                 <div className="flex items-center justify-center gap-2 sm:gap-3">
-                  <Icon
-                    icon="mage:email"
+                  <MageEmail
                     width="20"
                     height="20"
                     className="text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300"

@@ -1,6 +1,20 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
-import { Icon } from "@iconify/react";
+import {
+  SolarAltArrowLeftBold,
+  SolarAltArrowRightBold,
+  SolarBuildingsBoldIcon,
+  SolarCalendarBold,
+  SolarChatRoundBoldIcon,
+  SolarCheckCircleBold,
+  SolarClockCircleBoldIcon,
+  SolarCodeBold,
+  SolarLetterBold,
+  SolarMapPoindBold,
+  SolarProgrammingBold,
+  SolarRocketBold,
+  SolarStarShineBold,
+} from "@/icons/icons";
 
 interface ExperiencesProps {
   scrollToSection?: (id: string) => void;
@@ -17,7 +31,7 @@ const EXPERIENCES = [
     duration: "2+ Years",
     location: "Tabriz, Iran",
     type: "Full-Time",
-    icon: "solar:buildings-2-bold",
+    icon: SolarBuildingsBoldIcon,
     color: "from-cyan-500 to-blue-600",
     description:
       "Leading enterprise ERP system development, architecting scalable solutions for thousands of users.",
@@ -37,7 +51,7 @@ const EXPERIENCES = [
       "Git",
       "CI/CD",
       "Stimulsoft",
-      "PWA"
+      "PWA",
     ],
     impact: {
       users: "10K+",
@@ -53,7 +67,7 @@ const EXPERIENCES = [
     duration: "1 Year",
     location: "Tehran, Iran",
     type: "Full-Time",
-    icon: "solar:code-bold",
+    icon: SolarCodeBold,
     color: "from-rose-500 to-pink-600",
     description:
       "Developed responsive web applications with pixel-perfect UI implementations.",
@@ -89,7 +103,7 @@ const EXPERIENCES = [
     duration: "1+ Year",
     location: "Remote",
     type: "Contract",
-    icon: "solar:rocket-bold",
+    icon: SolarRocketBold,
     color: "from-purple-500 to-indigo-600",
     description:
       "Delivered custom web solutions for diverse clients across industries.",
@@ -151,8 +165,7 @@ const MobileTimeline = memo(
                   : "bg-slate-700/50"
               }`}
             >
-              <Icon
-                icon={exp.icon}
+              <exp.icon
                 width={20}
                 height={20}
                 className={
@@ -164,7 +177,7 @@ const MobileTimeline = memo(
         ))}
       </div>
     );
-  }
+  },
 );
 
 MobileTimeline.displayName = "MobileTimeline";
@@ -199,8 +212,7 @@ const ExperienceCard = memo(
               <div
                 className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${experience.color} rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}
               >
-                <Icon
-                  icon={experience.icon}
+                <experience.icon
                   width={24}
                   height={24}
                   className="text-white"
@@ -226,20 +238,16 @@ const ExperienceCard = memo(
 
                 <div className="flex flex-wrap gap-2 md:gap-3 text-xs md:text-sm text-slate-400">
                   <span className="flex items-center gap-1">
-                    <Icon icon="solar:calendar-bold" width={14} height={14} />
+                    <SolarCalendarBold width={14} height={14} />
                     {experience.period}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Icon
-                      icon="solar:clock-circle-bold"
-                      width={14}
-                      height={14}
-                    />
+                    <SolarClockCircleBoldIcon width={14} height={14} />
                     {experience.duration}
                   </span>
                   <br />
                   <span className="flex items-center gap-1">
-                    <Icon icon="solar:map-point-bold" width={14} height={14} />
+                    <SolarMapPoindBold width={14} height={14} />
                     {experience.location}
                   </span>
                 </div>
@@ -275,8 +283,7 @@ const ExperienceCard = memo(
             {/* Achievements */}
             <div className="mb-6">
               <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
-                <Icon
-                  icon="solar:star-shine-bold"
+                <SolarStarShineBold
                   width={18}
                   height={18}
                   className="text-amber-400"
@@ -289,8 +296,7 @@ const ExperienceCard = memo(
                     key={index}
                     className="flex items-start gap-2 p-2.5 bg-slate-700/20 rounded-lg"
                   >
-                    <Icon
-                      icon="solar:check-circle-bold"
+                    <SolarCheckCircleBold
                       width={16}
                       height={16}
                       className={`flex-shrink-0 mt-0.5 bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}
@@ -306,8 +312,7 @@ const ExperienceCard = memo(
             {/* Technologies */}
             <div>
               <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
-                <Icon
-                  icon="solar:programming-bold"
+                <SolarProgrammingBold
                   width={18}
                   height={18}
                   className="text-blue-400"
@@ -329,7 +334,7 @@ const ExperienceCard = memo(
         </div>
       </div>
     );
-  }
+  },
 );
 
 ExperienceCard.displayName = "ExperienceCard";
@@ -357,7 +362,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.1, rootMargin: "50px" }
+      { threshold: 0.1, rootMargin: "50px" },
     );
 
     const currentRef = sectionRef.current;
@@ -376,7 +381,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
     if (!isTransitioning) {
       setIsTransitioning(true);
       setActiveIndex((prev) =>
-        prev === 0 ? EXPERIENCES.length - 1 : prev - 1
+        prev === 0 ? EXPERIENCES.length - 1 : prev - 1,
       );
       setTimeout(() => setIsTransitioning(false), 500);
     }
@@ -386,7 +391,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
     if (!isTransitioning) {
       setIsTransitioning(true);
       setActiveIndex((prev) =>
-        prev === EXPERIENCES.length - 1 ? 0 : prev + 1
+        prev === EXPERIENCES.length - 1 ? 0 : prev + 1,
       );
       setTimeout(() => setIsTransitioning(false), 500);
     }
@@ -404,7 +409,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
         diff > 0 ? handleNext() : handlePrevious();
       }
     },
-    [handleNext, handlePrevious]
+    [handleNext, handlePrevious],
   );
 
   // Auto-rotate
@@ -489,8 +494,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 className="p-2.5 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-cyan-400/50 transition-all"
                 aria-label="Previous"
               >
-                <Icon
-                  icon="solar:alt-arrow-left-bold"
+                <SolarAltArrowLeftBold
                   width={20}
                   height={20}
                   className="text-slate-400"
@@ -517,8 +521,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 className="p-2.5 bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg hover:border-cyan-400/50 transition-all"
                 aria-label="Next"
               >
-                <Icon
-                  icon="solar:alt-arrow-right-bold"
+                <SolarAltArrowRightBold
                   width={20}
                   height={20}
                   className="text-slate-400"
@@ -555,8 +558,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                         : "bg-slate-700/50 hover:bg-slate-700"
                     }`}
                   >
-                    <Icon
-                      icon={exp.icon}
+                    <exp.icon
                       width={28}
                       height={28}
                       className={
@@ -586,8 +588,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 p-3 bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-xl hover:border-cyan-400/50 hover:bg-slate-800 transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Previous experience"
               >
-                <Icon
-                  icon="solar:alt-arrow-left-bold"
+                <SolarAltArrowLeftBold
                   width={24}
                   height={24}
                   className="text-slate-300 group-hover:text-cyan-400 group-hover:-translate-x-1 transition-all"
@@ -600,8 +601,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 p-3 bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-xl hover:border-cyan-400/50 hover:bg-slate-800 transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Next experience"
               >
-                <Icon
-                  icon="solar:alt-arrow-right-bold"
+                <SolarAltArrowRightBold
                   width={24}
                   height={24}
                   className="text-slate-300 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"
@@ -646,8 +646,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative z-10">
-                  <Icon
-                    icon="solar:chat-round-bold"
+                  <SolarChatRoundBoldIcon
                     width={48}
                     height={48}
                     className="text-cyan-400 mx-auto mb-4"
@@ -665,7 +664,7 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                     className="group/btn px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      <Icon icon="solar:letter-bold" width={20} height={20} />
+                      <SolarLetterBold width={20} height={20} />
                       Get In Touch
                     </span>
                   </button>

@@ -1,6 +1,16 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Icon } from "@iconify/react";
+import {
+  LucideArrowRight,
+  LucideChevronLeft,
+  LucideChevronRight,
+  LucideClock,
+  LucideExternalLink,
+  LucideGithub,
+  LucideTrendingUp,
+  LucideUsers,
+  LuciedPlay,
+} from "@/icons/icons";
 
 interface ProjectsProps {
   scrollToSection?: (id: string) => void;
@@ -24,16 +34,16 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Full Stack",
       year: "2024",
       metrics: {
-        users: { value: "10K+", label: "Active Users", icon: "lucide:users" },
+        users: { value: "10K+", label: "Active Users", icon: LucideUsers },
         performance: {
           value: "98%",
           label: "Performance Score",
-          icon: "lucide:trending-up",
+          icon: LucideTrendingUp,
         },
         conversion: {
           value: "+15%",
           label: "Conversion Rate",
-          icon: "lucide:arrow-right",
+          icon: LucideArrowRight,
         },
       },
       image: "/img1_.jpg",
@@ -58,17 +68,17 @@ function Projects({ scrollToSection }: ProjectsProps) {
         users: {
           value: "5K+",
           label: "Monthly Visitors",
-          icon: "lucide:users",
+          icon: LucideUsers,
         },
         performance: {
           value: "60fps",
           label: "Frame Rate",
-          icon: "lucide:play",
+          icon: LucideUsers,
         },
         engagement: {
           value: "4.2min",
           label: "Avg. Session",
-          icon: "lucide:clock",
+          icon: LucideClock,
         },
       },
       image: "/img2_.jpg",
@@ -90,12 +100,12 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Web App",
       year: "2023",
       metrics: {
-        users: { value: "25K+", label: "Active Users", icon: "lucide:users" },
-        teams: { value: "500+", label: "Teams", icon: "lucide:users" },
+        users: { value: "25K+", label: "Active Users", icon: LucideUsers },
+        teams: { value: "500+", label: "Teams", icon: LucideUsers },
         retention: {
           value: "85%",
           label: "Retention Rate",
-          icon: "lucide:trending-up",
+          icon: LucideTrendingUp,
         },
       },
       image: "/img3_.jpg",
@@ -117,16 +127,16 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "AI/ML",
       year: "2024",
       metrics: {
-        messages: { value: "1M+", label: "Messages", icon: "lucide:play" },
+        messages: { value: "1M+", label: "Messages", icon: LuciedPlay },
         response: {
           value: "<1s",
           label: "Response Time",
-          icon: "lucide:clock",
+          icon: LucideClock,
         },
         accuracy: {
           value: "94%",
           label: "Accuracy",
-          icon: "lucide:trending-up",
+          icon: LucideTrendingUp,
         },
       },
       image: "/img4_.jpg",
@@ -151,10 +161,10 @@ function Projects({ scrollToSection }: ProjectsProps) {
         dataPoints: {
           value: "10M+",
           label: "Data Points",
-          icon: "lucide:trending-up",
+          icon: LucideTrendingUp,
         },
-        dashboards: { value: "500+", label: "Dashboards", icon: "lucide:play" },
-        uptime: { value: "99.9%", label: "Uptime", icon: "lucide:clock" },
+        dashboards: { value: "500+", label: "Dashboards", icon: LuciedPlay },
+        uptime: { value: "99.9%", label: "Uptime", icon: LucideClock },
       },
       image: "/img5_.jpg",
       color: "from-cyan-500 to-blue-500",
@@ -175,12 +185,12 @@ function Projects({ scrollToSection }: ProjectsProps) {
       category: "Mobile",
       year: "2023",
       metrics: {
-        installs: { value: "15K+", label: "Installs", icon: "lucide:users" },
-        offline: { value: "90%", label: "Offline Ready", icon: "lucide:play" },
+        installs: { value: "15K+", label: "Installs", icon: LucideUsers },
+        offline: { value: "90%", label: "Offline Ready", icon: LuciedPlay },
         engagement: {
           value: "60%",
           label: "Engagement",
-          icon: "lucide:trending-up",
+          icon: LucideTrendingUp,
         },
       },
       image: "/img6_.jpg",
@@ -200,7 +210,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
     if (!isTransitioning) {
       setIsTransitioning(true);
       setSelectedProject((prev) =>
-        prev === 0 ? projects.length - 1 : prev - 1
+        prev === 0 ? projects.length - 1 : prev - 1,
       );
       setTimeout(() => setIsTransitioning(false), 500);
     }
@@ -210,7 +220,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
     if (!isTransitioning) {
       setIsTransitioning(true);
       setSelectedProject((prev) =>
-        prev === projects.length - 1 ? 0 : prev + 1
+        prev === projects.length - 1 ? 0 : prev + 1,
       );
       setTimeout(() => setIsTransitioning(false), 500);
     }
@@ -317,20 +327,14 @@ function Projects({ scrollToSection }: ProjectsProps) {
                   className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
                   aria-label="Previous project"
                 >
-                  <Icon
-                    icon="lucide:chevron-left"
-                    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform"
-                  />
+                  <LucideChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
                 </button>
                 <button
                   onClick={handleNext}
                   className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all duration-200 group"
                   aria-label="Next project"
                 >
-                  <Icon
-                    icon="lucide:chevron-right"
-                    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform"
-                  />
+                  <LucideChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </div>
 
@@ -413,7 +417,10 @@ function Projects({ scrollToSection }: ProjectsProps) {
                   </h4>
                   <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {currentProject.features.map((feature, index) => (
-                      <div key={index} className="flex items-center gap-2 justify-center">
+                      <div
+                        key={index}
+                        className="flex items-center gap-2 justify-center"
+                      >
                         <div
                           className={`w-2 h-2 rounded-full bg-gradient-to-br ${currentProject.color}`}
                         />
@@ -454,8 +461,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
                           key={key}
                           className="bg-slate-700/30 rounded-xl p-2 sm:p-4 text-center hover:shadow-md transition-all duration-200 group"
                         >
-                          <Icon
-                            icon={metric.icon}
+                          <metric.icon
                             className={`w-4 h-4 sm:w-5 sm:h-5 mx-auto mb-1 sm:mb-2 text-slate-500 group-hover:text-blue-500 transition-colors`}
                           />
                           <div
@@ -467,7 +473,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
                             {metric.label}
                           </div>
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 </div>
@@ -479,19 +485,13 @@ function Projects({ scrollToSection }: ProjectsProps) {
                   >
                     <span className="flex items-center justify-center gap-2">
                       View Live
-                      <Icon
-                        icon="lucide:external-link"
-                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                      />
+                      <LucideExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
                   </button>
                   <button className="flex-1 px-4 py-2.5 sm:px-6 sm:py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group text-sm sm:text-base">
                     <span className="flex items-center justify-center gap-2">
                       Source Code
-                      <Icon
-                        icon="lucide:github"
-                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform"
-                      />
+                      <LucideGithub className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform" />
                     </span>
                   </button>
                 </div>

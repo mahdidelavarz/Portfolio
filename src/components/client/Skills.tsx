@@ -1,6 +1,42 @@
 "use client";
-import { useState, useEffect, useRef, useCallback, memo } from "react";
-import { Icon } from "@iconify/react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  memo,
+  SVGProps,
+} from "react";
+import {
+  DevIconSupabase,
+  FaSolidPuzzlePieceIcon,
+  LogoPostgresIcon,
+  LogosDockerIcon,
+  LogosFigmaIcon,
+  LogosGitIcon,
+  LogosJestIcon,
+  LogosNextjsIcon,
+  LogosReactIcon,
+  LogosReactQuery,
+  LogosTailwindCssIcon,
+  LogosTypescriptBold,
+  LogosViteIcon,
+  LogosWebpackIcon,
+  SimpleIconCypress,
+  SimpleThreedorJs,
+  SkillIconsDotnet,
+  VscodeFileTypeSql,
+} from "../../icons/icons";
+import {
+  MingcuteCodeLine,
+  MingcuteGroupLine,
+  MingcutePalleteLine,
+  MingcuteRocketLine,
+  MingcuteSendLine,
+  MingcuteServerLine,
+  MingcuteTimeLine,
+  MingcuteToolLine,
+} from "@/icons/icons";
 
 interface SkillsProps {
   scrollToSection?: (id: string) => void;
@@ -11,7 +47,7 @@ type Skill = {
   name: string;
   mastery: number;
   years: number;
-  icon: string;
+  icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
   color: string;
   description: string;
 };
@@ -20,7 +56,7 @@ type StackKey = "frontend" | "backend" | "tools" | "design";
 
 type SkillStack = {
   title: string;
-  icon: string;
+  icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
   color: string;
   borderColor: string;
   shadowColor: string;
@@ -71,7 +107,7 @@ const SkillCard = memo(
             <div
               className={`w-16 h-16  rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
             >
-              <Icon icon={skill.icon} className="w-8 h-8 text-white" />
+              <skill.icon className="w-8 h-8 text-white" />
             </div>
           </div>
 
@@ -101,7 +137,7 @@ const SkillCard = memo(
 
           {/* Experience */}
           <div className="relative z-10 flex items-center justify-center gap-2 text-sm text-slate-400">
-            <Icon icon="mingcute:time-line" className="w-4 h-4" />
+            <MingcuteTimeLine className="w-4 h-4" />
             <span>{skill.years} years experience</span>
           </div>
 
@@ -139,30 +175,33 @@ const MobileSkillSlider = memo(
           className="flex gap-3 overflow-x-auto pb-4 px-4 -mx-4 scrollbar-hide snap-x snap-mandatory"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {(Object.keys(stacks) as StackKey[]).map((key) => (
-            <button
-              key={key}
-              onClick={() => onSelect(key)}
-              className={`relative flex-shrink-0 snap-center transition-all duration-300 ${
-                selectedStack === key ? "scale-105" : "scale-95 opacity-70"
-              }`}
-            >
-              <div
-                className={`relative px-6 py-3 rounded-xl ${
-                  selectedStack === key
-                    ? `bg-gradient-to-r ${stacks[key].color} text-white shadow-lg ${stacks[key].shadowColor}`
-                    : "bg-slate-800/50 text-slate-400 border border-slate-700/50"
+          {(Object.keys(stacks) as StackKey[]).map((key) => {
+            const IconComponent = stacks[key].icon;
+            return (
+              <button
+                key={key}
+                onClick={() => onSelect(key)}
+                className={`relative flex-shrink-0 snap-center transition-all duration-300 ${
+                  selectedStack === key ? "scale-105" : "scale-95 opacity-70"
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <Icon icon={stacks[key].icon} className="w-5 h-5" />
-                  <span className="font-semibold text-sm">
-                    {stacks[key].title}
-                  </span>
+                <div
+                  className={`relative px-6 py-3 rounded-xl ${
+                    selectedStack === key
+                      ? `bg-gradient-to-r ${stacks[key].color} text-white shadow-lg ${stacks[key].shadowColor}`
+                      : "bg-slate-800/50 text-slate-400 border border-slate-700/50"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <IconComponent className="w-5 h-5" />
+                    <span className="font-semibold text-sm">
+                      {stacks[key].title}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
     );
@@ -181,7 +220,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
   const skillStacks: SkillStackMap = {
     frontend: {
       title: "Frontend",
-      icon: "mingcute:code-line",
+      icon: MingcuteCodeLine,
       color: "from-cyan-500 to-blue-600",
       borderColor: "border-cyan-400/50",
       shadowColor: "shadow-cyan-500/20",
@@ -191,7 +230,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "React.js",
           mastery: 95,
           years: 3,
-          icon: "logos:react",
+          icon: LogosReactIcon,
           color: "text-cyan-400",
           description:
             "Expert in React hooks, context, and performance optimization",
@@ -200,7 +239,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Next.js",
           mastery: 90,
           years: 2,
-          icon: "logos:nextjs-icon",
+          icon: LogosNextjsIcon,
           color: "text-white",
           description: "Building SSR/SSG applications with optimal performance",
         },
@@ -208,7 +247,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "TypeScript",
           mastery: 88,
           years: 2.5,
-          icon: "logos:typescript-icon",
+          icon: LogosTypescriptBold,
           color: "text-blue-500",
           description: "Strong typing for scalable and maintainable code",
         },
@@ -216,7 +255,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Tailwind CSS",
           mastery: 92,
           years: 2,
-          icon: "logos:tailwindcss-icon",
+          icon: LogosTailwindCssIcon,
           color: "text-teal-400",
           description: "Rapid UI development with utility-first CSS",
         },
@@ -224,7 +263,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "TanStack Query",
           mastery: 85,
           years: 1.5,
-          icon: "logos:react-query-icon",
+          icon: LogosReactQuery,
           color: "text-purple-400",
           description: "Creating smooth animations and interactions",
         },
@@ -232,7 +271,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Three.js",
           mastery: 75,
           years: 1,
-          icon: "simple-icons:threedotjs",
+          icon: SimpleThreedorJs,
           color: "text-white",
           description: "3D graphics and WebGL experiences",
         },
@@ -240,7 +279,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
     },
     backend: {
       title: "Backend",
-      icon: "mingcute:server-line",
+      icon: MingcuteServerLine,
       color: "from-purple-500 to-pink-600",
       borderColor: "border-purple-400/50",
       shadowColor: "shadow-purple-500/20",
@@ -250,7 +289,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: ".Net Core",
           mastery: 75,
           years: 1,
-          icon: "skill-icons:dotnet",
+          icon: SkillIconsDotnet,
           color: "text-red-500",
           description: "Caching and session management",
         },
@@ -258,7 +297,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "MongoDB",
           mastery: 82,
           years: 2,
-          icon: "logos:mongodb-icon",
+          icon: LogoPostgresIcon,
           color: "text-green-500",
           description: "NoSQL database design and optimization",
         },
@@ -266,7 +305,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "SQL Server",
           mastery: 78,
           years: 1.5,
-          icon: "vscode-icons:file-type-sql",
+          icon: VscodeFileTypeSql,
           color: "text-blue-400",
           description: "Relational database management",
         },
@@ -274,7 +313,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Supabase",
           mastery: 78,
           years: 1.5,
-          icon: "devicon:supabase",
+          icon: DevIconSupabase,
           color: "text-blue-400",
           description: "Relational database management",
         },
@@ -282,7 +321,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
     },
     tools: {
       title: "Tools",
-      icon: "mingcute:tool-line",
+      icon: MingcuteToolLine,
       color: "from-emerald-500 to-teal-600",
       borderColor: "border-emerald-400/50",
       shadowColor: "shadow-emerald-500/20",
@@ -292,7 +331,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Git",
           mastery: 90,
           years: 3,
-          icon: "logos:git-icon",
+          icon: LogosGitIcon,
           color: "text-orange-500",
           description: "Version control and collaboration",
         },
@@ -300,7 +339,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Docker",
           mastery: 75,
           years: 1,
-          icon: "logos:docker-icon",
+          icon: LogosDockerIcon,
           color: "text-blue-500",
           description: "Containerization and deployment",
         },
@@ -308,7 +347,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Webpack",
           mastery: 80,
           years: 2,
-          icon: "logos:webpack",
+          icon: LogosWebpackIcon,
           color: "text-blue-400",
           description: "Module bundling and optimization",
         },
@@ -316,7 +355,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Vite",
           mastery: 85,
           years: 1.5,
-          icon: "logos:vitejs",
+          icon: LogosViteIcon,
           color: "text-purple-500",
           description: "Fast build tool for modern web",
         },
@@ -324,7 +363,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Jest",
           mastery: 82,
           years: 2,
-          icon: "logos:jest",
+          icon: LogosJestIcon,
           color: "text-red-500",
           description: "Unit testing and test coverage",
         },
@@ -332,7 +371,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Cypress",
           mastery: 78,
           years: 1,
-          icon: "simple-icons:cypress",
+          icon: SimpleIconCypress,
           color: "text-green-500",
           description: "End-to-end testing automation",
         },
@@ -340,7 +379,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
     },
     design: {
       title: "Design",
-      icon: "mingcute:palette-line",
+      icon: MingcutePalleteLine,
       color: "from-orange-500 to-red-600",
       borderColor: "border-orange-400/50",
       shadowColor: "shadow-orange-500/20",
@@ -350,17 +389,9 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           name: "Figma",
           mastery: 85,
           years: 2,
-          icon: "logos:figma",
+          icon: LogosFigmaIcon,
           color: "text-purple-500",
           description: "UI/UX design and prototyping",
-        },
-        {
-          name: "Photoshop",
-          mastery: 80,
-          years: 3,
-          icon: "logos:adobe-photoshop",
-          color: "text-blue-500",
-          description: "Image editing and manipulation",
         },
       ],
     },
@@ -525,26 +556,29 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
             }`}
           >
             <div className="flex gap-3 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-2">
-              {stackKeys.map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setSelectedStack(key)}
-                  className={`relative px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-3 transition-all duration-300 ${
-                    selectedStack === key
-                      ? `bg-gradient-to-r ${skillStacks[key].color} text-white shadow-lg ${skillStacks[key].shadowColor}`
-                      : "text-slate-400 hover:text-white hover:bg-slate-700/50"
-                  }`}
-                >
-                  <Icon icon={skillStacks[key].icon} className="w-5 h-5" />
-                  <span>{skillStacks[key].title}</span>
-                </button>
-              ))}
+              {stackKeys.map((key) => {
+                const IconComponent = skillStacks[key].icon;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setSelectedStack(key)}
+                    className={`relative px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-3 transition-all duration-300 ${
+                      selectedStack === key
+                        ? `bg-gradient-to-r ${skillStacks[key].color} text-white shadow-lg ${skillStacks[key].shadowColor}`
+                        : "text-slate-400 hover:text-white hover:bg-slate-700/50"
+                    }`}
+                  >
+                    <IconComponent className="w-5 h-5" />
+                    <span>{skillStacks[key].title}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* Skills Grid */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-16"> 
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-16">
           {skillStacks[selectedStack].skills.map((skill, index) => (
             <SkillCard
               key={skill.name}
@@ -571,10 +605,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               <div className="relative z-10">
                 <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
-                  <Icon
-                    icon="fa7-solid:puzzle-piece"
-                    className="w-7 h-7 text-white"
-                  />
+                  <FaSolidPuzzlePieceIcon className="w-7 h-7 text-white" />
                 </div>
                 <h4 className="text-lg font-semibold text-white mb-3">
                   Problem Solving
@@ -590,10 +621,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               <div className="relative z-10">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4">
-                  <Icon
-                    icon="mingcute:group-line"
-                    className="w-7 h-7 text-white"
-                  />
+                  <MingcuteGroupLine className="w-7 h-7 text-white" />
                 </div>
                 <h4 className="text-lg font-semibold text-white mb-3">
                   Team Collaboration
@@ -609,10 +637,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               <div className="relative z-10">
                 <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4">
-                  <Icon
-                    icon="mingcute:rocket-line"
-                    className="w-7 h-7 text-white"
-                  />
+                  <MingcuteRocketLine className="w-7 h-7 text-white" />
                 </div>
                 <h4 className="text-lg font-semibold text-white mb-3">
                   Continuous Learning
@@ -651,7 +676,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <div className="relative flex items-center justify-center gap-3">
-                  <Icon icon="mingcute:send-line" className="w-5 h-5" />
+                  <MingcuteSendLine className="w-5 h-5" />
                   <span>Get In Touch</span>
                 </div>
               </button>

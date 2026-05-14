@@ -1,6 +1,29 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
-import { Icon } from "@iconify/react";
+import {
+  FaSolidPuzzlePieceIcon,
+  SolarBookBold,
+  SolarCalendarBold,
+  SolarChatRoundBoldIcon,
+  SolarCheckCircleBold,
+  SolarClockCircleBoldIcon,
+  SolarCodeSquareBold,
+  SolarDocumentBold,
+  SolarEyeBoldIcon,
+  SolarGlobalBoldIcon,
+  SolarGraphUpBoldIcon,
+  SolarHeartBold,
+  SolarLightBlubMinimalisticBold,
+  SolarLightbulbBultIcon,
+  SolarMapPoindBold,
+  SolarRefreshCircleBold,
+  SolarRefreshSquareBold,
+  SolarRocketBold,
+  SolarStarBold,
+  SolarTargetBold,
+  SolarUserGroupRoundedBoldIcon,
+  SolarUserIcon,
+} from "@/icons/icons";
 // import { Metadata } from "next";
 
 interface AboutMeProps {
@@ -63,28 +86,28 @@ const PERSONAL_INFO = {
 // Core values
 const CORE_VALUES = [
   {
-    icon: "solar:heart-bold",
+    icon: SolarHeartBold,
     title: "Passion for Code",
     description:
       "I love what I do. Every project is an opportunity to learn and grow.",
     color: "from-red-500 to-pink-600",
   },
   {
-    icon: "solar:users-group-rounded-bold",
+    icon: SolarUserGroupRoundedBoldIcon,
     title: "Collaboration",
     description:
       "Great products are built by great teams. I value open communication and teamwork.",
     color: "from-blue-500 to-cyan-600",
   },
   {
-    icon: "solar:lightbulb-bolt-bold",
+    icon: SolarLightbulbBultIcon,
     title: "Innovation",
     description:
       "Always exploring new technologies and approaches to solve problems creatively.",
     color: "from-yellow-500 to-orange-600",
   },
   {
-    icon: "solar:graph-up-bold",
+    icon: SolarGraphUpBoldIcon,
     title: "Continuous Learning",
     description:
       "The tech world evolves fast. I stay curious and keep learning every day.",
@@ -94,40 +117,40 @@ const CORE_VALUES = [
 
 // Soft skills
 const SOFT_SKILLS = [
-  { name: "Problem Solving", icon: "fa7-solid:puzzle-piece", level: 80 },
-  { name: "Communication", icon: "solar:chat-round-bold", level: 80 },
-  { name: "Time Management", icon: "solar:clock-circle-bold", level: 85 },
-  { name: "Adaptability", icon: "solar:refresh-circle-bold", level: 92 },
+  { name: "Problem Solving", icon: FaSolidPuzzlePieceIcon, level: 80 },
+  { name: "Communication", icon: SolarChatRoundBoldIcon, level: 80 },
+  { name: "Time Management", icon: SolarClockCircleBoldIcon, level: 85 },
+  { name: "Adaptability", icon: SolarRefreshCircleBold, level: 92 },
   {
     name: "Team Collaboration",
-    icon: "solar:users-group-rounded-bold",
+    icon: SolarUserGroupRoundedBoldIcon,
     level: 90,
   },
-  { name: "Attention to Detail", icon: "solar:eye-bold", level: 95 },
+  { name: "Attention to Detail", icon: SolarEyeBoldIcon, level: 95 },
 ] as const;
 
 // Goals and aspirations
 const GOALS = [
   {
-    icon: "solar:rocket-2-bold",
+    icon: SolarRocketBold,
     title: "Master Advanced React Patterns",
     description:
       "Deep dive into advanced state management, performance optimization, and architectural patterns.",
   },
   {
-    icon: "solar:global-bold",
+    icon: SolarGlobalBoldIcon,
     title: "Contribute to Open Source",
     description:
       "Give back to the community by contributing to meaningful open-source projects.",
   },
   {
-    icon: "solar:book-2-bold",
+    icon: SolarBookBold,
     title: "Share Knowledge",
     description:
       "Write technical articles and mentor aspiring developers on their journey.",
   },
   {
-    icon: "solar:star-bold",
+    icon: SolarStarBold,
     title: "Build Impactful Products",
     description:
       "Create solutions that make a real difference in people's lives and businesses.",
@@ -141,28 +164,28 @@ const WORK_APPROACH = [
     title: "Understand",
     description:
       "I start by deeply understanding the problem, user needs, and business goals.",
-    icon: "solar:lightbulb-minimalistic-bold",
+    icon: SolarLightBlubMinimalisticBold,
   },
   {
     step: "02",
     title: "Plan",
     description:
       "Strategic planning with clear milestones, considering scalability and maintainability.",
-    icon: "solar:document-bold",
+    icon: SolarDocumentBold,
   },
   {
     step: "03",
     title: "Build",
     description:
       "Clean, efficient code with modern best practices and attention to every detail.",
-    icon: "solar:code-square-bold",
+    icon: SolarCodeSquareBold,
   },
   {
     step: "04",
     title: "Iterate",
     description:
       "Continuous improvement through testing, feedback, and optimization.",
-    icon: "solar:refresh-square-bold",
+    icon: SolarRefreshSquareBold,
   },
 ] as const;
 
@@ -185,8 +208,7 @@ const ValueCard = memo<{
       <div
         className={`w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br ${value.color} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300`}
       >
-        <Icon
-          icon={value.icon}
+        <value.icon
           width={20}
           height={20}
           className="text-white md:w-7 md:h-7"
@@ -213,12 +235,7 @@ const SoftSkillBar = memo<{
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-          <Icon
-            icon={skill.icon}
-            width={18}
-            height={18}
-            className="text-white"
-          />
+          <skill.icon width={18} height={18} className="text-white" />
         </div>
         <span className="text-white font-medium text-sm">{skill.name}</span>
       </div>
@@ -251,7 +268,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: "50px" }
+      { threshold: 0.1, rootMargin: "50px" },
     );
 
     const currentRef = sectionRef.current;
@@ -310,8 +327,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
               {/* Profile Image Placeholder */}
               <div className="md:col-span-1 flex flex-col items-center">
                 <div className="w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 relative overflow-hidden group">
-                  <Icon
-                    icon="solar:user-bold"
+                  <SolarUserIcon
                     width={80}
                     height={80}
                     className="text-white"
@@ -327,24 +343,15 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
                   </p>
                   <div className="flex flex-wrap justify-center gap-2 text-">
                     <span className="px-3 py-1 bg-slate-700/50 rounded-lg text-slate-300">
-                      <Icon
-                        icon="solar:calendar-bold"
-                        className="inline mr-1"
-                        width={16}
-                      />
+                      <SolarCalendarBold className="inline mr-1" width={16} />
                       {PERSONAL_INFO.age} years old
                     </span>
                     <span className="px-3 py-1 bg-slate-700/50 rounded-lg text-slate-300">
-                      <Icon
-                        icon="solar:map-point-bold"
-                        className="inline mr-1"
-                        width={16}
-                      />
+                      <SolarMapPoindBold className="inline mr-1" width={16} />
                       {PERSONAL_INFO.location}
                     </span>
                     <span className="px-3 py-1 bg-green-900/30 text-green-400 rounded-lg">
-                      <Icon
-                        icon="solar:check-circle-bold"
+                      <SolarCheckCircleBold
                         className="inline mr-1"
                         width={16}
                       />
@@ -417,8 +424,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
           <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-purple-400/30 transition-all duration-500">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                <Icon
-                  icon="solar:star-bold"
+                <SolarStarBold
                   width={24}
                   height={24}
                   className="text-white"
@@ -458,8 +464,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
                     {step.step}
                   </div>
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon
-                      icon={step.icon}
+                    <step.icon
                       width={20}
                       height={20}
                       className="text-white md:w-6 md:h-6"
@@ -489,8 +494,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
           <div className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 md:p-8 hover:border-orange-400/30 transition-all duration-500">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
-                <Icon
-                  icon="solar:target-bold"
+                <SolarTargetBold
                   width={24}
                   height={24}
                   className="text-white"
@@ -507,12 +511,7 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
                   className="flex gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300"
                 >
                   <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Icon
-                      icon={goal.icon}
-                      width={20}
-                      height={20}
-                      className="text-white"
-                    />
+                    <goal.icon width={20} height={20} className="text-white" />
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-2">

@@ -1,24 +1,47 @@
 "use client";
 
-import { Icon } from "@iconify/react";
-import React, { useState, useEffect, useCallback } from "react";
-
+import {
+  HomeIcon,
+  MdiAccountStudent,
+  MingcuteUserStarFill,
+  MingcuteUserWarningFill,
+  SreamlineArtificialIntelegence,
+  StreamlineKeyboardSolid,
+  StreamlinePhoneBold,
+} from "@/icons/icons";
+import React, { useState, useEffect, useCallback, SVGProps } from "react";
 
 interface NavItem {
   id: string;
   title: string;
-  iconName: string; // Changed from JSX.Element to string for better performance
+  iconName: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
 }
 
 // Move static data outside component to prevent recreation
 const NAVIGATION_ITEMS: NavItem[] = [
-  { id: "home", title: "Home", iconName: "solar:home-2-bold" },
-  { id: "aboutme", title: "About Me", iconName: "mingcute:user-warning-fill" },
-  { id: "educations", title: "Educations", iconName: "mdi:account-student" },
-  { id: "experiences", title: "Experiences", iconName: "mingcute:user-star-fill" },
-  { id: "projects", title: "Projects", iconName: "streamline-flex:keyboard-option-setting-gear-solid" },
-  { id: "skills", title: "Skills", iconName: "streamline-flex:artificial-intelligence-brain-chip-solid" },
-  { id: "contactme", title: "Contact Me", iconName: "streamline-ultimate:phone-retro-1-bold" },
+  { id: "home", title: "Home", iconName: HomeIcon },
+  { id: "aboutme", title: "About Me", iconName: MingcuteUserWarningFill },
+  { id: "educations", title: "Educations", iconName: MdiAccountStudent },
+  {
+    id: "experiences",
+    title: "Experiences",
+    iconName: MingcuteUserStarFill,
+  },
+  {
+    id: "projects",
+    title: "Projects",
+    iconName: StreamlineKeyboardSolid,
+  },
+  {
+    id: "skills",
+    title: "Skills",
+    iconName: SreamlineArtificialIntelegence,
+  },
+  {
+    id: "contactme",
+    title: "Contact Me",
+    iconName: StreamlinePhoneBold,
+  },
 ];
 
 const HeaderMenu: React.FC = React.memo(() => {
@@ -140,10 +163,12 @@ const NavigationButton = React.memo<{
           isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"
         }`}
       >
-        <Icon icon={item.iconName} width={30} height={30}  />
+        <item.iconName width={30} height={30} />
         <span
           className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
-            isActive ? "text-white" : "text-slate-400 group-hover:text-slate-200"
+            isActive
+              ? "text-white"
+              : "text-slate-400 group-hover:text-slate-200"
           }`}
         >
           {item.title}
@@ -155,7 +180,7 @@ const NavigationButton = React.memo<{
           isExpanded ? "opacity-0 scale-90" : "opacity-100 scale-100"
         } ${isActive ? "text-cyan-400" : "text-slate-500 group-hover:text-slate-300"}`}
       >
-        <Icon icon={item.iconName} width={30} height={30}  />
+        <item.iconName width={30} height={30} />
       </div>
 
       <div

@@ -1,25 +1,25 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
-import { Icon } from '@iconify/react';
-import { type Metadata } from 'next';
 import GoBackButton from '@/components/GoBackBtn';
+import { HomeIcon } from '@/icons/icons';
 
 // Define metadata for the 404 page
-export const metadata: Metadata = {
-  title: "Page Not Found | Mahdi Delavar - Frontend Developer",
-  description: "The page you are looking for does not exist. Return to Mahdi Delavar's portfolio - React, Next.js, and TypeScript Frontend Developer.",
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
-  },
-  alternates: {
-    canonical: "https://mahdidelavar.ir",
-  },
-};
+// export const metadata: Metadata = {
+//   title: "Page Not Found | Mahdi Delavar - Frontend Developer",
+//   description: "The page you are looking for does not exist. Return to Mahdi Delavar's portfolio - React, Next.js, and TypeScript Frontend Developer.",
+//   robots: {
+//     index: false,
+//     follow: false,
+//     googleBot: {
+//       index: false,
+//       follow: false,
+//     },
+//   },
+//   alternates: {
+//     canonical: "https://mahdidelavar.ir",
+//   },
+// };
 
 export default function NotFound() {
   // Structured data for 404 page
@@ -98,7 +98,7 @@ export default function NotFound() {
               href="/"
               className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:-translate-y-0.5"
             >
-              <Icon icon="mdi:home" className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <HomeIcon width='10' height='10' className='text-black'  />
               Go Home
             </Link>
 

@@ -1,15 +1,30 @@
 "use client";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useState, useEffect, useCallback, memo } from "react";
+import {
+  HomeIcon,
+  HugeIconsTelegram,
+  LineMdGithubLoop,
+  LineWhatsapp,
+  MdiAccountStudent,
+  MingcuteUserStarFill,
+  MingcuteUserWarningFill,
+  SolarCloseCircle,
+  SolarHamburgerMenuIcon,
+  SolarUserIcon,
+  SreamlineArtificialIntelegence,
+  StLinkedin,
+  StreamlineKeyboardSolid,
+  StreamlinePhoneBold,
+} from "@/icons/icons";
+import React, { useState, useEffect, useCallback, memo, SVGProps } from "react";
 
 interface NavItem {
   id: string;
   title: string;
-  icon: string;
+  icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
 }
 
 interface SocialLink {
-  icon: string;
+  icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
   color: string;
   bg: string;
   link: string;
@@ -17,39 +32,51 @@ interface SocialLink {
 }
 
 const navItems: NavItem[] = [
-  { id: "home", title: "Home", icon: "solar:home-2-bold" },
-  { id: "aboutme", title: "About Me", icon: "mingcute:user-warning-fill" },
-  { id: "educations", title: "Educations", icon: "mdi:account-student" },
-  { id: "experiences", title: "Experiences", icon: "mingcute:user-star-fill" },
-  { id: "projects", title: "Projects", icon: "streamline-flex:keyboard-option-setting-gear-solid" },
-  { id: "skills", title: "Skills", icon: "streamline-flex:artificial-intelligence-brain-chip-solid" },
-  { id: "contactme", title: "Contact Me", icon: "streamline-ultimate:phone-retro-1-bold" },
+  { id: "home", title: "Home", icon: HomeIcon },
+  { id: "aboutme", title: "About Me", icon: MingcuteUserWarningFill },
+  { id: "educations", title: "Educations", icon: MdiAccountStudent },
+  { id: "experiences", title: "Experiences", icon: MingcuteUserStarFill },
+  {
+    id: "projects",
+    title: "Projects",
+    icon: StreamlineKeyboardSolid,
+  },
+  {
+    id: "skills",
+    title: "Skills",
+    icon: SreamlineArtificialIntelegence,
+  },
+  {
+    id: "contactme",
+    title: "Contact Me",
+    icon: StreamlinePhoneBold,
+  },
 ];
 
 const socialLinks: SocialLink[] = [
   {
-    icon: "line-md:github-loop",
+    icon: LineMdGithubLoop,
     color: "text-slate-300 hover:text-white",
     bg: "hover:bg-slate-800/50",
     link: "https://github.com/mahdidelavarz",
     label: "GitHub",
   },
   {
-    icon: "hugeicons:telegram",
+    icon: HugeIconsTelegram,
     color: "text-cyan-400 hover:text-cyan-300",
     bg: "hover:bg-cyan-900/30",
     link: "https://t.me/osis13",
     label: "Telegram",
   },
   {
-    icon: "streamline:linkedin",
+    icon: StLinkedin,
     color: "text-blue-500 hover:text-blue-400",
     bg: "hover:bg-blue-900/30",
     link: "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
     label: "LinkedIn",
   },
   {
-    icon: "lineicons:whatsapp",
+    icon: LineWhatsapp,
     color: "text-green-500 hover:text-green-400",
     bg: "hover:bg-green-900/30",
     link: "https://wa.me/09025574357",
@@ -58,32 +85,36 @@ const socialLinks: SocialLink[] = [
 ];
 
 // Memoized menu item component
-const MenuItem = memo(({ 
-  item, 
-  isActive, 
-  onClick 
-}: { 
-  item: NavItem; 
-  isActive: boolean; 
-  onClick: () => void;
-}) => (
-  <button
-    onClick={onClick}
-    className={`group relative flex items-center gap-4 w-full px-4 py-3 rounded-xl text-left transition-all duration-300 ${
-      isActive
-        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
-        : "text-gray-300 hover:bg-white/5 hover:text-white"
-    }`}
-  >
-    <div className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"}`}>
-      <Icon icon={item.icon} width="22" height="22" />
-    </div>
-    <span className="text-base font-medium tracking-wide">{item.title}</span>
-    {isActive && (
-      <div className="absolute right-3 w-2 h-2 rounded-full bg-white animate-pulse" />
-    )}
-  </button>
-));
+const MenuItem = memo(
+  ({
+    item,
+    isActive,
+    onClick,
+  }: {
+    item: NavItem;
+    isActive: boolean;
+    onClick: () => void;
+  }) => (
+    <button
+      onClick={onClick}
+      className={`group relative flex items-center gap-4 w-full px-4 py-3 rounded-xl text-left transition-all duration-300 ${
+        isActive
+          ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
+          : "text-gray-300 hover:bg-white/5 hover:text-white"
+      }`}
+    >
+      <div
+        className={`transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"}`}
+      >
+        <item.icon width="22" height="22" />
+      </div>
+      <span className="text-base font-medium tracking-wide">{item.title}</span>
+      {isActive && (
+        <div className="absolute right-3 w-2 h-2 rounded-full bg-white animate-pulse" />
+      )}
+    </button>
+  ),
+);
 
 MenuItem.displayName = "MenuItem";
 
@@ -96,7 +127,7 @@ const SocialLink = memo(({ social }: { social: SocialLink }) => (
     aria-label={social.label}
     className={`group relative p-3 rounded-xl transition-all duration-300 ${social.color} ${social.bg}`}
   >
-    <Icon icon={social.icon} width="24" height="24" />
+    <social.icon width="24" height="24" />
     <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black/90 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
       {social.label}
     </span>
@@ -133,7 +164,7 @@ const BurgerMenu: React.FC = () => {
 
     const handleScroll = () => {
       if (rafId) return;
-      
+
       rafId = requestAnimationFrame(() => {
         const scrollY = window.pageYOffset;
         const viewportHeight = window.innerHeight;
@@ -151,7 +182,7 @@ const BurgerMenu: React.FC = () => {
             }
           }
         }
-        
+
         rafId = 0;
       });
     };
@@ -195,7 +226,7 @@ const BurgerMenu: React.FC = () => {
         aria-label="Open menu"
         className="fixed top-5 right-5 z-50 p-3 rounded-2xl bg-gradient-to-br from-gray-900/90 to-gray-800/90 text-white backdrop-blur-xl shadow-xl hover:shadow-cyan-500/20 transition-all duration-300 hover:scale-105 lg:hidden border border-white/10"
       >
-        <Icon icon="solar:hamburger-menu-bold" width="26" height="26" />
+        <SolarHamburgerMenuIcon width="26" height="26" />
       </button>
 
       {/* Overlay */}
@@ -216,7 +247,7 @@ const BurgerMenu: React.FC = () => {
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center">
-              <Icon icon="solar:user-bold" width="20" height="20" />
+              <SolarUserIcon width="20" height="20" />
             </div>
             <div>
               <h3 className="text-lg font-bold">Menu</h3>
@@ -228,7 +259,7 @@ const BurgerMenu: React.FC = () => {
             aria-label="Close menu"
             className="p-2 rounded-xl hover:bg-white/10 transition-colors"
           >
-            <Icon icon="solar:close-circle-bold" width="28" height="28" />
+            <SolarCloseCircle width="28" height="28" />
           </button>
         </div>
 
@@ -248,7 +279,9 @@ const BurgerMenu: React.FC = () => {
 
           {/* Social Links Section */}
           <div className="px-6 pb-6 pt-4 border-t border-white/10">
-            <p className="text-sm font-medium text-gray-400 mb-4">Connect with me</p>
+            <p className="text-sm font-medium text-gray-400 mb-4">
+              Connect with me
+            </p>
             <div className="flex justify-center gap-3">
               {socialLinks.map((social) => (
                 <SocialLink key={social.label} social={social} />
