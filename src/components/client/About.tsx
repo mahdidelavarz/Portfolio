@@ -328,8 +328,8 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
               <div className="md:col-span-1 flex flex-col items-center">
                 <div className="w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 relative overflow-hidden group">
                   <SolarUserIcon
-                    width={80}
-                    height={80}
+                    width={120}
+                    height={120}
                     className="text-white"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

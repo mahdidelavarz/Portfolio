@@ -1,19 +1,9 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Inter, Poppins } from "next/font/google";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-poppins",
-});
+
+
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -169,7 +159,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable}`}
+      // className={`${inter.variable} ${poppins.variable}`}
       suppressHydrationWarning
     >
       <head>

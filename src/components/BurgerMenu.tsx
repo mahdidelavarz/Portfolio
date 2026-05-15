@@ -1,6 +1,5 @@
 "use client";
 import {
-  HomeIcon,
   HugeIconsTelegram,
   LineMdGithubLoop,
   LineWhatsapp,
@@ -9,6 +8,7 @@ import {
   MingcuteUserWarningFill,
   SolarCloseCircle,
   SolarHamburgerMenuIcon,
+  SolarHome2BoldIcon,
   SolarUserIcon,
   SreamlineArtificialIntelegence,
   StLinkedin,
@@ -32,7 +32,7 @@ interface SocialLink {
 }
 
 const navItems: NavItem[] = [
-  { id: "home", title: "Home", icon: HomeIcon },
+  { id: "home", title: "Home", icon: SolarHome2BoldIcon },
   { id: "aboutme", title: "About Me", icon: MingcuteUserWarningFill },
   { id: "educations", title: "Educations", icon: MdiAccountStudent },
   { id: "experiences", title: "Experiences", icon: MingcuteUserStarFill },

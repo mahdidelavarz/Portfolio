@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  HomeIcon,
   MdiAccountStudent,
   MingcuteUserStarFill,
   MingcuteUserWarningFill,
+  SolarHome2BoldIcon,
   SreamlineArtificialIntelegence,
   StreamlineKeyboardSolid,
   StreamlinePhoneBold,
@@ -19,7 +19,7 @@ interface NavItem {
 
 // Move static data outside component to prevent recreation
 const NAVIGATION_ITEMS: NavItem[] = [
-  { id: "home", title: "Home", iconName: HomeIcon },
+  { id: "home", title: "Home", iconName: SolarHome2BoldIcon },
   { id: "aboutme", title: "About Me", iconName: MingcuteUserWarningFill },
   { id: "educations", title: "Educations", iconName: MdiAccountStudent },
   {

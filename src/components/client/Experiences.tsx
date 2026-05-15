@@ -26,19 +26,19 @@ const EXPERIENCES = [
   {
     id: 0,
     company: "Petco",
-    role: "Full-Stack Developer",
-    period: "2022 - Present",
+    role: "FrontEnd Developer",
+    period: "2023 - Present",
     duration: "2+ Years",
     location: "Tabriz, Iran",
     type: "Full-Time",
     icon: SolarBuildingsBoldIcon,
     color: "from-cyan-500 to-blue-600",
     description:
-      "Leading enterprise ERP system development, architecting scalable solutions for thousands of users.",
+      "Leading enterprise ERP system development, architecting scalable solutions for hundreds of users.",
     highlights: [
       "Built frontend infrastructure from scratch",
       "40% faster development with library",
-      "Serving 10,000+ daily active users",
+      "Serving 300+ daily active users",
       "60% performance improvement",
     ],
     technologies: [

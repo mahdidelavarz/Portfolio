@@ -23,187 +23,384 @@ function Projects({ scrollToSection }: ProjectsProps) {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
+  // const projects = [
+  //   {
+  //     id: 1,
+  //     title: "E-Commerce Platform",
+  //     subtitle: "Next-Gen Shopping Experience",
+  //     description:
+  //       "A comprehensive full-stack e-commerce solution featuring real-time inventory management, AI-powered recommendations, and seamless payment processing. Built with performance and scalability in mind.",
+  //     technologies: ["React", "Next.js", "TypeScript", "Stripe", "PostgreSQL"],
+  //     category: "Full Stack",
+  //     year: "2024",
+  //     metrics: {
+  //       users: { value: "10K+", label: "Active Users", icon: LucideUsers },
+  //       performance: {
+  //         value: "98%",
+  //         label: "Performance Score",
+  //         icon: LucideTrendingUp,
+  //       },
+  //       conversion: {
+  //         value: "+15%",
+  //         label: "Conversion Rate",
+  //         icon: LucideArrowRight,
+  //       },
+  //     },
+  //     image: "/img1_.jpg",
+  //     color: "from-blue-500 to-indigo-500",
+  //     features: [
+  //       "Real-time inventory",
+  //       "AI recommendations",
+  //       "Mobile-first design",
+  //       "Analytics dashboard",
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "3D Portfolio Website",
+  //     subtitle: "Immersive Digital Experience",
+  //     description:
+  //       "An innovative portfolio featuring cutting-edge Three.js animations and WebGL shaders. Creates an unforgettable user experience with smooth 60fps performance.",
+  //     technologies: ["React", "Three.js", "WebGL", "GLSL"],
+  //     category: "3D Web",
+  //     year: "2024",
+  //     metrics: {
+  //       users: {
+  //         value: "5K+",
+  //         label: "Monthly Visitors",
+  //         icon: LucideUsers,
+  //       },
+  //       performance: {
+  //         value: "60fps",
+  //         label: "Frame Rate",
+  //         icon: LucideUsers,
+  //       },
+  //       engagement: {
+  //         value: "4.2min",
+  //         label: "Avg. Session",
+  //         icon: LucideClock,
+  //       },
+  //     },
+  //     image: "/img2_.jpg",
+  //     color: "from-purple-500 to-pink-500",
+  //     features: [
+  //       "WebGL shaders",
+  //       "3D interactions",
+  //       "Particle effects",
+  //       "Responsive design",
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Task Management Platform",
+  //     subtitle: "Team Collaboration Redefined",
+  //     description:
+  //       "A powerful collaborative platform with real-time updates, advanced team analytics, and intuitive project tracking. Trusted by hundreds of teams worldwide.",
+  //     technologies: ["React", "Socket.io", "Node.js", "MongoDB"],
+  //     category: "Web App",
+  //     year: "2023",
+  //     metrics: {
+  //       users: { value: "25K+", label: "Active Users", icon: LucideUsers },
+  //       teams: { value: "500+", label: "Teams", icon: LucideUsers },
+  //       retention: {
+  //         value: "85%",
+  //         label: "Retention Rate",
+  //         icon: LucideTrendingUp,
+  //       },
+  //     },
+  //     image: "/img3_.jpg",
+  //     color: "from-green-500 to-teal-500",
+  //     features: [
+  //       "Real-time sync",
+  //       "Team analytics",
+  //       "Kanban boards",
+  //       "Time tracking",
+  //     ],
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "AI Chat Interface",
+  //     subtitle: "Next-Level Conversational AI",
+  //     description:
+  //       "A sophisticated AI chat interface with advanced message streaming, context awareness, and support for multiple languages. Handles millions of conversations with ease.",
+  //     technologies: ["React", "TypeScript", "OpenAI API", "WebSocket"],
+  //     category: "AI/ML",
+  //     year: "2024",
+  //     metrics: {
+  //       messages: { value: "1M+", label: "Messages", icon: LuciedPlay },
+  //       response: {
+  //         value: "<1s",
+  //         label: "Response Time",
+  //         icon: LucideClock,
+  //       },
+  //       accuracy: {
+  //         value: "94%",
+  //         label: "Accuracy",
+  //         icon: LucideTrendingUp,
+  //       },
+  //     },
+  //     image: "/img4_.jpg",
+  //     color: "from-orange-500 to-red-500",
+  //     features: [
+  //       "Stream responses",
+  //       "Multi-language",
+  //       "Context memory",
+  //       "Voice input",
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Analytics Dashboard",
+  //     subtitle: "Data Visualization Excellence",
+  //     description:
+  //       "A comprehensive real-time analytics platform with stunning interactive visualizations. Processes millions of data points with sub-second response times.",
+  //     technologies: ["React", "D3.js", "Chart.js", "FastAPI"],
+  //     category: "Data Viz",
+  //     year: "2024",
+  //     metrics: {
+  //       dataPoints: {
+  //         value: "10M+",
+  //         label: "Data Points",
+  //         icon: LucideTrendingUp,
+  //       },
+  //       dashboards: { value: "500+", label: "Dashboards", icon: LuciedPlay },
+  //       uptime: { value: "99.9%", label: "Uptime", icon: LucideClock },
+  //     },
+  //     image: "/img5_.jpg",
+  //     color: "from-cyan-500 to-blue-500",
+  //     features: [
+  //       "Real-time updates",
+  //       "Custom widgets",
+  //       "Export reports",
+  //       "API integration",
+  //     ],
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Progressive Web App",
+  //     subtitle: "Cross-Platform Excellence",
+  //     description:
+  //       "A cutting-edge PWA with offline capabilities, push notifications, and native-like performance. Delivers seamless experience across all devices.",
+  //     technologies: ["React", "PWA", "Service Workers", "IndexedDB"],
+  //     category: "Mobile",
+  //     year: "2023",
+  //     metrics: {
+  //       installs: { value: "15K+", label: "Installs", icon: LucideUsers },
+  //       offline: { value: "90%", label: "Offline Ready", icon: LuciedPlay },
+  //       engagement: {
+  //         value: "60%",
+  //         label: "Engagement",
+  //         icon: LucideTrendingUp,
+  //       },
+  //     },
+  //     image: "/img6_.jpg",
+  //     color: "from-indigo-500 to-purple-500",
+  //     features: [
+  //       "Offline mode",
+  //       "Push notifications",
+  //       "App shortcuts",
+  //       "Background sync",
+  //     ],
+  //   },
+  // ];
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      subtitle: "Next-Gen Shopping Experience",
+      title: "Nazishop",
+      subtitle: "Full-Featured E-Commerce Platform",
       description:
-        "A comprehensive full-stack e-commerce solution featuring real-time inventory management, AI-powered recommendations, and seamless payment processing. Built with performance and scalability in mind.",
-      technologies: ["React", "Next.js", "TypeScript", "Stripe", "PostgreSQL"],
+        "A comprehensive e-commerce solution with SMS-based authentication, advanced product management, and a powerful admin dashboard. Features intelligent search with filtering, favorites, cart system, and full SEO optimization for maximum visibility.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "React Query",
+        "Zustand",
+        "Supabase",
+        "Kavehnegar SMS",
+      ],
       category: "Full Stack",
       year: "2024",
       metrics: {
-        users: { value: "10K+", label: "Active Users", icon: LucideUsers },
-        performance: {
-          value: "98%",
-          label: "Performance Score",
+        features: {
+          value: "15+",
+          label: "Core Features",
           icon: LucideTrendingUp,
         },
-        conversion: {
-          value: "+15%",
-          label: "Conversion Rate",
-          icon: LucideArrowRight,
+        performance: {
+          value: "95%",
+          label: "Lighthouse Score",
+          icon: LucideTrendingUp,
+        },
+        auth: {
+          value: "SMS",
+          label: "Authentication",
+          icon: LucideUsers,
         },
       },
       image: "/img1_.jpg",
       color: "from-blue-500 to-indigo-500",
       features: [
-        "Real-time inventory",
-        "AI recommendations",
-        "Mobile-first design",
-        "Analytics dashboard",
+        "SMS authentication",
+        "Advanced search & filters",
+        "Admin dashboard",
+        "SEO optimized",
       ],
+      liveUrl: "https://nazishop.com",
     },
     {
       id: 2,
-      title: "3D Portfolio Website",
-      subtitle: "Immersive Digital Experience",
+      title: "Bermod",
+      subtitle: "Real-Time Messaging Platform",
       description:
-        "An innovative portfolio featuring cutting-edge Three.js animations and WebGL shaders. Creates an unforgettable user experience with smooth 60fps performance.",
-      technologies: ["React", "Three.js", "WebGL", "GLSL"],
-      category: "3D Web",
+        "A high-performance real-time messenger supporting chat rooms, private messaging, and presence status indicators. Engineered for sub-100ms message delivery with 100+ concurrent users, delivering a seamless communication experience.",
+      technologies: [
+        "Next.js",
+        "Express",
+        "TypeORM",
+        "Tailwind CSS",
+        "Socket.io",
+      ],
+      category: "Full Stack",
       year: "2024",
       metrics: {
-        users: {
-          value: "5K+",
-          label: "Monthly Visitors",
-          icon: LucideUsers,
-        },
-        performance: {
-          value: "60fps",
-          label: "Frame Rate",
-          icon: LucideUsers,
-        },
-        engagement: {
-          value: "4.2min",
-          label: "Avg. Session",
+        latency: {
+          value: "<100ms",
+          label: "Message Latency",
           icon: LucideClock,
+        },
+        concurrent: {
+          value: "100+",
+          label: "Concurrent Users",
+          icon: LucideUsers,
+        },
+        features: {
+          value: "3",
+          label: "Chat Modes",
+          icon: LuciedPlay,
         },
       },
       image: "/img2_.jpg",
       color: "from-purple-500 to-pink-500",
       features: [
-        "WebGL shaders",
-        "3D interactions",
-        "Particle effects",
-        "Responsive design",
+        "Real-time messaging",
+        "Chat rooms & DMs",
+        "Presence status",
+        "WebSocket transport",
       ],
+      github: "github.com/mahdidelavarz/chat-app",
     },
     {
       id: 3,
-      title: "Task Management Platform",
-      subtitle: "Team Collaboration Redefined",
+      title: "ERP System",
+      subtitle: "Enterprise Resource Planning",
       description:
-        "A powerful collaborative platform with real-time updates, advanced team analytics, and intuitive project tracking. Trusted by hundreds of teams worldwide.",
-      technologies: ["React", "Socket.io", "Node.js", "MongoDB"],
-      category: "Web App",
-      year: "2023",
+        "A robust enterprise management system featuring complex dynamic forms, role-based permissions with cookie authentication, and advanced data tables with per-column search, global filtering, and Stimulsoft report generation. Built with a scalable factory pattern architecture.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "React Query",
+        "Zustand",
+        "SQL Server",
+        ".NET Core",
+      ],
+      category: "Enterprise",
+      year: "2024",
       metrics: {
-        users: { value: "25K+", label: "Active Users", icon: LucideUsers },
-        teams: { value: "500+", label: "Teams", icon: LucideUsers },
-        retention: {
-          value: "85%",
-          label: "Retention Rate",
-          icon: LucideTrendingUp,
+        tables: { value: "50+", label: "Data Tables", icon: LucideTrendingUp },
+        permissions: { value: "5", label: "Role Levels", icon: LucideUsers },
+        reports: {
+          value: "Stimulsoft",
+          label: "Report Engine",
+          icon: LuciedPlay,
         },
       },
       image: "/img3_.jpg",
       color: "from-green-500 to-teal-500",
       features: [
-        "Real-time sync",
-        "Team analytics",
-        "Kanban boards",
-        "Time tracking",
+        "Role-based access",
+        "Dynamic form factory",
+        "Column-level search",
+        "Report generation",
       ],
     },
     {
       id: 4,
-      title: "AI Chat Interface",
-      subtitle: "Next-Level Conversational AI",
+      title: "Freelancering",
+      subtitle: "Multi-Role Freelance Platform",
       description:
-        "A sophisticated AI chat interface with advanced message streaming, context awareness, and support for multiple languages. Handles millions of conversations with ease.",
-      technologies: ["React", "TypeScript", "OpenAI API", "WebSocket"],
-      category: "AI/ML",
+        "A comprehensive three-panel freelance marketplace connecting freelancers, employers, and administrators. Features SMS verification, project proposals, job creation workflows, and full admin moderation capabilities with smooth animations throughout.",
+      technologies: [
+        "React",
+        "Node.js",
+        "Tailwind CSS",
+        "React Query",
+        "Framer Motion",
+      ],
+      category: "Full Stack",
       year: "2024",
       metrics: {
-        messages: { value: "1M+", label: "Messages", icon: LuciedPlay },
-        response: {
-          value: "<1s",
-          label: "Response Time",
-          icon: LucideClock,
+        panels: { value: "3", label: "User Roles", icon: LucideUsers },
+        verification: {
+          value: "SMS",
+          label: "Auth Method",
+          icon: LucideUsers,
         },
-        accuracy: {
-          value: "94%",
-          label: "Accuracy",
-          icon: LucideTrendingUp,
+        animations: {
+          value: "60fps",
+          label: "Animation",
+          icon: LuciedPlay,
         },
       },
       image: "/img4_.jpg",
       color: "from-orange-500 to-red-500",
       features: [
-        "Stream responses",
-        "Multi-language",
-        "Context memory",
-        "Voice input",
+        "Three-role system",
+        "SMS verification",
+        "Proposal management",
+        "Admin moderation",
       ],
+      github: "github.com/mahdidelavarz/freelancering-app",
     },
     {
       id: 5,
-      title: "Analytics Dashboard",
-      subtitle: "Data Visualization Excellence",
+      title: "LinkVault",
+      subtitle: "Smart Bookmark Management",
       description:
-        "A comprehensive real-time analytics platform with stunning interactive visualizations. Processes millions of data points with sub-second response times.",
-      technologies: ["React", "D3.js", "Chart.js", "FastAPI"],
-      category: "Data Viz",
+        "A full-stack bookmark manager with intelligent tagging, categorization, and secure authentication. Fully containerized with Docker Compose for seamless deployment, enabling efficient organization and retrieval of saved resources.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Docker",
+        "NextAuth",
+      ],
+      category: "Full Stack",
       year: "2024",
       metrics: {
-        dataPoints: {
-          value: "10M+",
-          label: "Data Points",
-          icon: LucideTrendingUp,
+        stack: { value: "Full", label: "Stack Type", icon: LucideTrendingUp },
+        deployment: {
+          value: "Docker",
+          label: "Containerized",
+          icon: LuciedPlay,
         },
-        dashboards: { value: "500+", label: "Dashboards", icon: LuciedPlay },
-        uptime: { value: "99.9%", label: "Uptime", icon: LucideClock },
+        auth: {
+          value: "OAuth",
+          label: "Authentication",
+          icon: LucideUsers,
+        },
       },
       image: "/img5_.jpg",
       color: "from-cyan-500 to-blue-500",
       features: [
-        "Real-time updates",
-        "Custom widgets",
-        "Export reports",
-        "API integration",
+        "Tag-based organization",
+        "Category management",
+        "OAuth authentication",
+        "Docker deployment",
       ],
+      github: "github.com/mahdidelavarz/linkvault",
     },
-    {
-      id: 6,
-      title: "Progressive Web App",
-      subtitle: "Cross-Platform Excellence",
-      description:
-        "A cutting-edge PWA with offline capabilities, push notifications, and native-like performance. Delivers seamless experience across all devices.",
-      technologies: ["React", "PWA", "Service Workers", "IndexedDB"],
-      category: "Mobile",
-      year: "2023",
-      metrics: {
-        installs: { value: "15K+", label: "Installs", icon: LucideUsers },
-        offline: { value: "90%", label: "Offline Ready", icon: LuciedPlay },
-        engagement: {
-          value: "60%",
-          label: "Engagement",
-          icon: LucideTrendingUp,
-        },
-      },
-      image: "/img6_.jpg",
-      color: "from-indigo-500 to-purple-500",
-      features: [
-        "Offline mode",
-        "Push notifications",
-        "App shortcuts",
-        "Background sync",
-      ],
-    },
+   
   ];
-
   const currentProject = projects[selectedProject];
 
   const handlePrevious = () => {
@@ -356,7 +553,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
             </div>
 
             {/* Thumbnail Grid - Desktop Only */}
-            <div className="hidden lg:grid grid-cols-6 gap-3 mt-6">
+            <div className="hidden lg:grid grid-cols-5 gap-3 mt-6">
               {projects.map((project, index) => (
                 <button
                   key={project.id}
@@ -396,7 +593,7 @@ function Projects({ scrollToSection }: ProjectsProps) {
               }`}
             >
               {/* Project Info Card - Fixed height on desktop */}
-              <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-slate-700/50 lg:h-[750px] flex flex-col">
+              <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-slate-700/50 lg:h-[770px] flex flex-col">
                 {/* Year Badge */}
                 <div className="flex items-center justify-between mb-4 sm:mb-6">
                   <span className="text-xs sm:text-sm font-medium text-slate-500">

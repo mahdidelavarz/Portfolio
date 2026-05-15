@@ -9,6 +9,7 @@ import {
 } from "react";
 import {
   DevIconSupabase,
+  ExpressIcon,
   FaSolidPuzzlePieceIcon,
   LogoPostgresIcon,
   LogosDockerIcon,
@@ -25,7 +26,9 @@ import {
   SimpleIconCypress,
   SimpleThreedorJs,
   SkillIconsDotnet,
+  TypeOrmIcon,
   VscodeFileTypeSql,
+  ZustandIcon,
 } from "../../icons/icons";
 import {
   MingcuteCodeLine,
@@ -45,7 +48,7 @@ interface SkillsProps {
 // Types
 type Skill = {
   name: string;
-  mastery: number;
+  level: "Expert" | "Advanced" | "Proficient" | "Familiar" | "Intermediate";
   years: number;
   icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
   color: string;
@@ -81,18 +84,18 @@ const SkillCard = memo(
     isActive: boolean;
     stackColor: string;
   }) => {
-    const [progress, setProgress] = useState(0);
+    // const [progress, setProgress] = useState(0);
 
-    useEffect(() => {
-      if (isVisible && isActive) {
-        const timer = setTimeout(() => {
-          setProgress(skill.mastery);
-        }, index * 100);
-        return () => clearTimeout(timer);
-      } else {
-        setProgress(0);
-      }
-    }, [isVisible, isActive, skill.mastery, index]);
+    // useEffect(() => {
+    //   if (isVisible && isActive) {
+    //     const timer = setTimeout(() => {
+    //       setProgress(skill.mastery);
+    //     }, index * 100);
+    //     return () => clearTimeout(timer);
+    //   } else {
+    //     setProgress(0);
+    //   }
+    // }, [isVisible, isActive, skill.mastery, index]);
 
     return (
       <div
@@ -101,7 +104,7 @@ const SkillCard = memo(
         }`}
         style={{ transitionDelay: `${index * 100}ms` }}
       >
-        <div className="relative h-full bg-gray-800/70  border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2 backdrop-blur-3xl">
+        <div className="relative h-full bg-gray-800/70  border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-400/30 transition-all duration-500 group hover:-translate-y-2 backdrop-blur-3xl flex flex-col items-center justify-between">
           {/* Icon */}
           <div className="relative z-10 flex justify-center mb-4">
             <div
@@ -112,23 +115,31 @@ const SkillCard = memo(
           </div>
 
           {/* Name */}
-          <h3 className="relative z-10 text-lg font-bold text-white text-center mb-2">
+          <h3 className="relative z-10 text-lg font-bold text-white text-center mb-2 text-nowrap">
             {skill.name}
           </h3>
 
-          {/* Progress Bar */}
+          {/* Proficiency Level */}
           <div className="relative z-10 mb-4">
             <div className="flex justify-between items-center mb-2">
               <span className="text-xs text-slate-400">Proficiency</span>
-              <span className="text-xs font-semibold text-cyan-400">
-                {skill.mastery}%
+              <span className="text-xs font-semibold text-cyan-400 capitalize">
+                {skill.level}
               </span>
             </div>
-            <div className="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+            <div className="w-full h-1 bg-slate-700/50 rounded-full overflow-hidden">
               <div
                 className={`h-full bg-gradient-to-r ${stackColor} rounded-full transition-all duration-1000 ease-out`}
                 style={{
-                  width: `${progress}%`,
+                  width: `${
+                    skill.level === "Expert"
+                      ? 95
+                      : skill.level === "Advanced"
+                        ? 75
+                        : skill.level === "Intermediate"
+                          ? 50
+                          : 25
+                  }%`,
                   transitionDelay: `${index * 100}ms`,
                 }}
               />
@@ -228,7 +239,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       skills: [
         {
           name: "React.js",
-          mastery: 95,
+          level: "Expert",
           years: 3,
           icon: LogosReactIcon,
           color: "text-cyan-400",
@@ -237,7 +248,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Next.js",
-          mastery: 90,
+          level: "Advanced",
           years: 2,
           icon: LogosNextjsIcon,
           color: "text-white",
@@ -245,7 +256,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "TypeScript",
-          mastery: 88,
+          level: "Advanced",
           years: 2.5,
           icon: LogosTypescriptBold,
           color: "text-blue-500",
@@ -253,27 +264,27 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Tailwind CSS",
-          mastery: 92,
-          years: 2,
+          level: "Expert",
+          years: 3,
           icon: LogosTailwindCssIcon,
           color: "text-teal-400",
           description: "Rapid UI development with utility-first CSS",
         },
         {
           name: "TanStack Query",
-          mastery: 85,
-          years: 1.5,
+          level: "Expert",
+          years: 2.5,
           icon: LogosReactQuery,
           color: "text-purple-400",
-          description: "Creating smooth animations and interactions",
+          description: "Efficient server state management and data fetching",
         },
         {
-          name: "Three.js",
-          mastery: 75,
-          years: 1,
-          icon: SimpleThreedorJs,
+          name: "Zustand",
+          level: "Expert",
+          years: 2.5,
+          icon: ZustandIcon,
           color: "text-white",
-          description: "3D graphics and WebGL experiences",
+          description: "Lightweight state management for React applications",
         },
       ],
     },
@@ -286,36 +297,55 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       bgGradient: "from-purple-500/10 to-pink-600/10",
       skills: [
         {
-          name: ".Net Core",
-          mastery: 75,
+          name: ".NET Core",
+          level: "Familiar",
           years: 1,
           icon: SkillIconsDotnet,
           color: "text-red-500",
-          description: "Caching and session management",
+          description:
+            "Building robust APIs with middleware and dependency injection",
         },
         {
-          name: "MongoDB",
-          mastery: 82,
-          years: 2,
+          name: "Express",
+          level: "Intermediate",
+          years: 1,
+          icon: ExpressIcon,
+          color: "text-teal-500",
+          description: "RESTful API development with middleware architecture",
+        },
+        {
+          name: "TypeORM",
+          level: "Intermediate",
+          years: 1,
+          icon: TypeOrmIcon,
+          color: "text-blue-500",
+          description: "Type-safe database operations with entity management",
+        },
+        {
+          name: "PostgreSQL",
+          level: "Intermediate",
+          years: 1,
           icon: LogoPostgresIcon,
           color: "text-green-500",
-          description: "NoSQL database design and optimization",
+          description:
+            "Relational database design, optimization, and complex queries",
         },
         {
           name: "SQL Server",
-          mastery: 78,
-          years: 1.5,
+          level: "Proficient",
+          years: 2,
           icon: VscodeFileTypeSql,
           color: "text-blue-400",
-          description: "Relational database management",
+          description: "Enterprise database management with stored procedures",
         },
         {
           name: "Supabase",
-          mastery: 78,
+          level: "Proficient",
           years: 1.5,
           icon: DevIconSupabase,
           color: "text-blue-400",
-          description: "Relational database management",
+          description:
+            "Backend-as-a-service with real-time subscriptions and auth",
         },
       ],
     },
@@ -329,51 +359,55 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       skills: [
         {
           name: "Git",
-          mastery: 90,
+          level: "Expert",
           years: 3,
           icon: LogosGitIcon,
           color: "text-orange-500",
-          description: "Version control and collaboration",
+          description:
+            "Advanced version control, branching strategies, and team collaboration",
         },
         {
           name: "Docker",
-          mastery: 75,
+          level: "Proficient",
           years: 1,
           icon: LogosDockerIcon,
           color: "text-blue-500",
-          description: "Containerization and deployment",
+          description:
+            "Containerization, Docker Compose, and deployment pipelines",
         },
         {
           name: "Webpack",
-          mastery: 80,
+          level: "Proficient",
           years: 2,
           icon: LogosWebpackIcon,
           color: "text-blue-400",
-          description: "Module bundling and optimization",
+          description:
+            "Module bundling, code splitting, and build optimization",
         },
         {
           name: "Vite",
-          mastery: 85,
-          years: 1.5,
+          level: "Advanced",
+          years: 2.5,
           icon: LogosViteIcon,
           color: "text-purple-500",
-          description: "Fast build tool for modern web",
+          description: "Lightning-fast build tooling and HMR configuration",
         },
         {
           name: "Jest",
-          mastery: 82,
-          years: 2,
+          level: "Proficient",
+          years: 1.5,
           icon: LogosJestIcon,
           color: "text-red-500",
-          description: "Unit testing and test coverage",
+          description: "Comprehensive unit testing with high code coverage",
         },
         {
           name: "Cypress",
-          mastery: 78,
+          level: "Familiar",
           years: 1,
           icon: SimpleIconCypress,
           color: "text-green-500",
-          description: "End-to-end testing automation",
+          description:
+            "End-to-end testing with component and integration tests",
         },
       ],
     },
@@ -387,7 +421,7 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       skills: [
         {
           name: "Figma",
-          mastery: 85,
+          level: "Familiar",
           years: 2,
           icon: LogosFigmaIcon,
           color: "text-purple-500",
@@ -457,11 +491,11 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
   const stats = (() => {
     const allSkills = Object.values(skillStacks).flatMap((s) => s.skills);
     const totalSkills = allSkills.length;
-    const avgMastery = Math.round(
-      allSkills.reduce((sum, s) => sum + s.mastery, 0) / totalSkills,
-    );
+    // const avgMastery = Math.round(
+    //   allSkills.reduce((sum, s) => sum + s.mastery, 0) / totalSkills,
+    // );
     const totalExperience = Math.max(...allSkills.map((s) => s.years));
-    return { totalSkills, avgMastery, totalExperience };
+    return { totalSkills, totalExperience };
   })();
 
   return (
@@ -524,9 +558,9 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
             <div className="text-slate-400 text-sm">Technologies</div>
           </div>
           <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-purple-400/50 transition-all duration-300">
-            <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+            {/* <div className="text-2xl md:text-3xl font-bold text-white mb-1">
               {stats.avgMastery}%
-            </div>
+            </div> */}
             <div className="text-slate-400 text-sm">Avg Mastery</div>
           </div>
           <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-emerald-400/50 transition-all duration-300">
