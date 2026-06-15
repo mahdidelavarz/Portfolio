@@ -13,21 +13,21 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Resume/CV Download Link (if publicly accessible) -->
+  <!-- Resume/CV Download -->
   <url>
-    <loc>https://mahdidelavar.ir/resume.pdf</loc>
+    <loc>https://mahdidelavar.ir/Mahdi_Delavar.pdf</loc>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Portfolio Images (Add your actual project images) -->
+  <!-- Portfolio Project Images -->
   <url>
-    <loc>https://mahdidelavar.ir/img1_.jpg</loc>
+    <loc>https://mahdidelavar.ir/imge1_.jpg</loc>
     <image:image>
-      <image:loc>https://mahdidelavar.ir/img1_.jpg</image:loc>
-      <image:title>E-Commerce Platform Project</image:title>
-      <image:caption>Full-stack e-commerce solution with React and Next.js</image:caption>
+      <image:loc>https://mahdidelavar.ir/imge1_.jpg</image:loc>
+      <image:title>Nazi Shop - Full-Stack E-Commerce Platform</image:title>
+      <image:caption>E-commerce monorepo with Next.js storefront and Express + TypeORM backend</image:caption>
     </image:image>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
@@ -35,11 +35,11 @@
   </url>
 
   <url>
-    <loc>https://mahdidelavar.ir/img2_.jpg</loc>
+    <loc>https://mahdidelavar.ir/imge2_.jpg</loc>
     <image:image>
-      <image:loc>https://mahdidelavar.ir/img2_.jpg</image:loc>
-      <image:title>3D Portfolio Website</image:title>
-      <image:caption>Interactive 3D portfolio with Three.js and WebGL</image:caption>
+      <image:loc>https://mahdidelavar.ir/imge2_.jpg</image:loc>
+      <image:title>ChatVault - Real-Time Messaging App</image:title>
+      <image:caption>Full-stack chat application with Socket.io and Next.js</image:caption>
     </image:image>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
@@ -47,11 +47,11 @@
   </url>
 
   <url>
-    <loc>https://mahdidelavar.ir/img3_.jpg</loc>
+    <loc>https://mahdidelavar.ir/erp.png</loc>
     <image:image>
-      <image:loc>https://mahdidelavar.ir/img3_.jpg</image:loc>
-      <image:title>Task Management Platform</image:title>
-      <image:caption>Real-time collaborative platform with Socket.io</image:caption>
+      <image:loc>https://mahdidelavar.ir/erp.png</image:loc>
+      <image:title>ERP Core - Modular ERP with Clean Architecture</image:title>
+      <image:caption>Enterprise resource planning system built with .NET Clean Architecture and React</image:caption>
     </image:image>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
@@ -59,35 +59,11 @@
   </url>
 
   <url>
-    <loc>https://mahdidelavar.ir/img4_.jpg</loc>
+    <loc>https://mahdidelavar.ir/imge3_.jpg</loc>
     <image:image>
-      <image:loc>https://mahdidelavar.ir/img4_.jpg</image:loc>
-      <image:title>AI Chat Interface</image:title>
-      <image:caption>Advanced AI chat interface with OpenAI integration</image:caption>
-    </image:image>
-    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://mahdidelavar.ir/img5_.jpg</loc>
-    <image:image>
-      <image:loc>https://mahdidelavar.ir/img5_.jpg</image:loc>
-      <image:title>Analytics Dashboard</image:title>
-      <image:caption>Real-time analytics platform with D3.js visualizations</image:caption>
-    </image:image>
-    <lastmod>2024-01-01T00:00:00+00:00</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://mahdidelavar.ir/img6_.jpg</loc>
-    <image:image>
-      <image:loc>https://mahdidelavar.ir/img6_.jpg</image:loc>
-      <image:title>Progressive Web App</image:title>
-      <image:caption>Cross-platform PWA with offline capabilities</image:caption>
+      <image:loc>https://mahdidelavar.ir/imge3_.jpg</image:loc>
+      <image:title>NaziShop - Persian E-Commerce for Beauty & Cosmetics</image:title>
+      <image:caption>Persian/RTL e-commerce platform built with Next.js and Supabase</image:caption>
     </image:image>
     <lastmod>2024-01-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>

@@ -12,11 +12,7 @@ import {
   LuciedPlay,
 } from "@/icons/icons";
 
-interface ProjectsProps {
-  scrollToSection?: (id: string) => void;
-}
-
-function Projects({ scrollToSection }: ProjectsProps) {
+function Projects() {
   const [selectedProject, setSelectedProject] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -26,181 +22,146 @@ function Projects({ scrollToSection }: ProjectsProps) {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      subtitle: "Next-Gen Shopping Experience",
+      title: "Nazi Shop",
+      subtitle: "Full-Stack E-Commerce Platform",
       description:
-        "A comprehensive full-stack e-commerce solution featuring real-time inventory management, AI-powered recommendations, and seamless payment processing. Built with performance and scalability in mind.",
-      technologies: ["React", "Next.js", "TypeScript", "Stripe", "PostgreSQL"],
-      category: "Full Stack",
-      year: "2024",
+        "A production-ready e-commerce monorepo with a Next.js storefront and an Express + TypeORM backend. Includes product variants, cart, wishlist, reviews, coupons, OTP authentication, and a full admin panel for managing products, orders, and inventory - fully containerized with Docker.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Express.js",
+        "TypeORM",
+        "PostgreSQL",
+        "Docker",
+      ],
+      category: "Full Stack E-Commerce",
+      year: "2025-2026",
       metrics: {
-        users: { value: "10K+", label: "Active Users", icon: LucideUsers },
-        performance: {
-          value: "98%",
-          label: "Performance Score",
-          icon: LucideTrendingUp,
-        },
-        conversion: {
-          value: "+15%",
-          label: "Conversion Rate",
-          icon: LucideArrowRight,
-        },
+        entities: { value: "30+", label: "DB Entities", icon: LucideTrendingUp },
+        auth: { value: "OTP", label: "Secure Auth", icon: LucideUsers },
+        deploy: { value: "Docker", label: "Containerized", icon: LuciedPlay },
       },
-      image: "/img1_.jpg",
+      image: "/imge1_.jpg",
       color: "from-blue-500 to-indigo-500",
       features: [
-        "Real-time inventory",
-        "AI recommendations",
-        "Mobile-first design",
-        "Analytics dashboard",
+        "Product variants & cart",
+        "Wishlist, reviews & coupons",
+        "Admin panel for orders & inventory",
+        "RTL/Persian + dark mode",
       ],
+      liveUrl: "http://nazishop.ir",
+      githubUrl: "https://github.com/mahdidelavarz/Ex_ecommerce",
     },
     {
       id: 2,
-      title: "3D Portfolio Website",
-      subtitle: "Immersive Digital Experience",
+      title: "ChatVault",
+      subtitle: "Real-Time Messaging App",
       description:
-        "An innovative portfolio featuring cutting-edge Three.js animations and WebGL shaders. Creates an unforgettable user experience with smooth 60fps performance.",
-      technologies: ["React", "Three.js", "WebGL", "GLSL"],
-      category: "3D Web",
-      year: "2024",
+        "A full-stack chat application with instant messaging powered by Socket.io, a Next.js frontend, and an Express + TypeORM backend. Fully Dockerized with PostgreSQL persistence and production-ready security configuration.",
+      technologies: [
+        "Next.js",
+        "React 19",
+        "TypeScript",
+        "Socket.io",
+        "Express.js",
+        "PostgreSQL",
+        "Docker",
+      ],
+      category: "Real-Time Chat",
+      year: "2025-2026",
       metrics: {
-        users: {
-          value: "5K+",
-          label: "Monthly Visitors",
-          icon: LucideUsers,
+        realtime: {
+          value: "Realtime",
+          label: "Socket.io Messaging",
+          icon: LuciedPlay,
         },
-        performance: {
-          value: "60fps",
-          label: "Frame Rate",
-          icon: LucideUsers,
-        },
-        engagement: {
-          value: "4.2min",
-          label: "Avg. Session",
+        auth: { value: "JWT", label: "Auth & Security", icon: LucideUsers },
+        deploy: {
+          value: "Docker",
+          label: "Multi-Container Setup",
           icon: LucideClock,
         },
       },
-      image: "/img2_.jpg",
-      color: "from-purple-500 to-pink-500",
+      image: "/imge2_.jpg",
+      color: "from-cyan-500 to-blue-500",
       features: [
-        "WebGL shaders",
-        "3D interactions",
-        "Particle effects",
-        "Responsive design",
+        "Instant messaging via WebSockets",
+        "JWT auth with bcrypt",
+        "Docker Compose dev & prod setups",
+        "TypeScript across the stack",
       ],
+      liveUrl: undefined,
+      githubUrl: "https://github.com/mahdidelavarz/chat-app",
     },
     {
       id: 3,
-      title: "Task Management Platform",
-      subtitle: "Team Collaboration Redefined",
+      title: "ERP Core",
+      subtitle: "Modular ERP with Clean Architecture",
       description:
-        "A powerful collaborative platform with real-time updates, advanced team analytics, and intuitive project tracking. Trusted by hundreds of teams worldwide.",
-      technologies: ["React", "Socket.io", "Node.js", "MongoDB"],
-      category: "Web App",
-      year: "2023",
+        "An enterprise resource planning backend built with .NET and Clean Architecture (Domain, Infrastructure, and UI layers), paired with a React + Vite frontend. Designed for managing business operations with strong separation of concerns and built-in reporting.",
+      technologies: [
+        "C# / .NET",
+        "ASP.NET Core",
+        "Entity Framework Core",
+        "React",
+        "Vite",
+        "TypeScript",
+      ],
+      category: "Enterprise ERP",
+      year: "2025-2026",
       metrics: {
-        users: { value: "25K+", label: "Active Users", icon: LucideUsers },
-        teams: { value: "500+", label: "Teams", icon: LucideUsers },
-        retention: {
-          value: "85%",
-          label: "Retention Rate",
-          icon: LucideTrendingUp,
+        arch: { value: "Clean Arch", label: "DDD Layers", icon: LucideTrendingUp },
+        data: { value: "EF Core", label: "Data Access", icon: LucideClock },
+        frontend: {
+          value: "React+Vite",
+          label: "Frontend SPA",
+          icon: LucideUsers,
         },
       },
-      image: "/img3_.jpg",
+      image: "/erp.png",
       color: "from-green-500 to-teal-500",
       features: [
-        "Real-time sync",
-        "Team analytics",
-        "Kanban boards",
-        "Time tracking",
+        "Core / Infrastructure / UI layers",
+        "React + Vite SPA frontend",
+        "Built-in reporting (Stimulsoft)",
+        "Modular, multi-domain structure",
       ],
+      liveUrl: undefined,
+      githubUrl: "https://github.com/mahdidelavarz/erp-core",
     },
     {
       id: 4,
-      title: "AI Chat Interface",
-      subtitle: "Next-Level Conversational AI",
+      title: "NaziShop",
+      subtitle: "Persian E-Commerce for Beauty & Cosmetics",
       description:
-        "A sophisticated AI chat interface with advanced message streaming, context awareness, and support for multiple languages. Handles millions of conversations with ease.",
-      technologies: ["React", "TypeScript", "OpenAI API", "WebSocket"],
-      category: "AI/ML",
-      year: "2024",
-      metrics: {
-        messages: { value: "1M+", label: "Messages", icon: LuciedPlay },
-        response: {
-          value: "<1s",
-          label: "Response Time",
-          icon: LucideClock,
-        },
-        accuracy: {
-          value: "94%",
-          label: "Accuracy",
-          icon: LucideTrendingUp,
-        },
-      },
-      image: "/img4_.jpg",
-      color: "from-orange-500 to-red-500",
-      features: [
-        "Stream responses",
-        "Multi-language",
-        "Context memory",
-        "Voice input",
+        "A production-ready Persian/RTL e-commerce platform for beauty and cosmetics, built with Next.js 16 and Supabase. Features a full storefront with cart, wishlist and checkout, OTP + Google authentication, and an admin dashboard with payment integration ready via Zibal.",
+      technologies: [
+        "Next.js",
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS",
+        "Supabase",
+        "Zustand",
+        "TanStack Query",
       ],
-    },
-    {
-      id: 5,
-      title: "Analytics Dashboard",
-      subtitle: "Data Visualization Excellence",
-      description:
-        "A comprehensive real-time analytics platform with stunning interactive visualizations. Processes millions of data points with sub-second response times.",
-      technologies: ["React", "D3.js", "Chart.js", "FastAPI"],
-      category: "Data Viz",
-      year: "2024",
+      category: "E-Commerce",
+      year: "2025-2026",
       metrics: {
-        dataPoints: {
-          value: "10M+",
-          label: "Data Points",
-          icon: LucideTrendingUp,
-        },
-        dashboards: { value: "500+", label: "Dashboards", icon: LuciedPlay },
-        uptime: { value: "99.9%", label: "Uptime", icon: LucideClock },
+        live: { value: "Live", label: "Deployed on Vercel", icon: LucideArrowRight },
+        auth: { value: "OTP+OAuth", label: "Auth Options", icon: LucideUsers },
+        ui: { value: "RTL", label: "Persian-First UI", icon: LuciedPlay },
       },
-      image: "/img5_.jpg",
-      color: "from-cyan-500 to-blue-500",
+      image: "/imge3_.jpg",
+      color: "from-purple-500 to-pink-500",
       features: [
-        "Real-time updates",
-        "Custom widgets",
-        "Export reports",
-        "API integration",
+        "Storefront, cart, wishlist & checkout",
+        "OTP SMS + Google OAuth login",
+        "Admin dashboard with order management",
+        "Zibal payment integration ready",
       ],
-    },
-    {
-      id: 6,
-      title: "Progressive Web App",
-      subtitle: "Cross-Platform Excellence",
-      description:
-        "A cutting-edge PWA with offline capabilities, push notifications, and native-like performance. Delivers seamless experience across all devices.",
-      technologies: ["React", "PWA", "Service Workers", "IndexedDB"],
-      category: "Mobile",
-      year: "2023",
-      metrics: {
-        installs: { value: "15K+", label: "Installs", icon: LucideUsers },
-        offline: { value: "90%", label: "Offline Ready", icon: LuciedPlay },
-        engagement: {
-          value: "60%",
-          label: "Engagement",
-          icon: LucideTrendingUp,
-        },
-      },
-      image: "/img6_.jpg",
-      color: "from-indigo-500 to-purple-500",
-      features: [
-        "Offline mode",
-        "Push notifications",
-        "App shortcuts",
-        "Background sync",
-      ],
+      liveUrl: "https://nazishop.vercel.app",
+      githubUrl: "https://github.com/mahdidelavarz/nazishop",
     },
   ];
 
@@ -480,20 +441,30 @@ function Projects({ scrollToSection }: ProjectsProps) {
 
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto">
-                  <button
-                    className={`flex-1 px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group text-sm sm:text-base`}
+                  {currentProject.liveUrl && (
+                    <a
+                      href={currentProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex-1 px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group text-sm sm:text-base text-center`}
+                    >
+                      <span className="flex items-center justify-center gap-2">
+                        View Live
+                        <LucideExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </span>
+                    </a>
+                  )}
+                  <a
+                    href={currentProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 px-4 py-2.5 sm:px-6 sm:py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group text-sm sm:text-base text-center"
                   >
-                    <span className="flex items-center justify-center gap-2">
-                      View Live
-                      <LucideExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </span>
-                  </button>
-                  <button className="flex-1 px-4 py-2.5 sm:px-6 sm:py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group text-sm sm:text-base">
                     <span className="flex items-center justify-center gap-2">
                       Source Code
                       <LucideGithub className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform" />
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
