@@ -45,7 +45,6 @@ Disallow: /
 
 # Sitemap location
 Sitemap: https://mahdidelavar.ir/sitemap.xml
-Sitemap: https://mahdidelavar.ir/sitemap-0.xml
 
 # Cache control
 # Note: These are suggestions, not all crawlers respect them

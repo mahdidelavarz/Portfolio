@@ -12,11 +12,7 @@ import {
   LuciedPlay,
 } from "@/icons/icons";
 
-interface ProjectsProps {
-  scrollToSection?: (id: string) => void;
-}
-
-function Projects({ scrollToSection }: ProjectsProps) {
+function Projects() {
   const [selectedProject, setSelectedProject] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -206,201 +202,186 @@ function Projects({ scrollToSection }: ProjectsProps) {
   const projects = [
     {
       id: 1,
-      title: "Nazishop",
-      subtitle: "Full-Featured E-Commerce Platform",
+      title: "E-Commerce Platform",
+      subtitle: "Next-Gen Shopping Experience",
       description:
-        "A comprehensive e-commerce solution with SMS-based authentication, advanced product management, and a powerful admin dashboard. Features intelligent search with filtering, favorites, cart system, and full SEO optimization for maximum visibility.",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "React Query",
-        "Zustand",
-        "Supabase",
-        "Kavehnegar SMS",
-      ],
+        "A comprehensive full-stack e-commerce solution featuring real-time inventory management, AI-powered recommendations, and seamless payment processing. Built with performance and scalability in mind.",
+      technologies: ["React", "Next.js", "TypeScript", "Stripe", "PostgreSQL"],
       category: "Full Stack",
       year: "2024",
       metrics: {
-        features: {
-          value: "15+",
-          label: "Core Features",
-          icon: LucideTrendingUp,
-        },
+        users: { value: "10K+", label: "Active Users", icon: LucideUsers },
         performance: {
-          value: "95%",
-          label: "Lighthouse Score",
+          value: "98%",
+          label: "Performance Score",
           icon: LucideTrendingUp,
         },
-        auth: {
-          value: "SMS",
-          label: "Authentication",
-          icon: LucideUsers,
+        conversion: {
+          value: "+15%",
+          label: "Conversion Rate",
+          icon: LucideArrowRight,
         },
       },
-      image: "/img1_.jpg",
+      image: "/imge1_.jpg",
       color: "from-blue-500 to-indigo-500",
       features: [
-        "SMS authentication",
-        "Advanced search & filters",
-        "Admin dashboard",
-        "SEO optimized",
+        "Real-time inventory",
+        "AI recommendations",
+        "Mobile-first design",
+        "Analytics dashboard",
       ],
-      liveUrl: "https://nazishop.com",
     },
     {
       id: 2,
-      title: "Bermod",
-      subtitle: "Real-Time Messaging Platform",
+      title: "3D Portfolio Website",
+      subtitle: "Immersive Digital Experience",
       description:
-        "A high-performance real-time messenger supporting chat rooms, private messaging, and presence status indicators. Engineered for sub-100ms message delivery with 100+ concurrent users, delivering a seamless communication experience.",
-      technologies: [
-        "Next.js",
-        "Express",
-        "TypeORM",
-        "Tailwind CSS",
-        "Socket.io",
-      ],
-      category: "Full Stack",
+        "An innovative portfolio featuring cutting-edge Three.js animations and WebGL shaders. Creates an unforgettable user experience with smooth 60fps performance.",
+      technologies: ["React", "Three.js", "WebGL", "GLSL"],
+      category: "3D Web",
       year: "2024",
       metrics: {
-        latency: {
-          value: "<100ms",
-          label: "Message Latency",
-          icon: LucideClock,
-        },
-        concurrent: {
-          value: "100+",
-          label: "Concurrent Users",
+        users: {
+          value: "5K+",
+          label: "Monthly Visitors",
           icon: LucideUsers,
         },
-        features: {
-          value: "3",
-          label: "Chat Modes",
-          icon: LuciedPlay,
+        performance: {
+          value: "60fps",
+          label: "Frame Rate",
+          icon: LucideUsers,
+        },
+        engagement: {
+          value: "4.2min",
+          label: "Avg. Session",
+          icon: LucideClock,
         },
       },
-      image: "/img2_.jpg",
-      color: "from-purple-500 to-pink-500",
+      image: "/imge2_.jpg",
+      color: "from-cyan-500 to-blue-500",
       features: [
-        "Real-time messaging",
-        "Chat rooms & DMs",
-        "Presence status",
-        "WebSocket transport",
+        "WebGL shaders",
+        "3D interactions",
+        "Particle effects",
+        "Responsive design",
       ],
-      github: "github.com/mahdidelavarz/chat-app",
     },
     {
       id: 3,
-      title: "ERP System",
-      subtitle: "Enterprise Resource Planning",
+      title: "Task Management Platform",
+      subtitle: "Team Collaboration Redefined",
       description:
-        "A robust enterprise management system featuring complex dynamic forms, role-based permissions with cookie authentication, and advanced data tables with per-column search, global filtering, and Stimulsoft report generation. Built with a scalable factory pattern architecture.",
-      technologies: [
-        "React",
-        "TypeScript",
-        "React Query",
-        "Zustand",
-        "SQL Server",
-        ".NET Core",
-      ],
-      category: "Enterprise",
-      year: "2024",
+        "A powerful collaborative platform with real-time updates, advanced team analytics, and intuitive project tracking. Trusted by hundreds of teams worldwide.",
+      technologies: ["React", "Socket.io", "Node.js", "MongoDB"],
+      category: "Web App",
+      year: "2023",
       metrics: {
-        tables: { value: "50+", label: "Data Tables", icon: LucideTrendingUp },
-        permissions: { value: "5", label: "Role Levels", icon: LucideUsers },
-        reports: {
-          value: "Stimulsoft",
-          label: "Report Engine",
-          icon: LuciedPlay,
+        users: { value: "25K+", label: "Active Users", icon: LucideUsers },
+        teams: { value: "500+", label: "Teams", icon: LucideUsers },
+        retention: {
+          value: "85%",
+          label: "Retention Rate",
+          icon: LucideTrendingUp,
         },
       },
-      image: "/img3_.jpg",
+      image: "/erp.png",
       color: "from-green-500 to-teal-500",
       features: [
-        "Role-based access",
-        "Dynamic form factory",
-        "Column-level search",
-        "Report generation",
+        "Real-time sync",
+        "Team analytics",
+        "Kanban boards",
+        "Time tracking",
       ],
+      liveUrl: undefined,
+      githubUrl: "https://github.com/mahdidelavarz/erp-core",
     },
     {
       id: 4,
-      title: "Freelancering",
-      subtitle: "Multi-Role Freelance Platform",
+      title: "AI Chat Interface",
+      subtitle: "Next-Level Conversational AI",
       description:
-        "A comprehensive three-panel freelance marketplace connecting freelancers, employers, and administrators. Features SMS verification, project proposals, job creation workflows, and full admin moderation capabilities with smooth animations throughout.",
-      technologies: [
-        "React",
-        "Node.js",
-        "Tailwind CSS",
-        "React Query",
-        "Framer Motion",
-      ],
-      category: "Full Stack",
+        "A sophisticated AI chat interface with advanced message streaming, context awareness, and support for multiple languages. Handles millions of conversations with ease.",
+      technologies: ["React", "TypeScript", "OpenAI API", "WebSocket"],
+      category: "AI/ML",
       year: "2024",
       metrics: {
-        panels: { value: "3", label: "User Roles", icon: LucideUsers },
-        verification: {
-          value: "SMS",
-          label: "Auth Method",
-          icon: LucideUsers,
+        messages: { value: "1M+", label: "Messages", icon: LuciedPlay },
+        response: {
+          value: "<1s",
+          label: "Response Time",
+          icon: LucideClock,
         },
-        animations: {
-          value: "60fps",
-          label: "Animation",
-          icon: LuciedPlay,
+        accuracy: {
+          value: "94%",
+          label: "Accuracy",
+          icon: LucideTrendingUp,
         },
       },
       image: "/img4_.jpg",
       color: "from-orange-500 to-red-500",
       features: [
-        "Three-role system",
-        "SMS verification",
-        "Proposal management",
-        "Admin moderation",
+        "Stream responses",
+        "Multi-language",
+        "Context memory",
+        "Voice input",
       ],
-      github: "github.com/mahdidelavarz/freelancering-app",
     },
     {
       id: 5,
-      title: "LinkVault",
-      subtitle: "Smart Bookmark Management",
+      title: "Analytics Dashboard",
+      subtitle: "Data Visualization Excellence",
       description:
-        "A full-stack bookmark manager with intelligent tagging, categorization, and secure authentication. Fully containerized with Docker Compose for seamless deployment, enabling efficient organization and retrieval of saved resources.",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "PostgreSQL",
-        "Docker",
-        "NextAuth",
-      ],
-      category: "Full Stack",
+        "A comprehensive real-time analytics platform with stunning interactive visualizations. Processes millions of data points with sub-second response times.",
+      technologies: ["React", "D3.js", "Chart.js", "FastAPI"],
+      category: "Data Viz",
       year: "2024",
       metrics: {
-        stack: { value: "Full", label: "Stack Type", icon: LucideTrendingUp },
-        deployment: {
-          value: "Docker",
-          label: "Containerized",
-          icon: LuciedPlay,
+        dataPoints: {
+          value: "10M+",
+          label: "Data Points",
+          icon: LucideTrendingUp,
         },
-        auth: {
-          value: "OAuth",
-          label: "Authentication",
-          icon: LucideUsers,
+        dashboards: { value: "500+", label: "Dashboards", icon: LuciedPlay },
+        uptime: { value: "99.9%", label: "Uptime", icon: LucideClock },
+      },
+      image: "/imge3_.jpg",
+      color: "from-purple-500 to-pink-500",
+      features: [
+        "Real-time updates",
+        "Custom widgets",
+        "Export reports",
+        "API integration",
+      ],
+    },
+    {
+      id: 6,
+      title: "Progressive Web App",
+      subtitle: "Cross-Platform Excellence",
+      description:
+        "A cutting-edge PWA with offline capabilities, push notifications, and native-like performance. Delivers seamless experience across all devices.",
+      technologies: ["React", "PWA", "Service Workers", "IndexedDB"],
+      category: "Mobile",
+      year: "2023",
+      metrics: {
+        installs: { value: "15K+", label: "Installs", icon: LucideUsers },
+        offline: { value: "90%", label: "Offline Ready", icon: LuciedPlay },
+        engagement: {
+          value: "60%",
+          label: "Engagement",
+          icon: LucideTrendingUp,
         },
       },
-      image: "/img5_.jpg",
-      color: "from-cyan-500 to-blue-500",
+      image: "/img6_.jpg",
+      color: "from-indigo-500 to-purple-500",
       features: [
-        "Tag-based organization",
-        "Category management",
-        "OAuth authentication",
-        "Docker deployment",
+        "Offline mode",
+        "Push notifications",
+        "App shortcuts",
+        "Background sync",
       ],
-      github: "github.com/mahdidelavarz/linkvault",
     },
-   
   ];
+
   const currentProject = projects[selectedProject];
 
   const handlePrevious = () => {
@@ -677,20 +658,30 @@ function Projects({ scrollToSection }: ProjectsProps) {
 
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto">
-                  <button
-                    className={`flex-1 px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group text-sm sm:text-base`}
+                  {currentProject.liveUrl && (
+                    <a
+                      href={currentProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex-1 px-4 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r ${currentProject.color} text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 group text-sm sm:text-base text-center`}
+                    >
+                      <span className="flex items-center justify-center gap-2">
+                        View Live
+                        <LucideExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </span>
+                    </a>
+                  )}
+                  <a
+                    href={currentProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 px-4 py-2.5 sm:px-6 sm:py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group text-sm sm:text-base text-center"
                   >
-                    <span className="flex items-center justify-center gap-2">
-                      View Live
-                      <LucideExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </span>
-                  </button>
-                  <button className="flex-1 px-4 py-2.5 sm:px-6 sm:py-3 border-2 border-slate-500 text-slate-300 font-semibold rounded-xl hover:bg-slate-700/50 transition-all duration-200 group text-sm sm:text-base">
                     <span className="flex items-center justify-center gap-2">
                       Source Code
                       <LucideGithub className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform" />
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

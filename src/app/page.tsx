@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     siteName: "Mahdi Delavar Portfolio",
     images: [
       {
-        url: "https://mahdidelavar.ir/og-image.png",
+        url: "https://mahdidelavar.ir/portfolio.png",
         width: 1200,
         height: 630,
         alt: "Mahdi Delavar Portfolio Preview",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     description:
       "React, Next.js & TypeScript Developer with 3+ years experience and 50+ completed projects.",
     creator: "@mahdi_delavar",
-    images: ["https://mahdidelavar.ir/twitter-image.png"],
+    images: ["https://mahdidelavar.ir/portfolio.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -133,7 +133,7 @@ const structuredData = {
       "@id": "https://mahdidelavar.ir/#person",
       name: "Mahdi Delavar",
       alternateName: "Mahdi",
-      image: "https://mahdidelavar.ir/profile-photo.jpg",
+      image: "https://mahdidelavar.ir/portfolio.png",
       jobTitle: "Senior Frontend Developer",
       description:
         "Experienced Frontend Developer with 3+ years of expertise in React, Next.js, TypeScript, and modern web technologies. Passionate about creating exceptional user experiences and scalable web applications.",
@@ -261,6 +261,24 @@ const structuredData = {
           position: 1,
           name: "Home",
           item: "https://mahdidelavar.ir",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "About",
+          item: "https://mahdidelavar.ir#aboutme",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Projects",
+          item: "https://mahdidelavar.ir#projects",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Contact",
+          item: "https://mahdidelavar.ir#contactme",
         },
       ],
     },

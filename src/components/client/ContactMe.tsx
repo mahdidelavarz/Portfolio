@@ -11,7 +11,6 @@ import emailjs from "@emailjs/browser";
 import {
   MingcuteAlertCircleFill,
   MingcuteArrowRightUpLine,
-  MingcuteCalendarLine,
   MingcuteCheckCircleFill,
   MingcuteGithubLine,
   MingcuteLinkedinLine,
@@ -693,14 +692,14 @@ const ContactMe = memo<ContactMeProps>(() => {
                 </a>
 
                 <a
-                  href="https://calendly.com/your-link"
+                  href="https://t.me/osis13"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative px-6 md:px-8 py-3 md:py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <MingcuteCalendarLine width={20} height={20} />
-                    <span>Schedule Call</span>
+                    <MingcuteTelegramLine width={20} height={20} />
+                    <span>Chat on Telegram</span>
                   </div>
                 </a>
               </div>

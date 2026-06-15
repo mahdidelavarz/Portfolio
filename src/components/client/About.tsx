@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import {
   FaSolidPuzzlePieceIcon,
   SolarBookBold,
@@ -24,54 +24,6 @@ import {
   SolarUserGroupRoundedBoldIcon,
   SolarUserIcon,
 } from "@/icons/icons";
-// import { Metadata } from "next";
-
-interface AboutMeProps {
-  scrollToSection?: (id: string) => void;
-}
-
-// export const metadata: Metadata = {
-//   title: "Mahdi Delavar | Frontend Developer - React & Next.js Expert",
-//   description:
-//     "Frontend Developer specializing in React, Next.js, and TypeScript. Explore 50+ projects and my 3+ years of experience building scalable web apps.",
-//   keywords: [
-//     "Frontend Developer",
-//     "React Developer",
-//     "Next.js Developer",
-//     "TypeScript Expert",
-//     "Web Developer Iran",
-//     "Mahdi Delavar",
-//   ],
-//   alternates: {
-//     canonical: "https://mahdidelavar.ir",
-//   },
-//   openGraph: {
-//     title: "Mahdi Delavar - Frontend Developer Portfolio",
-//     description:
-//       "React & Next.js expert with 3+ years of experience. Explore 50+ web projects built for performance and scalability.",
-//     url: "https://mahdidelavar.ir",
-//     siteName: "Mahdi Delavar Portfolio",
-//     images: [
-//       {
-//         url: "https://mahdidelavar.ir/og-image.png",
-//         width: 1200,
-//         height: 630,
-//         alt: "Mahdi Delavar Portfolio Preview",
-//       },
-//     ],
-//     locale: "en_US",
-//     type: "website",
-//   },
-//   twitter: {
-//     card: "summary_large_image",
-//     title: "Mahdi Delavar - Frontend Developer",
-//     description:
-//       "React, Next.js & TypeScript Developer with 3+ years experience and 50+ completed projects.",
-//     creator: "@mahdi_delavar",
-//     images: ["https://mahdidelavar.ir/twitter-image.png"],
-//   },
-//   robots: { index: true, follow: true },
-// };
 
 // Personal info data
 const PERSONAL_INFO = {
@@ -257,7 +209,7 @@ const SoftSkillBar = memo<{
 
 SoftSkillBar.displayName = "SoftSkillBar";
 
-const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
+const AboutMe = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -278,10 +230,6 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
       if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
-
-  const handleContactClick = useCallback(() => {
-    scrollToSection?.("contactme");
-  }, [scrollToSection]);
 
   return (
     <div
@@ -526,40 +474,6 @@ const AboutMe = memo<AboutMeProps>(({ scrollToSection }) => {
             </div>
           </div>
         </div>
-
-        {/* CTA */}
-        {/* <div
-          className={`transition-all duration-1000 delay-600 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
-            <div className="relative z-10">
-              <Icon
-                icon="solar:chat-round-bold"
-                width={48}
-                height={48}
-                className="text-cyan-400 mx-auto mb-4"
-              />
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Let's Connect
-              </h3>
-              <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-                I'm always open to discussing new projects, creative ideas, or
-                opportunities to be part of your vision.
-              </p>
-              <button
-                onClick={handleContactClick}
-                className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="flex items-center justify-center gap-3">
-                  <Icon icon="solar:letter-bold" width={20} height={20} />
-                  Get In Touch
-                </span>
-              </button>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
