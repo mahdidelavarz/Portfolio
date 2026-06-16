@@ -120,7 +120,7 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
             {/* Action Buttons - Compact on mobile */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center mb-8 sm:mb-16 px-2">
               <a
-                href="https://mahdidelavar.liara.run/Mahdi_Delavar.pdf"
+                href="https://mahdidelavar.ir/Mahdi_Delavar.pdf"
                 download="Mahdi_Delavar.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
