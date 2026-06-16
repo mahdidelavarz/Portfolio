@@ -57,13 +57,6 @@ type Skill = {
 
 type StackKey = "frontend" | "backend" | "tools" | "design";
 
-// Converts a numeric mastery score into a human-readable skill level
-function getSkillLevel(mastery: number): string {
-  if (mastery >= 75) return "Expert";
-  if (mastery >= 50) return "Advanced";
-  if (mastery >= 25) return "Intermediate";
-  return "Beginner";
-}
 
 type SkillStack = {
   title: string;
@@ -130,9 +123,6 @@ const SkillCard = memo(
           {/* Proficiency Level */}
           <div className="relative z-10 mb-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-xs text-slate-400">Level</span>
-              <span className="text-xs font-semibold text-cyan-400">
-                {getSkillLevel(skill.mastery)}
               <span className="text-xs text-slate-400">Proficiency</span>
               <span className="text-xs font-semibold text-cyan-400 capitalize">
                 {skill.level}
@@ -250,7 +240,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       skills: [
         {
           name: "React.js",
-          mastery: 100,
           level: "Expert",
           years: 3,
           icon: LogosReactIcon,
@@ -292,9 +281,13 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Three.js",
-          mastery: 20,
+          level: "Familiar",
           years: 1,
           icon: SimpleThreedorJs,
+          color: "text-yellow-400",
+          description: "3D graphics and animations for web applications",
+        },
+        {
           name: "Zustand",
           level: "Expert",
           years: 2.5,
@@ -313,8 +306,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       bgGradient: "from-purple-500/10 to-pink-600/10",
       skills: [
         {
-          name: ".Net Core",
-          mastery: 30,
           name: ".NET Core",
           level: "Familiar",
           years: 1,
@@ -332,9 +323,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           description: "RESTful API development with middleware architecture",
         },
         {
-          name: "MongoDB",
-          mastery: 30,
-          years: 2,
           name: "TypeORM",
           level: "Intermediate",
           years: 1,
@@ -353,8 +341,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "SQL Server",
-          mastery: 51,
-          years: 1.5,
           level: "Proficient",
           years: 2,
           icon: VscodeFileTypeSql,
@@ -363,7 +349,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Supabase",
-          mastery: 51,
           level: "Proficient",
           years: 1.5,
           icon: DevIconSupabase,
@@ -392,7 +377,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Docker",
-          mastery: 74,
           level: "Proficient",
           years: 1,
           icon: LogosDockerIcon,
@@ -402,7 +386,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Webpack",
-          mastery: 74,
           level: "Proficient",
           years: 2,
           icon: LogosWebpackIcon,
@@ -420,8 +403,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Jest",
-          mastery: 74,
-          years: 2,
           level: "Proficient",
           years: 1.5,
           icon: LogosJestIcon,
@@ -430,7 +411,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
         },
         {
           name: "Cypress",
-          mastery: 20,
           level: "Familiar",
           years: 1,
           icon: SimpleIconCypress,
@@ -450,7 +430,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
       skills: [
         {
           name: "Figma",
-          mastery: 30,
           level: "Familiar",
           years: 2,
           icon: LogosFigmaIcon,
