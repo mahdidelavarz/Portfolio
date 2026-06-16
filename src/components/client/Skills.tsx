@@ -85,18 +85,6 @@ const SkillCard = memo(
     isActive: boolean;
     stackColor: string;
   }) => {
-    // const [progress, setProgress] = useState(0);
-
-    // useEffect(() => {
-    //   if (isVisible && isActive) {
-    //     const timer = setTimeout(() => {
-    //       setProgress(skill.mastery);
-    //     }, index * 100);
-    //     return () => clearTimeout(timer);
-    //   } else {
-    //     setProgress(0);
-    //   }
-    // }, [isVisible, isActive, skill.mastery, index]);
 
     return (
       <div
@@ -123,7 +111,6 @@ const SkillCard = memo(
           {/* Proficiency Level */}
           <div className="relative z-10 mb-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-xs text-slate-400">Proficiency</span>
               <span className="text-xs font-semibold text-cyan-400 capitalize">
                 {skill.level}
               </span>
