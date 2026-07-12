@@ -47,6 +47,7 @@ const projects = [
     },
     image: "/img1_.jpg",
     color: "from-pink-500 to-rose-500",
+    liveUrl: "https://thenazishop.ir",
     githubUrl: "https://github.com/mahdidelavarz/Ex_ecommerce",
     features: [
       "Product variants & inventory",
@@ -156,6 +157,7 @@ const projects = [
     },
     image: "/progress.jpg",
     color: "from-indigo-500 to-cyan-500",
+     liveUrl: "https://front-forge-gold.vercel.app/",
     githubUrl: "https://github.com/mahdidelavarz/FrontForge",
     features: [
       "Architecture decision wizard",
