@@ -4,6 +4,7 @@ import HeaderMenu from "../components/HeaderMenu";
 import Section from "../components/Section";
 import HomeSection from "@/components/HomeSection";
 import BurgerMenu from "@/components/BurgerMenu";
+import ChallengesPreview from "@/components/server/ChallengesPreview.server";
 
 // Dynamic imports for better performance
 const About = dynamic(() => import("../components/client/About"), {
@@ -410,6 +411,8 @@ export default function Page() {
           >
             <Projects />
           </Section>
+
+          <ChallengesPreview />
 
           {/* Skills Section */}
           <Section

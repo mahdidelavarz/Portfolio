@@ -7,13 +7,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "validate:challenges": "node --experimental-strip-types src/data/validate-challenges.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@iconify/css-react": "^1.0.2",
     "@iconify/react": "^6.0.2",
+    "drizzle-orm": "^0.45.2",
     "next": "^15.5.7",
+    "postgres": "^3.4.9",
+    "prism-react-renderer": "^2.4.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-simple-typewriter": "^5.0.1"
@@ -26,6 +33,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "postcss": "^8.5.6",

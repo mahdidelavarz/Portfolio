@@ -1,40 +1,93 @@
-# 🧭 Mahdi Delavar — Personal Portfolio
+# Mahdi Delavar — Personal Portfolio
 
-A modern, fast, and fully responsive personal portfolio website built with **Next.js**, **TypeScript**, and **Tailwind CSS**, hosted on **Liara**.  
-Designed to showcase projects, skills, and experience in a sleek, single-page format optimized for SEO and performance.
+Personal portfolio and interactive Frontend Challenges, built with Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4, Drizzle ORM and PostgreSQL.
 
----
-
-## 🚀 Tech Stack
-
-| Layer | Technology |
-|-------|-------------|
-| Frontend Framework | [Next.js 14](https://nextjs.org/) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) |
-| Icons | [Lucide React](https://lucide.dev/icons) |
-| Hosting | [Liara](https://liara.ir/) |
-| Analytics / SEO | Google Search Console, sitemap.xml, robots.txt |
-
----
-
-## 🧩 Features
-
-- ⚡ **Optimized Performance** — Lighthouse-friendly, fast load times  
-- 🧠 **Smart SEO** — Custom meta tags, sitemap, and robots configuration  
-- 🎨 **Clean UI** — Minimal, responsive layout using Tailwind  
-- 📱 **Mobile Ready** — Adaptive design for all screen sizes  
-- 🌙 **Dark Mode** — Optional theme toggle support  
-- 🧰 **Developer Friendly** — Type-safe, modular code with reusable components  
-- ☁️ **Deployed on Liara** — Seamless CI/CD pipeline  
-
----
-
-## 🛠️ Getting Started
-
-Clone the repository and install dependencies.
+## Local development
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mahdidelavar-portfolio.git
-cd mahdidelavar-portfolio
 npm install
+cp .env.example .env.local
+npm run db:migrate
+npm run dev
+```
+
+Set `DATABASE_URL` to a PostgreSQL connection string. The database layer uses the standard PostgreSQL protocol and is compatible with providers such as Liara, Neon and Supabase. Use a pooled connection string for serverless deployments.
+
+Useful checks:
+
+```bash
+npm run validate:challenges
+npm run lint
+npm run typecheck
+npm run build
+```
+
+## Frontend Challenges
+
+Public routes:
+
+- `/challenges` — published challenge list and filters
+- `/challenges/[slug]` — question, answer and explanation
+- `/leaderboard` — current-month leaderboard
+- `/my-progress` — progress stored for the current browser visitor
+
+API routes:
+
+- `GET /api/challenges`
+- `GET /api/challenges/[slug]`
+- `POST /api/challenges/[slug]/answer`
+- `GET /api/me`
+- `PATCH /api/me/display-name`
+- `GET /api/me/progress`
+- `GET /api/leaderboard`
+
+Visitors are identified by a random UUID in the HttpOnly `challenge_visitor_id` cookie. There is no account or cross-device sync. Clearing browser data creates a new visitor and makes the previous history inaccessible from that browser.
+
+The monthly leaderboard is calculated directly from answers. Month boundaries use the `Asia/Tehran` time zone. Ranking is ordered by correct answers, accuracy and the time at which the final correct score was reached.
+
+## Adding a challenge
+
+All questions live in `src/data/challenges.json`. Copy an existing item and provide a unique `id` and `slug`, exactly four options, a matching `correctOptionId`, explanation steps and an ISO `publishedAt` date. Draft questions and future publication dates are excluded from public pages, metadata and sitemap.
+
+Example outline:
+
+```json
+{
+  "id": "js-example-001",
+  "slug": "javascript-example-001",
+  "title": "عنوان سؤال",
+  "description": "توضیح کوتاه",
+  "technology": "JavaScript",
+  "topic": "Scope",
+  "difficulty": "intermediate",
+  "type": "output",
+  "codeLanguage": "javascript",
+  "code": "console.log('example')",
+  "options": [
+    { "id": "a", "label": "A", "content": "..." },
+    { "id": "b", "label": "B", "content": "..." },
+    { "id": "c", "label": "C", "content": "..." },
+    { "id": "d", "label": "D", "content": "..." }
+  ],
+  "correctOptionId": "a",
+  "shortAnswer": "...",
+  "explanationSteps": ["..."],
+  "correctedCode": null,
+  "takeaway": "...",
+  "publishedAt": "2026-07-01T00:00:00.000Z",
+  "status": "draft",
+  "linkedinPostUrl": null
+}
+```
+
+Run `npm run validate:challenges` before publishing. The correct option and explanation remain server-only until a visitor submits an answer.
+
+## Database migrations
+
+The initial migration is committed under `drizzle/`. Apply committed migrations with:
+
+```bash
+npm run db:migrate
+```
+
+After changing `src/db/schema.ts`, generate a new migration with `npm run db:generate`, inspect the SQL, then apply it.

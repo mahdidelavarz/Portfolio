@@ -173,9 +173,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://mahdidelavar.ir" />
-
         {/* Alternative formats */}
         <link
           rel="alternate"

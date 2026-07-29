@@ -1,0 +1,99 @@
+[
+  {
+    "id": "js-scope-001",
+    "slug": "javascript-scope-shadowing-001",
+    "title": "خروجی این کد چیست؟",
+    "description": "رفتار scope، shadowing و Temporal Dead Zone را بررسی کنید.",
+    "technology": "JavaScript",
+    "topic": "Scope",
+    "difficulty": "intermediate",
+    "type": "output",
+    "codeLanguage": "javascript",
+    "code": "let count = 0;\n\nfunction increment() {\n  let count = count + 1;\n  console.log(count);\n}\n\nincrement();",
+    "options": [
+      { "id": "a", "label": "A", "content": "0" },
+      { "id": "b", "label": "B", "content": "1" },
+      { "id": "c", "label": "C", "content": "ReferenceError" },
+      { "id": "d", "label": "D", "content": "SyntaxError" }
+    ],
+    "correctOptionId": "c",
+    "shortAnswer": "اجرای کد با ReferenceError متوقف می‌شود.",
+    "explanationSteps": [
+      "تعریف let داخل تابع، یک متغیر محلی جدید با نام count می‌سازد.",
+      "این متغیر محلی، count بیرونی را در کل scope تابع shadow می‌کند.",
+      "در سمت راست مقداردهی، count محلی هنوز داخل Temporal Dead Zone است.",
+      "خواندن متغیر پیش از مقداردهی اولیه باعث ReferenceError می‌شود."
+    ],
+    "correctedCode": "let count = 0;\n\nfunction increment() {\n  count = count + 1;\n  console.log(count);\n}\n\nincrement();",
+    "takeaway": "متغیر هم‌نام در scope داخلی از ابتدای همان scope متغیر بیرونی را shadow می‌کند، حتی پیش از خط تعریف.",
+    "estimatedMinutes": 3,
+    "publishedAt": "2026-07-01T00:00:00.000Z",
+    "status": "published",
+    "linkedinPostUrl": null
+  },
+  {
+    "id": "js-event-loop-001",
+    "slug": "javascript-event-loop-microtask-001",
+    "title": "ترتیب خروجی Event Loop چیست؟",
+    "description": "ترتیب اجرای کد هم‌زمان، microtask و task را مشخص کنید.",
+    "technology": "JavaScript",
+    "topic": "Event Loop",
+    "difficulty": "intermediate",
+    "type": "output",
+    "codeLanguage": "javascript",
+    "code": "console.log(\"start\");\n\nsetTimeout(() => console.log(\"timeout\"), 0);\n\nPromise.resolve().then(() => console.log(\"promise\"));\n\nconsole.log(\"end\");",
+    "options": [
+      { "id": "a", "label": "A", "content": "start → timeout → promise → end" },
+      { "id": "b", "label": "B", "content": "start → end → timeout → promise" },
+      { "id": "c", "label": "C", "content": "start → promise → end → timeout" },
+      { "id": "d", "label": "D", "content": "start → end → promise → timeout" }
+    ],
+    "correctOptionId": "d",
+    "shortAnswer": "ابتدا کد هم‌زمان، سپس microtask مربوط به Promise و بعد callback تایمر اجرا می‌شود.",
+    "explanationSteps": [
+      "عبارت start به‌صورت هم‌زمان چاپ می‌شود.",
+      "callback تایمر در صف task قرار می‌گیرد.",
+      "callback مربوط به then در صف microtask قرار می‌گیرد.",
+      "عبارت end هنوز بخشی از اجرای هم‌زمان است و چاپ می‌شود.",
+      "پس از خالی‌شدن call stack، microtaskها پیش از task بعدی اجرا می‌شوند."
+    ],
+    "correctedCode": null,
+    "takeaway": "پس از پایان اجرای هم‌زمان، صف microtask پیش از taskهایی مانند setTimeout پردازش می‌شود.",
+    "estimatedMinutes": 3,
+    "publishedAt": "2026-07-02T00:00:00.000Z",
+    "status": "published",
+    "linkedinPostUrl": null
+  },
+  {
+    "id": "react-effect-001",
+    "slug": "react-use-effect-dependency-001",
+    "title": "کدام dependency برای این Effect درست است؟",
+    "description": "Effect باید با هر تغییر userId اطلاعات همان کاربر را دریافت کند.",
+    "technology": "React",
+    "topic": "useEffect",
+    "difficulty": "beginner",
+    "type": "debug",
+    "codeLanguage": "tsx",
+    "code": "function Profile({ userId }: { userId: string }) {\n  useEffect(() => {\n    fetchProfile(userId);\n  }, []);\n\n  return <ProfileView />;\n}",
+    "options": [
+      { "id": "a", "label": "A", "content": "[]" },
+      { "id": "b", "label": "B", "content": "[userId]" },
+      { "id": "c", "label": "C", "content": "[fetchProfile()]" },
+      { "id": "d", "label": "D", "content": "حذف کامل dependency array" }
+    ],
+    "correctOptionId": "b",
+    "shortAnswer": "مقدار userId باید در dependency array قرار بگیرد.",
+    "explanationSteps": [
+      "Effect مقدار userId را از scope کامپوننت می‌خواند.",
+      "آرایه خالی باعث می‌شود Effect به تغییر userId واکنش نشان ندهد.",
+      "قرار دادن userId در dependencies، Effect را پس از تغییر آن دوباره اجرا می‌کند.",
+      "خودِ فراخوانی تابع نباید داخل dependency array قرار گیرد."
+    ],
+    "correctedCode": "function Profile({ userId }: { userId: string }) {\n  useEffect(() => {\n    fetchProfile(userId);\n  }, [userId]);\n\n  return <ProfileView />;\n}",
+    "takeaway": "هر مقدار reactive که داخل Effect خوانده می‌شود باید در dependency array حضور داشته باشد.",
+    "estimatedMinutes": 2,
+    "publishedAt": "2026-07-03T00:00:00.000Z",
+    "status": "published",
+    "linkedinPostUrl": null
+  }
+]

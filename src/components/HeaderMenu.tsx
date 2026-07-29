@@ -10,6 +10,7 @@ import {
   StreamlinePhoneBold,
 } from "@/icons/icons";
 import React, { useState, useEffect, useCallback, SVGProps } from "react";
+import { useRouter } from "next/navigation";
 
 interface NavItem {
   id: string;
@@ -33,6 +34,11 @@ const NAVIGATION_ITEMS: NavItem[] = [
     iconName: StreamlineKeyboardSolid,
   },
   {
+    id: "challenges",
+    title: "Challenges",
+    iconName: StreamlineKeyboardSolid,
+  },
+  {
     id: "skills",
     title: "Skills",
     iconName: SreamlineArtificialIntelegence,
@@ -45,11 +51,16 @@ const NAVIGATION_ITEMS: NavItem[] = [
 ];
 
 const HeaderMenu: React.FC = React.memo(() => {
+  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState<string>("home");
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   // Memoize scroll function to prevent recreation
   const scrollToSlide = useCallback((id: string) => {
+    if (id === "challenges") {
+      router.push("/challenges");
+      return;
+    }
     const element = document.getElementById(id);
     if (!element) return;
 
@@ -63,7 +74,7 @@ const HeaderMenu: React.FC = React.memo(() => {
     });
 
     setActiveSlide(id);
-  }, []);
+  }, [router]);
 
   // Throttled scroll handler for better performance
   useEffect(() => {

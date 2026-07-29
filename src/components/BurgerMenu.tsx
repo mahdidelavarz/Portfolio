@@ -16,6 +16,7 @@ import {
   StreamlinePhoneBold,
 } from "@/icons/icons";
 import React, { useState, useEffect, useCallback, memo, SVGProps } from "react";
+import { useRouter } from "next/navigation";
 
 interface NavItem {
   id: string;
@@ -39,6 +40,11 @@ const navItems: NavItem[] = [
   {
     id: "projects",
     title: "Projects",
+    icon: StreamlineKeyboardSolid,
+  },
+  {
+    id: "challenges",
+    title: "Challenges",
     icon: StreamlineKeyboardSolid,
   },
   {
@@ -137,10 +143,16 @@ const SocialLink = memo(({ social }: { social: SocialLink }) => (
 SocialLink.displayName = "SocialLink";
 
 const BurgerMenu: React.FC = () => {
+  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState<string>("home");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const scrollToSlide = useCallback((id: string) => {
+    if (id === "challenges") {
+      setIsOpen(false);
+      router.push("/challenges");
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       const rect = element.getBoundingClientRect();
@@ -156,7 +168,7 @@ const BurgerMenu: React.FC = () => {
       setActiveSlide(id);
       setIsOpen(false);
     }
-  }, []);
+  }, [router]);
 
   // Optimized scroll detection
   useEffect(() => {
