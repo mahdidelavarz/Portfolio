@@ -412,8 +412,6 @@ export default function Page() {
             <Projects />
           </Section>
 
-          <ChallengesPreview />
-
           {/* Skills Section */}
           <Section
             id="skills"
@@ -421,6 +419,15 @@ export default function Page() {
             aria-label="Skills Section"
           >
             <Skills />
+          </Section>
+
+          {/* Challenges Section */}
+          <Section
+            id="challenges"
+            title="Frontend Challenges"
+            aria-label="Challenges Section"
+          >
+            <ChallengesPreview />
           </Section>
 
           {/* Contact Section */}

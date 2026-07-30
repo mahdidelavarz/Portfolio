@@ -31,25 +31,26 @@ export default function ChallengeCard({
   totalAnswers?: number;
 }) {
   return (
-    <article className="group flex h-full flex-col rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30 sm:p-6">
-      <div className="mb-5 flex flex-wrap items-center gap-2 text-xs">
-        <span className="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1 text-cyan-300">
+    <article className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-800/50 p-6 shadow-xl shadow-black/10 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-cyan-950/30 sm:p-7">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 transition group-hover:opacity-100" />
+      <div className="mb-6 flex flex-wrap items-center gap-2 text-xs">
+        <span className="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1.5 font-medium text-cyan-300">
           {challenge.technology}
         </span>
-        <span className="rounded-full border border-purple-500/25 bg-purple-500/10 px-3 py-1 text-purple-300">
+        <span className="rounded-full border border-blue-500/25 bg-blue-500/10 px-3 py-1.5 font-medium text-blue-300">
           {challenge.topic}
         </span>
-        <span className="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-slate-300">
+        <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1.5 text-slate-400">
           {difficultyLabel[challenge.difficulty]}
         </span>
       </div>
-      <h2 className="mb-3 text-xl font-black leading-8 text-white group-hover:text-cyan-200">
+      <h2 className="mb-4 text-xl font-black leading-8 text-white transition group-hover:text-cyan-200 sm:text-2xl">
         {challenge.title}
       </h2>
-      <p className="mb-6 flex-1 text-sm leading-7 text-slate-400">
+      <p className="mb-7 flex-1 text-sm leading-7 text-slate-400">
         {challenge.description}
       </p>
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-700/50 pt-5 text-xs">
         <span className={`rounded-lg border px-2.5 py-1.5 ${statusStyle[answerStatus]}`}>
           {statusLabel[answerStatus]}
         </span>
@@ -60,7 +61,7 @@ export default function ChallengeCard({
       </div>
       <Link
         href={`/challenges/${challenge.slug}`}
-        className="rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-3 text-center text-sm font-bold text-white transition hover:shadow-lg hover:shadow-cyan-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+        className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-3.5 text-center text-sm font-bold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-cyan-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
       >
         {answerStatus === "unanswered" ? "حل چالش" : "مشاهده پاسخ"}
       </Link>

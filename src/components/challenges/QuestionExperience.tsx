@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { PublicChallenge } from "@/data/challenge-validator";
 import CodeBlock from "./CodeBlock";
 import DisplayNamePrompt from "./DisplayNamePrompt";
+import { LucideArrowRight } from "@/icons/icons";
 
 type Adjacent = { slug: string; title: string } | null;
 type AnswerResult = {
@@ -120,27 +121,38 @@ export default function QuestionExperience({
   );
 
   return (
-    <article className="mx-auto max-w-4xl">
-      <Link href="/challenges" className="mb-7 inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-300">
-        <span aria-hidden="true">→</span> بازگشت به همه چالش‌ها
+    <article className="mx-auto max-w-5xl">
+      <Link href="/challenges" className="inline-flex items-center gap-2 rounded-full border border-slate-700/50 bg-slate-800/40 px-4 py-2 text-sm text-slate-400 transition hover:border-cyan-400/30 hover:text-cyan-300">
+        <span aria-hidden="true"><LucideArrowRight width={20}/></span> بازگشت به همه چالش‌ها
       </Link>
 
-      <header className="mb-8">
-        <div className="mb-5 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1.5 text-cyan-300">{question.technology}</span>
-          <span className="rounded-full border border-purple-500/25 bg-purple-500/10 px-3 py-1.5 text-purple-300">{question.topic}</span>
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-slate-300">{difficultyLabel[question.difficulty]}</span>
-          {question.estimatedMinutes && <span className="px-2 py-1.5 text-slate-500">حدود {question.estimatedMinutes} دقیقه</span>}
+      <header className="mb-12">
+        <div className="mb-8 grid grid-cols-2 gap-3 border-b border-slate-800 py-5 text-xs sm:flex sm:flex-wrap sm:items-center sm:border-0 sm:py-0">
+          <span className="rounded-xl border border-cyan-500/25 bg-cyan-500/10 px-3 py-2.5 text-center text-cyan-300 sm:rounded-full sm:py-1.5">{question.technology}</span>
+          <span className="rounded-xl border border-blue-500/25 bg-blue-500/10 px-3 py-2.5 text-center text-blue-300 sm:rounded-full sm:py-1.5">{question.topic}</span>
+          <span className="rounded-xl border border-slate-700 bg-slate-800/70 px-3 py-2.5 text-center text-slate-300 sm:rounded-full sm:py-1.5">{difficultyLabel[question.difficulty]}</span>
+          {question.estimatedMinutes && <span className="flex items-center justify-center rounded-xl border border-slate-800 px-3 py-2.5 text-center text-slate-500 sm:border-0 sm:px-2 sm:py-1.5">حدود {question.estimatedMinutes} دقیقه</span>}
         </div>
-        <h1 className="mb-4 text-3xl font-black leading-tight text-white sm:text-5xl">{question.title}</h1>
-        <p className="text-base leading-8 text-slate-400 sm:text-lg">{question.description}</p>
+
+        <div className="text-right">
+        <h1 className="mb-6 text-xl font-black leading-[1.7] text-white sm:text-2xl lg:text-3xl">
+          <span className="ml-2 text-cyan-300">سؤال:</span>
+          {question.title}
+        </h1>
+        <div className="border-r-2 border-slate-700 pr-4 sm:pr-5">
+          <p className="text-base leading-8 text-slate-400 sm:text-lg">
+            <span className="ml-2 font-bold text-slate-200">توضیح:</span>
+            {question.description}
+          </p>
+        </div>
+        </div>
       </header>
 
       <CodeBlock code={question.code} language={question.codeLanguage} />
 
-      <form onSubmit={submitAnswer} className="mt-8" aria-busy={submitting || loadingExisting}>
+      <form onSubmit={submitAnswer} className="mt-8 rounded-3xl border border-slate-700/50 bg-slate-800/50 p-5 shadow-xl shadow-black/10 backdrop-blur-xl sm:p-8" aria-busy={submitting || loadingExisting}>
         <fieldset disabled={Boolean(result) || submitting || loadingExisting}>
-          <legend className="mb-4 text-lg font-black text-white">پاسخ شما کدام است؟</legend>
+          <legend className="mb-6 text-xl font-black text-white sm:text-2xl">پاسخ شما کدام است؟</legend>
           <div className="grid gap-3">
             {question.options.map((option) => {
               const isSelected = option.id === selectedOptionId;
@@ -152,10 +164,10 @@ export default function QuestionExperience({
                   ? "border-rose-400/60 bg-rose-400/10"
                   : isSelected
                     ? "border-cyan-400 bg-cyan-400/10"
-                    : "border-white/10 bg-slate-900/60 hover:border-slate-600";
+                    : "border-slate-700/60 bg-slate-950/50 hover:border-cyan-400/30 hover:bg-slate-900/70";
 
               return (
-                <label key={option.id} className={`relative flex cursor-pointer items-start gap-4 rounded-2xl border p-4 transition sm:p-5 ${visualClass} ${result ? "cursor-default" : ""}`}>
+                <label key={option.id} className={`relative flex cursor-pointer items-start gap-4 rounded-2xl border p-4 transition duration-200 sm:p-5 ${visualClass} ${result ? "cursor-default" : ""}`}>
                   <input
                     type="radio"
                     name="challenge-option"
@@ -184,7 +196,7 @@ export default function QuestionExperience({
           <button
             type="submit"
             disabled={!selectedOptionId || submitting || loadingExisting}
-            className="mt-5 w-full rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-4 font-black text-white shadow-lg shadow-cyan-500/10 transition hover:shadow-cyan-500/25 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+            className="mt-6 w-full rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-4 font-black text-white shadow-lg shadow-cyan-500/10 transition hover:-translate-y-0.5 hover:shadow-cyan-500/25 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
           >
             {loadingExisting ? "در حال بررسی پاسخ قبلی…" : submitting ? "در حال ثبت پاسخ…" : "ثبت پاسخ نهایی"}
           </button>
@@ -195,7 +207,7 @@ export default function QuestionExperience({
 
       {result && (
         <section aria-live="polite" className="mt-10 space-y-6">
-          <div className={`rounded-2xl border p-6 ${result.answer.isCorrect ? "border-emerald-400/30 bg-emerald-400/10" : "border-rose-400/30 bg-rose-400/10"}`}>
+          <div className={`rounded-3xl border p-6 shadow-xl shadow-black/10 sm:p-8 ${result.answer.isCorrect ? "border-emerald-400/30 bg-emerald-400/10" : "border-rose-400/30 bg-rose-400/10"}`}>
             <p className={`mb-2 text-sm font-bold ${result.answer.isCorrect ? "text-emerald-300" : "text-rose-300"}`}>
               {result.answer.isCorrect ? "آفرین، پاسخ درست است." : "این بار پاسخ درست نبود."}
             </p>
@@ -203,7 +215,7 @@ export default function QuestionExperience({
             {result.repeated && <p className="mt-3 text-xs text-slate-400">نتیجه اولین پاسخ ثبت‌شده نمایش داده شده است.</p>}
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 sm:p-8">
+          <div className="rounded-3xl border border-slate-700/50 bg-slate-800/50 p-6 shadow-xl shadow-black/10 backdrop-blur-xl sm:p-8">
             <h2 className="mb-5 text-2xl font-black text-white">چرا؟</h2>
             <ol className="space-y-4">
               {result.explanation.steps.map((step, index) => (
@@ -222,8 +234,8 @@ export default function QuestionExperience({
             </div>
           )}
 
-          <div className="rounded-2xl border border-purple-400/20 bg-purple-400/10 p-6">
-            <h2 className="mb-2 text-sm font-bold text-purple-300">نکته کلیدی</h2>
+          <div className="rounded-3xl border border-blue-400/20 bg-blue-400/10 p-6 sm:p-8">
+            <h2 className="mb-2 text-sm font-bold text-blue-300">نکته کلیدی</h2>
             <p className="leading-8 text-slate-200">{result.explanation.takeaway}</p>
           </div>
         </section>
@@ -231,15 +243,15 @@ export default function QuestionExperience({
 
       {result && requestDisplayName && <DisplayNamePrompt onSaved={() => setRequestDisplayName(false)} />}
 
-      <nav className="mt-12 grid gap-3 border-t border-white/10 pt-7 sm:grid-cols-2" aria-label="سؤال‌های قبلی و بعدی">
+      <nav className="mt-12 grid gap-4 border-t border-slate-700/50 pt-8 sm:grid-cols-2" aria-label="سؤال‌های قبلی و بعدی">
         {adjacent.previous ? (
-          <Link href={`/challenges/${adjacent.previous.slug}`} className="rounded-xl border border-white/10 bg-white/5 p-4 hover:border-cyan-400/30">
+          <Link href={`/challenges/${adjacent.previous.slug}`} className="rounded-2xl border border-slate-700/50 bg-slate-800/50 p-5 transition hover:-translate-y-0.5 hover:border-cyan-400/30">
             <span className="mb-1 block text-xs text-slate-500">سؤال قبلی</span>
             <span className="text-sm font-bold text-white">{adjacent.previous.title}</span>
           </Link>
         ) : <span />}
         {adjacent.next && (
-          <Link href={`/challenges/${adjacent.next.slug}`} className="rounded-xl border border-white/10 bg-white/5 p-4 text-left hover:border-cyan-400/30">
+          <Link href={`/challenges/${adjacent.next.slug}`} className="rounded-2xl border border-slate-700/50 bg-slate-800/50 p-5 text-left transition hover:-translate-y-0.5 hover:border-cyan-400/30">
             <span className="mb-1 block text-xs text-slate-500">سؤال بعدی</span>
             <span className="text-sm font-bold text-white">{adjacent.next.title}</span>
           </Link>
