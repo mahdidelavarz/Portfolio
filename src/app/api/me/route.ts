@@ -4,6 +4,8 @@ import { answers } from "@/db/schema";
 import { apiJson, handleApiError } from "@/lib/api";
 import { ensureVisitor } from "@/lib/visitor";
 
+export const runtime = "nodejs";
+
 export async function GET() {
   try {
     const visitor = await ensureVisitor();

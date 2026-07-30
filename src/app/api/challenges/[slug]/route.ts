@@ -2,6 +2,8 @@ import { apiJson, handleApiError } from "@/lib/api";
 import { getChallengeDetail } from "@/lib/challenges/service";
 import { ensureVisitor } from "@/lib/visitor";
 
+export const runtime = "nodejs";
+
 export async function GET(
   _request: Request,
   context: { params: Promise<{ slug: string }> },

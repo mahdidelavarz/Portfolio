@@ -4,6 +4,8 @@ import { answers, visitors } from "@/db/schema";
 import { ApiError, apiJson, handleApiError } from "@/lib/api";
 import { ensureVisitor, normalizeDisplayName } from "@/lib/visitor";
 
+export const runtime = "nodejs";
+
 export async function PATCH(request: Request) {
   try {
     let body: unknown;

@@ -82,6 +82,10 @@ Example outline:
 
 Run `npm run validate:challenges` before publishing. The correct option and explanation remain server-only until a visitor submits an answer.
 
+## Production deployment
+
+The VPS deployment uses a standalone Next.js image, a dedicated Compose stack, the shared Docker Nginx proxy, and an isolated database/role on the existing PostgreSQL service. See [docs/deployment-vps.md](docs/deployment-vps.md) for the exact deployment, migration, health check, TLS, DNS, backup, rollback, and operational commands.
+
 ## Database migrations
 
 The initial migration is committed under `drizzle/`. Apply committed migrations with:

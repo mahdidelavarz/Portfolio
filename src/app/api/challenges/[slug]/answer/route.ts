@@ -2,6 +2,8 @@ import { ApiError, apiJson, handleApiError } from "@/lib/api";
 import { submitChallengeAnswer } from "@/lib/challenges/service";
 import { ensureVisitor } from "@/lib/visitor";
 
+export const runtime = "nodejs";
+
 export async function POST(
   request: Request,
   context: { params: Promise<{ slug: string }> },
