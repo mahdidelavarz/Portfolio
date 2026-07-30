@@ -7,3 +7,9 @@ docker compose -f compose.production.yml ps
 docker compose -f compose.production.yml restart app
 docker compose -f compose.production.yml logs -f --tail=100 app
 docker compose -f compose.production.yml run --rm migrate
+
+
+docker compose -f compose.production.yml up -d --build
+
+--without migration
+docker compose -f compose.production.yml up -d --build --no-deps app

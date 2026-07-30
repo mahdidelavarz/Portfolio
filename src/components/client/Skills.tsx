@@ -267,14 +267,6 @@ const Skills = memo<SkillsProps>(({ scrollToSection }) => {
           description: "Efficient server state management and data fetching",
         },
         {
-          name: "Three.js",
-          level: "Familiar",
-          years: 1,
-          icon: SimpleThreedorJs,
-          color: "text-yellow-400",
-          description: "3D graphics and animations for web applications",
-        },
-        {
           name: "Zustand",
           level: "Expert",
           years: 2.5,
