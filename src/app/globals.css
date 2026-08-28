@@ -35,7 +35,212 @@ body {
   font-family: "Vazir", Arial, Helvetica, sans-serif;
 }
 
+.article-content {
+  color: #cbd5e1;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+}
+
+.article-font-fa {
+  font-family: "Vazir", Arial, Helvetica, sans-serif;
+}
+
+.article-font-fa .article-content {
+  line-height: 2.05;
+}
+
+.article-content > * + * {
+  margin-top: 1.5rem;
+}
+
+.article-content h2,
+.article-content h3 {
+  color: #f8fafc;
+  font-weight: 800;
+  line-height: 1.25;
+  scroll-margin-top: 6rem;
+}
+
+.article-content h2 {
+  margin-top: 3.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.article-content h3 {
+  margin-top: 2.5rem;
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+}
+
+.article-content ul,
+.article-content ol {
+  padding-left: 1.5rem;
+}
+
+.article-content ul { list-style: disc; }
+.article-content ol { list-style: decimal; }
+.article-content li + li { margin-top: 0.55rem; }
+
+.article-content a {
+  color: #67e8f9;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.article-content :not(pre) > code {
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 0.35rem;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 0.1rem 0.35rem;
+  color: #a5f3fc;
+  font-size: 0.9em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.article-content pre {
+  overflow-x: auto;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 1rem;
+  background: #020617;
+  padding: 1.25rem;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  direction: ltr;
+  text-align: left;
+}
+
+.article-content blockquote,
+.article-content aside {
+  border-inline-start: 3px solid #22d3ee;
+  border-radius: 0.75rem;
+  background: rgba(8, 145, 178, 0.08);
+  padding: 1rem 1.25rem;
+  color: #bae6fd;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.article-content th,
+.article-content td {
+  border-bottom: 1px solid #334155;
+  padding: 0.75rem;
+  text-align: start;
+}
+
+.article-content th { color: #f8fafc; }
+
+.article-visual {
+  margin-block: 3rem;
+  border: 1px solid rgba(51, 65, 85, 0.85);
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.65);
+  padding: clamp(1rem, 4vw, 1.75rem);
+}
+
+.article-visual figcaption {
+  margin-bottom: 1.25rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.article-visual-source,
+.article-visual-node {
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 0.85rem;
+  background: rgba(8, 145, 178, 0.07);
+  padding: 0.9rem 1rem;
+}
+
+.article-visual-source {
+  margin-inline: auto;
+  max-width: 20rem;
+  color: #cffafe;
+  text-align: center;
+  font-weight: 800;
+}
+
+.article-visual-stack,
+.article-visual-branches {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.article-visual-stack::before,
+.article-visual-branches::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  bottom: 100%;
+  width: 1px;
+  height: 1.75rem;
+  background: #334155;
+}
+
+.article-visual-branches {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.article-visual-node strong,
+.article-visual-node span {
+  display: block;
+}
+
+.article-visual-node strong { color: #e2e8f0; }
+.article-visual-node span { margin-top: 0.25rem; color: #64748b; font-size: 0.8rem; line-height: 1.55; }
+
+.article-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.article-comparison section {
+  height: 100%;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.article-comparison h3 {
+  margin: 0 0 0.75rem;
+  color: #e2e8f0;
+  font-size: 1rem;
+}
+
+.article-comparison ul { margin: 0; padding-inline-start: 1.2rem; color: #94a3b8; font-size: 0.85rem; line-height: 1.65; }
+.article-comparison-arrow { color: #22d3ee; font-size: 1.5rem; }
+
+[dir="rtl"] .article-comparison-arrow { transform: scaleX(-1); }
+
+@media (min-width: 640px) {
+  .article-visual-branches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 639px) {
+  .article-comparison { grid-template-columns: 1fr; }
+  .article-comparison-arrow { transform: rotate(90deg); text-align: center; }
+  [dir="rtl"] .article-comparison-arrow { transform: rotate(90deg) scaleX(-1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  .article-content *,
+  .article-content *::before,
+  .article-content *::after,
   .challenge-font *,
   .challenge-font *::before,
   .challenge-font *::after {

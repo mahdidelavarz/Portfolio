@@ -5,6 +5,7 @@ import {
   MingcuteUserStarFill,
   MingcuteUserWarningFill,
   SolarChatSquareCodeBold,
+  SolarDocumentText,
   SolarHome2BoldIcon,
   SreamlineArtificialIntelegence,
   StreamlineKeyboardSolid,
@@ -42,6 +43,11 @@ const NAVIGATION_ITEMS: NavItem[] = [
     id: "challenges",
     title: "Challenges",
     iconName: SolarChatSquareCodeBold,
+  },
+  {
+    id: "articles",
+    title: "Articles",
+    iconName: SolarDocumentText,
   },
   {
     id: "contactme",

@@ -7,6 +7,7 @@ import {
   MingcuteUserStarFill,
   MingcuteUserWarningFill,
   SolarChatSquareCodeBold,
+  SolarDocumentText,
   SolarCloseCircle,
   SolarHamburgerMenuIcon,
   SolarHome2BoldIcon,
@@ -51,6 +52,11 @@ const navItems: NavItem[] = [
     id: "challenges",
     title: "Challenges",
     icon: SolarChatSquareCodeBold,
+  },
+  {
+    id: "articles",
+    title: "Articles",
+    icon: SolarDocumentText,
   },
   {
     id: "contactme",
