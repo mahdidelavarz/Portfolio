@@ -3,8 +3,10 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS dependencies
+ARG NPM_REGISTRY=https://mirror2.chabokan.net/npm/
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm config set registry "$NPM_REGISTRY" \
+    && npm ci
 
 FROM dependencies AS builder
 COPY . .
