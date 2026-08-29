@@ -15,13 +15,8 @@ import {
   MingcuteGithubLine,
   MingcuteLinkedinLine,
   MingcuteMailLine,
-  MingcutePhoneLine,
-  MingcuteRocketLine,
   MingcuteSendLine,
-  MingcuteStarLine,
   MingcuteTelegramLine,
-  MingcuteTimeLine,
-  MingcuteTrophyLine,
 } from "@/icons/icons";
 
 interface ContactMeProps {
@@ -39,7 +34,6 @@ const FormField = memo(
     required = false,
     placeholder,
     rows,
-    options,
   }: {
     label: string;
     name: string;
@@ -47,13 +41,12 @@ const FormField = memo(
     value: string;
     onChange: (
       e: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        HTMLInputElement | HTMLTextAreaElement
       >,
     ) => void;
     required?: boolean;
     placeholder?: string;
     rows?: number;
-    options?: { value: string; label: string }[];
   }) => {
     const baseClasses =
       "w-full px-4 py-3 bg-slate-700/90  border border-slate-600/50 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-300";
@@ -73,20 +66,6 @@ const FormField = memo(
             className={`${baseClasses} resize-none`}
             placeholder={placeholder}
           />
-        ) : type === "select" ? (
-          <select
-            name={name}
-            value={value}
-            onChange={onChange}
-            className={baseClasses}
-          >
-            <option value="">Select {label}</option>
-            {options?.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
         ) : (
           <input
             type={type}
@@ -119,7 +98,6 @@ const ContactMethodCard = memo(
       icon: (props: SVGProps<SVGSVGElement>) => React.JSX.Element;
       color: string;
       borderColor: string;
-      shadowColor: string;
       action: () => void;
     };
     index: number;
@@ -164,8 +142,6 @@ const ContactMe = memo<ContactMeProps>(() => {
     email: "",
     subject: "",
     message: "",
-    budget: "",
-    timeline: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"" | "success" | "error">(
@@ -186,18 +162,7 @@ const ContactMe = memo<ContactMeProps>(() => {
       icon: MingcuteMailLine,
       color: "from-cyan-500 to-blue-600",
       borderColor: "border-cyan-400/50",
-      shadowColor: "shadow-cyan-500/20",
       action: () => (window.location.href = "mailto:mdelever77@gmail.com"),
-    },
-    {
-      id: "phone",
-      label: "Phone",
-      value: "+98 902 557 4357",
-      icon: MingcutePhoneLine,
-      color: "from-emerald-500 to-teal-600",
-      borderColor: "border-emerald-400/50",
-      shadowColor: "shadow-emerald-500/20",
-      action: () => (window.location.href = "tel:+989025574357"),
     },
     {
       id: "telegram",
@@ -206,7 +171,6 @@ const ContactMe = memo<ContactMeProps>(() => {
       icon: MingcuteTelegramLine,
       color: "from-sky-500 to-blue-600",
       borderColor: "border-sky-400/50",
-      shadowColor: "shadow-sky-500/20",
       action: () => window.open("https://t.me/osis13", "_blank"),
     },
     {
@@ -216,7 +180,6 @@ const ContactMe = memo<ContactMeProps>(() => {
       icon: MingcuteLinkedinLine,
       color: "from-purple-500 to-indigo-600",
       borderColor: "border-purple-400/50",
-      shadowColor: "shadow-purple-500/20",
       action: () =>
         window.open(
           "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
@@ -230,50 +193,8 @@ const ContactMe = memo<ContactMeProps>(() => {
       icon: MingcuteGithubLine,
       color: "from-slate-600 to-slate-800",
       borderColor: "border-slate-500/50",
-      shadowColor: "shadow-slate-600/20",
       action: () => window.open("https://github.com/mahdidelavarz", "_blank"),
     },
-  ];
-
-  const stats = [
-    {
-      value: "50+",
-      label: "Projects",
-      icon: MingcuteRocketLine,
-      color: "from-cyan-500 to-blue-600",
-    },
-    {
-      value: "24h",
-      label: "Response",
-      icon: MingcuteTimeLine,
-      color: "from-purple-500 to-pink-600",
-    },
-    {
-      value: "100%",
-      label: "Satisfaction",
-      icon: MingcuteStarLine,
-      color: "from-emerald-500 to-teal-600",
-    },
-    {
-      value: "3+",
-      label: "Years Exp",
-      icon: MingcuteTrophyLine,
-      color: "from-orange-500 to-red-600",
-    },
-  ];
-
-  const budgetOptions = [
-    { value: "under-5k", label: "Under $5,000" },
-    { value: "5k-10k", label: "$5,000 - $10,000" },
-    { value: "10k-25k", label: "$10,000 - $25,000" },
-    { value: "25k-plus", label: "$25,000+" },
-  ];
-
-  const timelineOptions = [
-    { value: "asap", label: "ASAP" },
-    { value: "1-month", label: "Within 1 month" },
-    { value: "2-3-months", label: "2-3 months" },
-    { value: "flexible", label: "Flexible" },
   ];
 
   // Intersection observer for animations
@@ -305,7 +226,7 @@ const ContactMe = memo<ContactMeProps>(() => {
   const handleInputChange = useCallback(
     (
       e: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        HTMLInputElement | HTMLTextAreaElement
       >,
     ) => {
       const { name, value } = e.target;
@@ -348,8 +269,6 @@ const ContactMe = memo<ContactMeProps>(() => {
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          budget: formData.budget || "Not specified",
-          timeline: formData.timeline || "Not specified",
           to_email: "mdelever77@gmail.com",
         };
 
@@ -368,8 +287,6 @@ const ContactMe = memo<ContactMeProps>(() => {
             email: "",
             subject: "",
             message: "",
-            budget: "",
-            timeline: "",
           });
           setTimeout(() => setSubmitStatus(""), 5000);
         }
@@ -404,7 +321,7 @@ const ContactMe = memo<ContactMeProps>(() => {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen py-12 md:py-20 overflow-hidden bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950"
+      className="relative min-h-screen pt-12 pb-40 md:pt-20 overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -423,44 +340,14 @@ const ContactMe = memo<ContactMeProps>(() => {
 
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-white via-sky-400 to-white bg-clip-text text-transparent">
-              Let's Work Together
+              Let&apos;s Connect
             </span>
           </h2>
 
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Ready to transform your ideas into reality? I'm here to help bring
-            your vision to life with modern technologies.
+            I&apos;m open to frontend opportunities, technical collaboration, and
+            conversations around complex product engineering.
           </p>
-        </div>
-
-        {/* Stats Grid */}
-        <div
-          className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto mb-12 md:mb-16 transition-all duration-1000 delay-200 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={stat.label}
-              className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-4 md:p-6 hover:border-cyan-400/50 transition-all duration-300 group"
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl`}
-              />
-              <div className="relative">
-                <div
-                  className={`w-10 h-10 bg-gradient-to-br ${stat.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <stat.icon className="w-5 h-5 text-white" />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-slate-400 text-sm">{stat.label}</div>
-              </div>
-            </div>
-          ))}
         </div>
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
@@ -486,38 +373,6 @@ const ContactMe = memo<ContactMeProps>(() => {
                     isVisible={isVisible}
                   />
                 ))}
-              </div>
-
-              {/* Availability Notice */}
-              <div className="mt-6 p-4 bg-emerald-500/10 backdrop-blur-sm border border-emerald-400/30 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse" />
-                  <p className="text-sm text-emerald-400 font-medium">
-                    Available for freelance projects
-                  </p>
-                </div>
-              </div>
-
-              {/* Working Hours */}
-              <div className="mt-6 p-6 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl">
-                <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-                  <MingcuteTimeLine className="w-5 h-5 text-cyan-400" />
-                  Working Hours
-                </h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Monday - Friday</span>
-                    <span className="text-white">9:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Saturday</span>
-                    <span className="text-white">10:00 AM - 4:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Sunday</span>
-                    <span className="text-slate-500">Closed</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -564,39 +419,19 @@ const ContactMe = memo<ContactMeProps>(() => {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  placeholder="Project inquiry"
+                  placeholder="Frontend opportunity or collaboration"
                 />
-
-                {/* Budget & Timeline */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <FormField
-                    label="Budget Range"
-                    name="budget"
-                    type="select"
-                    value={formData.budget}
-                    onChange={handleInputChange}
-                    options={budgetOptions}
-                  />
-                  <FormField
-                    label="Timeline"
-                    name="timeline"
-                    type="select"
-                    value={formData.timeline}
-                    onChange={handleInputChange}
-                    options={timelineOptions}
-                  />
-                </div>
 
                 {/* Message */}
                 <FormField
-                  label="Project Details"
+                  label="Message"
                   name="message"
                   type="textarea"
                   value={formData.message}
                   onChange={handleInputChange}
                   required
                   rows={5}
-                  placeholder="Tell me about your project..."
+                  placeholder="Tell me what you'd like to discuss..."
                 />
 
                 {/* Submit Button */}
@@ -634,7 +469,7 @@ const ContactMe = memo<ContactMeProps>(() => {
                         Message sent successfully!
                       </p>
                       <p className="text-sm text-emerald-400/70">
-                        I'll get back to you within 24 hours.
+                        Thanks for reaching out. I&apos;ll reply as soon as I can.
                       </p>
                     </div>
                   </div>
@@ -661,51 +496,6 @@ const ContactMe = memo<ContactMeProps>(() => {
           </div>
         </div>
 
-        {/* Footer CTA */}
-        <div
-          className={`mt-16 mb-15 transition-all duration-1000 delay-500 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60  border border-slate-700/50 rounded-2xl p-8 md:p-12 text-center hover:border-cyan-400/50 transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 hover:opacity-100 transition-opacity duration-500" />
-
-            <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Let's Build Something Amazing
-              </h3>
-              <p className="text-slate-400 text-base md:text-lg mb-8 max-w-2xl mx-auto">
-                Whether you have a project in mind or just want to chat about
-                possibilities, I'm always open to discussing new opportunities.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="mailto:mdelever77@gmail.com"
-                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-1"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                  <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <MingcuteMailLine width={20} height={20} />
-                    <span>Email Me</span>
-                  </div>
-                </a>
-
-                <a
-                  href="https://t.me/osis13"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative px-6 md:px-8 py-3 md:py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600 rounded-xl font-semibold text-white hover:border-cyan-400 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="relative flex items-center justify-center gap-2 md:gap-3">
-                    <MingcuteTelegramLine width={20} height={20} />
-                    <span>Chat on Telegram</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

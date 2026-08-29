@@ -268,8 +268,8 @@ export const articles = [
     title: "Building a Metadata-Driven Page Architecture for a Growing ERP",
     summary:
       "How repeated ERP page wiring evolved from an incomplete generic CRUD shell into typed page definitions, a stable orchestrator, and explicit feature adapters.",
-    publishedAt: "2026-08-28",
-    readingTime: "12 min read",
+    publishedAt: "2026-07-03",
+    readingTime: "10 min read",
     tags: ["Frontend Architecture", "TypeScript", "React"],
     featured: true,
     project: "ERP",
@@ -282,8 +282,8 @@ export const articles = [
     title: "Designing a Versioned Engineering Workflow for a Manufacturing ERP",
     summary:
       "How the frontend moved beyond edit-in-place CRUD to represent controlled Engineering Editions, Part lineage, lifecycle gates, and current-state validation.",
-    publishedAt: "2026-08-28",
-    readingTime: "13 min read",
+    publishedAt: "2026-03-10",
+    readingTime: "10 min read",
     tags: ["Product Engineering", "Workflow", "React"],
     featured: false,
     project: "ERP",
@@ -296,8 +296,8 @@ export const articles = [
     title: "Why I Replaced Nested Modals with Routed Workspaces in an ERP",
     summary:
       "How complex child resources outgrew modal-only management and evolved into parent-aware routes, persistent tabs, and coordinated ERP workspaces.",
-    publishedAt: "2026-08-28",
-    readingTime: "9 min read",
+    publishedAt: "2025-08-01",
+    readingTime: "7 min read",
     tags: ["UX Architecture", "Routing", "State Management"],
     featured: false,
     project: "ERP",
@@ -310,7 +310,7 @@ export const articles = [
     title: "از CRUDهای تکراری تا PageShell در یک ERP واقعی",
     summary:
       "روایت شکل‌گیری PageShell؛ از wiring تکراری pageهای CRUD تا یک قرارداد تایپ‌شده که orchestration مشترک را از behavior دامنه جدا نگه می‌دارد.",
-    publishedAt: "2026-08-28",
+    publishedAt: "2026-07-03",
     readingTime: "حدود ۱۰ دقیقه",
     tags: ["معماری فرانت‌اند", "TypeScript", "React"],
     featured: true,
@@ -324,7 +324,7 @@ export const articles = [
     title: "وقتی edit کردن کافی نبود: Editionهای مهندسی در یک ERP تولیدی",
     summary:
       "روایت frontend یک فرایند مهندسی که باید تعریف قبلی را حفظ می‌کرد، revision جدید می‌ساخت و تفاوت Partهای جاری و تاریخی را جدی می‌گرفت.",
-    publishedAt: "2026-08-28",
+    publishedAt: "2026-03-10",
     readingTime: "حدود ۱۰ دقیقه",
     tags: ["مهندسی محصول", "گردش کار", "React"],
     featured: false,
@@ -338,7 +338,7 @@ export const articles = [
     title: "چرا modalهای تودرتو را کنار گذاشتم و resourceهای ERP را route کردم",
     summary:
       "روایت resourceهایی که دیگر داخل modal جا نمی‌شدند و به routeهای parent-aware، tabهای ماندگار و workspace هماهنگ تبدیل شدند.",
-    publishedAt: "2026-08-28",
+    publishedAt: "2025-08-01",
     readingTime: "حدود ۷ دقیقه",
     tags: ["معماری تجربه کاربری", "مسیریابی", "مدیریت وضعیت"],
     featured: false,

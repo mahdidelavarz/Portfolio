@@ -12,7 +12,7 @@ export default function ArticlesPreview() {
   ].slice(0, 3);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950 py-16 sm:py-24">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950 py-16 sm:py-24">
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-3xl" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 inline-flex items-center gap-3 rounded-full px-4 py-2">

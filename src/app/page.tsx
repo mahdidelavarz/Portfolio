@@ -58,14 +58,14 @@ const Education = dynamic(() => import("@/components/client/Education"), {
 
 // Enhanced metadata for SEO
 export const metadata: Metadata = {
-  title: "Mahdi Delavar | Frontend Developer - React & Next.js Expert",
+  title: "Mahdi Delavar | Frontend Developer",
   description:
-    "Frontend Developer specializing in React, Next.js, and TypeScript. Explore 50+ projects and my 3+ years of experience building scalable web apps.",
+    "Frontend Developer building maintainable React and TypeScript systems for enterprise and data-intensive applications.",
   keywords: [
     "Frontend Developer",
     "React Developer",
     "Next.js Developer",
-    "TypeScript Expert",
+    "TypeScript Developer",
     "Web Developer Iran",
     "Mahdi Delavar",
   ],
@@ -73,9 +73,9 @@ export const metadata: Metadata = {
     canonical: "https://mahdidelavar.ir",
   },
   openGraph: {
-    title: "Mahdi Delavar - Frontend Developer Portfolio",
+    title: "Mahdi Delavar | Frontend Developer",
     description:
-      "React & Next.js expert with 3+ years of experience. Explore 50+ web projects built for performance and scalability.",
+      "Frontend Developer building maintainable React and TypeScript systems for enterprise and data-intensive applications.",
     url: "https://mahdidelavar.ir",
     siteName: "Mahdi Delavar Portfolio",
     images: [
@@ -91,9 +91,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mahdi Delavar - Frontend Developer",
+    title: "Mahdi Delavar | Frontend Developer",
     description:
-      "React, Next.js & TypeScript Developer with 3+ years experience and 50+ completed projects.",
+      "React and TypeScript frontend development focused on reusable architecture, data-intensive interfaces, and real business workflows.",
     creator: "@mahdi_delavar",
     images: ["https://mahdidelavar.ir/portfolio.png"],
   },
@@ -118,7 +118,7 @@ const structuredData = {
       },
       dateModified: new Date().toISOString(),
       description:
-        "Professional portfolio of Mahdi Delavar, a Frontend Developer specializing in React, Next.js, and modern web technologies.",
+        "Portfolio of Mahdi Delavar, a Frontend Developer building complex, data-intensive products with React and TypeScript.",
       breadcrumb: {
         "@id": "https://mahdidelavar.ir/#breadcrumb",
       },
@@ -136,9 +136,9 @@ const structuredData = {
       name: "Mahdi Delavar",
       alternateName: "Mahdi",
       image: "https://mahdidelavar.ir/portfolio.png",
-      jobTitle: "Senior Frontend Developer",
+      jobTitle: "Frontend Developer",
       description:
-        "Experienced Frontend Developer with 3+ years of expertise in React, Next.js, TypeScript, and modern web technologies. Passionate about creating exceptional user experiences and scalable web applications.",
+        "Frontend Developer building maintainable React and TypeScript systems for complex products, reusable architecture, and real business workflows.",
       url: "https://mahdidelavar.ir",
       email: "mdelever77@gmail.com",
       telephone: "+989025574357",
@@ -239,7 +239,7 @@ const structuredData = {
       url: "https://mahdidelavar.ir",
       name: "Mahdi Delavar Portfolio",
       description:
-        "Frontend Developer Portfolio - React, Next.js & TypeScript Expert",
+        "Frontend Developer portfolio focused on React, TypeScript, frontend architecture, and data-intensive applications.",
       publisher: {
         "@id": "https://mahdidelavar.ir/#person",
       },
@@ -317,10 +317,10 @@ const structuredData = {
       mainEntity: [
         {
           "@type": "Question",
-          name: "What services does Mahdi Delavar offer?",
+          name: "What kind of frontend products does Mahdi Delavar build?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "I offer frontend development services specializing in React, Next.js, and TypeScript. This includes building responsive web applications, progressive web apps, e-commerce platforms, and custom web solutions.",
+            text: "Mahdi builds maintainable frontend systems with React and TypeScript, focusing on reusable architecture, data-intensive interfaces, and enterprise workflows.",
           },
         },
         {
@@ -328,7 +328,7 @@ const structuredData = {
           name: "What is Mahdi Delavar's experience level?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "I have over 3 years of professional experience in frontend development, having delivered 50+ successful projects with a 100% client satisfaction rate.",
+            text: "Mahdi has over 3 years of professional frontend development experience, including more than 2 years working on an enterprise ERP platform.",
           },
         },
         {

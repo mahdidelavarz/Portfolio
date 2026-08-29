@@ -31,9 +31,9 @@ const FORMAL_EDUCATION = [
   {
     degree: "Bachelor of Computer Engineering",
     institution: "Azad University of Tabriz",
-    period: "2021 - Present",
+    period: "2023 - Present",
     status: "Currently enrolled",
-    grade: "GPA: 17/20",
+    grade: "GPA: 16/20",
     location: "Tabriz, Iran",
     description:
       "Comprehensive study of computer science fundamentals including algorithms, data structures, software engineering, and system design.",
@@ -141,7 +141,7 @@ const LEARNING_STATS = [
   },
   {
     icon: SolarDiplomaVerifiedBold,
-    number: "10+",
+    number: "4+",
     label: "Certificates",
     color: "from-amber-400 to-orange-500",
   },

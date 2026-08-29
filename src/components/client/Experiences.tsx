@@ -5,20 +5,15 @@ import {
   SolarAltArrowRightBold,
   SolarBuildingsBoldIcon,
   SolarCalendarBold,
-  SolarChatRoundBoldIcon,
   SolarCheckCircleBold,
   SolarClockCircleBoldIcon,
   SolarCodeBold,
-  SolarLetterBold,
   SolarMapPoindBold,
   SolarProgrammingBold,
   SolarRocketBold,
   SolarStarShineBold,
 } from "@/icons/icons";
 
-interface ExperiencesProps {
-  scrollToSection?: (id: string) => void;
-}
 type Experience = (typeof EXPERIENCES)[number];
 
 // Experience data
@@ -26,74 +21,49 @@ const EXPERIENCES = [
   {
     id: 0,
     company: "Petco",
-    role: "FrontEnd Developer",
-    period: "2023 - Present",
+    role: "Frontend Developer",
+    period: "2024 - Present",
     duration: "2+ Years",
     location: "Tabriz, Iran",
     type: "Full-Time",
     icon: SolarBuildingsBoldIcon,
     color: "from-cyan-500 to-blue-600",
     description:
-      "Leading enterprise ERP system development, architecting scalable solutions for hundreds of users.",
+      "Developing a multi-module enterprise ERP frontend for complex, data-intensive workflows.",
     highlights: [
-      "Built frontend infrastructure from scratch",
-      "40% faster development with library",
-      "Serving 300+ daily active users",
-      "60% performance improvement",
+      "Developed a multi-module enterprise ERP frontend with React and TypeScript, implementing data-intensive interfaces and complex business workflows.",
+      "Designed reusable factories and a PageShell architecture, cutting development time by 70%+ for comparable, repetitive CRUD pages by removing duplicate wiring.",
+      "Built shared table and form infrastructure for server/client data, filtering, pagination, permissions, and dependent fields.",
+      "Replaced nested modals with routed workspaces and implemented revision-based engineering workflows that preserve context and change history.",
     ],
-    technologies: [
-      "React",
-      "TypeScript",
-      "Zustand",
-      "TanStack Query",
-      "Tailwind CSS",
-      "SQL Server",
-      "Git",
-      "CI/CD",
-      "Stimulsoft",
-      "PWA",
+    tags: [
+      "PageShell Architecture",
+      "Data-Intensive UI",
+      "Routed Workspaces",
+      "Workflow UI",
+      "Server / Client Tables",
+      "RTL Enterprise UI",
     ],
-    impact: {
-      users: "10K+",
-      performance: "98%",
-      efficiency: "+40%",
-    },
   },
   {
     id: 1,
     company: "LoveCode",
     role: "Frontend Developer",
-    period: "2021 - 2022",
+    period: "2023 - 2024",
     duration: "1 Year",
-    location: "Tehran, Iran",
+    location: "Remote",
     type: "Full-Time",
     icon: SolarCodeBold,
     color: "from-rose-500 to-pink-600",
     description:
-      "Developed responsive web applications with pixel-perfect UI implementations.",
+      "Built responsive web applications with React and TypeScript.",
     highlights: [
-      "Developed 15+ responsive applications",
-      "45% performance improvement",
-      "Pixel-perfect UI/UX implementation",
+      "Built responsive, production-ready interfaces",
+      "Collaborated with designers and backend teams",
+      "Delivered clean, maintainable frontend code",
       "Integrated payment gateways",
     ],
-    technologies: [
-      "React",
-      "Next.js",
-      "JavaScript",
-      "TypeScript",
-      "SASS",
-      "Tailwind CSS",
-      "Redux",
-      "Tanstack/react-query",
-      "Material-UI",
-      "Git",
-    ],
-    impact: {
-      projects: "15+",
-      performance: "+45%",
-      satisfaction: "100%",
-    },
+    tags: ["React", "TypeScript", "Responsive UI"],
   },
   {
     id: 2,
@@ -106,33 +76,14 @@ const EXPERIENCES = [
     icon: SolarRocketBold,
     color: "from-purple-500 to-indigo-600",
     description:
-      "Delivered custom web solutions for diverse clients across industries.",
+      "Built and maintained client web applications across the project lifecycle.",
     highlights: [
-      "Completed 20+ client projects",
-      "100% client satisfaction rate",
-      "200% traffic increase with SEO",
-      "Full project lifecycle management",
+      "Implemented responsive frontend interfaces",
+      "Integrated application APIs and payment flows",
+      "Managed delivery from requirements through deployment",
+      "Maintained and improved applications after launch",
     ],
-    technologies: [
-      "HTML5",
-      "CSS3",
-      "Tailwind CSS",
-      "JavaScript",
-      "TypeScript",
-      "React",
-      "Next.js",
-      "MongoDB",
-      "Supabase",
-      "OpenAI API",
-      "Chart.js",
-      "Google OAuth",
-      "Git",
-    ],
-    impact: {
-      clients: "20+",
-      traffic: "+200%",
-      retention: "100%",
-    },
+    tags: ["React", "Next.js", "TypeScript"],
   },
 ] as const;
 
@@ -187,13 +138,9 @@ const ExperienceCard = memo(
   ({
     experience,
     isVisible,
-    showCTA,
-    onContactClick,
   }: {
     experience: Experience;
     isVisible: boolean;
-    showCTA?: boolean;
-    onContactClick: () => void;
   }) => {
     return (
       <div
@@ -261,25 +208,6 @@ const ExperienceCard = memo(
               {experience.description}
             </p>
 
-            {/* Impact Metrics */}
-            <div className="grid grid-cols-3 gap-2 md:gap-3 mb-6">
-              {Object.entries(experience.impact).map(([key, value]) => (
-                <div
-                  key={key}
-                  className="bg-slate-700/30 rounded-lg p-2.5 md:p-3 text-center hover:bg-slate-700/50 transition-all duration-300"
-                >
-                  <div
-                    className={`text-lg md:text-xl font-bold bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}
-                  >
-                    {value}
-                  </div>
-                  <div className="text-xs text-slate-500 capitalize mt-0.5">
-                    {key}
-                  </div>
-                </div>
-              ))}
-            </div>
-
             {/* Achievements */}
             <div className="mb-6">
               <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
@@ -309,7 +237,7 @@ const ExperienceCard = memo(
               </div>
             </div>
 
-            {/* Technologies */}
+            {/* Engineering focus */}
             <div>
               <h4 className="font-semibold text-white text-sm md:text-base mb-3 flex items-center gap-2">
                 <SolarProgrammingBold
@@ -317,15 +245,15 @@ const ExperienceCard = memo(
                   height={18}
                   className="text-blue-400"
                 />
-                Tech Stack
+                Engineering Focus
               </h4>
               <div className="flex flex-wrap gap-2">
-                {experience.technologies.map((tech) => (
+                {experience.tags.map((tag) => (
                   <span
-                    key={tech}
+                    key={tag}
                     className="px-2.5 py-1 bg-slate-700/30 border border-slate-600/50 text-xs font-medium text-slate-300 rounded-lg hover:border-cyan-400/50 transition-all duration-300"
                   >
-                    {tech}
+                    {tag}
                   </span>
                 ))}
               </div>
@@ -340,7 +268,7 @@ const ExperienceCard = memo(
 ExperienceCard.displayName = "ExperienceCard";
 
 // Main Component
-const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
+const Experiences = memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -373,10 +301,6 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
     };
   }, []);
 
-  const handleContactClick = useCallback(() => {
-    scrollToSection?.("contactme");
-  }, [scrollToSection]);
-
   const handlePrevious = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
@@ -406,7 +330,11 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
     (e: React.TouchEvent) => {
       const diff = touchStartX.current - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
-        diff > 0 ? handleNext() : handlePrevious();
+        if (diff > 0) {
+          handleNext();
+        } else {
+          handlePrevious();
+        }
       }
     },
     [handleNext, handlePrevious],
@@ -458,15 +386,14 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
           </h2>
 
           <p className="text-base md:text-lg text-slate-400 max-w-3xl mx-auto px-4">
-            Building innovative solutions and delivering exceptional results
-            across different roles
+            Frontend experience across enterprise ERP and product delivery
           </p>
         </div>
 
         {/* Mobile View */}
         {isMobile ? (
           <div
-            className={`transition-all duration-1000 delay-200 h-[55rem] ${
+            className={`transition-all duration-1000 delay-200 min-h-[46rem] ${
               isVisible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-10 opacity-0"
@@ -483,8 +410,6 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
             <ExperienceCard
               experience={currentExperience}
               isVisible={isVisible}
-              showCTA={activeIndex === 0}
-              onContactClick={handleContactClick}
             />
 
             {/* Mobile Navigation */}
@@ -619,7 +544,6 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
                 <ExperienceCard
                   experience={currentExperience}
                   isVisible={isVisible}
-                  onContactClick={handleContactClick}
                 />
               </div>
 
@@ -640,37 +564,6 @@ const Experiences = memo<ExperiencesProps>(({ scrollToSection }) => {
               </div>
             </div>
 
-            {/* Bottom CTA */}
-            <div className="mt-16 max-w-5xl mx-auto">
-              <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 text-center hover:border-cyan-400/50 transition-all duration-500 group">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative z-10">
-                  <SolarChatRoundBoldIcon
-                    width={48}
-                    height={48}
-                    className="text-cyan-400 mx-auto mb-4"
-                  />
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                    Ready for New Challenges
-                  </h3>
-                  <p className="text-slate-400 text-base mb-6 max-w-2xl mx-auto">
-                    Looking for a skilled developer? Let's discuss how I can
-                    contribute to your success.
-                  </p>
-
-                  <button
-                    onClick={handleContactClick}
-                    className="group/btn px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300"
-                  >
-                    <span className="flex items-center justify-center gap-2">
-                      <SolarLetterBold width={20} height={20} />
-                      Get In Touch
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         )}
       </div>

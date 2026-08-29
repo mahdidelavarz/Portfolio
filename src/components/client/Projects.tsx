@@ -1,200 +1,88 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
   LucideChevronLeft,
   LucideChevronRight,
-  LucideClock,
   LucideExternalLink,
   LucideGithub,
-  LucideTrendingUp,
-  LucideUsers,
-  LuciedPlay,
 } from "@/icons/icons";
 
 const projects = [
   {
     id: 1,
-    title: "NaziShop",
-    subtitle: "Production-ready Persian e-commerce platform",
-    description:
-      "A full-stack, RTL e-commerce platform with a customer storefront and administration panel. It covers product variants, inventory, coupons, reviews, returns, order tracking, OTP authentication, and containerized development and production environments.",
-    technologies: [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Express.js",
-      "TypeORM",
-      "PostgreSQL",
-      "TanStack Query",
-      "Zustand",
-      "Docker",
-    ],
-    category: "Full Stack",
-    year: "2026",
-    metrics: {
-      domains: {
-        value: "30+",
-        label: "Database Entities",
-        icon: LucideUsers,
-      },
-      auth: { value: "OTP", label: "Passwordless Auth", icon: LuciedPlay },
-      delivery: {
-        value: "Docker",
-        label: "Dev & Production",
-        icon: LucideTrendingUp,
-      },
-    },
-    image: "/nazishop.png",
-    color: "from-pink-500 to-rose-500",
-    liveUrl: "https://thenazishop.ir",
-    githubUrl: "https://github.com/mahdidelavarz/Ex_ecommerce",
-    features: [
-      "Product variants & inventory",
-      "Orders, coupons & returns",
-      "Persian RTL storefront",
-      "Role-based admin panel",
-    ],
-  },
-  {
-    id: 2,
     title: "NeoVault",
-    subtitle: "Self-hosted personal knowledge vault",
+    subtitle: "Self-hosted knowledge and productivity system",
     description:
-      "A full-stack workspace for links, notes, code snippets, AI prompts, infrastructure configs, and API collections. It includes encrypted credential storage, global PostgreSQL search, hierarchical organization, project grouping, and installable PWA support.",
-    technologies: [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Express 5",
-      "TypeORM",
-      "PostgreSQL",
-      "CodeMirror",
-      "Serwist",
-      "Docker",
-      "Nginx",
-    ],
+      "A self-hosted full-stack workspace for organizing links, notes, code snippets, and API requests with hierarchical collections, PostgreSQL search, and offline-capable access.",
+    technologies: ["Next.js 16", "TypeScript", "PostgreSQL", "Docker"],
     category: "Full Stack",
     year: "2026",
-    metrics: {
-      modules: { value: "7", label: "Core Modules", icon: LucideUsers },
-      security: {
-        value: "AES",
-        label: "Encrypted Credentials",
-        icon: LucideTrendingUp,
-      },
-      deployment: { value: "Live", label: "neovault.ir", icon: LucideClock },
-    },
     image: "/neovault.png",
     color: "from-purple-500 to-fuchsia-500",
     liveUrl: "https://neovault.ir",
     githubUrl: "https://github.com/mahdidelavarz/linkvault",
     features: [
-      "Links, notes & snippets",
-      "Prompt and API collections",
-      "Encrypted sensitive fields",
-      "Full-text search & offline PWA",
+      "Frontend, API, database & deployment ownership",
+      "PostgreSQL full-text search & hierarchy",
+      "Offline PWA with queued sync",
+    ],
+  },
+  {
+    id: 2,
+    title: "AranazShop",
+    subtitle: "Full-stack Persian e-commerce platform",
+    description:
+      "A full-stack RTL storefront and admin system covering catalog discovery, purchasing, and operational order management.",
+    technologies: ["Next.js 16", "TypeScript", "Express", "PostgreSQL"],
+    category: "Full Stack",
+    year: "2026",
+    image: "/nazishop.png",
+    color: "from-pink-500 to-rose-500",
+    liveUrl: "https://aranazshop.ir",
+    githubUrl: "https://github.com/mahdidelavarz/nazishop",
+    features: [
+      "Product variants, search & filtering",
+      "Cart, checkout & order tracking",
+      "OTP authentication, RBAC & inventory admin",
     ],
   },
   {
     id: 3,
-    title: "Bermod Chat",
-    subtitle: "Real-time messaging with Socket.IO",
+    title: "FrontForge",
+    subtitle: "Frontend architecture decision engine",
     description:
-      "A Docker-first full-stack messaging application with one-to-one conversations, persistent message history, read receipts, presence tracking, message deletion, JWT authentication, and an installable offline-capable frontend.",
-    technologies: [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Express 5",
-      "Socket.IO",
-      "PostgreSQL",
-      "TypeORM",
-      "Serwist",
-      "Docker",
-    ],
-    category: "Full Stack",
+      "A client-side planning tool that guides frontend architecture decisions, flags conflicting choices, previews design-system configuration, and exports a project blueprint.",
+    technologies: ["Next.js 16", "TypeScript", "Zustand", "JSZip"],
+    category: "Developer Tool",
     year: "2026",
-    metrics: {
-      realtime: { value: "WS", label: "Socket Messaging", icon: LuciedPlay },
-      presence: { value: "Live", label: "User Presence", icon: LucideUsers },
-      delivery: {
-        value: "PWA",
-        label: "Installable Client",
-        icon: LucideTrendingUp,
-      },
-    },
-    image: "/bermod.jpg",
-    color: "from-orange-500 to-red-500",
-    githubUrl: "https://github.com/mahdidelavarz/chat-app",
+    image: "/frontForge.png",
+    color: "from-indigo-500 to-cyan-500",
+    githubUrl: "https://github.com/mahdidelavarz/FrontForge",
     features: [
-      "Real-time private messaging",
-      "Read receipts & presence",
-      "Persistent conversations",
-      "Dockerized dev and production",
+      "Guided architecture decision workflow",
+      "Conflict detection & live design-system preview",
+      "Generated project files and ZIP export",
     ],
   },
   {
     id: 4,
-    title: "FrontForge",
-    subtitle: "Frontend architecture decision engine",
-    description:
-      "A guided planning tool that helps developers define critical frontend architecture choices before implementation. The wizard captures project standards, architecture, design-system, UX, and review decisions, then exports a reusable documentation bundle and setup blueprint.",
-    technologies: [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "Zustand",
-      "JSZip",
-    ],
-    category: "Developer Tool",
-    year: "2026",
-    metrics: {
-      workflow: { value: "Wizard", label: "Guided Decisions", icon: LuciedPlay },
-      output: { value: "ZIP", label: "Project Blueprint", icon: LucideTrendingUp },
-      backend: { value: "0", label: "Backend Required", icon: LucideClock },
-    },
-    image: "/frontForge.png",
-    color: "from-indigo-500 to-cyan-500",
-     liveUrl: "https://front-forge-gold.vercel.app/",
-    githubUrl: "https://github.com/mahdidelavarz/FrontForge",
-    features: [
-      "Architecture decision wizard",
-      "Project standards checklist",
-      "Live configuration preview",
-      "Downloadable blueprint export",
-    ],
-  },
-  {
-    id: 5,
     title: "Portfolio Website",
-    subtitle: "Personal developer portfolio",
+    subtitle: "Engineering-focused personal portfolio",
     description:
-      "A responsive single-page portfolio built with the Next.js App Router and React 19. It combines scroll-aware navigation, lazy-loaded sections, animated content reveals, and a complete SEO setup including structured data, Open Graph metadata, and sitemap generation.",
-    technologies: [
-      "Next.js 15",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "EmailJS",
-    ],
+      "A Next.js App Router portfolio with technical SEO, structured metadata, sitemap generation, and a responsive dark interface.",
+    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4"],
     category: "Frontend",
     year: "2026",
-    metrics: {
-      sections: { value: "7", label: "Content Sections", icon: LucideUsers },
-      seo: { value: "SEO", label: "Structured Metadata", icon: LucideTrendingUp },
-      deployment: { value: "Live", label: "mahdidelavar.ir", icon: LucideClock },
-    },
     image: "/portfolio.png",
     color: "from-cyan-500 to-blue-500",
     liveUrl: "https://mahdidelavar.ir",
     githubUrl: "https://github.com/mahdidelavarz/Portfolio",
     features: [
-      "App Router architecture",
-      "Scroll-spy navigation",
-      "SEO and structured data",
-      "Responsive animated sections",
+      "Bilingual engineering Articles section",
+      "JavaScript/React challenges with progress tracking",
+      "Leaderboard-backed learning experience",
     ],
   },
 ];
@@ -245,7 +133,7 @@ function Projects() {
           </span>
         </h2>
         <p className="mx-auto max-w-3xl px-4 text-base text-slate-500 md:text-lg">
-          Production-minded products, developer tools, and full-stack experiments
+          Selected full-stack products and frontend engineering tools
         </p>
 
         <div className="mt-20 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -258,15 +146,23 @@ function Projects() {
               }}
               onTouchEnd={(event) => {
                 const distance = touchStartX.current - event.changedTouches[0].clientX;
-                if (Math.abs(distance) > 50) distance > 0 ? handleNext() : handlePrevious();
+                if (Math.abs(distance) > 50) {
+                  if (distance > 0) {
+                    handleNext();
+                  } else {
+                    handlePrevious();
+                  }
+                }
               }}
             >
               <div className="relative h-[300px] overflow-hidden sm:h-[400px] lg:h-[450px]">
                 <div className={`absolute inset-0 bg-gradient-to-br ${currentProject.color} opacity-90`} />
-                <img
+                <Image
                   src={currentProject.image}
                   alt={currentProject.title}
-                  className={`h-full w-full object-cover transition-all duration-700 ${
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className={`object-cover transition-all duration-700 ${
                     isTransitioning ? "scale-110 opacity-0" : "scale-100 opacity-100"
                   }`}
                 />
@@ -296,18 +192,24 @@ function Projects() {
               </div>
             </div>
 
-            <div className="mt-6 hidden grid-cols-5 gap-3 lg:grid">
+            <div className="mt-6 hidden grid-cols-4 gap-3 lg:grid">
               {projects.map((project, index) => (
                 <button
                   key={project.id}
                   onClick={() => selectProject(index)}
-                  className={`relative overflow-hidden rounded-xl border-2 transition ${
+                  className={`relative h-16 overflow-hidden rounded-xl border-2 transition ${
                     selectedProject === index
                       ? "scale-105 border-blue-500 shadow-lg shadow-blue-500/20"
                       : "border-slate-700 hover:border-slate-500"
                   }`}
                 >
-                  <img src={project.image} alt={project.title} className="h-16 w-full object-cover" />
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="12vw"
+                    className="object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                   <p className="absolute inset-x-0 bottom-0 truncate p-2 text-[10px] font-medium text-white">
                     {project.title}
@@ -322,7 +224,7 @@ function Projects() {
               isTransitioning ? "translate-x-4 opacity-0" : "translate-x-0 opacity-100"
             }`}
           >
-            <div className="flex min-h-[650px] flex-col rounded-3xl border border-slate-700/50 bg-slate-800/50 p-5 shadow-xl backdrop-blur-xl sm:p-8">
+            <div className="flex min-h-[520px] flex-col rounded-3xl border border-slate-700/50 bg-slate-800/50 p-5 shadow-xl backdrop-blur-xl sm:p-8">
               <span className="mb-6 text-sm font-medium text-slate-500">
                 {currentProject.year} • Project #{selectedProject + 1} of {projects.length}
               </span>
@@ -357,22 +259,7 @@ function Projects() {
                 </div>
               </section>
 
-              <section className="mb-8 flex-grow">
-                <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-300">Project Scope</h4>
-                <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                  {Object.entries(currentProject.metrics).map(([key, metric]) => (
-                    <div key={key} className="rounded-xl bg-slate-700/30 p-3 text-center sm:p-4">
-                      <metric.icon className="mx-auto mb-2 h-5 w-5 text-slate-500" />
-                      <div className={`bg-gradient-to-br ${currentProject.color} bg-clip-text text-lg font-bold text-transparent sm:text-xl`}>
-                        {metric.value}
-                      </div>
-                      <div className="mt-1 text-[10px] text-slate-500 sm:text-xs">{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <div className="mt-auto flex flex-col gap-3 sm:flex-row">
+              <div className="mt-auto flex flex-col gap-3 pt-2 sm:flex-row">
                 {currentProject.liveUrl && (
                   <a
                     href={currentProject.liveUrl}
