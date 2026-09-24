@@ -24,10 +24,11 @@ const EXPERIENCES = [
     role: "Frontend Developer",
     period: "2024 - Present",
     duration: "2+ Years",
-    location: "Tabriz, Iran",
+    location: "Tabriz",
     type: "Full-Time",
     icon: SolarBuildingsBoldIcon,
     color: "from-cyan-500 to-blue-600",
+    accentColor: "text-cyan-400",
     description:
       "Developing a multi-module enterprise ERP frontend for complex, data-intensive workflows.",
     highlights: [
@@ -55,6 +56,7 @@ const EXPERIENCES = [
     type: "Full-Time",
     icon: SolarCodeBold,
     color: "from-rose-500 to-pink-600",
+    accentColor: "text-rose-400",
     description:
       "Developed responsive, production-ready web applications with React and TypeScript for a range of business needs.",
     highlights: [
@@ -82,6 +84,7 @@ const EXPERIENCES = [
     type: "Contract",
     icon: SolarRocketBold,
     color: "from-purple-500 to-indigo-600",
+    accentColor: "text-purple-400",
     description:
       "Delivered and maintained custom client web applications from initial requirements through launch and ongoing support.",
     highlights: [
@@ -181,7 +184,7 @@ const ExperienceCard = memo(
               </div>
 
               <div className="flex-1 min-w-0">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2 ">
                   <div className="flex-1">
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
                       {experience.company}
@@ -241,9 +244,9 @@ const ExperienceCard = memo(
                     <SolarCheckCircleBold
                       width={16}
                       height={16}
-                      className={`flex-shrink-0 mt-0.5 bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}
+                      className={`mt-0.5 shrink-0 ${experience.accentColor}`}
                     />
-                    <span className="text-xs md:text-sm text-slate-300 leading-relaxed">
+                    <span className="text-xs h-20 md:text-sm text-slate-300 leading-relaxed">
                       {highlight}
                     </span>
                   </div>
