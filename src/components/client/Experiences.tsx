@@ -56,14 +56,21 @@ const EXPERIENCES = [
     icon: SolarCodeBold,
     color: "from-rose-500 to-pink-600",
     description:
-      "Built responsive web applications with React and TypeScript.",
+      "Developed responsive, production-ready web applications with React and TypeScript for a range of business needs.",
     highlights: [
-      "Built responsive, production-ready interfaces",
-      "Collaborated with designers and backend teams",
-      "Delivered clean, maintainable frontend code",
-      "Integrated payment gateways",
+      "Built responsive, production-ready interfaces that delivered consistent experiences across desktop, tablet, and mobile devices.",
+      "Collaborated closely with designers and backend developers to translate product requirements into polished, reliable features.",
+      "Created clean, reusable frontend components that improved maintainability and supported efficient development across projects.",
+      "Integrated payment gateways and application APIs, handling user feedback, loading states, and common error scenarios.",
     ],
-    tags: ["React", "TypeScript", "Responsive UI"],
+    tags: [
+      "React",
+      "TypeScript",
+      "Responsive UI",
+      "API Integration",
+      "Payment Gateways",
+      "Team Collaboration",
+    ],
   },
   {
     id: 2,
@@ -76,14 +83,21 @@ const EXPERIENCES = [
     icon: SolarRocketBold,
     color: "from-purple-500 to-indigo-600",
     description:
-      "Built and maintained client web applications across the project lifecycle.",
+      "Delivered and maintained custom client web applications from initial requirements through launch and ongoing support.",
     highlights: [
-      "Implemented responsive frontend interfaces",
-      "Integrated application APIs and payment flows",
-      "Managed delivery from requirements through deployment",
-      "Maintained and improved applications after launch",
+      "Implemented responsive frontend interfaces tailored to each client's goals, audience, and visual requirements.",
+      "Integrated application APIs and payment flows to support reliable, user-friendly interactions and business operations.",
+      "Managed projects from requirements and technical planning through implementation, testing, deployment, and client handoff.",
+      "Maintained applications after launch, resolving issues and delivering iterative performance and usability improvements.",
     ],
-    tags: ["React", "Next.js", "TypeScript"],
+    tags: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "API Integration",
+      "Deployment",
+      "Client Projects",
+    ],
   },
 ] as const;
 
