@@ -122,8 +122,8 @@ export default function QuestionExperience({
 
   return (
     <article className="mx-auto max-w-5xl">
-      <Link href="/challenges" className="inline-flex items-center gap-2 rounded-full border border-slate-700/50 bg-slate-800/40 px-4 py-2 text-sm text-slate-400 transition hover:border-cyan-400/30 hover:text-cyan-300">
-        <span aria-hidden="true"><LucideArrowRight width={20}/></span> بازگشت به همه چالش‌ها
+      <Link href="/challenges/quiz" className="inline-flex items-center gap-2 rounded-full border border-slate-700/50 bg-slate-800/40 px-4 py-2 text-sm text-slate-400 transition hover:border-cyan-400/30 hover:text-cyan-300">
+        <span aria-hidden="true"><LucideArrowRight width={20}/></span> بازگشت به همه سؤال‌ها
       </Link>
 
       <header className="mb-12">

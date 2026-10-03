@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "validate:challenges": "node --experimental-strip-types src/data/validate-challenges.ts"
+    "validate:challenges": "node --experimental-strip-types src/data/validate-challenges.ts",
+    "validate:lab": "node --experimental-strip-types src/lib/lab/validate-lab.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

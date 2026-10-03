@@ -40,6 +40,9 @@ export type PublicChallenge = Omit<
   | "takeaway"
 >;
 
+/** Slugs that are routes of their own under /challenges. */
+const RESERVED_SLUGS = new Set(["lab", "quiz"]);
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -174,6 +177,9 @@ export function validateChallenges(value: unknown): Challenge[] {
 
   for (const challenge of challenges) {
     if (ids.has(challenge.id)) throw new Error(`Duplicate id: ${challenge.id}`);
+    if (RESERVED_SLUGS.has(challenge.slug)) {
+      throw new Error(`Reserved slug: ${challenge.slug}`);
+    }
     if (slugs.has(challenge.slug)) {
       throw new Error(`Duplicate slug: ${challenge.slug}`);
     }

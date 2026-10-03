@@ -1,0 +1,389 @@
+[
+  {
+    "id": "l1",
+    "slug": "request-waterfall",
+    "number": 1,
+    "title": "صفحه‌ی محصولات دیر بالا میاد",
+    "status": "published",
+    "simulator": "waterfall",
+    "reporter": { "name": "تیم پشتیبانی", "initials": "پ" },
+    "report": "مشتری‌ها می‌گن بعد از باز کردن صفحه‌ی محصولات تقریباً سه ثانیه صفحه سفید می‌مونه. بعضی‌ها قبل از اینکه چیزی ببینن صفحه رو می‌بندن.",
+    "primaryMetric": { "key": "ready", "label": "زمان نمایش محصولات" },
+    "healthLabel": "نمایش محصولات",
+    "targets": [{ "metric": "ready", "max": 1500, "label": "زمان نمایش محصولات" }],
+    "constraint": "محصولات باید با قیمت درست نمایش داده بشن. هدر کاربر هم باید بالاخره بیاد.",
+    "analysis": {
+      "title": "شبکه: درخواست‌ها روی محور زمان",
+      "lead": "هر نوار یه درخواسته. نوارهای رنگی مسیری‌ان که نمایش صفحه منتظرشونه."
+    },
+    "fields": [
+      {
+        "name": "parallelRequests",
+        "label": "نحوه‌ی اجرای درخواست‌ها",
+        "lineKeys": ["user", "categories", "group"],
+        "options": [
+          { "value": false, "label": "پشت‌سرهم، هر کدوم با `await`" },
+          { "value": true, "label": "هم‌زمان با `Promise.all`" }
+        ]
+      },
+      {
+        "name": "userInBackground",
+        "label": "درخواست `/user`",
+        "lineKeys": ["user", "header"],
+        "options": [
+          { "value": false, "label": "قبل از رندر منتظرش بمون" },
+          { "value": true, "label": "بفرست ولی منتظرش نمون؛ هدر جدا رندر بشه" }
+        ]
+      },
+      {
+        "name": "pricesWithProducts",
+        "label": "قیمت‌ها",
+        "lineKeys": ["products", "render"],
+        "options": [
+          { "value": false, "label": "با درخواست جدای `/prices`" },
+          { "value": true, "label": "سرور قیمت‌ها رو همراه `/products` بفرسته" }
+        ],
+        "note": "یعنی تغییر API سمت سرور. پاسخ `/products` حدود ۲۰۰ms سنگین‌تر می‌شه."
+      },
+      {
+        "name": "pricesInParallel",
+        "label": "زمان ارسال `/prices`",
+        "lineKeys": ["prices"],
+        "options": [
+          { "value": false, "label": "بعد از رسیدن products" },
+          { "value": true, "label": "هم‌زمان با `/products`" }
+        ]
+      },
+      {
+        "name": "earlySpinner",
+        "label": "بازخورد هنگام بارگذاری",
+        "lineKeys": ["head", "spin", "render"],
+        "options": [
+          { "value": false, "label": "تا آماده شدن چیزی نشون نده" },
+          { "value": true, "label": "همون اول یه اسپینر نشون بده" }
+        ]
+      }
+    ],
+    "hints": [
+      {
+        "tab": "analysis",
+        "chartElement": "request:categories",
+        "text": "به این نوار نگاه کن. درخواست «categories» تا وقتی «user» کامل تموم نشه شروع نمی‌شه. واقعاً لازمه منتظرش بمونه؟"
+      },
+      {
+        "tab": "code",
+        "lines": ["user", "categories", "products"],
+        "text": "هر `await` یعنی «صبر کن تا این تموم بشه، بعد برو خط بعد». از این سه درخواست، کدوم واقعاً به جواب درخواست قبلی‌اش احتیاج داره؟"
+      },
+      {
+        "tab": "code",
+        "lines": ["prices"],
+        "text": "فقط این خط به نتیجه‌ی قبلی‌اش نیاز داره، چون id محصولات رو لازم داره. یه سؤال دیگه هم از خودت بپرس: برای نشون دادن محصولات، اصلاً به اطلاعات کاربر نیاز داری؟"
+      }
+    ],
+    "approaches": [
+      { "name": "`Promise.all` + قیمت داخل `/products`", "config": { "parallelRequests": true, "pricesWithProducts": true }, "kind": "optimal" },
+      { "name": "`Promise.all` + منتظر `/user` نماندن", "config": { "parallelRequests": true, "userInBackground": true }, "kind": "valid" },
+      { "name": "فقط `Promise.all`", "config": { "parallelRequests": true }, "kind": "partial" },
+      { "name": "هر سه تغییر با هم", "config": { "parallelRequests": true, "pricesWithProducts": true, "userInBackground": true }, "kind": "overkill" },
+      { "name": "اسپینر از همون اول", "config": { "earlySpinner": true }, "kind": "symptom" },
+      { "name": "`/prices` هم‌زمان با `/products`", "config": { "parallelRequests": true, "pricesInParallel": true }, "kind": "broken" }
+    ],
+    "checks": [
+      {
+        "id": "prices-shown",
+        "label": "قیمت همه‌ی محصولات نمایش داده می‌شه",
+        "failure": "درخواست `/prices` قبل از رسیدن products فرستاده شد، پس هنوز هیچ idای نداشت. پاسخ خالی برگشت و جلوی همه‌ی محصولات «—» نمایش داده شد."
+      },
+      { "id": "header-shown", "label": "هدر کاربر نمایش داده می‌شه", "failure": "هدر کاربر نمایش داده نشد." }
+    ],
+    "concept": "Request waterfall · Promise.all · مسیر بحرانی",
+    "explanation": [
+      "صفحه وقتی نمایش داده می‌شه که آخرین درخواستِ لازم برگرده. با `await` پشت‌سرهم، هر درخواست تا تموم شدن قبلی شروع نمی‌شد، پس زمان کل جمع همه‌شون بود: {baseReady}.",
+      "درخواست‌های مستقل وقتی هم‌زمان برن، زمانشون می‌شه طولانی‌ترینشون، نه جمعشون. `/prices` واقعاً به idهای محصولات نیاز داره، پس یا باید بعد از `/products` بیاد یا سرور باید قیمت رو همراهش بفرسته. `/user` هم برای نمایش محصولات لازم نیست، ولی تا وقتی `/prices` جدا باشه، حذفش از مسیر کافی نیست.",
+      "این زنجیره‌ی درخواست‌هایی که پشت هم منتظر می‌مونن «مسیر بحرانی» صفحه‌ست. فقط کوتاه کردن همین زنجیره صفحه رو سریع‌تر می‌کنه. اسپینر زودتر حس بارگذاری رو بهتر می‌کنه، ولی محصولات رو یک میلی‌ثانیه هم زودتر نمی‌رسونه."
+    ]
+  },
+  {
+    "id": "l2",
+    "slug": "heavy-page-payload",
+    "number": 2,
+    "title": "حجم دانلود صفحه زیاده",
+    "status": "locked",
+    "summary": "همه‌ی ۲٬۰۰۰ محصول با توضیحات کامل در اولین بارگذاری دانلود می‌شن."
+  },
+  {
+    "id": "l3",
+    "slug": "slow-heavy-images",
+    "number": 3,
+    "title": "عکس‌ها دیر و سنگین لود می‌شن",
+    "status": "locked",
+    "summary": "همه‌ی عکس‌ها با کیفیت کامل و هم‌زمان بارگذاری می‌شن، حتی پایین صفحه."
+  },
+  {
+    "id": "l4",
+    "slug": "repeated-calculation",
+    "number": 4,
+    "title": "سرچ موقع تایپ گیر می‌کنه",
+    "status": "published",
+    "simulator": "repeatedCalculation",
+    "reporter": { "name": "سارا، مدیر محصول", "initials": "س" },
+    "report": "وقتی تو کادر سرچ تایپ می‌کنم، حروف با تأخیر ظاهر می‌شن. انگار کیبورد گیر کرده. نتیجه‌ها باید هم‌پای تایپ عوض بشن.",
+    "primaryMetric": { "key": "input", "label": "تأخیر تایپ" },
+    "healthLabel": "تأخیر تایپ",
+    "targets": [
+      { "metric": "input", "max": 16, "label": "تأخیر تایپ (بدترین کلید)" },
+      { "metric": "results", "max": 100, "label": "نمایش نتیجه بعد از توقف تایپ" }
+    ],
+    "constraint": "آمار بالای لیست باید همیشه با محصولات فعلی بخونه.",
+    "analysis": {
+      "title": "Main thread هنگام تایپ «کفش چرم»",
+      "lead": "هر بلوک کاریه که مرورگر بعد از هر کلید انجام می‌ده. حرف‌های تایپ‌شده تا تموم شدن بلوک نمایش داده نمی‌شن."
+    },
+    "fields": [
+      {
+        "name": "statsStrategy",
+        "label": "محاسبه‌ی آمار",
+        "lineKeys": ["stats", "statsbar", "child"],
+        "options": [
+          { "value": "direct", "label": "مستقیم داخل بدنه‌ی کامپوننت" },
+          { "value": "memo", "label": "useMemo" },
+          { "value": "effect", "label": "useEffect + useState" },
+          { "value": "child", "label": "کامپوننت جدا با `React.memo`" }
+        ]
+      },
+      {
+        "name": "memoDeps",
+        "label": "وابستگی‌های useMemo",
+        "lineKeys": ["stats"],
+        "mono": true,
+        "visibleWhen": { "field": "statsStrategy", "equals": "memo" },
+        "requiredMessage": "وابستگی‌های useMemo رو انتخاب نکردی.",
+        "options": [
+          { "value": "empty", "label": "[]" },
+          { "value": "products", "label": "[products]" },
+          { "value": "products_query", "label": "[products, query]" }
+        ]
+      },
+      {
+        "name": "debounceSearch",
+        "label": "ورودی سرچ",
+        "lineKeys": ["search", "state", "debounce"],
+        "options": [
+          { "value": false, "label": "هر کلید فوراً query رو عوض کنه" },
+          { "value": true, "label": "debounce با ۳۰۰ms" }
+        ]
+      },
+      {
+        "name": "memoizeFilter",
+        "label": "فیلتر لیست",
+        "lineKeys": ["filter"],
+        "options": [
+          { "value": false, "label": "مستقیم" },
+          { "value": true, "label": "داخل useMemo" }
+        ]
+      }
+    ],
+    "hints": [
+      {
+        "tab": "analysis",
+        "chartElement": "thread:first-task",
+        "text": "هر بلوک یعنی کاری که مرورگر بعد از زدن یه کلید انجام داده. تا این کار تموم نشه، حرف بعدی رو نشون نمی‌ده. تیکه‌ی قرمز بزرگ‌ترین بخششه. اون چیه؟"
+      },
+      {
+        "tab": "code",
+        "lines": ["stats"],
+        "text": "این خط با هر حرفی که تایپ می‌شه از اول اجرا می‌شه. ولی فقط از `products` استفاده می‌کنه، و موقع تایپ کردن products هیچ تغییری نمی‌کنه."
+      },
+      {
+        "tab": "code",
+        "lines": ["stats"],
+        "text": "دنبال راهی باش که نتیجه‌ی این خط نگه داشته بشه و فقط وقتی دوباره حساب بشه که چیزی که بهش وابسته‌ست عوض شده باشه. دقیق فکر کن «چیزی که بهش وابسته‌ست» چیه."
+      }
+    ],
+    "approaches": [
+      { "name": "`useMemo` با `[products]`", "config": { "statsStrategy": "memo", "memoDeps": "products" }, "kind": "optimal" },
+      { "name": "`StatsPanel` جدا با `React.memo`", "config": { "statsStrategy": "child" }, "kind": "valid" },
+      { "name": "`useEffect` + `useState`", "config": { "statsStrategy": "effect" }, "kind": "overkill" },
+      { "name": "debounce روی سرچ", "config": { "debounceSearch": true }, "kind": "symptom" },
+      { "name": "`useMemo` با `[products, query]`", "config": { "statsStrategy": "memo", "memoDeps": "products_query" }, "kind": "no-cause" },
+      { "name": "`useMemo` روی فیلتر", "config": { "memoizeFilter": true }, "kind": "no-cause" },
+      { "name": "`useMemo` با `[]`", "config": { "statsStrategy": "memo", "memoDeps": "empty" }, "kind": "broken" }
+    ],
+    "checks": [
+      {
+        "id": "stats-refresh",
+        "label": "آمار بعد از اضافه شدن محصول جدید به‌روز می‌شه",
+        "failure": "با وابستگی‌های خالی، useMemo فقط یک بار در اولین رندر حساب کرد. وقتی محصول جدید اضافه شد، آمار همون عدد قبلی رو نشون داد."
+      },
+      { "id": "results-match", "label": "نتیجه‌ی نهایی سرچ با متن تایپ‌شده می‌خونه", "failure": "نتیجه‌ی نهایی سرچ با متن تایپ‌شده نمی‌خونه." }
+    ],
+    "concept": "Memoization · useMemo",
+    "explanation": [
+      "تایپ هر حرف `query` رو عوض می‌کنه و `ProductsPage` دوباره رندر می‌شه. هر خطی که داخل بدنه‌ی کامپوننته، با هر رندر دوباره اجرا می‌شه؛ از جمله `calculateStatistics` که {statsCost} طول می‌کشه و فقط به `products` وابسته‌ست.",
+      "`useMemo` نتیجه‌ی قبلی رو برمی‌گردونه تا وقتی وابستگی‌هاش عوض نشده باشن. خود محاسبه سریع‌تر نشده: اولین رندر هنوز {bestInitial} طول می‌کشه. فقط تکرارش حذف شده.",
+      "وابستگی `[]` سریع بود ولی آمار رو برای همیشه قفل می‌کرد. `[products, query]` هم چون query با هر کلید عوض می‌شه، هیچ‌وقت از کش استفاده نمی‌کرد. debounce هم فقط تعداد اجراها رو کم کرد، نه هزینه‌ی هر اجرا رو، و نتیجه‌ها رو دیرتر کرد."
+    ]
+  },
+  {
+    "id": "l5",
+    "slug": "large-list-filter",
+    "number": 5,
+    "title": "لیست بزرگ تایپ رو کند می‌کنه",
+    "status": "locked",
+    "summary": "فیلتر کردن لیست بزرگ هنوز هر کلید رو سنگین می‌کنه."
+  },
+  {
+    "id": "l6",
+    "slug": "stale-search-results",
+    "number": 6,
+    "title": "نتیجه‌ی سرچ گاهی اشتباهه",
+    "status": "locked",
+    "summary": "پاسخ‌های قدیمی گاهی بعد از پاسخ جدید می‌رسن و روش می‌نشینن."
+  },
+  {
+    "id": "l7",
+    "slug": "out-of-sync-filters",
+    "number": 7,
+    "title": "فیلترها با هم نمی‌خونن",
+    "status": "locked",
+    "summary": "نتیجه‌ی فیلتر در state جدا نگه داشته می‌شه و از بقیه عقب می‌مونه."
+  },
+  {
+    "id": "l8",
+    "slug": "janky-list-scroll",
+    "number": 8,
+    "title": "اسکرول لیست تیکه‌تیکه‌ست",
+    "status": "locked",
+    "summary": "هزاران ردیف هم‌زمان در DOM هستن."
+  },
+  {
+    "id": "l9",
+    "slug": "rerender-storm",
+    "number": 9,
+    "title": "دکمه‌ی «افزودن به سبد» کنده",
+    "status": "published",
+    "simulator": "renderStorm",
+    "reporter": { "name": "تیم QA", "initials": "ق" },
+    "report": "روی گوشی‌های معمولی، بعد از زدن «افزودن به سبد» یه مکث محسوس هست تا دکمه عوض بشه. هرچی محصول بیشتری تو صفحه باشه بدتره.",
+    "primaryMetric": { "key": "click", "label": "تأخیر کلیک" },
+    "healthLabel": "تأخیر کلیک",
+    "targets": [{ "metric": "click", "max": 16, "label": "تأخیر کلیک" }],
+    "constraint": "همه‌ی ۶۰ محصول صفحه باید نمایش داده بشن و سبد خرید باید درست بشمره.",
+    "analysis": {
+      "title": "رندرها بعد از یک کلیک روی «افزودن»",
+      "lead": "هر خونه یه کارته. خونه‌ی آبی کارتیه که کلیک شد، قرمزها کارت‌هایی‌ان که همراهش دوباره رندر شدن."
+    },
+    "fields": [
+      {
+        "name": "memoCard",
+        "label": "ProductCard",
+        "lineKeys": ["card"],
+        "options": [
+          { "value": false, "label": "کامپوننت معمولی" },
+          { "value": true, "label": "پیچیده در `React.memo`" }
+        ]
+      },
+      {
+        "name": "addHandler",
+        "label": "تابع افزودن",
+        "lineKeys": ["add", "onAdd"],
+        "options": [
+          { "value": "inline", "label": "arrow تازه برای هر کارت" },
+          { "value": "callbackCart", "label": "`useCallback` با `[cart]`" },
+          { "value": "callbackEmpty", "label": "`useCallback` با `[]`" }
+        ]
+      },
+      {
+        "name": "functionalUpdate",
+        "label": "به‌روزرسانی cart",
+        "lineKeys": ["add"],
+        "mono": true,
+        "options": [
+          { "value": false, "label": "setCart([...cart, id])" },
+          { "value": true, "label": "setCart(c => [...c, id])" }
+        ]
+      },
+      {
+        "name": "cardStyle",
+        "label": "style کارت",
+        "lineKeys": ["style", "styleConst"],
+        "options": [
+          { "value": "inline", "label": "شیء inline داخل رندر" },
+          { "value": "hoisted", "label": "ثابت بیرون کامپوننت" }
+        ]
+      },
+      {
+        "name": "firstPageOnly",
+        "label": "کارت‌های صفحه",
+        "lineKeys": ["map"],
+        "options": [
+          { "value": false, "label": "همه‌ی محصولات" },
+          { "value": true, "label": "فقط ۲۰ تای اول" }
+        ]
+      }
+    ],
+    "hints": [
+      {
+        "tab": "analysis",
+        "chartElement": "render:cells",
+        "text": "هر خونه یه کارت محصوله. خونه‌های قرمز بعد از فقط یه کلیک دوباره ساخته شدن، در حالی که فقط یه کارت واقعاً عوض شده بود."
+      },
+      {
+        "tab": "code",
+        "lines": ["card"],
+        "text": "کارت‌ها چون والدشون دوباره رندر شده، خودشون هم رندر می‌شن. می‌شه به کارت گفت: «اگه ورودی‌هات عوض نشده، دوباره رندر نشو»."
+      },
+      {
+        "tab": "code",
+        "lines": ["onAdd", "style"],
+        "text": "حتی بعد از اون، این دو خط با هر رندر یه تابع و یه شیء تازه می‌سازن، و برای کارت یعنی «ورودی عوض شد». این‌ها رو ثابت کن، ولی مطمئن شو سبد هنوز درست می‌شمره."
+      }
+    ],
+    "approaches": [
+      {
+        "name": "`memo` + `useCallback` با `[]` + به‌روزرسانی تابعی + style ثابت",
+        "config": { "memoCard": true, "addHandler": "callbackEmpty", "functionalUpdate": true, "cardStyle": "hoisted" },
+        "kind": "optimal"
+      },
+      { "name": "فقط `React.memo`", "config": { "memoCard": true }, "kind": "no-cause" },
+      {
+        "name": "`memo` + `useCallback` با `[cart]` + style ثابت",
+        "config": { "memoCard": true, "addHandler": "callbackCart", "functionalUpdate": true, "cardStyle": "hoisted" },
+        "kind": "no-cause"
+      },
+      {
+        "name": "`memo` + `useCallback` با `[]` بدون به‌روزرسانی تابعی",
+        "config": { "memoCard": true, "addHandler": "callbackEmpty", "cardStyle": "hoisted" },
+        "kind": "broken"
+      },
+      { "name": "فقط ۲۰ کارت اول", "config": { "firstPageOnly": true }, "kind": "symptom" }
+    ],
+    "checks": [
+      {
+        "id": "cart-count",
+        "label": "بعد از دو بار افزودن، سبد دو قلم داره",
+        "failure": "تابع پایدار با `[]` همون cart خالیِ رندر اول رو می‌بینه. هر افزودن، سبد رو از صفر می‌سازه، پس سبد همیشه یک قلم نشون می‌ده."
+      },
+      {
+        "id": "all-products",
+        "label": "هر ۶۰ محصول نمایش داده می‌شن",
+        "failure": "فقط ۲۰ کارت اول رندر شد. کلیک سریع‌تر شد چون بیشتر صفحه حذف شده بود، و این شرط تیکت رو می‌شکنه."
+      }
+    ],
+    "concept": "React.memo · ثبات ارجاع · useCallback · به‌روزرسانی تابعی",
+    "explanation": [
+      "وقتی cart عوض می‌شه، `ProductGrid` دوباره رندر می‌شه و به‌طور پیش‌فرض همه‌ی فرزندانش هم: {baseRendered} کارت برای تغییر یک کارت.",
+      "`React.memo` رندر کارتی رو که propهاش عوض نشده رد می‌کنه، ولی propها با `===` مقایسه می‌شن. یه arrow function یا `{{ }}` که داخل رندر ساخته بشه، هر بار مقدار تازه‌ایه. برای همین memo به‌تنهایی کار رو کمی کندتر کرد: {cardCount} مقایسه‌ی بی‌نتیجه.",
+      "`useCallback` با `[cart]` هم کمکی نکرد، چون دقیقاً همون چیزی که با کلیک عوض می‌شه وابستگی‌اش بود. با به‌روزرسانی تابعی `setCart(c => …)` تابع دیگه به cart نیاز نداره و می‌تونه با `[]` پایدار بمونه. بدون اون، تابع پایدار cart کهنه رو می‌دید و سبد خراب می‌شد. نتیجه: فقط {bestRendered} کارت رندر می‌شه."
+    ]
+  },
+  {
+    "id": "l10",
+    "slug": "cart-rerenders-page",
+    "number": 10,
+    "title": "کل صفحه با هر خرید رندر می‌شه",
+    "status": "locked",
+    "summary": "شمارنده‌ی سبد در state بالای درخت نگه داشته می‌شه."
+  }
+]

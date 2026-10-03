@@ -35,6 +35,44 @@ body {
   font-family: "Vazir", Arial, Helvetica, sans-serif;
 }
 
+/* Code in the lab: an explicit stack, since --font-mono points to a font this page doesn't load. */
+@utility font-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@keyframes lab-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lab-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lab-sheet-up {
+  from {
+    opacity: 0.4;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .article-content {
   color: #cbd5e1;
   font-size: 1.0625rem;
