@@ -1,10 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const navLinkClass = "rounded-lg px-2 py-2 transition hover:bg-white/5 hover:text-cyan-300 sm:px-3";
+
 export default function ChallengeShell({
   children,
+  wide = false,
+  hasBottomBar = false,
 }: {
   children: React.ReactNode;
+  /** Gives the page the full layout width (the lab's two columns need it). */
+  wide?: boolean;
+  /** Keeps the footer clear of a fixed bottom tab bar below `lg`. */
+  hasBottomBar?: boolean;
 }) {
   return (
     <div
@@ -27,32 +35,42 @@ export default function ChallengeShell({
               priority
               className="size-7 shrink-0 rounded-lg object-cover shadow-lg shadow-cyan-500/15 sm:size-10 sm:rounded-xl"
             />
-            <span className="hidden min-w-0 min-[390px]:block">
+            <span className="hidden min-w-0 sm:block">
               <span className="block truncate whitespace-nowrap text-[11px] font-black text-white sm:text-sm lg:text-base">
                 چالش‌های فرانت‌اند
               </span>
               <span className="hidden truncate whitespace-nowrap text-[10px] text-slate-500 md:block lg:text-xs">
-                یادگیری با یک سؤال کوتاه
+                آزمایشگاه پرفورمنس و سؤال‌های کوتاه
               </span>
             </span>
           </Link>
-          <nav className="flex shrink-0 flex-nowrap items-center gap-0.5 whitespace-nowrap text-[10px] text-slate-300 min-[390px]:text-[11px] sm:gap-1 sm:text-xs lg:text-sm" aria-label="ناوبری چالش‌ها">
-            <Link className="rounded-lg px-2 py-2 transition hover:bg-white/5 hover:text-cyan-300 sm:px-3" href="/leaderboard">
+          <nav className="flex shrink-0 flex-nowrap items-center gap-0.5 whitespace-nowrap text-[11px] text-slate-300 sm:gap-1 sm:text-xs lg:text-sm" aria-label="ناوبری چالش‌ها">
+            <Link className={navLinkClass} href="/challenges/lab">
+              آزمایشگاه
+            </Link>
+            <Link className={navLinkClass} href="/challenges/quiz">
+              سؤال‌ها
+            </Link>
+            <Link className={navLinkClass} href="/leaderboard">
               رتبه‌بندی
             </Link>
-            <Link className="rounded-lg px-2 py-2 transition hover:bg-white/5 hover:text-cyan-300 sm:px-3" href="/my-progress">
+            <Link className={navLinkClass} href="/my-progress">
               پیشرفت من
             </Link>
-            <Link className="hidden rounded-lg px-2 py-2 transition hover:bg-white/5 hover:text-cyan-300 md:block sm:px-3" href="/">
+            <Link className={`hidden md:block ${navLinkClass}`} href="/">
               پورتفولیو
             </Link>
           </nav>
         </div>
       </header>
-      <main className="relative z-10 mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-4">
+      <main className={`relative z-10 mx-auto px-4 py-4 sm:px-6 sm:py-4 ${wide ? "max-w-7xl" : "max-w-6xl"}`}>
         {children}
       </main>
-      <footer className="relative z-10 border-t border-white/10 px-4 py-8 text-center text-sm text-slate-500">
+      <footer
+        className={`relative z-10 border-t border-white/10 px-4 pt-8 text-center text-sm text-slate-500 ${
+          hasBottomBar ? "pb-[calc(6rem+env(safe-area-inset-bottom,0px))] lg:pb-8" : "pb-8"
+        }`}
+      >
         ساخته‌شده برای تمرین، گفت‌وگو و یادگیری عمیق‌تر فرانت‌اند
       </footer>
     </div>

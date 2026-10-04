@@ -1,0 +1,1280 @@
+<title>Front Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: two-pane debugging lab. Ticket workbench on the start side, the live shop in a browser frame on the other.
+   Only one analysis panel is visible at a time; everything else unfolds as the learner gets there. */
+:root{
+  --bg:#eceff4; --surface:#ffffff; --sunk:#f4f6f9; --line:#d6dbe4; --fg:#151a23; --muted:#596273; --faint:#8a93a3;
+  --accent:#2b55c8; --accent-soft:#e2e9fd; --on-accent:#ffffff;
+  --bad:#c43b3b; --bad-soft:#fbe6e6; --warn:#a8720a; --warn-soft:#f8eed6; --good:#1c7c47; --good-soft:#def2e6;
+  --code-bg:#f7f8fb; --t-k:#a12b7a; --t-s:#1c7c47; --t-f:#2b55c8; --t-c:#8a93a3; --t-n:#b0580a;
+  --seg-evt:#b8c0cd; --seg-filter:#7f9bd8; --seg-stats:#d9534f; --seg-cache:#4caf7a; --seg-render:#9aa9c4; --seg-input:#b8c0cd; --seg-effect:#e08a3c;
+  --s-bg:#fbfaf7; --s-card:#ffffff; --s-line:#e8e4dc; --s-fg:#24211c; --s-muted:#857e72; --s-brand:#0f6b5c; --s-skel:#ece8e0;
+  --f-ui:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;
+  --f-code:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0e1117; --surface:#161a22; --sunk:#1b2029; --line:#2a3140; --fg:#e6e9ef; --muted:#9aa3b3; --faint:#687184;
+  --accent:#8ea9ff; --accent-soft:#1d2744; --on-accent:#0e1117;
+  --bad:#ff7b72; --bad-soft:#3a1e1f; --warn:#e2b246; --warn-soft:#332910; --good:#5ad06a; --good-soft:#142c1c;
+  --code-bg:#11151c; --t-k:#ff7ab3; --t-s:#7fe0a6; --t-f:#8ea9ff; --t-c:#687184; --t-n:#ffb46a;
+  --seg-evt:#59627a; --seg-filter:#5f7cc0; --seg-stats:#e5605a; --seg-cache:#4cbd7c; --seg-render:#6d7b98; --seg-input:#59627a; --seg-effect:#e59447;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1117; --surface:#161a22; --sunk:#1b2029; --line:#2a3140; --fg:#e6e9ef; --muted:#9aa3b3; --faint:#687184;
+  --accent:#8ea9ff; --accent-soft:#1d2744; --on-accent:#0e1117;
+  --bad:#ff7b72; --bad-soft:#3a1e1f; --warn:#e2b246; --warn-soft:#332910; --good:#5ad06a; --good-soft:#142c1c;
+  --code-bg:#11151c; --t-k:#ff7ab3; --t-s:#7fe0a6; --t-f:#8ea9ff; --t-c:#687184; --t-n:#ffb46a;
+  --seg-evt:#59627a; --seg-filter:#5f7cc0; --seg-stats:#e5605a; --seg-cache:#4cbd7c; --seg-render:#6d7b98; --seg-input:#59627a; --seg-effect:#e59447;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-ui);font-size:14.5px;line-height:1.75;margin:0}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+button:focus-visible,[tabindex]:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.ltr{direction:ltr;unicode-bidi:isolate}
+code,.mono{font-family:var(--f-code);font-size:.88em}
+.wrap{max-width:1360px;margin:0 auto;padding-block:18px 48px;padding-inline:16px;display:flex;flex-direction:column;gap:16px}
+
+/* top bar */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;justify-content:space-between}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand h1{font-size:19px;font-weight:800;margin:0;letter-spacing:-.01em}
+.brand span{color:var(--muted);font-size:13px}
+.health{display:flex;flex-wrap:wrap;gap:6px}
+.hm{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 10px;font-size:12.5px;color:var(--muted)}
+.hm b{color:var(--fg);font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--faint);flex:none}
+.dot.ok{background:var(--good)} .dot.bad{background:var(--bad)}
+
+/* ticket rail */
+.rail{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tk{flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.tk .no{font-family:var(--f-code);font-size:11.5px;color:var(--faint)}
+.tk.cur{border-color:var(--accent);color:var(--fg);box-shadow:inset 0 -2px 0 var(--accent)}
+.tk.done .no{color:var(--good)}
+.tk.locked{opacity:.62}
+.tk .pc{font-family:var(--f-code);font-size:11px;color:var(--good)}
+
+/* main */
+.main{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:18px;align-items:start}
+.work{display:flex;flex-direction:column;gap:14px;min-width:0}
+.appcol{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);min-width:0}
+@media (max-width:980px){ .main{grid-template-columns:1fr} .appcol{position:static;order:-1} }
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px}
+.sec-h h3{font-size:14px;font-weight:700;margin:0}
+.sec-h .aux{font-size:12px;color:var(--muted)}
+
+/* ticket head */
+.tk-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.tk-head h2{font-size:20px;font-weight:800;margin:0;line-height:1.45;text-wrap:balance}
+.tk-id{font-family:var(--f-code);font-size:12px;color:var(--faint);margin-bottom:2px}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;font-size:12px;padding:2px 10px;white-space:nowrap;font-weight:500}
+.pill.open{background:var(--warn-soft);color:var(--warn)}
+.pill.closed{background:var(--good-soft);color:var(--good)}
+.report{margin-top:12px;display:flex;gap:10px}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--sunk);border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--muted);flex:none}
+.report p{margin:0;max-width:62ch}
+.report .who{font-size:12px;color:var(--faint)}
+.targets{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:14px 0 0;font-size:13px;padding-top:12px;border-top:1px dashed var(--line)}
+.targets dt{color:var(--muted)}
+.targets dd{margin:0}
+.tv{display:inline-flex;align-items:center;gap:6px}
+
+/* buttons */
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:500}
+.btn:hover{border-color:var(--faint)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.primary:disabled{opacity:.45;cursor:not-allowed}
+.btn.quiet{border-color:transparent;background:transparent;color:var(--muted);padding-inline:8px}
+.btn.quiet:hover{color:var(--fg)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.lead{color:var(--muted);font-size:13px;margin:8px 0 0}
+
+/* code */
+.code{direction:ltr;text-align:left;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;font-family:var(--f-code);font-size:12.6px;line-height:1.85;overflow-x:auto;padding-block:8px}
+.ln{display:flex;white-space:pre;min-width:max-content;padding-right:14px;position:relative}
+.ln .g{width:38px;flex:none;text-align:right;padding-right:12px;color:var(--faint);user-select:none}
+.ln.ed{cursor:pointer}
+.ln.ed:hover{background:var(--accent-soft)}
+.ln.ed .g::before{content:'';position:absolute;left:4px;top:50%;width:5px;height:5px;border-radius:50%;background:var(--faint);transform:translateY(-50%);opacity:.55}
+.ln.ed:hover .g::before{background:var(--accent);opacity:1}
+.ln.chg{background:color-mix(in srgb,var(--good) 10%,transparent)}
+.ln.chg .g{color:var(--good)}
+.ln.open{background:var(--accent-soft)}
+.t-k{color:var(--t-k)} .t-s{color:var(--t-s)} .t-f{color:var(--t-f)} .t-c{color:var(--t-c);font-style:italic} .t-n{color:var(--t-n)}
+.drawer{direction:rtl;text-align:right;font-family:var(--f-ui);font-size:13px;background:var(--surface);border-block:1px solid var(--line);padding:12px 14px;display:flex;flex-direction:column;gap:12px;white-space:normal}
+.ed-l{font-weight:700;font-size:12.5px;margin-bottom:6px}
+.ed-note{font-size:12px;color:var(--muted);margin-top:6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--sunk);border-radius:7px;padding:5px 10px;font-size:12.5px;text-align:right}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--fg);font-weight:700}
+.seg button.mono{font-family:var(--f-code);direction:ltr}
+
+/* run bar */
+.runbar{display:flex;flex-direction:column;gap:10px}
+.pred-q{font-size:13px}
+.msg{font-size:12.5px;color:var(--bad)}
+
+/* result */
+.res-top{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:flex-end}
+.metric .k{font-size:12px;color:var(--muted)}
+.metric .v{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.3}
+.metric .d{font-size:12px;color:var(--muted)}
+.metric .v.ok{color:var(--good)} .metric .v.bad{color:var(--bad)}
+.score{min-width:180px;flex:1}
+.meter{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;border:1px solid var(--line);margin-top:6px}
+.meter i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.meter.full i{background:var(--good)}
+.notes{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.notes li{display:flex;gap:8px}
+.notes li::before{content:'•';color:var(--faint)}
+.checks{display:flex;flex-direction:column;gap:6px;margin-top:12px;font-size:13px}
+.chk{display:flex;gap:8px;align-items:flex-start}
+.chk .ic{width:18px;height:18px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:3px}
+.chk.ok .ic{background:var(--good-soft);color:var(--good)}
+.chk.no .ic{background:var(--bad-soft);color:var(--bad)}
+.chk.no{color:var(--fg)}
+.chk small{display:block;color:var(--muted);font-size:12px}
+.predres{font-size:12.5px;color:var(--muted);margin-top:10px}
+.predres b{color:var(--fg)}
+
+/* panels */
+.panel-cap{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);margin-bottom:6px}
+.panel-cap b{color:var(--fg);font-weight:700}
+.pair{display:flex;flex-direction:column;gap:14px}
+.tl{direction:ltr;font-size:11.5px}
+.tl-grid{display:grid;grid-template-columns:118px minmax(0,1fr);row-gap:5px;align-items:center}
+.tl-lab{font-family:var(--f-code);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px}
+.tl-track{position:relative;height:20px;background:var(--sunk);border-radius:4px}
+.bar{position:absolute;top:3px;bottom:3px;border-radius:3px;background:var(--seg-render);min-width:3px;display:flex;align-items:center;justify-content:center}
+.bar.crit{background:var(--accent)}
+.bar span{font-family:var(--f-code);font-size:10.5px;color:var(--on-accent);white-space:nowrap;padding-inline:4px;overflow:hidden}
+.bar.wait{background:transparent;border:1px dashed var(--faint)}
+.mark{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--good);border-radius:2px}
+.mark.late{background:var(--bad)}
+.mark em{position:absolute;bottom:100%;transform:translateX(-50%);font-style:normal;font-size:10.5px;color:var(--fg);white-space:nowrap;font-family:var(--f-code)}
+.axis{position:relative;height:16px;margin-top:2px}
+.axis span{position:absolute;transform:translateX(-50%);font-family:var(--f-code);font-size:10px;color:var(--faint)}
+.tgt{position:absolute;top:0;bottom:0;border-left:1px dashed var(--good);opacity:.8}
+.lane{position:relative;height:30px;background:var(--sunk);border-radius:4px;overflow:hidden}
+.task{position:absolute;top:4px;bottom:4px;display:flex;border-radius:3px;overflow:hidden;min-width:2px}
+.task.long{outline:2px solid var(--bad);outline-offset:1px}
+.task i{display:block;height:100%;min-width:1px}
+.keys{position:relative;height:14px}
+.keys b{position:absolute;top:0;transform:translateX(-50%);font-family:var(--f-ui);font-size:11px;color:var(--muted);font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;font-size:11.5px;color:var(--muted);direction:rtl}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.cells{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:3px;direction:ltr}
+.cell{aspect-ratio:1;border-radius:3px;background:var(--sunk);border:1px solid var(--line)}
+.cell.r{background:var(--seg-stats);border-color:transparent}
+.cell.c{background:var(--accent);border-color:transparent}
+.cell.off{opacity:.25;background:transparent;border-style:dashed}
+.why{display:flex;flex-direction:column;gap:2px;margin-top:8px;font-size:12px;color:var(--muted)}
+.why b{color:var(--fg);font-weight:700}
+.hl-focus{box-shadow:0 0 0 2px var(--warn);border-radius:6px}
+
+/* help */
+.hints{display:flex;flex-direction:column;gap:10px}
+.hint{border-right:3px solid var(--warn);background:var(--warn-soft);padding:10px 12px;border-radius:6px;font-size:13.5px}
+.hint .hn{font-size:11.5px;color:var(--warn);font-weight:700;margin-bottom:2px}
+.hint table{border-collapse:collapse;font-size:12.5px;margin-top:6px;width:100%}
+.hint td,.hint th{padding:3px 6px;border-bottom:1px solid color-mix(in srgb,var(--warn) 25%,transparent);text-align:right;font-weight:400}
+.hint th{color:var(--muted);font-size:11.5px}
+.diffrow{display:flex;gap:10px;font-family:var(--f-code);font-size:12px;direction:ltr;justify-content:flex-end}
+.chg-t{color:var(--bad);font-weight:700} .same-t{color:var(--good)}
+
+/* closed banner + debrief */
+.closed{border-color:var(--good);background:linear-gradient(var(--good-soft),var(--good-soft)) padding-box}
+.closed h3{margin:0 0 4px;font-size:15px}
+.concept{font-size:12px;color:var(--muted)}
+.concept b{display:block;font-size:18px;color:var(--fg);font-weight:800;margin-top:2px}
+.prose p{margin:0 0 10px;max-width:66ch}
+.appr{width:100%;border-collapse:collapse;font-size:12.5px}
+.appr th{font-weight:500;color:var(--muted);text-align:right;padding:6px 8px;border-bottom:1px solid var(--line);font-size:11.5px}
+.appr td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.appr td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.kind{display:inline-block;border-radius:5px;padding:0 7px;font-size:11.5px;white-space:nowrap}
+.k-optimal{background:var(--good-soft);color:var(--good)}
+.k-valid{background:var(--accent-soft);color:var(--accent)}
+.k-partial,.k-overkill{background:var(--warn-soft);color:var(--warn)}
+.k-symptom,.k-nocause,.k-broken{background:var(--bad-soft);color:var(--bad)}
+.tbl-wrap{overflow-x:auto}
+.stats-line{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.stats-line b{color:var(--fg)}
+
+/* browser frame */
+.browser{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.chrome{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.chrome .reload{width:30px;height:28px;border-radius:6px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none}
+.url{flex:1;min-width:0;direction:ltr;text-align:left;font-family:var(--f-code);font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toggle{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--surface);white-space:nowrap;color:var(--muted)}
+.toggle[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.progress{height:2px;background:transparent;position:relative;overflow:hidden}
+.progress i{position:absolute;inset-block:0;right:0;width:0;background:var(--accent)}
+.vp{height:600px;max-height:72vh;overflow-y:auto;background:var(--s-bg);color:var(--s-fg);position:relative}
+@media (max-width:980px){ .vp{height:480px} }
+
+/* the shop inside the frame */
+.shop{font-size:13px}
+.s-head{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--s-line);background:var(--s-card);position:sticky;top:0;z-index:2}
+.s-logo{font-weight:800;color:var(--s-brand);font-size:16px}
+.s-search{flex:1;min-width:0}
+.s-search input{width:100%;border:1px solid var(--s-line);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:13px;background:var(--s-bg);color:var(--s-fg)}
+.s-cart{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--s-muted);white-space:nowrap}
+.s-cart b{background:var(--s-brand);color:#fff;border-radius:99px;min-width:20px;height:20px;display:inline-grid;place-items:center;font-size:11px;padding-inline:5px}
+.s-user{width:28px;height:28px;border-radius:50%;background:var(--s-skel);flex:none;display:grid;place-items:center;font-size:11px;color:var(--s-fg);font-weight:700}
+.s-user.on{background:#dcebe7;color:var(--s-brand)}
+.s-stats{display:flex;flex-wrap:wrap;gap:4px 16px;padding:10px 14px;font-size:12px;color:var(--s-muted);border-bottom:1px solid var(--s-line)}
+.s-stats b{color:var(--s-fg)}
+.s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;padding:12px 14px}
+.s-card{background:var(--s-card);border:1px solid var(--s-line);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:4px;transition:box-shadow .2s}
+.s-thumb{aspect-ratio:4/3;border-radius:5px;display:grid;place-items:center;font-weight:800;font-size:18px;color:rgba(0,0,0,.35);max-width:100%}
+.s-name{font-size:12px;line-height:1.5;min-height:3em}
+.s-price{font-size:12px;font-weight:700}
+.s-price.miss{color:#b4413b}
+.s-add{border:1px solid var(--s-brand);color:var(--s-brand);background:transparent;border-radius:6px;font-size:11.5px;padding:3px 6px}
+.s-add.in{background:var(--s-brand);color:#fff}
+.s-card.flash{box-shadow:0 0 0 2px #e5484d}
+.s-card.flash-c{box-shadow:0 0 0 2px #2b55c8}
+.s-foot{padding:6px 14px 16px;font-size:11.5px;color:var(--s-muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.s-foot button{border:1px dashed var(--s-line);background:transparent;border-radius:6px;font-size:11.5px;color:var(--s-muted);padding:3px 8px}
+.s-blank{height:100%;display:grid;place-items:center;color:var(--s-muted);font-size:12px}
+.spinner{width:26px;height:26px;border-radius:50%;border:3px solid var(--s-skel);border-top-color:var(--s-brand);animation:spin .8s linear infinite;margin:0 auto 8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.app-note{font-size:12px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+.locked-card p{margin:0 0 8px;max-width:62ch}
+@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
+@media (max-width:520px){
+  .tl-grid{grid-template-columns:92px minmax(0,1fr)}
+  .cells{grid-template-columns:repeat(10,minmax(0,1fr))}
+  .tk-head h2{font-size:18px}
+}
+
+/* ---------- v2: tabs, panes, sheet, spotlight ---------- */
+:root{ --scrim:rgba(12,15,22,.48); --spot:#d99a12; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --scrim:rgba(0,0,0,.6); --spot:#e2b246; } }
+:root[data-theme="dark"]{ --scrim:rgba(0,0,0,.6); --spot:#e2b246; }
+.main{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);grid-template-areas:"ticket app" "work app"}
+.ticket{grid-area:ticket;min-width:0}
+.appcol{grid-area:app;align-self:start}
+.work{grid-area:work}
+.pane{display:flex;flex-direction:column;gap:14px;min-width:0}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5}
+.tabs button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:0;background:transparent;border-radius:7px;padding:7px 10px;color:var(--muted);font-weight:500}
+.tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.tabs svg{flex:none}
+.btn.wide{width:100%;padding-block:11px}
+.btn.small{padding:4px 10px;font-size:12.5px}
+.runbar{position:sticky;bottom:12px;z-index:4;box-shadow:0 8px 24px -12px var(--scrim)}
+.seg.pred button{flex:1;text-align:center}
+.legend-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--faint);vertical-align:middle;margin-inline-end:4px}
+
+.ln.spot{background:color-mix(in srgb,var(--spot) 22%,transparent)!important;box-shadow:inset 3px 0 0 var(--spot)}
+.tl-track.spot,.cells.spot,.task.spot{box-shadow:0 0 0 2px var(--spot);border-radius:4px}
+.callout{direction:rtl;text-align:right;font-family:var(--f-ui);font-size:13.5px;line-height:1.85;white-space:normal;background:var(--warn-soft);border:1px solid var(--spot);border-radius:8px;padding:10px 12px;margin:8px 10px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;animation:pop .25s ease-out}
+.callout .hn{font-size:11.5px;font-weight:800;color:var(--warn)}
+@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.sheet-back{position:fixed;inset:0;background:var(--scrim);z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sheet-back[hidden]{display:none}
+.sheet{background:var(--surface);color:var(--fg);width:100%;max-width:620px;max-height:88vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:4px 18px calc(18px + env(safe-area-inset-bottom,0px));animation:up .3s cubic-bezier(.2,.8,.2,1);outline:none;display:flex;flex-direction:column;gap:14px}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+body.sheet-open{overflow:hidden}
+.grab{width:42px;height:4px;border-radius:2px;background:var(--line);margin:8px auto 0;flex:none}
+.sh-head{display:flex;align-items:center;gap:10px}
+.sh-head h3{margin:0;font-size:18px;font-weight:800;text-wrap:balance}
+.sh-ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;flex:none}
+.sh-head.good .sh-ic{background:var(--good-soft);color:var(--good)}
+.sh-head.warn .sh-ic{background:var(--warn-soft);color:var(--warn)}
+.sh-head.bad .sh-ic{background:var(--bad-soft);color:var(--bad)}
+.sh-metric{background:var(--sunk);border-radius:10px;padding:12px 14px}
+.sh-metric .k{font-size:12.5px;color:var(--muted)}
+.sh-vals{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-block:2px}
+.sh-vals .was{font-size:17px;color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.sh-vals .arrow{color:var(--faint)}
+.sh-vals .now{font-size:30px;font-weight:800}
+.sh-vals .now.ok{color:var(--good)} .sh-vals .now.bad{color:var(--bad)}
+.sh-metric .d{font-size:12.5px;color:var(--muted)}
+.sh-score .k{font-size:12.5px;color:var(--muted)}
+.sh-score b{color:var(--fg)}
+.sh-sec h4{margin:0 0 6px;font-size:13px;font-weight:700}
+.sh-sec .notes{margin:0}
+.diff{direction:ltr;text-align:left;font-family:var(--f-code);font-size:12px;line-height:1.8;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;overflow-x:auto;padding-block:6px}
+.dl{display:flex;white-space:pre;min-width:max-content;padding-right:12px}
+.dl .op{width:22px;flex:none;text-align:center;color:var(--faint)}
+.dl.add{background:color-mix(in srgb,var(--good) 13%,transparent)} .dl.add .op{color:var(--good)}
+.dl.del{background:color-mix(in srgb,var(--bad) 11%,transparent);opacity:.8} .dl.del .op{color:var(--bad)}
+.dl.gap{color:var(--faint);padding-left:22px}
+.sh-pred{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.sh-pred b{color:var(--fg)}
+.sh-pred.hit::before{content:'✓ ';color:var(--good);font-weight:800}
+.sh-actions{display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom,0px));background:var(--surface);padding-block:10px 4px;margin-top:-4px}
+.sh-actions .btn.primary{flex:1}
+
+@media (max-width:980px){
+  .main{grid-template-columns:1fr;grid-template-areas:"ticket" "app" "work"}
+  .appcol{position:static}
+  .wrap{padding-block:12px calc(84px + env(safe-area-inset-bottom,0px))}
+  body:not([data-tab="app"]) .ticket, body:not([data-tab="app"]) .appcol{display:none}
+  body[data-tab="app"] .pane{display:none}
+  .tabs{position:fixed;inset-inline:0;bottom:0;top:auto;border-radius:0;border:0;border-top:1px solid var(--line);padding:4px 6px calc(4px + env(safe-area-inset-bottom,0px));z-index:40;display:grid;grid-template-columns:repeat(4,1fr)}
+  .tabs button{flex-direction:column;gap:2px;font-size:11.5px;padding:6px 0}
+  .tabs button[aria-selected="true"]{background:transparent}
+  .runbar{bottom:calc(66px + env(safe-area-inset-bottom,0px))}
+  .health{flex-wrap:nowrap;overflow-x:auto;width:100%;scrollbar-width:none}
+  .hm{flex:none}
+  .vp{height:calc(100vh - 330px);min-height:380px;max-height:none}
+  .tk-head h2{font-size:17px}
+  .card{padding:14px}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><h1>Front Challenge</h1><span>تیکت‌های فروشگاه «کالاستان»</span></div>
+    <div class="health" id="health"></div>
+  </header>
+  <nav class="rail" id="rail" aria-label="تیکت‌ها"></nav>
+  <div class="main">
+    <section id="ticket" class="ticket"></section>
+    <aside class="appcol">
+      <div class="browser">
+        <div class="chrome">
+          <button class="reload" id="reloadBtn" title="بارگذاری دوباره" aria-label="بارگذاری دوباره">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>
+          </button>
+          <div class="url">kalastan.shop/products</div>
+          <button class="toggle" id="hlBtn" aria-pressed="false">نمایش رندرها</button>
+        </div>
+        <div class="progress"><i id="prog"></i></div>
+        <div class="vp" id="vp"></div>
+      </div>
+      <div class="app-note"><span>این اپ با همون کدی اجرا می‌شه که آخرین بار اجرا کردی.</span><span id="appTimer" class="num"></span></div>
+    </aside>
+    <section class="work">
+      <nav class="tabs" id="tabs" role="tablist" aria-label="بخش‌ها"></nav>
+      <div id="pane" class="pane"></div>
+    </section>
+  </div>
+</div>
+<div class="sheet-back" id="sheetBack" hidden>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" tabindex="-1"></div>
+</div>
+
+<script>
+/* ============================== utilities ============================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fa = (n,d=0) => Number(n).toLocaleString('fa-IR',{maximumFractionDigits:d,minimumFractionDigits:d});
+const fms = n => (n < 10 && Math.round(n) !== n ? fa(n,1) : fa(Math.round(n))) + 'ms';
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const clone = o => JSON.parse(JSON.stringify(o));
+const same = (a,b) => JSON.stringify(a) === JSON.stringify(b);
+function busy(ms){ const end = performance.now() + ms; while (performance.now() < end) {} }
+
+function hl(src){
+  const re = /(\/\/.*$)|('[^']*')|\b(const|let|await|async|function|return|new)\b|\b(useState|useMemo|useEffect|useCallback|useDebounce|memo|Promise)\b|(\b\d+\b)/g;
+  let out = '', last = 0, m;
+  while ((m = re.exec(src))) {
+    out += esc(src.slice(last, m.index));
+    const t = esc(m[0]);
+    out += m[1] ? `<span class="t-c">${t}</span>` : m[2] ? `<span class="t-s">${t}</span>` : m[3] ? `<span class="t-k">${t}</span>` : m[4] ? `<span class="t-f">${t}</span>` : `<span class="t-n">${t}</span>`;
+    last = re.lastIndex;
+  }
+  return out + esc(src.slice(last));
+}
+
+/* ============================== shop data ============================== */
+const CATS = ['کفش','کیف','ساعت','عینک','کلاه','پیراهن','شلوار','جوراب'];
+const CAT_HUE = [24,200,45,280,150,340,220,100];
+const ADJ = ['چرمی','ورزشی','کلاسیک','مینیمال','کتان','اسپرت','رسمی','تابستانی','زمستانی','دست‌دوز','راحتی','پشمی'];
+const PRODUCTS = (() => {
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const out = [];
+  for (let i = 0; i < 2000; i++) {
+    const ci = i % CATS.length;
+    out.push({ id: i + 1, ci, name: `${CATS[ci]} ${ADJ[Math.floor(rnd() * ADJ.length)]} ${fa(100 + i)}`, price: Math.round(80 + rnd() * 2400) });
+  }
+  return out;
+})();
+
+/* ============================== level 1: waterfall ============================== */
+const L1 = {
+  id:'l1', no:1, impl:true,
+  title:'صفحه‌ی محصولات دیر بالا میاد',
+  reporter:'تیم پشتیبانی', initials:'پ',
+  report:'مشتری‌ها می‌گن بعد از باز کردن صفحه‌ی محصولات تقریباً سه ثانیه صفحه سفید می‌مونه. بعضی‌ها قبل از اینکه چیزی ببینن صفحه رو می‌بندن.',
+  scenario:'reload', panel:'network',
+  primary:'ready', primaryLabel:'زمان نمایش محصولات',
+  targets:[{ key:'ready', max:1500, label:'زمان نمایش محصولات' }],
+  constraint:'محصولات باید با قیمت درست نمایش داده بشن. هدر کاربر هم باید بالاخره بیاد.',
+  defaults:{ A:false, B:false, C:false, D:false, E:false },
+  space:{ A:[false,true], B:[false,true], C:[false,true], D:[false,true], E:[false,true] },
+  changes:[
+    { cx:1, on:c=>c.A, off:c=>({...c,A:false}) },
+    { cx:2, on:c=>c.B, off:c=>({...c,B:false}) },
+    { cx:1, on:c=>c.C, off:c=>({...c,C:false}) },
+    { cx:1, on:c=>c.D, off:c=>({...c,D:false}) },
+    { cx:1, on:c=>c.E, off:c=>({...c,E:false}) },
+  ],
+  evaluate(c){
+    const P = c.B ? 1100 : 900, R = {};
+    const add = (k,label,start,dur) => R[k] = { k, label, start, end:start+dur, dur };
+    const plabel = c.B ? '/products+prices' : '/products';
+    if (c.A) {
+      add('user','/user',0,1000); add('categories','/categories',0,400); add('products',plabel,0,P);
+      const group = ['categories','products']; if (!c.C) group.push('user');
+      if (c.E && !c.B) { add('prices','/prices',0,500); group.push('prices'); }
+      const gEnd = Math.max(...group.map(k => R[k].end));
+      if (!c.B && !c.E) add('prices','/prices',gEnd,500);
+    } else {
+      let t = 0;
+      add('user','/user',0,1000); if (!c.C) t = 1000;
+      add('categories','/categories',t,400); t += 400;
+      add('products',plabel,t,P);
+      if (!c.B) { if (c.E) { add('prices','/prices',t,500); t += Math.max(P,500); } else { t += P; add('prices','/prices',t,500); t += 500; } }
+      else t += P;
+    }
+    const need = ['categories','products']; if (R.prices) need.push('prices'); if (!c.C) need.push('user');
+    const renderAt = Math.max(...need.map(k => R[k].end));
+    const ready = renderAt + 60;
+    // critical path
+    let k = need.reduce((a,b) => R[a].end >= R[b].end ? a : b); const crit = [k];
+    while (R[k].start > 0) { const p = Object.values(R).find(r => r.end === R[k].start && !crit.includes(r.k)); if (!p) break; crit.unshift(p.k); k = p.k; }
+    const broken = c.E && !c.B;
+    const checks = [
+      { label:'قیمت همه‌ی محصولات نمایش داده می‌شه', ok:!broken, why:'درخواست /prices قبل از رسیدن products فرستاده شد، پس هنوز هیچ idای نداشت. پاسخ خالی برگشت و جلوی همه‌ی محصولات «—» نمایش داده شد.' },
+      { label:'هدر کاربر نمایش داده می‌شه', ok:true },
+    ];
+    return { metrics:{ ready, feedback:c.D ? 30 : ready, header: c.C ? R.user.end + 10 : ready }, R, crit, renderAt, ready, correct:!broken, checks, penalty:0 };
+  },
+  code(c){
+    const L = [], P = c.B ? "api('/products?withPrices=1')" : "api('/products')";
+    L.push(['head','async function loadProductsPage() {']);
+    if (c.D) L.push(['spin','  showSpinner();']);
+    if (c.A) {
+      if (c.C) L.push(['user',"  const userReq = api('/user');   // not awaited"]);
+      const names = []; if (!c.C) names.push('user'); names.push('categories','products'); if (c.E && !c.B) names.push('prices');
+      L.push(['group',`  const [${names.join(', ')}] = await Promise.all([`]);
+      if (!c.C) L.push(['user',"    api('/user'),"]);
+      L.push(['categories',"    api('/categories'),"]);
+      L.push(['products',`    ${P},`]);
+      if (c.E && !c.B) L.push(['prices',"    api('/prices', ids(products)),"]);
+      L.push(['group','  ]);']);
+      if (!c.B && !c.E) L.push(['prices',"  const prices = await api('/prices', ids(products));"]);
+    } else {
+      L.push(['user', c.C ? "  const userReq = api('/user');   // not awaited" : "  const user = await api('/user');"]);
+      L.push(['categories',"  const categories = await api('/categories');"]);
+      if (c.E && !c.B) {
+        L.push(['products','  const [products, prices] = await Promise.all([']);
+        L.push(['products',`    ${P},`]);
+        L.push(['prices',"    api('/prices', ids(products)),"]);
+        L.push(['products','  ]);']);
+      } else {
+        L.push(['products',`  const products = await ${P};`]);
+        if (!c.B) L.push(['prices',"  const prices = await api('/prices', ids(products));"]);
+      }
+    }
+    L.push(['blank','']);
+    L.push(['render', c.B ? '  render({ categories, products });' : '  render({ categories, products, prices });']);
+    L.push(['header', c.C ? '  userReq.then(renderHeader);' : '  renderHeader(user);']);
+    L.push(['end','}']);
+    return L;
+  },
+  edits:[
+    { keys:['user','categories','group'], field:'A', label:'نحوه‌ی اجرای درخواست‌ها', options:[[false,'پشت‌سرهم، هر کدوم با await'],[true,'هم‌زمان با Promise.all']] },
+    { keys:['user','header'], field:'C', label:'درخواست /user', options:[[false,'قبل از رندر منتظرش بمون'],[true,'بفرست ولی منتظرش نمون؛ هدر جدا رندر بشه']] },
+    { keys:['products','render'], field:'B', label:'قیمت‌ها', options:[[false,'با درخواست جدای /prices'],[true,'سرور قیمت‌ها رو همراه /products بفرسته']], note:'یعنی تغییر API سمت سرور. پاسخ /products حدود ۲۰۰ms سنگین‌تر می‌شه.' },
+    { keys:['prices'], field:'E', label:'زمان ارسال /prices', options:[[false,'بعد از رسیدن products'],[true,'هم‌زمان با /products']] },
+    { keys:['head','spin','render'], field:'D', label:'بازخورد هنگام بارگذاری', options:[[false,'تا آماده شدن چیزی نشون نده'],[true,'همون اول یه اسپینر نشون بده']] },
+  ],
+  describe(prev, cur, rp, rc){
+    const out = [];
+    const keys = ['user','categories','products','prices'];
+    for (const k of keys) {
+      const a = rp.R[k], b = rc.R[k];
+      if (a && !b) out.push(`درخواست <code>/prices</code> حذف شد.`);
+      else if (!a && b) out.push(`درخواست <code>${b.label}</code> اضافه شد.`);
+      else if (a && b) {
+        if (a.dur !== b.dur) out.push(`<code>${b.label}</code> حالا ${fms(b.dur)} طول می‌کشه (قبلاً ${fms(a.dur)}).`);
+        if (a.start !== b.start) out.push(`<code>${b.label}</code> حالا از ${fms(b.start)} شروع می‌شه (قبلاً ${fms(a.start)}).`);
+      }
+    }
+    if (rc.metrics.feedback !== rp.metrics.feedback && cur.D) out.push(`اسپینر از همون ${fms(30)} اول دیده می‌شه، ولی محصولات هنوز در ${fms(rc.ready)} می‌رسن.`);
+    out.push(`مسیر بحرانی الان: <span class="ltr mono">${rc.crit.map(k => rc.R[k].label).join(' → ')} → render</span>`);
+    return out;
+  },
+hints:[
+    { tab:'analysis', sel:'[data-req="categories"]', text:'به این نوار نگاه کن. درخواست «categories» تا وقتی «user» کامل تموم نشه شروع نمی‌شه. واقعاً لازمه منتظرش بمونه؟' },
+    { tab:'code', lines:['user','categories','products'], text:'هر <code>await</code> یعنی «صبر کن تا این تموم بشه، بعد برو خط بعد». از این سه درخواست، کدوم واقعاً به جواب درخواست قبلی‌اش احتیاج داره؟' },
+    { tab:'code', lines:['prices'], text:'فقط این خط به نتیجه‌ی قبلی‌اش نیاز داره، چون id محصولات رو لازم داره. یه سؤال دیگه هم از خودت بپرس: برای نشون دادن محصولات، اصلاً به اطلاعات کاربر نیاز داری؟' },
+  ],
+  approaches:[
+    { name:'Promise.all + قیمت داخل /products', cfg:{A:true,B:true}, kind:'optimal' },
+    { name:'Promise.all + منتظر /user نماندن', cfg:{A:true,C:true}, kind:'valid' },
+    { name:'فقط Promise.all', cfg:{A:true}, kind:'partial' },
+    { name:'هر سه تغییر با هم', cfg:{A:true,B:true,C:true}, kind:'overkill' },
+    { name:'اسپینر از همون اول', cfg:{D:true}, kind:'symptom' },
+    { name:'/prices هم‌زمان با /products', cfg:{A:true,E:true}, kind:'broken' },
+  ],
+  concept:'Request waterfall · Promise.all · مسیر بحرانی',
+  explain(base){
+    return `<p>صفحه وقتی نمایش داده می‌شه که آخرین درخواستِ لازم برگرده. با <code>await</code> پشت‌سرهم، هر درخواست تا تموم شدن قبلی شروع نمی‌شد، پس زمان کل جمع همه‌شون بود: ${fms(base.ready)}.</p>
+      <p>درخواست‌های مستقل وقتی هم‌زمان برن، زمانشون می‌شه طولانی‌ترینشون، نه جمعشون. <code>/prices</code> واقعاً به idهای محصولات نیاز داره، پس یا باید بعد از <code>/products</code> بیاد یا سرور باید قیمت رو همراهش بفرسته. <code>/user</code> هم برای نمایش محصولات لازم نیست، ولی تا وقتی <code>/prices</code> جدا باشه، حذفش از مسیر کافی نیست.</p>
+      <p>این زنجیره‌ی درخواست‌هایی که پشت هم منتظر می‌مونن «مسیر بحرانی» صفحه‌ست. فقط کوتاه کردن همین زنجیره صفحه رو سریع‌تر می‌کنه. اسپینر زودتر حس بارگذاری رو بهتر می‌کنه، ولی محصولات رو یک میلی‌ثانیه هم زودتر نمی‌رسونه.</p>`;
+  },
+};
+
+/* ============================== level 4: repeated calculation ============================== */
+const K4 = { keys:['ک','ف','ش',' ','چ','ر','م'], gap:110, stats:80, filter:6, rows:4, evt:1 };
+const L4 = {
+  id:'l4', no:4, impl:true,
+  title:'سرچ موقع تایپ گیر می‌کنه',
+  reporter:'سارا، مدیر محصول', initials:'س',
+  report:'وقتی تو کادر سرچ تایپ می‌کنم، حروف با تأخیر ظاهر می‌شن. انگار کیبورد گیر کرده. نتیجه‌ها باید هم‌پای تایپ عوض بشن.',
+  scenario:'type', panel:'thread',
+  primary:'input', primaryLabel:'تأخیر تایپ',
+  targets:[{ key:'input', max:16, label:'تأخیر تایپ (بدترین کلید)' },{ key:'results', max:100, label:'نمایش نتیجه بعد از توقف تایپ' }],
+  constraint:'آمار بالای لیست باید همیشه با محصولات فعلی بخونه.',
+  defaults:{ stats:'direct', deps:null, debounce:false, memoFilter:false },
+  space:{ stats:['direct','memo','effect','child'], deps:['empty','products','products_query'], debounce:[false,true], memoFilter:[false,true] },
+  validate(c){ return c.stats === 'memo' && c.deps == null ? 'وابستگی‌های useMemo رو انتخاب نکردی.' : null; },
+  changes:[
+    { cx:1, on:c=>c.stats==='memo', off:c=>({...c,stats:'direct'}) },
+    { cx:2, on:c=>c.stats==='effect', off:c=>({...c,stats:'direct'}) },
+    { cx:2, on:c=>c.stats==='child', off:c=>({...c,stats:'direct'}) },
+    { cx:1, on:c=>c.debounce, off:c=>({...c,debounce:false}) },
+    { cx:1, on:c=>c.memoFilter, off:c=>({...c,memoFilter:false}) },
+  ],
+  segs(c, phase){
+    let stats, statK = 'stats';
+    if (c.stats === 'direct') stats = K4.stats;
+    else if (c.stats === 'memo') { if (phase === 'initial' || c.deps === 'products_query') stats = K4.stats + 0.1; else { stats = 0.1; statK = 'cache'; } }
+    else if (c.stats === 'effect') stats = phase === 'initial' ? 0 : 0;
+    else { if (phase === 'initial') stats = K4.stats + 0.2; else { stats = 0.15; statK = 'cache'; } }
+    const s = [{ k:'evt', ms:K4.evt }, { k:'filter', ms:K4.filter + (c.memoFilter ? 0.1 : 0) }];
+    if (stats > 0) s.push({ k:statK, ms:stats });
+    s.push({ k:'render', ms:K4.rows });
+    if (phase === 'initial' && c.stats === 'effect') { s.push({ k:'effect', ms:K4.stats }); s.push({ k:'render', ms:K4.rows + 1 }); }
+    return s;
+  },
+  evaluate(c){
+    const sum = a => a.reduce((x,y) => x + y.ms, 0);
+    const times = K4.keys.map((_,i) => i * K4.gap), last = times[times.length - 1];
+    const full = this.segs(c,'key'), tasks = [], lat = [];
+    let bu = 0, results;
+    if (c.debounce) {
+      times.forEach(t => { const s = Math.max(t,bu); tasks.push({ start:s, segs:[{ k:'input', ms:1 }] }); bu = s + 1; lat.push(bu - t); });
+      const s = Math.max(last + 300, bu); tasks.push({ start:s, segs:full }); bu = s + sum(full); results = bu - last;
+    } else {
+      times.forEach(t => { const s = Math.max(t,bu); tasks.push({ start:s, segs:full }); bu = s + sum(full); lat.push(bu - t); });
+      results = bu - last;
+    }
+    tasks.forEach(t => t.dur = sum(t.segs));
+    const initSegs = this.segs(c,'initial');
+    const broken = c.stats === 'memo' && c.deps === 'empty';
+    const checks = [
+      { label:'آمار بعد از اضافه شدن محصول جدید به‌روز می‌شه', ok:!broken, why:'با وابستگی‌های خالی، useMemo فقط یک بار در اولین رندر حساب کرد. وقتی محصول جدید اضافه شد، آمار همون عدد قبلی رو نشون داد.' },
+      { label:'نتیجه‌ی نهایی سرچ با متن تایپ‌شده می‌خونه', ok:true },
+    ];
+    return { metrics:{ input:Math.max(...lat), results, initial:sum(initSegs) }, tasks, times, lat, initSegs, correct:!broken, checks,
+      penalty: c.stats === 'effect' ? 15 : 0,
+      sideNote: c.stats === 'effect' ? 'useEffect یه رندر اضافه در بارگذاری اول ساخت و آمار برای یه لحظه خالی نمایش داده شد.' : null };
+  },
+  code(c){
+    const L = [], q = c.debounce ? 'debounced' : 'query';
+    L.push(['head','function ProductsPage({ products }) {']);
+    L.push(['state',"  const [query, setQuery] = useState('');"]);
+    if (c.debounce) L.push(['debounce','  const debounced = useDebounce(query, 300);']);
+    if (c.stats === 'direct') L.push(['stats','  const stats = calculateStatistics(products);']);
+    if (c.stats === 'memo') {
+      const d = c.deps == null ? '/* ? */' : c.deps === 'empty' ? '' : c.deps === 'products' ? 'products' : 'products, query';
+      L.push(['stats','  const stats = useMemo(']); L.push(['stats','    () => calculateStatistics(products),']); L.push(['stats',`    [${d}]`]); L.push(['stats','  );']);
+    }
+    if (c.stats === 'effect') { L.push(['stats','  const [stats, setStats] = useState(null);']); L.push(['stats','  useEffect(() => {']); L.push(['stats','    setStats(calculateStatistics(products));']); L.push(['stats','  }, [products]);']); }
+    if (c.memoFilter) { L.push(['filter','  const filtered = useMemo(() =>']); L.push(['filter',`    products.filter(p => p.name.includes(${q})),`]); L.push(['filter',`    [products, ${q}]);`]); }
+    else { L.push(['filter','  const filtered = products.filter(p =>']); L.push(['filter',`    p.name.includes(${q}));`]); }
+    L.push(['blank','']); L.push(['ret','  return (']); L.push(['ret','    <>']);
+    L.push(['search','      <SearchBox value={query} onChange={setQuery} />']);
+    L.push(['statsbar', c.stats === 'child' ? '      <StatsPanel products={products} />' : '      <StatsBar stats={stats} />']);
+    L.push(['gridl','      <ProductGrid items={filtered} />']);
+    L.push(['ret','    </>']); L.push(['ret','  );']); L.push(['end','}']);
+    if (c.stats === 'child') { L.push(['blank','']); L.push(['child','const StatsPanel = memo(({ products }) =>']); L.push(['child','  <StatsBar stats={calculateStatistics(products)} />']); L.push(['child',');']); }
+    return L;
+  },
+  edits:[
+    { keys:['stats','statsbar','child'], field:'stats', label:'محاسبه‌ی آمار', options:[['direct','مستقیم داخل بدنه‌ی کامپوننت'],['memo','useMemo'],['effect','useEffect + useState'],['child','کامپوننت جدا با React.memo']] },
+    { keys:['stats'], field:'deps', label:'وابستگی‌های useMemo', mono:true, when:c => c.stats === 'memo', options:[['empty','[]'],['products','[products]'],['products_query','[products, query]']] },
+    { keys:['search','state','debounce'], field:'debounce', label:'ورودی سرچ', options:[[false,'هر کلید فوراً query رو عوض کنه'],[true,'debounce با ۳۰۰ms']] },
+    { keys:['filter'], field:'memoFilter', label:'فیلتر لیست', options:[[false,'مستقیم'],[true,'داخل useMemo']] },
+  ],
+  describe(prev, cur, rp, rc){
+    const out = [], names = { evt:'رویداد', filter:'فیلتر', stats:'calculateStatistics', cache:'کش', render:'رندر', input:'ورودی' };
+    const t = rc.tasks[rc.tasks.length - 1];
+    out.push(`هر بار رندر صفحه: ${t.segs.map(s => `${names[s.k]} ${fms(s.ms)}`).join('، ')}.`);
+    const hasStats = t.segs.some(s => s.k === 'stats'), hasCache = t.segs.some(s => s.k === 'cache');
+    if (hasStats && cur.stats === 'memo') out.push(`useMemo هست، ولی <code>calculateStatistics</code> هنوز با هر کلید اجرا شد چون یکی از وابستگی‌هاش با هر کلید عوض می‌شه.`);
+    else if (hasStats) out.push(`<code>calculateStatistics</code> با هر کلید از اول اجرا شد، در حالی که products عوض نشده بود.`);
+    if (hasCache) out.push(`<code>calculateStatistics</code> روی کلیدها اجرا نشد. مقدار قبلی برگردونده شد.`);
+    if (cur.debounce) out.push(`کاراکترها فوری نمایش داده شدن، ولی نتیجه‌ها ${fms(rc.metrics.results)} بعد از آخرین کلید اومدن.`);
+    if (cur.memoFilter) out.push(`useMemo روی فیلتر کاری نکرد: query با هر کلید عوض می‌شه، پس کش هیچ‌وقت استفاده نشد و فقط هزینه‌ی مقایسه اضافه شد.`);
+    if (rc.metrics.initial !== rp.metrics.initial) out.push(`اولین رندر صفحه: ${fms(rc.metrics.initial)} (قبلاً ${fms(rp.metrics.initial)}).`);
+    else out.push(`اولین رندر صفحه هنوز ${fms(rc.metrics.initial)} طول می‌کشه.`);
+    if (rc.sideNote) out.push(rc.sideNote);
+    return out;
+  },
+hints:[
+    { tab:'analysis', sel:'.lane .task', text:'هر بلوک یعنی کاری که مرورگر بعد از زدن یه کلید انجام داده. تا این کار تموم نشه، حرف بعدی رو نشون نمی‌ده. تیکه‌ی قرمز بزرگ‌ترین بخششه. اون چیه؟' },
+    { tab:'code', lines:['stats'], text:'این خط با هر حرفی که تایپ می‌شه از اول اجرا می‌شه. ولی فقط از <code>products</code> استفاده می‌کنه، و موقع تایپ کردن products هیچ تغییری نمی‌کنه.' },
+    { tab:'code', lines:['stats'], text:'دنبال راهی باش که نتیجه‌ی این خط نگه داشته بشه و فقط وقتی دوباره حساب بشه که چیزی که بهش وابسته‌ست عوض شده باشه. دقیق فکر کن «چیزی که بهش وابسته‌ست» چیه.' },
+  ],
+  approaches:[
+    { name:'useMemo با [products]', cfg:{stats:'memo',deps:'products'}, kind:'optimal' },
+    { name:'StatsPanel جدا با React.memo', cfg:{stats:'child'}, kind:'valid' },
+    { name:'useEffect + useState', cfg:{stats:'effect'}, kind:'overkill' },
+    { name:'debounce روی سرچ', cfg:{debounce:true}, kind:'symptom' },
+    { name:'useMemo با [products, query]', cfg:{stats:'memo',deps:'products_query'}, kind:'nocause' },
+    { name:'useMemo روی فیلتر', cfg:{memoFilter:true}, kind:'nocause' },
+    { name:'useMemo با []', cfg:{stats:'memo',deps:'empty'}, kind:'broken' },
+  ],
+  concept:'Memoization · useMemo',
+  explain(base, best){
+    return `<p>تایپ هر حرف <code>query</code> رو عوض می‌کنه و <code>ProductsPage</code> دوباره رندر می‌شه. هر خطی که داخل بدنه‌ی کامپوننته، با هر رندر دوباره اجرا می‌شه؛ از جمله <code>calculateStatistics</code> که ${fms(K4.stats)} طول می‌کشه و فقط به <code>products</code> وابسته‌ست.</p>
+      <p><code>useMemo</code> نتیجه‌ی قبلی رو برمی‌گردونه تا وقتی وابستگی‌هاش عوض نشده باشن. خود محاسبه سریع‌تر نشده: اولین رندر هنوز ${fms(best.metrics.initial)} طول می‌کشه. فقط تکرارش حذف شده.</p>
+      <p>وابستگی <code>[]</code> سریع بود ولی آمار رو برای همیشه قفل می‌کرد. <code>[products, query]</code> هم چون query با هر کلید عوض می‌شه، هیچ‌وقت از کش استفاده نمی‌کرد. debounce هم فقط تعداد اجراها رو کم کرد، نه هزینه‌ی هر اجرا رو، و نتیجه‌ها رو دیرتر کرد.</p>`;
+  },
+};
+
+/* ============================== level 9: re-render storm ============================== */
+const K9 = { n:60, card:1.2, cmp:0.03, grid:2, header:1, clicked:4 };
+const L9 = {
+  id:'l9', no:9, impl:true,
+  title:'دکمه‌ی «افزودن به سبد» کنده',
+  reporter:'تیم QA', initials:'ق',
+  report:'روی گوشی‌های معمولی، بعد از زدن «افزودن به سبد» یه مکث محسوس هست تا دکمه عوض بشه. هرچی محصول بیشتری تو صفحه باشه بدتره.',
+  scenario:'click', panel:'renders',
+  primary:'click', primaryLabel:'تأخیر کلیک',
+  targets:[{ key:'click', max:16, label:'تأخیر کلیک' }],
+  constraint:'همه‌ی ۶۰ محصول صفحه باید نمایش داده بشن و سبد خرید باید درست بشمره.',
+  defaults:{ memo:false, onAdd:'inline', functional:false, style:'inline', paginate:false },
+  space:{ memo:[false,true], onAdd:['inline','cbCart','cbEmpty'], functional:[false,true], style:['inline','hoisted'], paginate:[false,true] },
+  changes:[
+    { cx:1, on:c=>c.memo, off:c=>({...c,memo:false}) },
+    { cx:1, on:c=>c.onAdd!=='inline', off:c=>({...c,onAdd:'inline'}) },
+    { cx:0.5, on:c=>c.functional, off:c=>({...c,functional:false}) },
+    { cx:0.5, on:c=>c.style==='hoisted', off:c=>({...c,style:'inline'}) },
+    { cx:1, on:c=>c.paginate, off:c=>({...c,paginate:false}) },
+  ],
+  cardsFor(c, clicked){
+    const n = c.paginate ? 20 : K9.n, cards = [];
+    for (let i = 0; i < K9.n; i++) {
+      if (i >= n) { cards.push({ off:true }); continue; }
+      if (i === clicked) { cards.push({ r:true, c:true, why:'inCart تغییر کرد' }); continue; }
+      if (!c.memo) { cards.push({ r:true, why:'والد رندر شد' }); continue; }
+      const w = [];
+      if (c.onAdd === 'inline') w.push('onAdd یه تابع تازه‌ست');
+      if (c.onAdd === 'cbCart') w.push('onAdd با عوض شدن cart تازه شد');
+      if (c.style === 'inline') w.push('style یه شیء تازه‌ست');
+      cards.push(w.length ? { r:true, why:w.join(' + ') } : { r:false, why:'propها یکسان؛ رد شد' });
+    }
+    return cards;
+  },
+  evaluate(c, clicked = K9.clicked){
+    const cards = this.cardsFor(c, clicked), n = c.paginate ? 20 : K9.n;
+    const rendered = cards.filter(x => x.r).length;
+    const click = K9.grid + K9.header + rendered * K9.card + (c.memo ? n * K9.cmp : 0);
+    const stale = c.onAdd === 'cbEmpty' && !c.functional;
+    const checks = [
+      { label:'بعد از دو بار افزودن، سبد دو قلم داره', ok:!stale, why:'تابع پایدار با [] همون cart خالیِ رندر اول رو می‌بینه. هر افزودن، سبد رو از صفر می‌سازه، پس سبد همیشه یک قلم نشون می‌ده.' },
+      { label:'هر ۶۰ محصول نمایش داده می‌شن', ok:!c.paginate, why:'فقط ۲۰ کارت اول رندر شد. کلیک سریع‌تر شد چون بیشتر صفحه حذف شده بود، و این شرط تیکت رو می‌شکنه.' },
+    ];
+    return { metrics:{ click }, cards, rendered, correct:!stale && !c.paginate, checks, penalty:0 };
+  },
+  code(c){
+    const L = [];
+    if (c.style === 'hoisted') { L.push(['styleConst','const CARD_STYLE = { padding: 12 };']); L.push(['blank','']); }
+    L.push(['grid','function ProductGrid({ products }) {']);
+    L.push(['state','  const [cart, setCart] = useState([]);']);
+    const upd = c.functional ? 'setCart(c => [...c, id])' : 'setCart([...cart, id])';
+    if (c.onAdd === 'inline') L.push(['add',`  const addToCart = (id) => ${upd};`]);
+    else { L.push(['add','  const addToCart = useCallback(']); L.push(['add',`    (id) => ${upd},`]); L.push(['add',`    [${c.onAdd === 'cbCart' ? 'cart' : ''}]`]); L.push(['add','  );']); }
+    L.push(['blank','']); L.push(['ret','  return (']); L.push(['ret','    <>']);
+    L.push(['header','      <Header cartCount={cart.length} />']);
+    L.push(['map', c.paginate ? '      {products.slice(0, 20).map(p => (' : '      {products.map(p => (']);
+    L.push(['use','        <ProductCard']); L.push(['use','          key={p.id}']); L.push(['use','          product={p}']); L.push(['use','          inCart={cart.includes(p.id)}']);
+    L.push(['onAdd', c.onAdd === 'inline' ? '          onAdd={() => addToCart(p.id)}' : '          onAdd={addToCart}']);
+    L.push(['style', c.style === 'hoisted' ? '          style={CARD_STYLE}' : '          style={{ padding: 12 }}']);
+    L.push(['use','        />']); L.push(['map','      ))}']); L.push(['ret','    </>']); L.push(['ret','  );']); L.push(['grid','}']);
+    L.push(['blank','']);
+    L.push(['card', c.memo ? 'const ProductCard = memo(function ProductCard(props) {' : 'function ProductCard(props) {']);
+    L.push(['cardb','  // image, title, price, badges: ~1.2ms per render']);
+    L.push(['cardb','  return <Card {...props} />;']);
+    L.push(['card', c.memo ? '});' : '}']);
+    return L;
+  },
+  edits:[
+    { keys:['card'], field:'memo', label:'ProductCard', options:[[false,'کامپوننت معمولی'],[true,'پیچیده در React.memo']] },
+    { keys:['add','onAdd'], field:'onAdd', label:'تابع افزودن', options:[['inline','arrow تازه برای هر کارت'],['cbCart','useCallback با [cart]'],['cbEmpty','useCallback با []']] },
+    { keys:['add'], field:'functional', label:'به‌روزرسانی cart', mono:true, options:[[false,'setCart([...cart, id])'],[true,'setCart(c => [...c, id])']] },
+    { keys:['style','styleConst'], field:'style', label:'style کارت', options:[['inline','شیء inline داخل رندر'],['hoisted','ثابت بیرون کامپوننت']] },
+    { keys:['map'], field:'paginate', label:'کارت‌های صفحه', options:[[false,'همه‌ی محصولات'],[true,'فقط ۲۰ تای اول']] },
+  ],
+  describe(prev, cur, rp, rc){
+    const out = [`با یک کلیک، ${fa(rc.rendered)} کارت رندر شد (قبلاً ${fa(rp.rendered)}).`];
+    const counts = {};
+    rc.cards.forEach(x => { if (x.r && !x.c) counts[x.why] = (counts[x.why] || 0) + 1; });
+    Object.entries(counts).forEach(([w,n]) => out.push(`${fa(n)} کارت دلیلش: ${w}.`));
+    if (cur.memo && rc.metrics.click > rp.metrics.click) out.push(`memo بدون propهای پایدار فقط هزینه‌ی مقایسه رو اضافه کرد.`);
+    return out;
+  },
+hints:[
+    { tab:'analysis', sel:'.cells', text:'هر خونه یه کارت محصوله. خونه‌های قرمز بعد از فقط یه کلیک دوباره ساخته شدن، در حالی که فقط یه کارت واقعاً عوض شده بود.' },
+    { tab:'code', lines:['card'], text:'کارت‌ها چون والدشون دوباره رندر شده، خودشون هم رندر می‌شن. می‌شه به کارت گفت: «اگه ورودی‌هات عوض نشده، دوباره رندر نشو».' },
+    { tab:'code', lines:['onAdd','style'], text:'حتی بعد از اون، این دو خط با هر رندر یه تابع و یه شیء تازه می‌سازن، و برای کارت یعنی «ورودی عوض شد». این‌ها رو ثابت کن، ولی مطمئن شو سبد هنوز درست می‌شمره.' },
+  ],
+  approaches:[
+    { name:'memo + useCallback با [] + به‌روزرسانی تابعی + style ثابت', cfg:{memo:true,onAdd:'cbEmpty',functional:true,style:'hoisted'}, kind:'optimal' },
+    { name:'فقط React.memo', cfg:{memo:true}, kind:'nocause' },
+    { name:'memo + useCallback با [cart] + style ثابت', cfg:{memo:true,onAdd:'cbCart',functional:true,style:'hoisted'}, kind:'nocause' },
+    { name:'memo + useCallback با [] بدون به‌روزرسانی تابعی', cfg:{memo:true,onAdd:'cbEmpty',style:'hoisted'}, kind:'broken' },
+    { name:'فقط ۲۰ کارت اول', cfg:{paginate:true}, kind:'symptom' },
+  ],
+  concept:'React.memo · ثبات ارجاع · useCallback · به‌روزرسانی تابعی',
+  explain(base, best){
+    return `<p>وقتی cart عوض می‌شه، <code>ProductGrid</code> دوباره رندر می‌شه و به‌طور پیش‌فرض همه‌ی فرزندانش هم: ${fa(base.rendered)} کارت برای تغییر یک کارت.</p>
+      <p><code>React.memo</code> رندر کارتی رو که propهاش عوض نشده رد می‌کنه، ولی propها با <code>===</code> مقایسه می‌شن. یه arrow function یا <code>{{ }}</code> که داخل رندر ساخته بشه، هر بار مقدار تازه‌ایه. برای همین memo به‌تنهایی کار رو کمی کندتر کرد: ${fa(K9.n)} مقایسه‌ی بی‌نتیجه.</p>
+      <p><code>useCallback</code> با <code>[cart]</code> هم کمکی نکرد، چون دقیقاً همون چیزی که با کلیک عوض می‌شه وابستگی‌اش بود. با به‌روزرسانی تابعی <code>setCart(c => …)</code> تابع دیگه به cart نیاز نداره و می‌تونه با <code>[]</code> پایدار بمونه. بدون اون، تابع پایدار cart کهنه رو می‌دید و سبد خراب می‌شد. نتیجه: فقط ${fa(best.rendered)} کارت رندر می‌شه.</p>`;
+  },
+};
+
+/* ============================== level registry ============================== */
+const LEVELS = [
+  L1,
+  { id:'l2', no:2, title:'حجم دانلود صفحه زیاده', hint:'همه‌ی ۲٬۰۰۰ محصول با توضیحات کامل در اولین بارگذاری دانلود می‌شن.' },
+  { id:'l3', no:3, title:'عکس‌ها دیر و سنگین لود می‌شن', hint:'همه‌ی عکس‌ها با کیفیت کامل و هم‌زمان بارگذاری می‌شن، حتی پایین صفحه.' },
+  L4,
+  { id:'l5', no:5, title:'لیست بزرگ تایپ رو کند می‌کنه', hint:'فیلتر کردن لیست بزرگ هنوز هر کلید رو سنگین می‌کنه.' },
+  { id:'l6', no:6, title:'نتیجه‌ی سرچ گاهی اشتباهه', hint:'پاسخ‌های قدیمی گاهی بعد از پاسخ جدید می‌رسن و روش می‌نشینن.' },
+  { id:'l7', no:7, title:'فیلترها با هم نمی‌خونن', hint:'نتیجه‌ی فیلتر در state جدا نگه داشته می‌شه و از بقیه عقب می‌مونه.' },
+  { id:'l8', no:8, title:'اسکرول لیست تیکه‌تیکه‌ست', hint:'هزاران ردیف هم‌زمان در DOM هستن.' },
+  L9,
+  { id:'l10', no:10, title:'کل صفحه با هر خرید رندر می‌شه', hint:'شمارنده‌ی سبد در state بالای درخت نگه داشته می‌شه.' },
+];
+const IMPL = LEVELS.filter(l => l.impl);
+const byId = id => LEVELS.find(l => l.id === id);
+const KINDS = { optimal:'بهینه', valid:'معتبر، با هزینه‌ی بیشتر', partial:'بهبود ناکافی', overkill:'پیچیده‌تر از لازم', symptom:'فقط علامت رو پنهان می‌کنه', nocause:'علت رو حل نمی‌کنه', broken:'رفتار رو خراب می‌کنه' };
+
+/* ============================== scoring ============================== */
+function enumerate(space){
+  const keys = Object.keys(space); let out = [{}];
+  for (const k of keys) { const next = []; for (const o of out) for (const v of space[k]) next.push({ ...o, [k]:v }); out = next; }
+  return out;
+}
+function cfgOf(level, partial){ return { ...level.defaults, ...partial }; }
+function cx(level, c){ return level.changes.reduce((s,ch) => s + (ch.on(c) ? ch.cx : 0), 0); }
+function meets(level, r){ return level.targets.every(t => r.metrics[t.key] <= t.max); }
+function prepare(level){
+  level.base = level.evaluate(level.defaults);
+  let best = null;
+  for (const c of enumerate(level.space)) {
+    if (level.validate && level.validate(c)) continue;
+    const r = level.evaluate(c); if (!r.correct || !meets(level,r)) continue;
+    const v = r.metrics[level.primary] + (r.penalty ? 1000 : 0);
+    const x = cx(level,c);
+    if (!best || v < best.v - 0.01 || (Math.abs(v - best.v) < 0.01 && x < best.x)) best = { v, x, c };
+  }
+  level.bestCfg = best.c; level.bestR = level.evaluate(best.c); level.bestV = level.bestR.metrics[level.primary]; level.bestCx = best.x;
+}
+function scoreOf(level, c){
+  const r = level.evaluate(c);
+  if (!r.correct) return { score:0, r, pass:false, waste:0 };
+  const base = level.base.metrics[level.primary], v = r.metrics[level.primary];
+  const q = clamp((base - v) / (base - level.bestV), 0, 1);
+  let waste = 0;
+  for (const ch of level.changes) {
+    if (!ch.on(c)) continue;
+    const r2 = level.evaluate(ch.off(c));
+    if (r2.correct && Math.abs(r2.metrics[level.primary] - v) < 0.5 && !(r.penalty === 0 && r2.penalty > 0)) waste += ch.cx;
+  }
+  const extra = q > 0.99 ? Math.max(0, cx(level,c) - waste - level.bestCx) * 5 : 0;
+  let s = q * 100 - waste * 8 - extra - (r.penalty || 0);
+  const pass = meets(level, r);
+  if (!pass) s = Math.min(s, 60);
+  return { score:Math.round(clamp(s,0,100)), r, pass, waste };
+}
+IMPL.forEach(prepare);
+
+/* ============================== state ============================== */
+const KEY = 'front-challenge-lab-v1';
+function freshLv(l){ return { draft:clone(l.defaults), applied:clone(l.defaults), runs:[], hints:0, sol:false, repro:false, solved:false, best:0 }; }
+let S = { cur:'l1', lv:{} };
+try { const raw = localStorage.getItem(KEY); if (raw) S = JSON.parse(raw); } catch (e) {}
+IMPL.forEach(l => { if (!S.lv[l.id]) S.lv[l.id] = freshLv(l); });
+if (!byId(S.cur)) S.cur = 'l1';
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const lvState = id => S.lv[id];
+
+/* ============================== top: health + rail ============================== */
+function renderHealth(){
+  const items = [
+    [L1, lvState('l1').applied, 'ready', 'نمایش محصولات'],
+    [L4, lvState('l4').applied, 'input', 'تأخیر تایپ'],
+    [L9, lvState('l9').applied, 'click', 'تأخیر کلیک'],
+  ];
+  const solved = IMPL.filter(l => lvState(l.id).solved).length;
+  $('#health').innerHTML = items.map(([l,c,k,lab]) => {
+    const r = l.evaluate(c), t = l.targets.find(x => x.key === k), ok = r.metrics[k] <= t.max && r.correct;
+    return `<span class="hm"><i class="dot ${ok ? 'ok' : 'bad'}"></i>${lab} <b class="num">${fms(r.metrics[k])}</b></span>`;
+  }).join('') + `<span class="hm">تیکت‌های بسته <b class="num">${fa(solved)} از ${fa(LEVELS.length)}</b></span>`;
+}
+function renderRail(){
+  $('#rail').innerHTML = LEVELS.map(l => {
+    const st = l.impl ? lvState(l.id) : null;
+    const cls = ['tk', l.id === S.cur ? 'cur' : '', st && st.solved ? 'done' : '', !l.impl ? 'locked' : ''].join(' ');
+    return `<button class="${cls}" data-act="ticket" data-id="${l.id}"><span class="no">#${String(l.no).padStart(2,'0')}</span>${esc(l.title)}${st && st.solved ? `<span class="pc">${fa(st.best)}٪</span>` : ''}</button>`;
+  }).join('');
+}
+
+/* ============================== analysis panels ============================== */
+function netPanel(r, cap, level){
+  const max = 3000, pct = v => (v / max * 100).toFixed(2) + '%';
+  const rows = ['user','categories','products','prices'].filter(k => r.R[k]).map(k => {
+    const q = r.R[k], crit = r.crit.includes(k);
+    return `<span class="tl-lab">${q.label}</span><div class="tl-track" data-req="${k}"><i class="bar ${crit ? 'crit' : ''}" style="left:${pct(q.start)};width:${pct(q.dur)}"><span>${q.dur}</span></i></div>`;
+  }).join('');
+  const t = level.targets[0].max;
+  return `<div class="panel-cap"><span>${cap}</span><span>محصولات در <b class="num">${fms(r.ready)}</b></span></div>
+  <div class="tl"><div class="tl-grid">${rows}
+    <span class="tl-lab">render</span><div class="tl-track"><i class="bar" style="left:${pct(r.renderAt)};width:${pct(60)}"></i><i class="tgt" style="left:${pct(t)}"></i><i class="mark ${r.ready > t ? 'late' : ''}" style="left:${pct(r.ready)}"></i></div>
+    <span></span><div class="axis">${[0,1000,2000,3000].map(v => `<span style="left:${pct(v)}">${v}ms</span>`).join('')}</div>
+  </div></div>`;
+}
+const SEGC = { evt:'--seg-evt', filter:'--seg-filter', stats:'--seg-stats', cache:'--seg-cache', render:'--seg-render', input:'--seg-input', effect:'--seg-effect' };
+function threadPanel(r, cap, scale){
+  const max = scale, pct = v => (v / max * 100).toFixed(3) + '%';
+  const tasks = r.tasks.map(t => `<div class="task ${t.dur > 50 ? 'long' : ''}" style="left:${pct(t.start)};width:${pct(t.dur)}">${t.segs.map(s => `<i style="flex:${s.ms} 0 0;background:var(${SEGC[s.k]})"></i>`).join('')}</div>`).join('');
+  const keys = r.times.map((t,i) => `<b style="left:${pct(t)}">${K4.keys[i] === ' ' ? '␣' : K4.keys[i]}</b>`).join('');
+  const initTotal = r.initSegs.reduce((a,b) => a + b.ms, 0);
+  return `<div class="panel-cap"><span>${cap}</span><span>بدترین کلید <b class="num">${fms(r.metrics.input)}</b> · نتیجه بعد از توقف <b class="num">${fms(r.metrics.results)}</b></span></div>
+  <div class="tl"><div class="keys">${keys}</div><div class="lane">${tasks}</div>
+  <div class="axis">${[0,200,400,600,800,1000].filter(v => v <= max).map(v => `<span style="left:${pct(v)}">${v}ms</span>`).join('')}</div>
+  <div class="panel-cap" style="margin-top:6px;direction:rtl"><span>اولین رندر صفحه</span><span class="num">${fms(initTotal)}</span></div>
+  <div class="lane" style="height:18px"><div class="task" style="left:0;width:${pct(Math.min(initTotal,max))}">${r.initSegs.map(s => `<i style="flex:${s.ms} 0 0;background:var(${SEGC[s.k]})"></i>`).join('')}</div></div></div>`;
+}
+const threadLegend = `<div class="legend"><span><i style="background:var(--seg-stats)"></i>calculateStatistics</span><span><i style="background:var(--seg-cache)"></i>کش</span><span><i style="background:var(--seg-filter)"></i>فیلتر</span><span><i style="background:var(--seg-render)"></i>رندر</span><span><i style="background:var(--seg-effect)"></i>effect</span><span><i style="background:transparent;outline:2px solid var(--bad)"></i>کار طولانی‌تر از ۵۰ms</span></div>`;
+function renderPanel(r, cap){
+  const counts = {};
+  r.cards.forEach(x => { if (x.r && !x.c) counts[x.why] = (counts[x.why] || 0) + 1; });
+  const skipped = r.cards.filter(x => !x.r && !x.off).length;
+  return `<div class="panel-cap"><span>${cap}</span><span>${fa(r.rendered)} رندر · <b class="num">${fms(r.metrics.click)}</b></span></div>
+  <div class="cells">${r.cards.map(x => `<span class="cell ${x.off ? 'off' : x.c ? 'c' : x.r ? 'r' : ''}" title="${esc(x.why || 'نمایش داده نمی‌شه')}"></span>`).join('')}</div>
+  <div class="why"><span><b>۱</b> کارتی که کلیک شد (inCart عوض شد)</span>${Object.entries(counts).map(([w,n]) => `<span><b class="num">${fa(n)}</b> کارت: ${esc(w)}</span>`).join('')}${skipped ? `<span><b class="num">${fa(skipped)}</b> کارت: رد شد، propها یکسان بودن</span>` : ''}</div>`;
+}
+function panelFor(level, r, cap, scale){
+  if (level.panel === 'network') return netPanel(r, cap, level);
+  if (level.panel === 'thread') return threadPanel(r, cap, scale);
+  return renderPanel(r, cap);
+}
+function panelTitle(level){
+  return level.panel === 'network' ? 'شبکه: درخواست‌ها روی محور زمان' : level.panel === 'thread' ? 'Main thread هنگام تایپ «کفش چرم»' : 'رندرها بعد از یک کلیک روی «افزودن»';
+}
+
+/* ============================== layout: tabs, ticket, panes ============================== */
+const mq = window.matchMedia('(max-width: 980px)');
+const isMobile = () => mq.matches;
+const UI = { tab: isMobile() ? 'app' : 'analysis', open:null, pred:null, msg:null, debrief:false, sheet:false, spot:null };
+const TABS = [
+  ['app','اپ','<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>'],
+  ['analysis','تحلیل','<path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-5 3 3 5-6"/>'],
+  ['code','کد','<path d="M9 8l-4 4 4 4"/><path d="M15 8l4 4-4 4"/>'],
+  ['help','کمک','<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><path d="M12 17h.01"/>'],
+];
+function setTab(t){
+  if (t === 'app' && !isMobile()) t = 'analysis';
+  UI.tab = t; document.body.dataset.tab = t;
+  renderTabs(); renderPane();
+  if (!UI.spot) window.scrollTo({ top:0 });
+}
+function renderTabs(){
+  const level = byId(S.cur);
+  $('#tabs').hidden = !level.impl;
+  $('#tabs').innerHTML = TABS.filter(([k]) => k !== 'app' || isMobile()).map(([k,t,ic]) =>
+    `<button role="tab" aria-selected="${UI.tab === k}" data-act="tab" data-t="${k}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${ic}</svg><span>${t}</span></button>`).join('');
+}
+
+function renderTicket(){
+  const level = byId(S.cur), el = $('#ticket');
+  if (!level.impl) {
+    el.innerHTML = `<div class="card"><div class="tk-id">#${String(level.no).padStart(2,'0')}</div>
+      <div class="tk-head"><h2>${esc(level.title)}</h2><span class="pill open">باز</span></div>
+      <p class="lead" style="margin-top:10px">${esc(level.hint)}</p>
+      <p style="margin:12px 0 8px">این تیکت تو این نسخه‌ی پروتوتایپ هنوز قابل حل نیست. تیکت‌های فعال:</p>
+      <div class="row">${IMPL.map(l => `<button class="btn" data-act="ticket" data-id="${l.id}">#${String(l.no).padStart(2,'0')} ${esc(l.title)}</button>`).join('')}</div></div>`;
+    return;
+  }
+  const st = lvState(level.id), curR = level.evaluate(st.applied);
+  el.innerHTML = `<div class="card"><div class="tk-id">#${String(level.no).padStart(2,'0')}</div>
+    <div class="tk-head"><h2>${esc(level.title)}</h2><span class="pill ${st.solved ? 'closed' : 'open'}">${st.solved ? 'بسته شد' : 'باز'}</span></div>
+    <div class="report"><span class="avatar">${level.initials}</span><div><div class="who">${esc(level.reporter)}</div><p>${esc(level.report)}</p></div></div>
+    <dl class="targets">${level.targets.map(t => { const v = curR.metrics[t.key], ok = v <= t.max; return `<dt>هدف</dt><dd><span class="tv">${esc(t.label)} ≤ <span class="num">${fms(t.max)}</span> <span style="color:var(--${ok ? 'good' : 'bad'})" class="num">(الان ${fms(v)})</span></span></dd>`; }).join('')}
+      <dt>شرط</dt><dd>${esc(level.constraint)}</dd></dl>
+    <div class="row" style="margin-top:14px"><button class="btn ${st.repro ? '' : 'primary'}" data-act="repro">${st.repro ? 'دوباره تو اپ ببین' : 'بازتولید مشکل'}</button>${!st.repro ? '<span class="lead" style="margin:0">اول خودت ببین تو اپ چی اتفاق می‌افته.</span>' : ''}</div>
+  </div>`;
+}
+
+function renderPane(){
+  const level = byId(S.cur), pane = $('#pane');
+  if (!level.impl) { pane.innerHTML = ''; return; }
+  const st = lvState(level.id);
+  const t = UI.tab === 'app' ? 'analysis' : UI.tab;
+  pane.innerHTML = t === 'code' ? codePane(level, st) : t === 'help' ? helpPane(level, st) : analysisPane(level, st);
+  if (UI.spot != null) placeSpot(level);
+}
+
+/* ---------- analysis ---------- */
+function analysisPane(level, st){
+  const last = st.runs[st.runs.length - 1];
+  let h = '';
+  if (!last) {
+    const r = level.evaluate(st.applied);
+    h += `<div class="card"><div class="sec-h"><h3>${panelTitle(level)}</h3><span class="aux">کد فعلی</span></div>${panelFor(level, r, 'وضعیت فعلی', threadScale(level, [r]))}${level.panel === 'thread' ? threadLegend : ''}
+      <p class="lead">${level.panel === 'network' ? 'هر نوار یه درخواسته. نوارهای رنگی مسیری‌ان که نمایش صفحه منتظرشونه.' : level.panel === 'thread' ? 'هر بلوک کاریه که مرورگر بعد از هر کلید انجام می‌ده. حرف‌های تایپ‌شده تا تموم شدن بلوک نمایش داده نمی‌شن.' : 'هر خونه یه کارته. خونه‌ی آبی کارتیه که کلیک شد، قرمزها کارت‌هایی‌ان که همراهش دوباره رندر شدن.'}</p></div>`;
+  } else {
+    const rp = level.evaluate(last.prev), sc = scoreOf(level, last.cfg), rc = sc.r;
+    h += `<div class="card"><div class="sec-h"><h3>آخرین اجرا</h3><button class="btn quiet" data-act="sheet-open">خلاصه‌ی نتیجه</button></div>
+      <div class="res-top">${level.targets.map(t => { const v = rc.metrics[t.key], ok = v <= t.max; return `<div class="metric"><div class="k">${esc(t.label)}</div><div class="v num ${ok ? 'ok' : 'bad'}">${fms(v)}</div><div class="d num">قبل ${fms(rp.metrics[t.key])}</div></div>`; }).join('')}
+      <div class="score"><div class="k" style="font-size:12px;color:var(--muted)">بهینگی <b class="num" style="color:var(--fg)">${fa(sc.score)}٪</b></div><div class="meter ${sc.score >= 100 ? 'full' : ''}"><i style="width:${sc.score}%"></i></div></div></div>
+      ${rc.checks.some(c => !c.ok) ? `<div class="checks">${rc.checks.filter(c => !c.ok).map(c => `<div class="chk no"><span class="ic">✕</span><span>${esc(c.label)}<small>${esc(c.why)}</small></span></div>`).join('')}</div>` : ''}
+    </div>`;
+    const sc2 = threadScale(level, [rp, rc]);
+    h += `<div class="card pair"><div class="sec-h" style="margin:0"><h3>${panelTitle(level)}</h3></div>${panelFor(level, rp, 'قبل', sc2)}${panelFor(level, rc, 'بعد', sc2)}${level.panel === 'thread' ? threadLegend : ''}</div>`;
+  }
+  if (st.solved) h += debriefCard(level, st);
+  return h;
+}
+function threadScale(level, rs){
+  if (level.panel !== 'thread') return 0;
+  return Math.max(1000, ...rs.map(r => { const t = r.tasks[r.tasks.length - 1]; return t.start + t.dur + 40; }));
+}
+
+/* ---------- code ---------- */
+function codePane(level, st){
+  const base = new Set(level.code(level.defaults).map(x => x[1]));
+  const lines = level.code(st.draft);
+  const spot = UI.spot != null ? level.hints[UI.spot] : null;
+  const spotLines = spot && spot.tab === 'code' ? spot.lines : [];
+  const lastSpot = lines.map(l => l[0]).reduce((a,k,i) => spotLines.includes(k) ? i : a, -1);
+  let h = `<div class="card"><div class="sec-h"><h3>کد</h3><span class="aux">روی خطی بزن که فکر می‌کنی باید عوض بشه</span></div><div class="code">`;
+  lines.forEach(([key, text], i) => {
+    const edits = level.edits.filter(e => e.keys.includes(key) && (!e.when || e.when(st.draft)));
+    const chg = !base.has(text) && text.trim() !== '';
+    const isOpen = UI.open === key && edits.length;
+    h += `<div class="ln ${edits.length ? 'ed' : ''} ${chg ? 'chg' : ''} ${isOpen ? 'open' : ''} ${spotLines.includes(key) ? 'spot' : ''}" ${edits.length ? `data-act="line" data-key="${key}" tabindex="0" role="button"` : ''}><span class="g">${chg ? '+' : i + 1}</span><span>${hl(text) || ' '}</span></div>`;
+    const nextKey = lines[i + 1] && lines[i + 1][0];
+    if (isOpen && nextKey !== key) h += drawer(st, edits);
+    if (i === lastSpot) h += callout(spot);
+  });
+  h += `</div><p class="lead"><span class="legend-dot"></span> خط‌هایی که نقطه دارن قابل تغییرن. خط‌های سبز با کد اول فرق دارن.</p></div>`;
+  h += `<div class="card runbar"><div class="pred-q">پیش‌بینی: <b>${level.primaryLabel}</b> بعد از این تغییر چی می‌شه؟</div>
+    <div class="seg pred" role="radiogroup">${[['down','کمتر'],['same','بدون تغییر'],['up','بیشتر']].map(([v,t]) => `<button role="radio" aria-pressed="${UI.pred === v}" data-act="pred" data-v="${v}">${t}</button>`).join('')}</div>
+    ${UI.msg ? `<div class="msg">${UI.msg}</div>` : ''}
+    <button class="btn primary wide" data-act="run" ${UI.pred ? '' : 'disabled'}>اجرای کد</button></div>`;
+  return h;
+}
+function drawer(st, edits){
+  return `<div class="drawer">${edits.map(e => `<div><div class="ed-l">${esc(e.label)}</div><div class="seg">${e.options.map(([v,t]) => `<button class="${e.mono ? 'mono' : ''}" aria-pressed="${st.draft[e.field] === v}" data-act="set" data-field="${e.field}" data-val='${JSON.stringify(v)}'>${esc(t)}</button>`).join('')}</div>${e.note ? `<div class="ed-note">${esc(e.note)}</div>` : ''}</div>`).join('')}</div>`;
+}
+
+/* ---------- help ---------- */
+function helpPane(level, st){
+  let h = `<div class="card"><div class="sec-h"><h3>راهنمایی</h3><span class="aux">${fa(st.hints)} از ۳ استفاده شده</span></div><div class="hints">`;
+  if (!st.hints) h += `<p class="lead" style="margin:0">هر راهنمایی جواب رو نمی‌گه؛ فقط نشون می‌ده کجا رو نگاه کنی و به چی فکر کنی.</p>`;
+  for (let i = 0; i < st.hints; i++) {
+    const hn = level.hints[i];
+    h += `<div class="hint"><div class="hn">راهنمایی ${fa(i + 1)} · ${hn.tab === 'code' ? 'تو کد' : 'تو تحلیل'}</div>${hn.text}<div style="margin-top:8px"><button class="btn small" data-act="spot" data-i="${i}">نشونم بده کجا</button></div></div>`;
+  }
+  h += `</div><div class="row" style="margin-top:12px">`;
+  if (st.hints < 3) h += `<button class="btn primary" data-act="hint">${st.hints === 0 ? 'یه راهنمایی بده' : 'راهنمایی بعدی'}</button>`;
+  h += `</div></div>`;
+  h += `<div class="card"><div class="sec-h"><h3>هنوز گیر کردی؟</h3></div>
+    ${st.sol ? `<p style="margin:0 0 10px">بهترین ترکیب تو کد قرار گرفت ولی هنوز اجرا نشده. برو تو «کد»، خط‌های سبز رو بخون و قبل از اجرا پیش‌بینی کن چی عوض می‌شه.</p>` : `<p class="lead" style="margin:0 0 10px">اشکالی نداره. راه‌حل رو تو کد می‌ذاریم؛ خودت می‌خونی و اجراش می‌کنی.</p>`}
+    <div class="row"><button class="btn" data-act="sol">${st.sol ? 'برو به کد' : 'راه‌حل رو نشونم بده'}</button><button class="btn quiet" data-act="reset">شروع دوباره‌ی تیکت</button></div></div>`;
+  return h;
+}
+
+/* ---------- hint spotlight ---------- */
+function callout(hn){
+  return `<div class="callout" id="callout"><div class="hn">راهنمایی ${fa(UI.spot + 1)}</div><div>${hn.text}</div><button class="btn small" data-act="spotx">فهمیدم</button></div>`;
+}
+function placeSpot(level){
+  const hn = level.hints[UI.spot]; if (!hn) return;
+  const tab = UI.tab === 'app' ? 'analysis' : UI.tab;
+  if (hn.tab !== tab) return;
+  if (hn.sel) {
+    const el = $('#pane').querySelector(hn.sel); if (!el) return;
+    el.classList.add('spot');
+    const host = el.closest('.tl') || el.closest('.cells') || el;
+    host.insertAdjacentHTML('afterend', callout(hn));
+  }
+  requestAnimationFrame(() => {
+    const c = $('#callout'); const target = $('#pane .spot');
+    (target || c) && (target || c).scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+}
+function goSpot(i){
+  const level = byId(S.cur), hn = level.hints[i];
+  UI.spot = i; UI.open = null;
+  setTab(hn.tab);
+}
+
+/* ---------- debrief ---------- */
+function debriefCard(level, st){
+  const right = st.runs.filter(r => r.pred === r.dir).length;
+  let h = `<div class="card"><div class="sec-h"><h3>گزارش تیکت</h3><button class="btn quiet" data-act="debrief" aria-expanded="${UI.debrief}">${UI.debrief ? 'بستن' : 'باز کردن'}</button></div>`;
+  if (!UI.debrief) return h + `<p class="lead" style="margin:0">مفهومی که پشت این تیکت بود، چرا جواب داد، و مقایسه‌ی راه‌حل‌های دیگه.</p></div>`;
+  h += `<div class="concept">مفهومی که پیدا کردی<b>${esc(level.concept)}</b></div>`;
+  h += `<div class="prose" style="margin-top:12px">${level.explain(level.base, level.bestR)}</div>`;
+  h += `<div class="tbl-wrap"><table class="appr"><thead><tr><th>راه‌حل</th><th>نوع</th><th>${level.primaryLabel}</th><th>بهینگی</th></tr></thead><tbody>`;
+  level.approaches.forEach(a => {
+    const sc = scoreOf(level, cfgOf(level, a.cfg));
+    h += `<tr><td>${esc(a.name)}</td><td><span class="kind k-${a.kind}">${KINDS[a.kind]}</span></td><td class="n num">${fms(sc.r.metrics[level.primary])}</td><td class="n num">${sc.r.correct ? fa(sc.score) + '٪' : '—'}</td></tr>`;
+  });
+  h += `</tbody></table></div>`;
+  h += `<div class="stats-line"><span>اجراها <b class="num">${fa(st.runs.length)}</b></span><span>پیش‌بینی درست <b class="num">${fa(right)} از ${fa(st.runs.length)}</b></span><span>راهنمایی <b class="num">${fa(st.hints)}</b>${st.sol ? ' · راه‌حل دیده شد' : ''}</span><span>بهترین نتیجه <b class="num">${fa(st.best)}٪</b></span></div>`;
+  const next = IMPL[IMPL.indexOf(level) + 1];
+  if (next) h += `<div class="row" style="margin-top:14px"><button class="btn primary" data-act="ticket" data-id="${next.id}">تیکت بعدی: ${esc(next.title)}</button></div>`;
+  return h + `</div>`;
+}
+
+/* ---------- result sheet ---------- */
+function lineDiff(a, b){
+  const n = a.length, m = b.length, L = Array.from({ length:n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) L[i][j] = a[i] === b[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  const out = []; let i = 0, j = 0;
+  while (i < n && j < m) { if (a[i] === b[j]) { out.push([' ', a[i]]); i++; j++; } else if (L[i + 1][j] >= L[i][j + 1]) out.push(['-', a[i++]]); else out.push(['+', b[j++]]); }
+  while (i < n) out.push(['-', a[i++]]); while (j < m) out.push(['+', b[j++]]);
+  // keep changed lines with one line of context
+  const keep = out.map((x,k) => x[0] !== ' ' || (out[k - 1] && out[k - 1][0] !== ' ') || (out[k + 1] && out[k + 1][0] !== ' '));
+  const res = []; let gap = false;
+  out.forEach((x,k) => { if (keep[k]) { if (gap && res.length) res.push(['…','']); res.push(x); gap = false; } else gap = true; });
+  return res;
+}
+function renderSheet(){
+  const back = $('#sheetBack'), level = byId(S.cur);
+  if (!UI.sheet || !level.impl) { back.hidden = true; document.body.classList.remove('sheet-open'); return; }
+  const st = lvState(level.id), run = st.runs[st.runs.length - 1];
+  if (!run) { back.hidden = true; return; }
+  const rp = level.evaluate(run.prev), sc = scoreOf(level, run.cfg), rc = sc.r;
+  const v0 = rp.metrics[level.primary], v1 = rc.metrics[level.primary];
+  const t0 = level.targets.find(t => t.key === level.primary);
+  let head, tone;
+  if (!rc.correct) { head = 'سریع‌تر شد، ولی یه چیزی خراب شد'; tone = 'bad'; }
+  else if (sc.pass && run.firstPass) { head = 'تیکت بسته شد'; tone = 'good'; }
+  else if (sc.pass) { head = sc.score >= 100 ? 'بهترین نتیجه‌ی ممکن' : 'هدف برآورده شده'; tone = 'good'; }
+  else if (run.dir === 'down') { head = 'بهتر شد، ولی هنوز به هدف نرسیده'; tone = 'warn'; }
+  else if (run.dir === 'same') { head = 'تقریباً هیچ تغییری نکرد'; tone = 'warn'; }
+  else { head = 'کندتر شد'; tone = 'bad'; }
+  const pl = { down:'کمتر می‌شه', same:'تغییری نمی‌کنه', up:'بیشتر می‌شه' };
+  const diff = lineDiff(level.code(run.prev).map(x => x[1]), level.code(run.cfg).map(x => x[1]));
+  const other = level.targets.filter(t => t.key !== level.primary);
+  const failed = rc.checks.filter(c => !c.ok);
+  $('#sheet').innerHTML = `<div class="grab"></div>
+    <div class="sh-head ${tone}"><span class="sh-ic">${tone === 'good' ? '✓' : tone === 'bad' ? '!' : '~'}</span><h3 id="sheetTitle">${head}</h3></div>
+    <div class="sh-metric"><div class="k">${esc(level.primaryLabel)}</div>
+      <div class="sh-vals"><span class="num was">${fms(v0)}</span><span class="arrow">←</span><span class="num now ${v1 <= t0.max && rc.correct ? 'ok' : 'bad'}">${fms(v1)}</span></div>
+      <div class="d">هدف ≤ <span class="num">${fms(t0.max)}</span> · ${v1 <= t0.max ? 'رسید' : 'هنوز نرسیده'}</div>
+      ${other.map(t => { const v = rc.metrics[t.key]; return `<div class="d">${esc(t.label)}: <span class="num">${fms(rp.metrics[t.key])} ← ${fms(v)}</span> · ${v <= t.max ? 'رسید' : `<span style="color:var(--bad)">بیشتر از ${fms(t.max)}</span>`}</div>`; }).join('')}
+    </div>
+    ${rc.correct ? `<div class="sh-score"><div class="k">بهینگی <b class="num">${fa(sc.score)}٪</b>${sc.pass && sc.score < 100 ? ` · هنوز حدود ${fa(100 - sc.score)}٪ جا داره` : ''}</div><div class="meter ${sc.score >= 100 ? 'full' : ''}"><i style="width:${sc.score}%"></i></div></div>` : ''}
+    ${failed.length ? `<div class="sh-sec"><h4>چی خراب شد</h4>${failed.map(c => `<div class="chk no"><span class="ic">✕</span><span><b>${esc(c.label)}</b><small>${esc(c.why)}</small></span></div>`).join('')}</div>` : ''}
+    <div class="sh-sec"><h4>چه تغییری دادی</h4><div class="diff">${diff.map(([op,t]) => op === '…' ? `<div class="dl gap">…</div>` : `<div class="dl ${op === '+' ? 'add' : op === '-' ? 'del' : ''}"><span class="op">${op === ' ' ? '' : op}</span><span>${hl(t) || ' '}</span></div>`).join('')}</div></div>
+    <div class="sh-sec"><h4>چه اتفاقی افتاد</h4><ul class="notes">${level.describe(run.prev, run.cfg, rp, rc).map(x => `<li><span>${x}</span></li>`).join('')}${sc.waste && rc.correct ? `<li><span>بعضی از تغییرهات اثری روی ${level.primaryLabel} نداشتن و فقط کد رو پیچیده‌تر کردن.</span></li>` : ''}</ul></div>
+    <div class="sh-pred ${run.pred === run.dir ? 'hit' : ''}">پیش‌بینی کردی <b>${pl[run.pred]}</b>. ${run.pred === run.dir ? 'درست بود.' : `ولی ${pl[run.dir]}. به بخش «چه اتفاقی افتاد» دقت کن.`}</div>
+    <div class="sh-actions"><button class="btn primary" data-act="sheet-app">${sc.pass && rc.correct ? 'تو اپ امتحانش کن' : 'تو اپ ببین'}</button><button class="btn" data-act="sheet-analysis">تحلیل کامل</button><button class="btn quiet" data-act="sheet-close">بستن</button></div>`;
+  back.hidden = false; document.body.classList.add('sheet-open');
+  $('#sheet').scrollTop = 0;
+  requestAnimationFrame(() => $('#sheet').focus({ preventScroll:true }));
+}
+function closeSheet(){ UI.sheet = false; renderSheet(); }
+
+function renderAll(){ renderHealth(); renderRail(); renderTicket(); renderTabs(); renderPane(); renderSheet(); document.body.dataset.tab = UI.tab; }
+
+/* ============================== actions ============================== */
+document.addEventListener('click', e => {
+  if (e.target.id === 'sheetBack') { closeSheet(); return; }
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const act = b.dataset.act, level = byId(S.cur), st = level.impl ? lvState(level.id) : null;
+  if (act === 'ticket') { S.cur = b.dataset.id; Object.assign(UI, { open:null, pred:null, msg:null, debrief:false, sheet:false, spot:null, tab:isMobile() ? 'app' : 'analysis' }); save(); renderAll(); syncHighlight(); window.scrollTo({ top:0 }); return; }
+  if (act === 'tab') { UI.spot = null; setTab(b.dataset.t); return; }
+  if (act === 'repro') { st.repro = true; save(); renderTicket(); if (isMobile() && UI.tab !== 'app') setTab('app'); runScenario(level); return; }
+  if (act === 'line') { UI.open = UI.open === b.dataset.key ? null : b.dataset.key; UI.spot = null; renderPane(); return; }
+  if (act === 'set') { st.draft[b.dataset.field] = JSON.parse(b.dataset.val); UI.msg = null; save(); renderPane(); return; }
+  if (act === 'pred') { UI.pred = b.dataset.v; UI.msg = null; renderPane(); return; }
+  if (act === 'hint') { st.hints = Math.min(3, st.hints + 1); save(); goSpot(st.hints - 1); return; }
+  if (act === 'spot') { goSpot(+b.dataset.i); return; }
+  if (act === 'spotx') { UI.spot = null; renderPane(); return; }
+  if (act === 'sol') { if (!st.sol) { st.sol = true; st.draft = clone(level.bestCfg); save(); } UI.open = null; UI.spot = null; setTab('code'); return; }
+  if (act === 'debrief') { UI.debrief = !UI.debrief; renderPane(); return; }
+  if (act === 'reset') { S.lv[level.id] = freshLv(level); Object.assign(UI, { open:null, pred:null, msg:null, debrief:false, sheet:false, spot:null }); save(); renderAll(); if (level.id === 'l1') liveReload(); return; }
+  if (act === 'run') { doRun(level, st); return; }
+  if (act === 'sheet-open') { UI.sheet = true; renderSheet(); return; }
+  if (act === 'sheet-close') { closeSheet(); return; }
+  if (act === 'sheet-analysis') { closeSheet(); UI.spot = null; setTab('analysis'); return; }
+  if (act === 'sheet-app') { closeSheet(); if (isMobile()) setTab('app'); runScenario(level); return; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && UI.sheet) { closeSheet(); return; }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.ln.ed')) { e.preventDefault(); e.target.click(); }
+});
+mq.addEventListener('change', () => { if (UI.tab === 'app' && !isMobile()) UI.tab = 'analysis'; renderAll(); });
+
+function doRun(level, st){
+  const bad = level.validate && level.validate(st.draft);
+  if (bad) { UI.msg = bad; renderPane(); return; }
+  if (same(st.draft, st.applied)) { UI.msg = 'کد با آخرین اجرا فرقی نداره. اول یه خط رو عوض کن.'; renderPane(); return; }
+  const prev = clone(st.applied), cfg = clone(st.draft);
+  const vp = level.evaluate(prev).metrics[level.primary], vc = level.evaluate(cfg).metrics[level.primary];
+  const rel = (vc - vp) / vp, dir = rel < -0.03 ? 'down' : rel > 0.03 ? 'up' : 'same';
+  const sc = scoreOf(level, cfg), passed = sc.pass && sc.r.correct, firstPass = passed && !st.solved;
+  st.runs.push({ prev, cfg, pred:UI.pred, dir, firstPass });
+  st.applied = cfg; st.best = Math.max(st.best, sc.r.correct ? sc.score : 0);
+  if (passed) st.solved = true;
+  Object.assign(UI, { pred:null, msg:null, open:null, spot:null, sheet:true });
+  save(); renderAll();
+  if (level.id === 'l1' || level.id === 'l9') { LIVE.cart = []; }
+}
+
+/* ============================== live shop ============================== */
+const LIVE = { loaded:false, user:false, spinner:false, timers:[], cart:[], query:'', shown:'', extra:[], snap:null, hl:false, deb:null, pricesBroken:false, flash:{} };
+const allProducts = () => LIVE.extra.concat(PRODUCTS);
+const stats = list => { let s = 0, mn = Infinity, mx = 0; list.forEach(p => { s += p.price; mn = Math.min(mn,p.price); mx = Math.max(mx,p.price); }); return { n:list.length, avg:Math.round(s / list.length), mn, mx }; };
+function clearTimers(){ LIVE.timers.forEach(clearTimeout); LIVE.timers = []; clearInterval(LIVE.progT); }
+
+function liveReload(){
+  clearTimers();
+  const c = lvState('l1').applied, r = L1.evaluate(c);
+  Object.assign(LIVE, { loaded:false, user:false, spinner:c.D, query:'', shown:'' });
+  renderShop();
+  const t0 = performance.now(), prog = $('#prog');
+  prog.style.transition = 'none'; prog.style.width = '0'; prog.style.opacity = '1';
+  LIVE.progT = setInterval(() => { const el = performance.now() - t0; $('#appTimer').textContent = fms(el); prog.style.width = Math.min(92, el / r.ready * 92) + '%'; }, 50);
+  LIVE.timers.push(setTimeout(() => { LIVE.user = true; renderHeaderOnly(); }, r.metrics.header));
+  LIVE.timers.push(setTimeout(() => {
+    clearInterval(LIVE.progT); $('#appTimer').textContent = 'محصولات در ' + fms(r.ready);
+    prog.style.transition = 'width .2s, opacity .4s .3s'; prog.style.width = '100%'; prog.style.opacity = '0';
+    LIVE.loaded = true; LIVE.pricesBroken = !r.correct; LIVE.snap = stats(allProducts());
+    if (!c.C) LIVE.user = true;
+    renderShop();
+  }, r.ready));
+}
+function headerHTML(){
+  return `<span class="s-logo">کالاستان</span><div class="s-search"><input id="q" type="search" placeholder="جستجو در محصولات..." autocomplete="off" value="${esc(LIVE.query)}" ${LIVE.loaded ? '' : 'disabled'}></div><span class="s-cart">سبد <b id="cartN" class="num">${fa(LIVE.cart.length)}</b></span><span class="s-user ${LIVE.user ? 'on' : ''}">${LIVE.user ? 'م' : ''}</span>`;
+}
+function renderHeaderOnly(){ const h = $('#vp .s-head'); if (h && !LIVE.loaded) h.innerHTML = headerHTML(); else if (h) { $('.s-user').className = 's-user on'; $('.s-user').textContent = 'م'; } }
+function visible(){
+  const l9 = lvState('l9').applied;
+  return allProducts().filter(p => p.name.includes(LIVE.shown)).slice(0, l9.paginate ? 20 : K9.n);
+}
+function statsHTML(){
+  const l4 = lvState('l4').applied, broken = l4.stats === 'memo' && l4.deps === 'empty';
+  const s = broken ? LIVE.snap : stats(allProducts());
+  return `<span>تعداد <b class="num">${fa(s.n)}</b></span><span>میانگین قیمت <b class="num">${fa(s.avg)}</b> هزار تومان</span><span>ارزان‌ترین <b class="num">${fa(s.mn)}</b></span><span>گران‌ترین <b class="num">${fa(s.mx)}</b></span>`;
+}
+function gridHTML(){
+  const list = visible();
+  if (!list.length) return `<div class="s-blank" style="grid-column:1/-1;padding:30px">چیزی با «${esc(LIVE.shown)}» پیدا نشد.</div>`;
+  return list.map((p,i) => {
+    const inCart = LIVE.cart.includes(p.id), f = LIVE.flash[i];
+    return `<div class="s-card ${f === 'c' ? 'flash-c' : f ? 'flash' : ''}" data-i="${i}"><div class="s-thumb" style="background:hsl(${CAT_HUE[p.ci]} 45% 86%)">${CATS[p.ci][0]}</div><div class="s-name">${esc(p.name)}</div><div class="s-price ${LIVE.pricesBroken ? 'miss' : ''}">${LIVE.pricesBroken ? '—' : fa(p.price) + ' هزار تومان'}</div><button class="s-add ${inCart ? 'in' : ''}" data-add="${p.id}" data-i="${i}">${inCart ? 'در سبد' : 'افزودن به سبد'}</button></div>`;
+  }).join('');
+}
+function renderShop(){
+  const vp = $('#vp');
+  if (!LIVE.loaded) {
+    vp.innerHTML = `<div class="shop" style="height:100%;display:flex;flex-direction:column">${LIVE.user ? `<div class="s-head">${headerHTML()}</div>` : ''}<div class="s-blank" style="flex:1">${LIVE.spinner ? '<div><div class="spinner"></div>در حال بارگذاری محصولات…</div>' : ''}</div></div>`;
+    return;
+  }
+  vp.innerHTML = `<div class="shop"><div class="s-head">${headerHTML()}</div><div class="s-stats" id="sStats">${statsHTML()}</div><div class="s-grid" id="sGrid">${gridHTML()}</div>
+    <div class="s-foot"><span>${fa(allProducts().length)} محصول در انبار</span><button data-newprod>رویداد انبار: یه محصول تازه اضافه شد</button></div></div>`;
+  bindSearch();
+}
+function bindSearch(){
+  const q = $('#q'); if (!q) return;
+  q.addEventListener('input', () => onType(q.value));
+}
+function onType(val){
+  LIVE.query = val;
+  const c = lvState('l4').applied, seg = L4.segs(c,'key'), full = seg.reduce((a,b) => a + b.ms, 0);
+  const apply = () => { LIVE.shown = LIVE.query; LIVE.flash = {}; $('#sGrid').innerHTML = gridHTML(); $('#sStats').innerHTML = statsHTML(); };
+  if (c.debounce) { busy(1); clearTimeout(LIVE.deb); LIVE.deb = setTimeout(() => { busy(full); apply(); }, 300); }
+  else { busy(full); apply(); }
+}
+$('#vp').addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if (add) { onAdd(+add.dataset.add, +add.dataset.i); return; }
+  if (e.target.closest('[data-newprod]')) {
+    const id = 100000 + LIVE.extra.length;
+    LIVE.extra.unshift({ id, ci:id % CATS.length, name:`${CATS[id % CATS.length]} تازه ${fa(LIVE.extra.length + 1)}`, price:2900 + LIVE.extra.length * 150 });
+    renderShop();
+  }
+});
+function onAdd(id, idx){
+  const c = lvState('l9').applied, r = L9.evaluate(c, idx);
+  const t0 = performance.now();
+  busy(r.metrics.click);
+  if (c.onAdd === 'cbEmpty' && !c.functional) LIVE.cart = [id];
+  else if (!LIVE.cart.includes(id)) LIVE.cart = LIVE.cart.concat(id);
+  LIVE.flash = {};
+  if (LIVE.hl) r.cards.forEach((x,i) => { if (x.r) LIVE.flash[i] = x.c ? 'c' : 'r'; });
+  $('#sGrid').innerHTML = gridHTML(); $('#cartN').textContent = fa(LIVE.cart.length);
+  $('#appTimer').textContent = 'کلیک: ' + fms(performance.now() - t0);
+  clearTimeout(LIVE.flashT); LIVE.flashT = setTimeout(() => { LIVE.flash = {}; document.querySelectorAll('.s-card.flash,.s-card.flash-c').forEach(el => el.classList.remove('flash','flash-c')); }, 650);
+}
+function syncHighlight(){
+  LIVE.hl = S.cur === 'l9' ? true : LIVE.hlUser || false;
+  $('#hlBtn').setAttribute('aria-pressed', String(LIVE.hl));
+}
+$('#hlBtn').addEventListener('click', () => { LIVE.hlUser = !LIVE.hl; LIVE.hl = !LIVE.hl; $('#hlBtn').setAttribute('aria-pressed', String(LIVE.hl)); });
+$('#reloadBtn').addEventListener('click', liveReload);
+
+function whenLoaded(fn){ if (LIVE.loaded) fn(); else { const t = setInterval(() => { if (LIVE.loaded) { clearInterval(t); fn(); } }, 60); } }
+function runScenario(level){
+  if (level.scenario === 'reload') { liveReload(); return; }
+  if (level.scenario === 'type') {
+    whenLoaded(() => {
+      const q = $('#q'); q.value = ''; onType('');
+      q.focus({ preventScroll:true });
+      const text = 'کفش چرم'; let i = 0; const t0 = performance.now();
+      const step = () => {
+        if (i >= text.length) { $('#appTimer').textContent = 'تایپ «کفش چرم»: ' + fms(performance.now() - t0); return; }
+        q.value += text[i++]; onType(q.value); setTimeout(step, K4.gap);
+      };
+      setTimeout(step, 250);
+    });
+    return;
+  }
+  if (level.scenario === 'click') {
+    whenLoaded(() => {
+      if (LIVE.shown) { LIVE.query = ''; LIVE.shown = ''; renderShop(); }
+      LIVE.cart = []; $('#sGrid').innerHTML = gridHTML(); $('#cartN').textContent = fa(0);
+      const list = visible();
+      setTimeout(() => onAdd(list[K9.clicked].id, K9.clicked), 300);
+      setTimeout(() => onAdd(list[K9.clicked + 3].id, K9.clicked + 3), 1100);
+    });
+  }
+}
+
+/* ============================== boot ============================== */
+document.body.dataset.tab = UI.tab; renderAll(); syncHighlight(); liveReload();
+</script>
