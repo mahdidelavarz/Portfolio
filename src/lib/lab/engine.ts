@@ -9,6 +9,14 @@ const EXTRA_COMPLEXITY_COST = 5;
 const FAILED_TARGET_CAP = 60;
 const DIRECTION_THRESHOLD = 0.03;
 
+/** Leaderboard points a ticket is worth at 100% optimality. */
+export const TICKET_MAX_POINTS = 5;
+
+/** Leaderboard points for a ticket. Seeing the solution closes the ticket but earns nothing. */
+export function ticketPoints(bestScore: number, solutionViewed: boolean): number {
+  return solutionViewed ? 0 : Math.round((bestScore / 100) * TICKET_MAX_POINTS);
+}
+
 export interface ScoringLevel {
   simulator: Simulator;
   fields: LabField[];

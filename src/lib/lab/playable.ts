@@ -49,6 +49,24 @@ export function scoreConfig(level: PlayableLevel, config: LabConfig): ScoreResul
   return scoreOf(scoringLevel(level), level.baseline, config);
 }
 
+/**
+ * Reads an untrusted value as a config for this level: exactly the simulator's
+ * fields, each one null or one of that field's options. Null when it isn't one.
+ */
+export function parseLevelConfig(level: PlayableLevel, value: unknown): LabConfig | null {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return null;
+  const input = value as Record<string, unknown>;
+  const config: LabConfig = {};
+  for (const name of Object.keys(level.simulatorModel.defaults)) {
+    const field = level.fields.find((item) => item.name === name);
+    const stored = input[name];
+    const valid = stored === null || field?.options.some((option) => option.value === stored);
+    if (!valid) return null;
+    config[name] = stored as LabConfig[string];
+  }
+  return Object.keys(input).length === Object.keys(config).length ? config : null;
+}
+
 export function configFromApproach(level: PlayableLevel, approach: LabApproach): LabConfig {
   return withDefaults(level.simulatorModel, approach.config);
 }

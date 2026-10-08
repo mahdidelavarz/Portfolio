@@ -1,20 +1,20 @@
 import { apiJson, handleApiError, readJsonBody } from "@/lib/api";
-import { submitChallengeAnswer } from "@/lib/challenges/service";
+import { recordLabRun } from "@/lib/lab/results";
 import { ensureVisitor } from "@/lib/visitor";
 
 export const runtime = "nodejs";
 
 export async function POST(
   request: Request,
-  context: { params: Promise<{ slug: string }> },
+  context: { params: Promise<{ levelId: string }> },
 ) {
   try {
     const body = await readJsonBody(request);
-    const [{ slug }, visitor] = await Promise.all([
+    const [{ levelId }, visitor] = await Promise.all([
       context.params,
       ensureVisitor(),
     ]);
-    return apiJson(await submitChallengeAnswer(visitor, slug, body));
+    return apiJson({ result: await recordLabRun(visitor, levelId, body) });
   } catch (error) {
     return handleApiError(error);
   }

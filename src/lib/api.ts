@@ -56,11 +56,24 @@ export function handleApiError(error: unknown): NextResponse {
   );
 }
 
+/** True for a PostgreSQL unique violation, including one drizzle wrapped as the cause of its own error. */
 export function isUniqueViolation(error: unknown): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    error.code === "23505"
-  );
+  if (typeof error !== "object" || error === null) return false;
+  if ("code" in error && error.code === "23505") return true;
+  return "cause" in error && isUniqueViolation(error.cause);
+}
+
+export async function readJsonBody(request: Request): Promise<unknown> {
+  try {
+    return await request.json();
+  } catch {
+    throw new ApiError(400, "INVALID_JSON", "بدنه درخواست JSON معتبر نیست.");
+  }
+}
+
+export function readJsonObject(body: unknown): Record<string, unknown> {
+  if (typeof body !== "object" || body === null || Array.isArray(body)) {
+    throw new ApiError(400, "INVALID_BODY", "اطلاعات ارسال‌شده معتبر نیست.");
+  }
+  return body as Record<string, unknown>;
 }

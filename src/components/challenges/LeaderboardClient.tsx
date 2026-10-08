@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 type Entry = {
   rank: number;
   displayName: string | null;
-  correctAnswers: number;
+  points: number;
+  quizPoints: number;
+  labPoints: number;
   totalAnswers: number;
   accuracy: number;
 };
@@ -48,7 +50,7 @@ export default function LeaderboardClient() {
           <p className="mb-2 text-sm font-bold text-cyan-300">{monthLabel}</p>
           <h1 className="text-3xl font-black text-white sm:text-5xl">رتبه‌بندی ماهانه</h1>
           <p className="mt-4 max-w-2xl leading-8 text-slate-400">
-            پاسخ درست بیشتر، دقت بالاتر و رسیدن زودتر به امتیاز، ترتیب رتبه‌ها را مشخص می‌کند.
+            هر پاسخ درست کوییز ۱ امتیاز و هر تیکت آزمایشگاه تا ۵ امتیاز دارد. امتیاز بیشتر، دقت بالاتر و رسیدن زودتر به امتیاز، ترتیب رتبه‌ها را مشخص می‌کند.
           </p>
         </div>
         <Link href="/challenges" className="rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-bold text-cyan-200 hover:bg-cyan-400/15">
@@ -59,8 +61,8 @@ export default function LeaderboardClient() {
       {data.currentVisitor && (
         <section className="mb-7 grid gap-4 rounded-2xl border border-cyan-400/25 bg-gradient-to-l from-cyan-500/10 to-blue-500/5 p-5 sm:grid-cols-4 sm:p-6" aria-label="رتبه فعلی شما">
           <Stat label="رتبه شما" value={`#${data.currentVisitor.rank.toLocaleString("fa-IR")}`} />
-          <Stat label="پاسخ صحیح" value={data.currentVisitor.correctAnswers.toLocaleString("fa-IR")} />
-          <Stat label="کل پاسخ‌ها" value={data.currentVisitor.totalAnswers.toLocaleString("fa-IR")} />
+          <Stat label="امتیاز" value={data.currentVisitor.points.toLocaleString("fa-IR")} />
+          <Stat label="کوییز · آزمایشگاه" value={`${data.currentVisitor.quizPoints.toLocaleString("fa-IR")} · ${data.currentVisitor.labPoints.toLocaleString("fa-IR")}`} />
           <Stat label="دقت" value={`${data.currentVisitor.accuracy.toLocaleString("fa-IR")}٪`} />
         </section>
       )}
@@ -68,13 +70,12 @@ export default function LeaderboardClient() {
       {data.entries.length ? (
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[620px] text-right">
+            <table className="w-full min-w-[480px] text-right">
               <thead className="border-b border-white/10 bg-white/[0.03] text-xs text-slate-500">
                 <tr>
                   <th className="px-5 py-4 font-medium">رتبه</th>
                   <th className="px-5 py-4 font-medium">نام</th>
-                  <th className="px-5 py-4 text-center font-medium">پاسخ صحیح</th>
-                  <th className="px-5 py-4 text-center font-medium">کل پاسخ‌ها</th>
+                  <th className="px-5 py-4 text-center font-medium">امتیاز</th>
                   <th className="px-5 py-4 text-center font-medium">دقت</th>
                 </tr>
               </thead>
@@ -83,8 +84,12 @@ export default function LeaderboardClient() {
                   <tr key={`${entry.rank}-${entry.displayName}`} className="hover:bg-white/[0.025]">
                     <td className="px-5 py-4 font-mono font-black text-cyan-300">#{entry.rank.toLocaleString("fa-IR")}</td>
                     <td className="px-5 py-4 font-bold text-white">{entry.displayName}</td>
-                    <td className="px-5 py-4 text-center text-emerald-300">{entry.correctAnswers.toLocaleString("fa-IR")}</td>
-                    <td className="px-5 py-4 text-center text-slate-300">{entry.totalAnswers.toLocaleString("fa-IR")}</td>
+                    <td className="px-5 py-4 text-center">
+                      <span className="block text-lg font-black text-emerald-300">{entry.points.toLocaleString("fa-IR")}</span>
+                      <span className="block text-[11px] text-slate-500">
+                        کوییز {entry.quizPoints.toLocaleString("fa-IR")} · آزمایشگاه {entry.labPoints.toLocaleString("fa-IR")}
+                      </span>
+                    </td>
                     <td className="px-5 py-4 text-center text-slate-300">{entry.accuracy.toLocaleString("fa-IR")}٪</td>
                   </tr>
                 ))}
@@ -94,7 +99,7 @@ export default function LeaderboardClient() {
         </div>
       ) : (
         <div className="rounded-2xl border border-dashed border-slate-700 py-16 text-center">
-          <p className="mb-4 text-slate-400">هنوز کسی با نام نمایشی در رتبه‌بندی این ماه نیست.</p>
+          <p className="mb-4 text-slate-400">هنوز کسی در رتبه‌بندی این ماه نیست.</p>
           <Link href="/challenges" className="text-cyan-300 hover:underline">اولین نفر باشید</Link>
         </div>
       )}

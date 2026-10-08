@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import UsernameDialog from "@/components/challenges/UsernameDialog";
 import type { LabLevel } from "@/data/lab-validator";
 import { toPlayableLevels } from "@/lib/lab/playable";
 import AnalysisPane from "./AnalysisPane";
@@ -16,6 +17,7 @@ import TicketCard from "./TicketCard";
 import TicketRail from "./TicketRail";
 import { isDesktopNow, useIsDesktop } from "./useIsDesktop";
 import { useLabState, type WorkTab } from "./useLabState";
+import { useLabSync } from "./useLabSync";
 import { useShopRuntime } from "./useShopRuntime";
 
 function scrollToTop() {
@@ -25,6 +27,12 @@ function scrollToTop() {
 export default function LabExperience({ levels }: { levels: LabLevel[] }) {
   const playable = useMemo(() => toPlayableLevels(levels), [levels]);
   const { state, currentLevel, currentPlayable, progress, actions } = useLabState(levels, playable);
+  const sync = useLabSync({
+    hydrated: state.hydrated,
+    playable,
+    progress: state.progress,
+    onMerge: actions.mergeServer,
+  });
   const isDesktop = useIsDesktop();
   const appliedBySimulator = useMemo(
     () =>
@@ -61,7 +69,9 @@ export default function LabExperience({ levels }: { levels: LabLevel[] }) {
 
   const run = () => {
     const outcome = actions.run();
-    if (outcome && outcome.level.simulatorModel.scenario !== "type") shop.actions.resetCart();
+    if (!outcome) return;
+    if (outcome.level.simulatorModel.scenario !== "type") shop.actions.resetCart();
+    sync.saveRun(outcome.toSave);
   };
 
   const showSolution = () => {
@@ -90,6 +100,15 @@ export default function LabExperience({ levels }: { levels: LabLevel[] }) {
         </div>
         <HealthStrip playable={playable} progress={state.progress} />
       </header>
+
+      {sync.unsaved && !sync.dialogOpen && (
+        <p className="mb-4 rounded-xl border border-amber-400/20 bg-amber-400/5 px-4 py-2.5 text-xs leading-6 text-slate-400">
+          نتیجه‌هات فقط تو همین مرورگر می‌مونه و تو رتبه‌بندی ذخیره نمی‌شه —{" "}
+          <button type="button" onClick={sync.openDialog} className="font-bold text-cyan-300 underline-offset-4 hover:underline">
+            ثبت اسم
+          </button>
+        </p>
+      )}
 
       <TicketRail levels={levels} currentLevelId={currentLevel.id} progress={state.progress} onSelect={selectLevel} />
 
@@ -157,7 +176,15 @@ export default function LabExperience({ levels }: { levels: LabLevel[] }) {
         )}
       </div>
 
-      {ui.sheetOpen && currentPlayable && lastRun && (
+      {sync.dialogOpen && (
+        <UsernameDialog
+          intro="برای اینکه نتیجه‌ی تیکت‌ها ذخیره بشه و تو رتبه‌بندی ماهانه حساب بشه، یه اسم انتخاب کن."
+          onDone={sync.identified}
+          onClose={sync.closeDialog}
+        />
+      )}
+
+      {ui.sheetOpen && !sync.dialogOpen && currentPlayable && lastRun && (
         <ResultSheet
           key={progress?.runs.length}
           level={currentPlayable}

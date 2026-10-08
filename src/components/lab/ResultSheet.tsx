@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { lineDiff, type DiffOperation } from "@/lib/lab/engine";
 import { formatMs, formatNumber } from "@/lib/lab/format";
@@ -13,6 +12,7 @@ import type { RunRecord } from "./labStorage";
 import Num from "./Num";
 import ScoreMeter from "./ScoreMeter";
 import { primaryButtonClass, quietButtonClass, secondaryButtonClass } from "./styles";
+import { useDialogBehavior } from "./useDialogBehavior";
 
 type Tone = "good" | "warn" | "bad";
 
@@ -42,28 +42,6 @@ function headline(correct: boolean, passed: boolean, score: number, run: RunReco
   if (run.direction === "down") return { text: "بهتر شد، ولی هنوز به هدف نرسیده", tone: "warn" };
   if (run.direction === "same") return { text: "تقریباً هیچ تغییری نکرد", tone: "warn" };
   return { text: "کندتر شد", tone: "bad" };
-}
-
-function useDialogBehavior(onClose: () => void) {
-  const sheetRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    sheetRef.current?.focus({ preventScroll: true });
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
-      previousFocus?.focus({ preventScroll: true });
-    };
-  }, [onClose]);
-
-  return sheetRef;
 }
 
 function SheetSection({ title, children }: { title: string; children: React.ReactNode }) {

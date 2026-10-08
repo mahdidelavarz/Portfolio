@@ -1,4 +1,4 @@
-import type { PlayableLevel } from "@/lib/lab/playable";
+import { parseLevelConfig, type PlayableLevel } from "@/lib/lab/playable";
 import type { Direction, LabConfig } from "@/lib/lab/types";
 
 const STORAGE_KEY = "frontend-lab:v1";
@@ -46,23 +46,10 @@ export function freshProgress(level: PlayableLevel): LevelProgress {
   };
 }
 
-function parseConfig(value: unknown, level: PlayableLevel): LabConfig | null {
-  if (!isRecord(value)) return null;
-  const config: LabConfig = {};
-  for (const name of Object.keys(level.simulatorModel.defaults)) {
-    const field = level.fields.find((item) => item.name === name);
-    const stored = value[name];
-    const valid = stored === null || field?.options.some((option) => option.value === stored);
-    if (!valid) return null;
-    config[name] = stored as LabConfig[string];
-  }
-  return Object.keys(value).length === Object.keys(config).length ? config : null;
-}
-
 function parseRun(value: unknown, level: PlayableLevel): RunRecord | null {
   if (!isRecord(value)) return null;
-  const previous = parseConfig(value.previous, level);
-  const config = parseConfig(value.config, level);
+  const previous = parseLevelConfig(level, value.previous);
+  const config = parseLevelConfig(level, value.config);
   if (!previous || !config) return null;
   if (!DIRECTIONS.has(value.prediction) || !DIRECTIONS.has(value.direction)) return null;
   if (typeof value.firstPass !== "boolean") return null;
@@ -77,8 +64,8 @@ function parseRun(value: unknown, level: PlayableLevel): RunRecord | null {
 
 function parseProgress(value: unknown, level: PlayableLevel): LevelProgress | null {
   if (!isRecord(value) || !Array.isArray(value.runs)) return null;
-  const draft = parseConfig(value.draft, level);
-  const applied = parseConfig(value.applied, level);
+  const draft = parseLevelConfig(level, value.draft);
+  const applied = parseLevelConfig(level, value.applied);
   const runs = value.runs.map((run) => parseRun(run, level));
   const { hintsUsed, bestScore, solutionShown, reproduced, solved } = value;
   if (!draft || !applied || runs.some((run) => run === null)) return null;

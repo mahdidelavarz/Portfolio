@@ -2,8 +2,11 @@ import "server-only";
 
 import { and, asc, count, eq, gte, inArray, lt, sql } from "drizzle-orm";
 import { getDatabase } from "@/db";
-import { answers, visitors, type Answer, type Visitor } from "@/db/schema";
+import { answers, labResults, visitors, type Answer, type Visitor } from "@/db/schema";
 import { ApiError, isUniqueViolation } from "@/lib/api";
+import { TICKET_MAX_POINTS, ticketPoints } from "@/lib/lab/engine";
+import { getLabLevels } from "@/lib/lab/repository";
+import { getLabResultRows } from "@/lib/lab/results";
 import {
   getAdjacentChallenges,
   getChallengeById,
@@ -215,20 +218,43 @@ export async function submitChallengeAnswer(
   };
 }
 
+function inRange(date: Date | null, start: Date, end: Date): boolean {
+  return date !== null && date >= start && date < end;
+}
+
 export async function getVisitorProgress(visitor: Visitor) {
   const db = getDatabase();
-  const allAnswers = await db
-    .select()
-    .from(answers)
-    .where(eq(answers.visitorId, visitor.id))
-    .orderBy(asc(answers.answeredAt));
+  const [allAnswers, labRows, leaderboard] = await Promise.all([
+    db
+      .select()
+      .from(answers)
+      .where(eq(answers.visitorId, visitor.id))
+      .orderBy(asc(answers.answeredAt)),
+    getLabResultRows(visitor.id),
+    getLeaderboard(visitor.id),
+  ]);
   const { start, end } = getCurrentMonthRange();
-  const monthlyAnswers = allAnswers.filter(
-    (answer) => answer.answeredAt >= start && answer.answeredAt < end,
-  );
+  const monthlyAnswers = allAnswers.filter((answer) => inRange(answer.answeredAt, start, end));
   const correct = allAnswers.filter((answer) => answer.isCorrect).length;
-  const monthlyCorrect = monthlyAnswers.filter((answer) => answer.isCorrect).length;
-  const leaderboard = await getLeaderboard(visitor.id);
+  const labByLevel = new Map(labRows.map((row) => [row.levelId, row]));
+  const tickets = getLabLevels().flatMap((level) => {
+    if (level.status !== "published") return [];
+    const row = labByLevel.get(level.id);
+    return [
+      {
+        levelId: level.id,
+        number: level.number,
+        title: level.title,
+        status: !row ? "untouched" : row.passed ? "closed" : "open",
+        bestScore: row?.bestScore ?? 0,
+        runs: row?.runs ?? 0,
+        hintsUsed: row?.hintsUsed ?? 0,
+        solutionViewed: row?.solutionViewed ?? false,
+        points: row?.passed ? ticketPoints(row.bestScore, row.solutionViewed) : 0,
+      },
+    ];
+  });
+  const current = leaderboard.currentVisitor;
 
   return {
     visitor: { displayName: visitor.displayName },
@@ -236,15 +262,18 @@ export async function getVisitorProgress(visitor: Visitor) {
       totalAnswers: allAnswers.length,
       correctAnswers: correct,
       accuracy: allAnswers.length ? Math.round((correct / allAnswers.length) * 100) : 0,
+      closedTickets: tickets.filter((ticket) => ticket.status === "closed").length,
+      totalTickets: tickets.length,
     },
     currentMonth: {
       totalAnswers: monthlyAnswers.length,
-      correctAnswers: monthlyCorrect,
-      accuracy: monthlyAnswers.length
-        ? Math.round((monthlyCorrect / monthlyAnswers.length) * 100)
-        : 0,
-      rank: leaderboard.currentVisitor?.rank ?? null,
+      points: current?.points ?? 0,
+      quizPoints: current?.quizPoints ?? 0,
+      labPoints: current?.labPoints ?? 0,
+      accuracy: current?.accuracy ?? 0,
+      rank: current?.rank ?? null,
     },
+    lab: tickets,
     answeredChallenges: allAnswers
       .map((answer) => {
         const challenge = getChallengeById(answer.questionId);
@@ -264,59 +293,117 @@ export async function getVisitorProgress(visitor: Visitor) {
   };
 }
 
+interface MonthlyScore {
+  visitorId: string;
+  displayName: string | null;
+  totalAnswers: number;
+  quizPoints: number;
+  labPoints: number;
+  possiblePoints: number;
+  achievedAt: number;
+}
+
+/**
+ * One monthly score per visitor: a correct quiz answer is 1 point and a lab
+ * ticket is up to 5, counted in the month it was first passed. Ties go to the
+ * higher share of possible points, then to whoever reached the total first.
+ */
 export async function getLeaderboard(currentVisitorId: string) {
   const { start, end } = getCurrentMonthRange();
-  const rows = await getDatabase()
-    .select({
-      visitorId: answers.visitorId,
-      displayName: visitors.displayName,
-      totalAnswers: count(),
-      correctAnswers: sql<number>`sum(case when ${answers.isCorrect} then 1 else 0 end)::int`,
-      achievedAt: sql<Date>`coalesce(max(case when ${answers.isCorrect} then ${answers.answeredAt} end), min(${answers.answeredAt}))`,
-    })
-    .from(answers)
-    .innerJoin(visitors, eq(answers.visitorId, visitors.id))
-    .where(and(gte(answers.answeredAt, start), lt(answers.answeredAt, end)))
-    .groupBy(answers.visitorId, visitors.displayName);
+  const db = getDatabase();
+  const [quizRows, labRows] = await Promise.all([
+    db
+      .select({
+        visitorId: answers.visitorId,
+        displayName: visitors.displayName,
+        totalAnswers: count(),
+        correctAnswers: sql<number>`sum(case when ${answers.isCorrect} then 1 else 0 end)::int`,
+        achievedAt: sql<Date>`coalesce(max(case when ${answers.isCorrect} then ${answers.answeredAt} end), min(${answers.answeredAt}))`,
+      })
+      .from(answers)
+      .innerJoin(visitors, eq(answers.visitorId, visitors.id))
+      .where(and(gte(answers.answeredAt, start), lt(answers.answeredAt, end)))
+      .groupBy(answers.visitorId, visitors.displayName),
+    db
+      .select({
+        visitorId: labResults.visitorId,
+        displayName: visitors.displayName,
+        bestScore: labResults.bestScore,
+        solutionViewed: labResults.solutionViewed,
+        firstPassedAt: labResults.firstPassedAt,
+      })
+      .from(labResults)
+      .innerJoin(visitors, eq(labResults.visitorId, visitors.id))
+      .where(
+        and(
+          eq(labResults.passed, true),
+          gte(labResults.firstPassedAt, start),
+          lt(labResults.firstPassedAt, end),
+        ),
+      ),
+  ]);
 
-  const ranked = rows
-    .map((row) => ({
-      ...row,
-      accuracy: row.totalAnswers
-        ? Math.round((row.correctAnswers / row.totalAnswers) * 100)
-        : 0,
-    }))
+  const scores = new Map<string, MonthlyScore>();
+  for (const row of quizRows) {
+    scores.set(row.visitorId, {
+      visitorId: row.visitorId,
+      displayName: row.displayName,
+      totalAnswers: row.totalAnswers,
+      quizPoints: row.correctAnswers,
+      labPoints: 0,
+      possiblePoints: row.totalAnswers,
+      achievedAt: new Date(row.achievedAt).getTime(),
+    });
+  }
+  for (const row of labRows) {
+    const passedAt = row.firstPassedAt ? new Date(row.firstPassedAt).getTime() : 0;
+    const score = scores.get(row.visitorId) ?? {
+      visitorId: row.visitorId,
+      displayName: row.displayName,
+      totalAnswers: 0,
+      quizPoints: 0,
+      labPoints: 0,
+      possiblePoints: 0,
+      achievedAt: passedAt,
+    };
+    score.labPoints += ticketPoints(row.bestScore, row.solutionViewed);
+    score.possiblePoints += TICKET_MAX_POINTS;
+    score.achievedAt = Math.max(score.achievedAt, passedAt);
+    scores.set(row.visitorId, score);
+  }
+
+  const toEntry = (score: MonthlyScore & { points: number; accuracy: number }, rank: number) => ({
+    rank,
+    displayName: score.displayName,
+    points: score.points,
+    quizPoints: score.quizPoints,
+    labPoints: score.labPoints,
+    totalAnswers: score.totalAnswers,
+    accuracy: score.accuracy,
+  });
+  const ranked = [...scores.values()]
+    .map((score) => {
+      const points = score.quizPoints + score.labPoints;
+      return {
+        ...score,
+        points,
+        accuracy: score.possiblePoints ? Math.round((points / score.possiblePoints) * 100) : 0,
+      };
+    })
     .sort(
       (a, b) =>
-        b.correctAnswers - a.correctAnswers ||
+        b.points - a.points ||
         b.accuracy - a.accuracy ||
-        new Date(a.achievedAt).getTime() - new Date(b.achievedAt).getTime() ||
+        a.achievedAt - b.achievedAt ||
         a.visitorId.localeCompare(b.visitorId),
-    )
-    .map((row, index) => ({ ...row, rank: index + 1 }));
-
-  const publicEntries = ranked
-    .filter((entry) => entry.displayName)
-    .map((entry) => ({
-      rank: entry.rank,
-      displayName: entry.displayName,
-      correctAnswers: entry.correctAnswers,
-      totalAnswers: entry.totalAnswers,
-      accuracy: entry.accuracy,
-    }));
-  const current = ranked.find((entry) => entry.visitorId === currentVisitorId);
+    );
+  // Ranks are counted among named visitors only, so the public table has no gaps.
+  const named = ranked.filter((score) => score.displayName);
+  const current = named.findIndex((score) => score.visitorId === currentVisitorId);
 
   return {
     period: { start: start.toISOString(), end: end.toISOString(), timeZone: "Asia/Tehran" },
-    entries: publicEntries,
-    currentVisitor: current
-      ? {
-          rank: current.rank,
-          displayName: current.displayName,
-          correctAnswers: current.correctAnswers,
-          totalAnswers: current.totalAnswers,
-          accuracy: current.accuracy,
-        }
-      : null,
+    entries: named.map((score, index) => toEntry(score, index + 1)),
+    currentVisitor: current >= 0 ? toEntry(named[current], current + 1) : null,
   };
 }

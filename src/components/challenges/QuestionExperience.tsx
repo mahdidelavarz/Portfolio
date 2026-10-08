@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { PublicChallenge } from "@/data/challenge-validator";
 import CodeBlock from "./CodeBlock";
-import DisplayNamePrompt from "./DisplayNamePrompt";
+import UsernameDialog from "./UsernameDialog";
 import { LucideArrowRight } from "@/icons/icons";
 
 type Adjacent = { slug: string; title: string } | null;
@@ -51,6 +51,8 @@ export default function QuestionExperience({
   const [result, setResult] = useState<AnswerResult | null>(null);
   const [adjacent, setAdjacent] = useState(initialAdjacent);
   const [requestDisplayName, setRequestDisplayName] = useState(false);
+  const [nameDialogOpen, setNameDialogOpen] = useState(false);
+  const closeNameDialog = useCallback(() => setNameDialogOpen(false), []);
   const [loadingExisting, setLoadingExisting] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -109,6 +111,7 @@ export default function QuestionExperience({
       setResult(data as AnswerResult);
       setSelectedOptionId(data.answer.selectedOptionId);
       setRequestDisplayName(data.visitor.shouldRequestDisplayName);
+      setNameDialogOpen(data.visitor.shouldRequestDisplayName);
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "ثبت پاسخ انجام نشد.");
     } finally {
@@ -241,7 +244,21 @@ export default function QuestionExperience({
         </section>
       )}
 
-      {result && requestDisplayName && <DisplayNamePrompt onSaved={() => setRequestDisplayName(false)} />}
+      {result && requestDisplayName && (
+        <p className="mt-8 rounded-2xl border border-cyan-400/25 bg-cyan-400/10 p-5 text-sm leading-7 text-slate-300">
+          پاسخت ثبت شد، ولی تا وقتی اسم نداشته باشی تو رتبه‌بندی حساب نمی‌شه.{" "}
+          <button type="button" onClick={() => setNameDialogOpen(true)} className="font-bold text-cyan-300 underline-offset-4 hover:underline">
+            ثبت اسم
+          </button>
+        </p>
+      )}
+      {nameDialogOpen && (
+        <UsernameDialog
+          intro="پاسخت ثبت شد. برای اینکه امتیازش تو رتبه‌بندی ماهانه حساب بشه، یه اسم انتخاب کن."
+          onDone={() => setRequestDisplayName(false)}
+          onClose={closeNameDialog}
+        />
+      )}
 
       <nav className="mt-12 grid gap-4 border-t border-slate-700/50 pt-8 sm:grid-cols-2" aria-label="سؤال‌های قبلی و بعدی">
         {adjacent.previous ? (

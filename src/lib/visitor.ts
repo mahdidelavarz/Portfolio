@@ -56,17 +56,7 @@ export async function ensureVisitor(): Promise<Visitor> {
   return visitor;
 }
 
-export function normalizeDisplayName(value: unknown): string {
-  if (typeof value !== "string") {
-    throw new Error("نام نمایشی باید متن ساده باشد.");
-  }
-
-  const normalized = value.trim().replace(/\s+/gu, " ");
-  if (normalized.length < 2 || normalized.length > 40) {
-    throw new Error("نام نمایشی باید بین ۲ تا ۴۰ کاراکتر باشد.");
-  }
-  if (/[<>\u0000-\u001f\u007f]/u.test(normalized)) {
-    throw new Error("نام نمایشی شامل کاراکتر غیرمجاز است.");
-  }
-  return normalized;
+/** Points this browser at an existing visitor, used when a username is recovered. */
+export async function bindVisitorCookie(visitorId: string): Promise<void> {
+  setVisitorCookie(await cookies(), visitorId);
 }

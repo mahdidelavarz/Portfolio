@@ -1,6 +1,20 @@
 # Plan: usernames, server-side lab results, combined leaderboard, homepage section
 
-Status: **waiting for approval**. Nothing in this plan has been implemented yet.
+Status: **implemented** on branch `feature/lab-accounts` (2026-10-08).
+
+Decisions taken by the owner, which replace the "Choices" section and the
+migration steps below:
+
+- Existing data was not kept. Migration `0001_lab_accounts` truncates `visitors`
+  (and `answers` by cascade) instead of normalizing and de-duplicating names.
+- Quiz answer with the dialog dismissed: stored anonymously and final, off the
+  leaderboard until a name is claimed.
+- Recovery switches the cookie to the recovered visitor; nothing is merged on the
+  server.
+- Tested against a throwaway local PostgreSQL container, never production.
+
+The current behaviour is documented in the README. The rest of this file is the
+original hand-off, kept for reference.
 
 This file is the hand-off for a new session running on the server. It holds the
 original request, the plan, and four choices the owner still has to confirm.

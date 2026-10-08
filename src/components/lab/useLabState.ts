@@ -12,6 +12,7 @@ import {
   type LevelProgress,
   type RunRecord,
 } from "./labStorage";
+import type { RunToSave, ServerLabResult } from "./useLabSync";
 
 export type WorkTab = "app" | "analysis" | "code" | "help";
 
@@ -34,6 +35,7 @@ interface LabState {
 
 type LabAction =
   | { type: "hydrated"; currentLevelId?: string; progress: Record<string, LevelProgress> }
+  | { type: "serverMerged"; results: ServerLabResult[] }
   | { type: "levelSelected"; levelId: string; tab: WorkTab }
   | { type: "tabChanged"; tab: WorkTab }
   | { type: "lineToggled"; key: string }
@@ -67,6 +69,25 @@ function updateCurrent(state: LabState, update: (progress: LevelProgress) => Lev
   return { ...state, progress: { ...state.progress, [state.currentLevelId]: update(current) } };
 }
 
+/**
+ * Folds the server's result for a ticket into local progress. Nothing is ever
+ * taken away; a ticket with no local runs also picks up the server's best code.
+ */
+function mergeServerResult(local: LevelProgress, result: ServerLabResult): LevelProgress {
+  const adoptConfig =
+    local.runs.length === 0 && result.bestConfig !== null && !configsEqual(local.applied, result.bestConfig);
+  return {
+    ...local,
+    ...(adoptConfig && result.bestConfig
+      ? { applied: { ...result.bestConfig }, draft: { ...result.bestConfig } }
+      : null),
+    solved: local.solved || result.passed,
+    bestScore: Math.max(local.bestScore, result.bestScore),
+    hintsUsed: Math.max(local.hintsUsed, result.hintsUsed),
+    solutionShown: local.solutionShown || result.solutionViewed,
+  };
+}
+
 function labReducer(state: LabState, action: LabAction): LabState {
   switch (action.type) {
     case "hydrated":
@@ -76,6 +97,14 @@ function labReducer(state: LabState, action: LabAction): LabState {
         currentLevelId: action.currentLevelId ?? state.currentLevelId,
         progress: { ...state.progress, ...action.progress },
       };
+    case "serverMerged": {
+      const progress = { ...state.progress };
+      for (const result of action.results) {
+        const local = progress[result.levelId];
+        if (local) progress[result.levelId] = mergeServerResult(local, result);
+      }
+      return { ...state, progress };
+    }
     case "levelSelected":
       return { ...state, currentLevelId: action.levelId, ui: { ...initialUi, tab: action.tab } };
     case "tabChanged":
@@ -151,6 +180,8 @@ function createInitialState(levels: LabLevel[], playable: PlayableLevel[]): LabS
 
 export interface RunOutcome {
   level: PlayableLevel;
+  /** The run as the server needs it to score and store it. */
+  toSave: RunToSave;
 }
 
 /**
@@ -233,7 +264,15 @@ export function useLabState(levels: LabLevel[], playable: PlayableLevel[]) {
       score: result.evaluation.correct ? result.score : 0,
       passed,
     });
-    return { level: currentPlayable };
+    return {
+      level: currentPlayable,
+      toSave: {
+        levelId: currentPlayable.id,
+        config,
+        hintsUsed: progress.hintsUsed,
+        solutionViewed: progress.solutionShown,
+      },
+    };
   }, [currentPlayable, progress, state.ui.prediction]);
 
   const actions = useMemo(
@@ -247,6 +286,7 @@ export function useLabState(levels: LabLevel[], playable: PlayableLevel[]) {
       toggleDebrief: () => dispatch({ type: "debriefToggled" }),
       setSheetOpen: (open: boolean) => dispatch({ type: "sheetChanged", open }),
       markReproduced: () => dispatch({ type: "reproduced" }),
+      mergeServer: (results: ServerLabResult[]) => dispatch({ type: "serverMerged", results }),
     }),
     [],
   );

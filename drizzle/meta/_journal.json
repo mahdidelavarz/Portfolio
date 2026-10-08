@@ -8,6 +8,13 @@
       "when": 1785321667317,
       "tag": "0000_dizzy_killmonger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791445428692,
+      "tag": "0001_lab_accounts",
+      "breakpoints": true
     }
   ]
 }
