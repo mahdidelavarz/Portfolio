@@ -246,20 +246,7 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* Shared grid cell keeps the panel at the tallest project's height. */}
-          <div className="grid">
-            {projects.map((project, i) => (
-              <div
-                key={project.id}
-                aria-hidden={i !== index}
-                className={`[grid-area:1/1] transition-opacity duration-300 ${
-                  i === index ? "opacity-100" : "invisible opacity-0"
-                }`}
-              >
-                <ProjectDetails project={project} />
-              </div>
-            ))}
-          </div>
+          <ProjectDetails key={projects[index].id} project={projects[index]} />
         </div>
       </div>
     </div>
