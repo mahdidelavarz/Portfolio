@@ -13,8 +13,8 @@ export default function ArticleDetailView({ article }: { article: Article }) {
   return (
     <ArticlesShell language={article.language} alternateArticle={alternateArticle}>
       <article>
-        <header className=" border-b border-slate-800/80"><div className="mx-auto max-w-8xl flex flex-col items-center px-4 py-12 sm:px-6 sm:py-20">
-          <Link href={getArticlesPath(article.language)} className="inline-flex w-full px-60 rounded-lg text-sm font-semibold text-cyan-300 transition hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950"><span className="rtl:-scale-x-100" aria-hidden="true">←</span>&nbsp; {messages.backToArticles}</Link>
+        <header className=" border-b border-slate-800/80"><div className="mx-auto flex max-w-3xl flex-col px-4 py-12 sm:px-6 sm:py-20">
+          <Link href={getArticlesPath(article.language)} className="inline-flex self-start rounded-lg text-sm font-semibold text-cyan-300 transition hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950"><span className="rtl:-scale-x-100" aria-hidden="true">←</span>&nbsp; {messages.backToArticles}</Link>
           <div className="mt-9 flex flex-wrap items-center gap-3 text-sm text-slate-500">
             {article.project && <span className="rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-cyan-300">{article.project}</span>}
             <span><span className="sr-only">{messages.published}: </span>{formatArticleDate(article.publishedAt, article.language)}</span><span aria-hidden="true">•</span><span><span className="sr-only">{messages.readingTime}: </span>{article.readingTime}</span>

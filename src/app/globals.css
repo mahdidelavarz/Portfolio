@@ -268,7 +268,7 @@ body {
 @media (max-width: 639px) {
   .article-comparison { grid-template-columns: 1fr; }
   .article-comparison-arrow { transform: rotate(90deg); text-align: center; }
-  [dir="rtl"] .article-comparison-arrow { transform: rotate(90deg) scaleX(-1); }
+  [dir="rtl"] .article-comparison-arrow { transform: rotate(-90deg) scaleX(-1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
