@@ -13,11 +13,43 @@ import SectionHeader from "@/components/SectionHeader";
 const projects = [
   {
     id: 1,
+    title: "TidySense",
+    subtitle: "AI-assisted personal planner (Persian, RTL)",
+    description:
+      "A planner where you describe a goal and the AI drafts a week of tasks and routines. Nothing is saved until you review and apply the draft, and manual planning keeps working when AI is off.",
+    technologies: [
+      "React 19",
+      "TypeScript",
+      "TanStack Router & Query",
+      "Zustand",
+      ".NET 10",
+      "PostgreSQL",
+    ],
+    category: "Full Stack",
+    year: "2026",
+    image: "/tidysense.webp",
+    color: "from-violet-500 to-indigo-500",
+    liveUrl: "https://tidysense.ir",
+    githubUrl: "https://github.com/mahdidelavarz/tidysense",
+    features: [
+      "AI-drafted weekly plans with review before apply",
+      "Today view with tasks, dependencies & recurring routines",
+      "Phone OTP login with cookie-based sessions",
+    ],
+  },
+  {
+    id: 2,
     title: "NeoVault",
     subtitle: "Self-hosted knowledge and productivity system",
     description:
-      "A self-hosted full-stack workspace for organizing links, notes, code snippets, and API requests with hierarchical collections, PostgreSQL search, and offline-capable access.",
-    technologies: ["Next.js 16", "TypeScript", "PostgreSQL", "Docker"],
+      "A self-hosted workspace for organizing links, notes, code snippets and API requests in nested collections, with cross-module search and offline access.",
+    technologies: [
+      "Next.js 16",
+      "TypeScript",
+      "Express",
+      "PostgreSQL",
+      "Docker",
+    ],
     category: "Full Stack",
     year: "2026",
     image: "/neovault.webp",
@@ -26,17 +58,22 @@ const projects = [
     githubUrl: "https://github.com/mahdidelavarz/linkvault",
     features: [
       "Frontend, API, database & deployment ownership",
-      "PostgreSQL full-text search & hierarchy",
+      "Cross-module search on PostgreSQL trigram indexes",
       "Offline PWA with queued sync",
     ],
   },
   {
-    id: 2,
+    id: 3,
     title: "AranazShop",
-    subtitle: "Full-stack Persian e-commerce platform",
+    subtitle: "Persian e-commerce storefront and admin",
     description:
-      "A full-stack RTL storefront and admin system covering catalog discovery, purchasing, and operational order management.",
-    technologies: ["Next.js 16", "TypeScript", "Express", "PostgreSQL"],
+      "An RTL storefront and admin panel covering catalog browsing, checkout and day-to-day order management.",
+    technologies: [
+      "Next.js 16",
+      "TypeScript",
+      "Supabase (PostgreSQL)",
+      "Zustand",
+    ],
     category: "Full Stack",
     year: "2026",
     image: "/nazishop.webp",
@@ -50,30 +87,18 @@ const projects = [
     ],
   },
   {
-    id: 3,
-    title: "FrontForge",
-    subtitle: "Frontend architecture decision engine",
-    description:
-      "A client-side planning tool that guides frontend architecture decisions, flags conflicting choices, previews design-system configuration, and exports a project blueprint.",
-    technologies: ["Next.js 16", "TypeScript", "Zustand", "JSZip"],
-    category: "Developer Tool",
-    year: "2026",
-    image: "/frontForge.png",
-    color: "from-indigo-500 to-cyan-500",
-    githubUrl: "https://github.com/mahdidelavarz/FrontForge",
-    features: [
-      "Guided architecture decision workflow",
-      "Conflict detection & live design-system preview",
-      "Generated project files and ZIP export",
-    ],
-  },
-  {
     id: 4,
     title: "Portfolio Website",
     subtitle: "Engineering-focused personal portfolio",
     description:
-      "A Next.js App Router portfolio with technical SEO, structured metadata, sitemap generation, and a responsive dark interface.",
-    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4"],
+      "This site: a Next.js App Router portfolio with technical SEO, structured metadata, sitemap generation and a responsive dark interface.",
+    technologies: [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "PostgreSQL (Drizzle)",
+    ],
     category: "Frontend",
     year: "2026",
     image: "/portfolio.webp",
@@ -174,7 +199,7 @@ export default function Projects() {
         <SectionHeader
           eyebrow="Projects"
           title="Featured Projects"
-          subtitle="Selected full-stack products and frontend engineering tools"
+          subtitle="Products I designed, built and deployed end to end"
         />
 
         <div

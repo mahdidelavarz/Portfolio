@@ -18,7 +18,7 @@ const EXPERIENCES = [
     company: "Pump Turbine Co. (Petco)",
     shortName: "Petco",
     role: "Frontend Developer",
-    period: "Sep 2024 – Present",
+    period: "Aug 2024 – Present",
     duration: "2+ years",
     location: "Tabriz, Iran",
     type: "Full-time",
