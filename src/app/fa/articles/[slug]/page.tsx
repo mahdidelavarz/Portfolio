@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ArticleDetailView from "@/components/articles/ArticleDetailView";
 import { getArticleBySlug, getAlternateLanguageVersion, getArticlesByLanguage } from "@/lib/articles/repository";
+import { OG_IMAGE } from "@/lib/seo";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: article.summary,
     alternates: { canonical, languages: { fa: canonical, ...(alternate ? { en: `https://mahdidelavar.ir/articles/${alternate.slug}` } : {}) } },
     robots: article.status === "published" ? undefined : { index: false, follow: true },
-    openGraph: { title: article.title, description: article.summary, url: canonical, locale: "fa_IR", alternateLocale: alternate ? ["en_US"] : undefined, type: "article", publishedTime: article.publishedAt ?? undefined, tags: article.tags },
+    openGraph: { images: [OG_IMAGE], title: article.title, description: article.summary, url: canonical, locale: "fa_IR", alternateLocale: alternate ? ["en_US"] : undefined, type: "article", publishedTime: article.publishedAt ?? undefined, tags: article.tags },
   };
 }
 

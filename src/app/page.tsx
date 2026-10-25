@@ -56,51 +56,15 @@ const Education = dynamic(() => import("@/components/client/Education"), {
   ),
 });
 
-// Enhanced metadata for SEO
 export const metadata: Metadata = {
-  title: "Mahdi Delavar | Frontend Developer",
-  description:
-    "Frontend Developer building maintainable React and TypeScript systems for enterprise and data-intensive applications.",
-  keywords: [
-    "Frontend Developer",
-    "React Developer",
-    "Next.js Developer",
-    "TypeScript Developer",
-    "Web Developer Iran",
-    "Mahdi Delavar",
-  ],
+  title: { absolute: "Mahdi Delavar | Frontend Developer" },
   alternates: {
     canonical: "https://mahdidelavar.ir",
   },
-  openGraph: {
-    title: "Mahdi Delavar | Frontend Developer",
-    description:
-      "Frontend Developer building maintainable React and TypeScript systems for enterprise and data-intensive applications.",
-    url: "https://mahdidelavar.ir",
-    siteName: "Mahdi Delavar Portfolio",
-    images: [
-      {
-        url: "https://mahdidelavar.ir/portfolio.png",
-        width: 1200,
-        height: 630,
-        alt: "Mahdi Delavar Portfolio Preview",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mahdi Delavar | Frontend Developer",
-    description:
-      "React and TypeScript frontend development focused on reusable architecture, data-intensive interfaces, and real business workflows.",
-    images: ["https://mahdidelavar.ir/portfolio.png"],
-  },
-  robots: { index: true, follow: true },
 };
 
+const PERSON_ID = "https://mahdidelavar.ir/#person";
 
-// Comprehensive structured data for SEO
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -108,244 +72,58 @@ const structuredData = {
       "@type": "ProfilePage",
       "@id": "https://mahdidelavar.ir/#webpage",
       url: "https://mahdidelavar.ir",
-      name: "Mahdi Delavar - Frontend Developer Portfolio",
-      isPartOf: {
-        "@id": "https://mahdidelavar.ir/#website",
-      },
-      about: {
-        "@id": "https://mahdidelavar.ir/#person",
-      },
-      dateModified: new Date().toISOString(),
-      description:
-        "Portfolio of Mahdi Delavar, a Frontend Developer building complex, data-intensive products with React and TypeScript.",
-      breadcrumb: {
-        "@id": "https://mahdidelavar.ir/#breadcrumb",
-      },
+      name: "Mahdi Delavar | Frontend Developer",
+      isPartOf: { "@id": "https://mahdidelavar.ir/#website" },
+      mainEntity: { "@id": PERSON_ID },
       inLanguage: "en-US",
-      potentialAction: [
-        {
-          "@type": "ReadAction",
-          target: ["https://mahdidelavar.ir"],
-        },
-      ],
     },
     {
       "@type": "Person",
-      "@id": "https://mahdidelavar.ir/#person",
+      "@id": PERSON_ID,
       name: "Mahdi Delavar",
-      alternateName: "Mahdi",
-      image: "https://mahdidelavar.ir/portfolio.png",
+      image: "https://mahdidelavar.ir/mahdi-delavar.webp",
       jobTitle: "Frontend Developer",
       description:
-        "Frontend Developer building maintainable React and TypeScript systems for complex products, reusable architecture, and real business workflows.",
+        "Frontend Developer building maintainable React and TypeScript systems for enterprise and data-intensive applications.",
       url: "https://mahdidelavar.ir",
-      email: "mdelever77@gmail.com",
-      telephone: "+989025574357",
+      email: "mailto:mdelever77@gmail.com",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Tabriz",
         addressRegion: "East Azerbaijan",
         addressCountry: "IR",
       },
+      worksFor: {
+        "@type": "Organization",
+        name: "Pump Turbine Co. (Petco)",
+        url: "https://pumpturbine.co/en/",
+      },
       sameAs: [
         "https://github.com/mahdidelavarz",
         "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
-        "https://t.me/osis13",
-        "https://wa.me/989025574357"
       ],
       knowsAbout: [
-        "Frontend Development",
-        "React.js",
-        "Next.js",
+        "React",
         "TypeScript",
-        "JavaScript ES6+",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "PostgreSQL",
+        "Next.js",
         "Tailwind CSS",
-        "Material-UI",
-        "Responsive Web Design",
-        "Progressive Web Apps",
-        "Web Performance Optimization",
-        "SEO",
-        "UI/UX Design Principles",
-        "Agile Methodologies",
-        "Git Version Control",
-        "CI/CD",
-        "Testing (Jest, Cypress)",
+        "TanStack Query",
+        "Zustand",
+        "React Hook Form",
+        "Frontend Architecture",
+        ".NET",
+        "SQL Server",
+        "PostgreSQL",
+        "Docker",
       ],
-      hasOccupation: {
-        "@type": "Occupation",
-        name: "Frontend Developer",
-        estimatedSalary: {
-          "@type": "MonetaryAmountDistribution",
-          name: "Frontend Developer Salary",
-          currency: "USD",
-          duration: "P1Y",
-          percentile10: 40000,
-          percentile25: 55000,
-          median: 75000,
-          percentile75: 95000,
-          percentile90: 120000,
-        },
-        occupationLocation: [
-          {
-            "@type": "City",
-            name: "Tabriz",
-          },
-        ],
-        experienceRequirements: {
-          "@type": "OccupationalExperienceRequirements",
-          monthsOfExperience: 36,
-        },
-        skills: [
-          "React.js",
-          "Next.js",
-          "TypeScript",
-          "JavaScript",
-          "CSS",
-          "HTML",
-        ],
-      },
-      hasCredential: [
-        {
-          "@type": "EducationalOccupationalCredential",
-          name: "Bachelor's Degree in Computer Science",
-          credentialCategory: "degree",
-        },
-      ],
-      worksFor: {
-        "@type": "Organization",
-        name: "Petco",
-        url: "https://pumpturbine.co/en/",
-      },
-      memberOf: [
-        {
-          "@type": "Organization",
-          name: "Frontend Developer Community",
-        },
-      ],
-      nationality: {
-        "@type": "Country",
-        name: "Iran",
-      },
     },
     {
       "@type": "WebSite",
       "@id": "https://mahdidelavar.ir/#website",
       url: "https://mahdidelavar.ir",
-      name: "Mahdi Delavar Portfolio",
-      description:
-        "Frontend Developer portfolio focused on React, TypeScript, frontend architecture, and data-intensive applications.",
-      publisher: {
-        "@id": "https://mahdidelavar.ir/#person",
-      },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate:
-            "https://mahdidelavar.ir/?search={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
-      },
+      name: "Mahdi Delavar",
+      publisher: { "@id": PERSON_ID },
       inLanguage: "en-US",
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://mahdidelavar.ir/#breadcrumb",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://mahdidelavar.ir",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "About",
-          item: "https://mahdidelavar.ir#aboutme",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Projects",
-          item: "https://mahdidelavar.ir#projects",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "Contact",
-          item: "https://mahdidelavar.ir#contactme",
-        },
-      ],
-    },
-    {
-      "@type": "ItemList",
-      "@id": "https://mahdidelavar.ir/#skills",
-      name: "Technical Skills",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "React.js - 95% Proficiency",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Next.js - 90% Proficiency",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "TypeScript - 88% Proficiency",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "Tailwind CSS - 92% Proficiency",
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://mahdidelavar.ir/#faq",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What kind of frontend products does Mahdi Delavar build?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Mahdi builds maintainable frontend systems with React and TypeScript, focusing on reusable architecture, data-intensive interfaces, and enterprise workflows.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What is Mahdi Delavar's experience level?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Mahdi has over 3 years of professional frontend development experience, including more than 2 years working on an enterprise ERP platform.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How can I contact Mahdi Delavar for a project?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "You can contact me through the contact form on my portfolio website, email me at mdelever77@gmail.com, or reach out via LinkedIn or GitHub.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What technologies does Mahdi Delavar specialize in?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "I specialize in React.js, Next.js, TypeScript, JavaScript ES6+, Tailwind CSS, Node.js, and various modern web development tools and frameworks.",
-          },
-        },
-      ],
     },
   ],
 };

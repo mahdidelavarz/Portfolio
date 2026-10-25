@@ -22,58 +22,8 @@ import { HomeIcon } from '@/icons/icons';
 // };
 
 export default function NotFound() {
-  // Structured data for 404 page
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "404 - Page Not Found",
-    url: "https://mahdidelavar.ir/404",
-    description: "The requested page was not found on Mahdi Delavar's Frontend Developer Portfolio.",
-    mainEntity: {
-      "@type": "Thing",
-      name: "404 Error",
-      description: "This page could not be found"
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://mahdidelavar.ir"
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "404 Not Found"
-        }
-      ]
-    },
-    isPartOf: {
-      "@type": "WebSite",
-      "@id": "https://mahdidelavar.ir/#website",
-      url: "https://mahdidelavar.ir",
-      name: "Mahdi Delavar - Frontend Developer Portfolio",
-      publisher: {
-        "@type": "Person",
-        name: "Mahdi Delavar",
-        jobTitle: "Frontend Developer",
-        url: "https://mahdidelavar.ir"
-      }
-    }
-  };
-
   return (
     <>
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData),
-        }}
-      />
-
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
         <div className="max-w-2xl w-full text-center">
           {/* Animated 404 */}
