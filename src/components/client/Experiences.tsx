@@ -8,7 +8,6 @@ import {
   SolarCheckCircleBold,
   SolarCodeBold,
   SolarMapPoindBold,
-  SolarRocketBold,
 } from "@/icons/icons";
 import { useSlider } from "@/lib/useSlider";
 import SectionHeader from "@/components/SectionHeader";
@@ -72,27 +71,6 @@ const EXPERIENCES = [
       "REST APIs",
       "Payment Gateways",
     ],
-  },
-  {
-    id: 2,
-    company: "Freelance",
-    shortName: "Freelance",
-    role: "Web Developer",
-    period: "2020 – 2021",
-    duration: "1+ year",
-    location: "Remote",
-    type: "Freelance",
-    icon: SolarRocketBold,
-    color: "from-purple-500 to-indigo-600",
-    accentColor: "text-purple-400",
-    description:
-      "Websites and web apps for small business clients, from first requirements to launch and support.",
-    highlights: [
-      "Built and launched client websites and web apps end to end: requirements, frontend, deployment and post-launch fixes.",
-      "Handled hosting and deployment for client projects and kept them running after handoff.",
-      "Client projects included Ghabzhub (since taken offline).",
-    ],
-    tags: ["JavaScript", "React", "Responsive UI", "Deployment"],
   },
 ] as const;
 
