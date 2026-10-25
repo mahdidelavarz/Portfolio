@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mehdi Delavar – Resume</title>
+    <title>مهدی دلاور – رزومه</title>
 
     <!-- Font Awesome -->
     <link
@@ -12,29 +12,29 @@
     />
 
     <style>
-      /* ========== Vazir Font (CDN) ========== */
+      /* ========== فونت وزیرمتن (لوکال) ========== */
       @font-face {
         font-family: "Vazir";
         font-style: normal;
         font-weight: 400;
-        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2") format("woff2");
+        src: url("../fonts/Vazirmatn-Regular.woff2") format("woff2");
       }
 
       @font-face {
         font-family: "Vazir";
         font-style: normal;
         font-weight: 700;
-        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2") format("woff2");
+        src: url("../fonts/Vazirmatn-Bold.woff2") format("woff2");
       }
 
       @font-face {
         font-family: "Vazir";
         font-style: normal;
         font-weight: 900;
-        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Black.woff2") format("woff2");
+        src: url("../fonts/Vazirmatn-Black.woff2") format("woff2");
       }
 
-      /* ========== Main Styles (LTR) ========== */
+      /* ========== استایل‌های اصلی ========== */
       * {
         box-sizing: border-box;
       }
@@ -46,7 +46,7 @@
         background: #f5f7fa;
         color: #1d2d3a;
         line-height: 1.75;
-        direction: ltr;
+        direction: rtl;
       }
 
       .resume {
@@ -60,25 +60,15 @@
         overflow: hidden;
       }
 
-      .resume::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 6px;
-        background: linear-gradient(90deg, #0b2b44, #0f4c75, #3a8dc0);
-      }
-
       /* Header */
       .header-row {
         display: flex;
-        flex-wrap: wrap;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 26px;
         border-bottom: 2px solid #e9eff4;
         padding-bottom: 24px;
+        gap: 24px;
       }
 
       .name-title h1 {
@@ -95,40 +85,34 @@
         font-size: 0.95rem;
         font-weight: 600;
         color: #1e5a7c;
-        border-left: 3px solid #0f4c75;
-        padding-left: 10px;
+        border-right: 3px solid #0f4c75;
+        padding-right: 10px;
         letter-spacing: 0.2px;
       }
 
       .contact-info {
         display: flex;
         flex-direction: column;
-        gap: 6px;
         align-items: flex-end;
+        gap: 7px;
         font-size: 0.85rem;
         color: #2a3b4e;
-        padding-top: 6px;
+        flex-shrink: 0;
       }
 
-      .contact-row {
-        display: flex;
-        gap: 18px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .contact-row span {
+      .contact-info span {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         white-space: nowrap;
       }
 
       .contact-info i {
-        width: 16px;
+        width: 15px;
         color: #1d6f9c;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         text-align: center;
+        flex-shrink: 0;
       }
 
       .contact-info a {
@@ -162,7 +146,7 @@
       }
 
       .section {
-        margin-bottom: 26px;
+        margin-bottom: 36px;
       }
 
       .section-title {
@@ -170,8 +154,8 @@
         font-weight: 700;
         margin-bottom: 16px;
         color: #0f4c75;
-        border-left: 4px solid #0f4c75;
-        padding-left: 10px;
+        border-right: 4px solid #0f4c75;
+        padding-right: 10px;
         letter-spacing: 0.5px;
       }
 
@@ -206,7 +190,7 @@
 
       /* Experience */
       .exp-item {
-        margin-bottom: 22px;
+        margin-bottom: 52px;
       }
 
       .exp-header {
@@ -227,7 +211,7 @@
 
       .exp-desc {
         margin: 0;
-        padding-left: 18px;
+        padding-right: 18px;
       }
 
       .exp-desc li {
@@ -235,24 +219,25 @@
         font-size: 0.9rem;
         list-style: none;
         position: relative;
-        padding-left: 16px;
+        padding-right: 16px;
       }
 
       .exp-desc li::before {
-        content: "▸";
+        content: "◂";
         color: #0f4c75;
         font-weight: bold;
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0;
       }
 
-      /* Architecture Highlight */
+      /* معماری ERP هایلایت */
       .arch-highlight {
         background: #f0f6fb;
-        border-left: 3px solid #0f4c75;
+        border-right: 3px solid #0f4c75;
         padding: 14px 16px;
         margin-top: 14px;
+        margin-right: 20px;
         border-radius: 6px;
       }
 
@@ -281,14 +266,14 @@
       }
 
       .arch-subtitle::before {
-        content: "▸";
+        content: "◂";
         color: #0f4c75;
         font-weight: bold;
       }
 
       .arch-sublist {
         margin: 0;
-        padding-left: 20px;
+        padding-right: 20px;
         font-size: 0.82rem;
         color: #375063;
         line-height: 1.7;
@@ -297,7 +282,7 @@
       .arch-sublist li {
         list-style: none;
         position: relative;
-        padding-left: 14px;
+        padding-right: 14px;
       }
 
       .arch-sublist li::before {
@@ -305,7 +290,7 @@
         color: #0f4c75;
         font-weight: bold;
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0;
       }
 
@@ -418,7 +403,7 @@
         margin: 20px 0;
       }
 
-      /* ========== Print / PDF – optimized for A4 and 1-2 pages ========== */
+      /* ========== Print / PDF – بهینه برای A4 و ۱-۲ صفحه ========== */
       @page {
         size: A4;
         margin: 10mm;
@@ -466,7 +451,7 @@
 
         .name-title .tagline {
           font-size: 0.74rem;
-          padding-left: 8px;
+          padding-right: 8px;
         }
 
         .contact-info {
@@ -598,56 +583,51 @@
       <!-- Header -->
       <div class="header-row">
         <div class="name-title">
-          <h1>Mehdi Delavar</h1>
-          <div class="tagline">Front-End Developer</div>
+          <h1>مهدی دلاور</h1>
+          <div class="tagline">توسعه‌دهنده فرانت‌اند</div>
         </div>
         <div class="contact-info">
-          <div class="contact-row">
-            <span>
-              <i class="fas fa-envelope"></i>
-              <a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a>
-            </span>
-            <span><i class="fas fa-phone-alt"></i> +98 902 557 4357</span>
-          </div>
-          <div class="contact-row">
-            <span>
-              <i class="fab fa-linkedin"></i>
-              <a
-                href="https://www.linkedin.com/in/mahdidelavar-5338ba280"
-                target="_blank"
-                >linkedin.com/in/mahdidelavar</a
-              >
-            </span>
-            <span>
-              <i class="fab fa-github"></i>
-              <a href="https://github.com/mahdidelavarz" target="_blank"
-                >github.com/mahdidelavarz</a
-              >
-            </span>
-          </div>
+          <span
+            ><a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a
+            ><i class="fas fa-envelope"></i
+          ></span>
+          <span> ۰۹۰۲۵۵۷۴۳۵۷ <i class="fas fa-phone-alt"></i></span>
+          <span
+            ><a
+              href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
+              target="_blank"
+              >linkedin.com/in/mahdi-delavar-5338ba280</a
+            ><i class="fab fa-linkedin"></i
+          ></span>
+          <span
+            ><a href="https://github.com/mahdidelavarz" target="_blank"
+              >github.com/mahdidelavarz</a
+            ><i class="fab fa-github"></i
+          ></span>
         </div>
       </div>
 
       <!-- Main -->
       <div class="grid">
-        <!-- Sidebar -->
+        <!-- ستون کناری -->
         <div>
           <div class="section">
             <div class="section-title">
-              <span><i class="fas fa-code"></i></span> Technical Skills
+              <span><i class="fas fa-code"></i></span> مهارت‌های فنی
             </div>
 
             <div class="skill-group">
               <div class="skill-title">
-                <span><i class="fas fa-atom"></i></span> Core Front-End Skills
+                <span><i class="fas fa-atom"></i></span> مهارت‌های اصلی
+                فرانت‌اند
               </div>
               <div class="skills">
                 <span class="badge primary">React.js</span>
                 <span class="badge primary">Next.js</span>
                 <span class="badge primary">TypeScript</span>
                 <span class="badge primary">Tailwind CSS</span>
-                <span class="badge primary">TanStack Query</span>
                 <span class="badge primary">Zustand</span>
+                <span class="badge primary">TanStack Query</span>
                 <span class="badge primary">React Hook Form</span>
                 <span class="badge primary">React Router</span>
               </div>
@@ -655,7 +635,8 @@
 
             <div class="skill-group">
               <div class="skill-title">
-                <span><i class="fas fa-layer-group"></i></span> Front-End UI & Architecture
+                <span><i class="fas fa-layer-group"></i></span> UI و معماری
+                فرانت‌اند
               </div>
               <div class="skills">
                 <span class="badge">Vite</span>
@@ -669,8 +650,8 @@
 
             <div class="skill-group">
               <div class="skill-title">
-                <span><i class="fas fa-cog"></i></span> Backend & DevOps
-                (Basic)
+                <span><i class="fas fa-cog"></i></span> بک‌اند و زیرساخت
+                (مقدماتی)
               </div>
               <div class="skills">
                 <span class="badge">Node.js</span>
@@ -685,87 +666,101 @@
 
             <div class="skill-group">
               <div class="skill-title">
-                <span><i class="fas fa-tools"></i></span> Tools
+                <span><i class="fas fa-tools"></i></span> ابزارها
               </div>
               <div class="skills">
                 <span class="badge">Git / GitHub</span>
                 <span class="badge">Azure</span>
-                <span class="badge">Basic CI/CD</span>
+                <span class="badge">CI/CD مقدماتی</span>
                 <span class="badge">Stimulsoft Report</span>
               </div>
             </div>
-
           </div>
 
           <div class="section">
-            <div class="section-title">Education</div>
+            <div class="section-title">تحصیلات</div>
             <div>
-              <div style="font-weight: 600">B.Sc. in Computer Engineering</div>
+              <div style="font-weight: 600">کارشناسی مهندسی کامپیوتر</div>
               <div style="color: #375063; font-size: 0.9rem">
-                Islamic Azad University, Tabriz | 2023 – Present
+                دانشگاه آزاد اسلامی، تبریز | ۱۴۰۲ – تاکنون
               </div>
               <div style="margin-top: 6px; font-size: 0.85rem">
-                GPA: 16/20. Focus on Software Engineering & Web Development.
+                معدل: ۱۶/۲۰. تمرکز بر مهندسی نرم‌افزار و توسعه وب.
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">زبان‌ها</div>
+            <div>
+              <div style="font-weight: 600; margin-top: 8px">انگلیسی</div>
+              <div style="color: #375063; font-size: 0.9rem">
+                تسلط کاری در مطالعه مستندات فنی و ارتباطات تخصصی
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Main Content -->
+        <!-- ستون اصلی -->
         <div>
           <div class="section">
-            <div class="section-title">Professional Summary</div>
+            <div class="section-title">خلاصه حرفه‌ای</div>
             <p class="project-desc">
-              Front-end developer with more than three years of experience building web products, including around two years working on a large, multi-module enterprise ERP. Focused on React and TypeScript, reusable architecture, data-intensive interfaces, complex forms and tables, and state and query management; experienced in turning business workflows into maintainable, extensible user interfaces.
+              توسعه‌دهنده فرانت‌اند با بیش از سه سال تجربه در توسعه محصولات وب،
+              شامل حدود دو سال فعالیت در یک ERP سازمانی چندماژوله. متمرکز بر
+              React و TypeScript، معماری reusable، رابط‌های داده‌محور، form و
+              tableهای پیچیده و مدیریت state و query؛ با تجربه تبدیل workflowهای
+              کسب‌وکار به رابط‌هایی قابل نگهداری و توسعه.
             </p>
           </div>
 
           <div class="section">
-            <div class="section-title">Professional Experience</div>
+            <div class="section-title">تجربیات حرفه‌ای</div>
 
             <div class="exp-item">
               <div class="exp-header">
-                <span>Front-End Developer</span>
-                <span>August 2024 – Present</span>
+                <span>توسعه‌دهنده فرانت‌اند</span>
+                <span>مرداد ۱۴۰۳ – تاکنون</span>
               </div>
-              <div class="exp-company">Petco · Tabriz</div>
+              <div class="exp-company">پتکو · تبریز</div>
               <ul class="exp-desc">
                 <li>
-                  Developed the front end of a multi-module enterprise ERP with
-                  React and TypeScript, including data-intensive pages,
-                  multi-step workflows, and shared infrastructure used across
-                  different areas of the system.
+                  توسعه فرانت‌اند یک ERP سازمانی چندماژوله با React و TypeScript،
+                  شامل صفحات داده‌محور، workflowهای چندمرحله‌ای و زیرساخت‌های
+                  مشترک مورد استفاده در بخش‌های مختلف سیستم.
                 </li>
                 <li>
-                  Designed and evolved a typed, metadata-driven PageShell
-                  architecture for reusable composition of tables, forms,
-                  actions, and page policies, with nested-resource support and
-                  opt-in capabilities.
+                  طراحی و تکامل معماری typed و metadata-driven با نام PageShell
+                  برای ترکیب reusableِ table، form، action و policyهای صفحه، با
+                  پشتیبانی از nested resource و قابلیت‌های opt-in.
                 </li>
                 <li>
-                  Developed shared table and form infrastructure for client and
-                  server modes, filtering, sorting, pagination, selection,
-                  permission-aware actions, dynamic fields, and async/cascade
-                  selects.
+                  توسعه زیرساخت مشترک table و form برای حالت‌های client/server،
+                  filtering، sorting، pagination، selection و actionهای
+                  permission-aware، همراه با dynamic field و async/cascade select.
                 </li>
                 <li>
-                  Moved hierarchical resources from deeply nested modals to
-                  parent-aware routed pages and integrated them with a
-                  multi-tab workspace, breadcrumbs, and table state.
+                  انتقال resourceهای سلسله‌مراتبی از modalهای تودرتو به صفحات
+                  parent-aware مبتنی بر route و یکپارچه‌سازی آن‌ها با workspace
+                  چندتبی، breadcrumb و state جدول.
                 </li>
                 <li>
-                  Implemented the front-end interface for a revision-based
-                  engineering workflow, separating the current Edition from
-                  history and presenting Added, Removed, and Modified changes
-                  across later revisions.
+                  پیاده‌سازی رابط frontend برای workflow مهندسی revision-based،
+                  با تفکیک Edition جاری از history و نمایش تغییرات Added، Removed
+                  و Modified در revisionهای بعدی.
+                </li>
+                <li>
+                  یکپارچه‌سازی قابلیت‌های contextual فایل و گزارش با رکوردهای ERP
+                  و اتصال frontend به APIهای موجود .NET و SQL Server، با پشتیبانی
+                  از RTL و responsive UI.
                 </li>
               </ul>
 
               <div class="arch-highlight">
                 <div class="arch-title">
-                  <i class="fas fa-layer-group"></i> Front-End Engineering Focus in ERP
+                  <i class="fas fa-layer-group"></i> محورهای مهندسی فرانت‌اند در
+                  ERP
                 </div>
-
                 <div class="arch-tags">
                   <span class="arch-tag">PageShell Architecture</span>
                   <span class="arch-tag">Data-Intensive UI</span>
@@ -782,22 +777,22 @@
 
             <div class="exp-item">
               <div class="exp-header">
-                <span>Front-End Developer</span>
-                <span>April 2023 – July 2024</span>
+                <span>توسعه‌دهنده فرانت‌اند</span>
+                <span>فروردین ۱۴۰۲ – تیر ۱۴۰۳</span>
               </div>
-              <div class="exp-company">LoveCode · Remote</div>
+              <div class="exp-company">لاول‌کد · دورکاری</div>
               <ul class="exp-desc">
                 <li>
-                  Built responsive web apps using React, TypeScript, Redux,
-                  and Tailwind CSS.
+                  ساخت رابط‌های واکنش‌گرا و آماده تولید با React، TypeScript،
+                  Redux و Tailwind CSS برای پروژه‌های وب متنوع.
                 </li>
                 <li>
-                  Delivered clean, maintainable code & collaborated with
-                  designers/backend teams.
+                  تبدیل دقیق طرح‌های UI/UX به کامپوننت‌های قابل نگهداری و هماهنگ
+                  با نیازهای محصول.
                 </li>
                 <li>
-                  Converted UI/UX designs into production-ready
-                  pixel-perfect interfaces.
+                  همکاری با تیم طراحی و بک‌اند برای تحویل صفحات تمیز، قابل توسعه
+                  و سازگار با API.
                 </li>
               </ul>
             </div>
@@ -807,18 +802,25 @@
 
       <div class="section">
         <div class="section-title">
-          <span><i class="fas fa-star"></i></span> Featured Projects
+          <span><i class="fas fa-star"></i></span> پروژه‌های شاخص
         </div>
 
         <div class="projects-grid">
           <div class="project-item project-item--featured">
             <div class="project-header">
-              <span class="project-name">NeoVault – Personal Knowledge Vault</span>
+              <span class="project-name">NeoVault – خزانه دانش شخصی</span>
               <div style="display: flex; gap: 12px; align-items: center">
-                <a href="https://github.com/mahdidelavarz/neovault" class="project-link">
-                  <i class="fab fa-github"></i> GitHub
+                <a
+                  href="https://github.com/mahdidelavarz/neovault"
+                  class="project-link"
+                >
+                  <i class="fab fa-github"></i> گیت‌هاب
                 </a>
-                <a href="https://neovault.ir" class="project-link" target="_blank">
+                <a
+                  href="https://neovault.ir"
+                  class="project-link"
+                  target="_blank"
+                >
                   <i class="fas fa-external-link-alt"></i> neovault.ir
                 </a>
               </div>
@@ -838,20 +840,39 @@
               <span class="tech-badge">JWT</span>
             </div>
             <ul class="exp-desc">
-              <li>Developed a self-hosted full-stack application for organizing links, notes, code snippets, API requests, and personal knowledge in one workspace.</li>
-              <li>Implemented PostgreSQL full-text search, hierarchical categories, bulk operations, and JWT/refresh-token authentication.</li>
-              <li>Added client-side encryption, offline PWA support, a synchronization queue, and containerized deployment with Docker Compose and Nginx.</li>
+              <li>
+                توسعه یک اپلیکیشن self-hosted و full-stack برای سازمان‌دهی لینک،
+                یادداشت، code snippet، درخواست API و دانش شخصی در یک فضای
+                یکپارچه.
+              </li>
+              <li>
+                پیاده‌سازی جست‌وجوی متن‌کامل PostgreSQL، دسته‌بندی سلسله‌مراتبی،
+                عملیات گروهی و احراز هویت مبتنی بر JWT و refresh token.
+              </li>
+              <li>
+                افزودن رمزگذاری سمت کلاینت، تجربه PWA آفلاین و صف همگام‌سازی؛
+                همراه با استقرار containerized توسط Docker Compose و Nginx.
+              </li>
             </ul>
           </div>
 
           <div class="project-item">
             <div class="project-header">
-              <span class="project-name">AranazShop – Persian E-Commerce Platform</span>
+              <span class="project-name"
+                >AranazShop – پلتفرم فروشگاه اینترنتی فارسی</span
+              >
               <div style="display: flex; gap: 12px; align-items: center">
-                <a href="https://github.com/mahdidelavarz/nazishop" class="project-link">
-                  <i class="fab fa-github"></i> GitHub
+                <a
+                  href="https://github.com/mahdidelavarz/nazishop"
+                  class="project-link"
+                >
+                  <i class="fab fa-github"></i> گیت‌هاب
                 </a>
-                <a href="https://aranazshop.ir" class="project-link" target="_blank">
+                <a
+                  href="https://aranazshop.ir"
+                  class="project-link"
+                  target="_blank"
+                >
                   <i class="fas fa-external-link-alt"></i> aranazshop.ir
                 </a>
               </div>
@@ -870,16 +891,29 @@
               <span class="tech-badge">Docker</span>
             </div>
             <ul class="exp-desc">
-              <li>Developed a Persian full-stack store with product variants, search and filtering, shopping cart, and order submission and tracking flows.</li>
-              <li>Implemented OTP login, role-based access, and an administration panel for products, orders, and inventory with Express, TypeORM, and PostgreSQL.</li>
-              <li>Designed an RTL, responsive interface with dark mode and guest/user cart state management.</li>
+              <li>
+                توسعه فروشگاه full-stack فارسی با کاتالوگ و variant محصول،
+                جست‌وجو و فیلتر، سبد خرید و جریان ثبت و پیگیری سفارش.
+              </li>
+              <li>
+                پیاده‌سازی ورود OTP، دسترسی مبتنی بر نقش و پنل مدیریت محصول،
+                سفارش و موجودی با Express، TypeORM و PostgreSQL.
+              </li>
+              <li>
+                طراحی رابط RTL و responsive، دارک‌مود و مدیریت stateهای سبد خرید
+                مهمان و کاربر.
+              </li>
             </ul>
           </div>
 
           <div class="project-item">
             <div class="project-header">
-              <span class="project-name">Portfolio Website</span>
-              <a href="https://mahdidelavar.ir" class="project-link" target="_blank">
+              <span class="project-name">Portfolio - پورتفولیو</span>
+              <a
+                href="https://mahdidelavar.ir"
+                class="project-link"
+                target="_blank"
+              >
                 <i class="fas fa-external-link-alt"></i> mahdidelavar.ir
               </a>
             </div>
@@ -892,17 +926,31 @@
               <span class="tech-badge">PostgreSQL</span>
             </div>
             <ul class="exp-desc">
-              <li>Developed a personal portfolio with Next.js App Router, responsive dark UI, technical SEO, metadata, and sitemap support.</li>
-              <li>Built Persian and English engineering article sections for in-depth case studies on front-end architecture, ERP work, and real technical decisions.</li>
-              <li>Built interactive JavaScript and React challenges with categories, filtering, answer submission, saved progress, and a leaderboard.</li>
+              <li>
+                توسعه پورتفولیوی شخصی با Next.js App Router، طراحی responsive و
+                dark UI، همراه با SEO فنی، metadata و sitemap.
+              </li>
+              <li>
+                توسعه بخش مقاله‌های مهندسی فارسی و انگلیسی برای انتشار case
+                studyهای عمیق درباره معماری frontend، ERP و تصمیم‌های فنی واقعی.
+              </li>
+              <li>
+                ساخت بخش چالش‌های تعاملی JavaScript و React با دسته‌بندی، فیلتر،
+                ثبت پاسخ، ذخیره پیشرفت و leaderboard.
+              </li>
             </ul>
           </div>
 
           <div class="project-item">
             <div class="project-header">
-              <span class="project-name">FrontForge – Front-End Decision Engine</span>
-              <a href="https://github.com/mahdidelavarz/Frontend-Decision-Engine" class="project-link">
-                <i class="fab fa-github"></i> GitHub
+              <span class="project-name"
+                >FrontForge – موتور تصمیم‌گیری فرانت‌اند</span
+              >
+              <a
+                href="https://github.com/mahdidelavarz/Frontend-Decision-Engine"
+                class="project-link"
+              >
+                <i class="fab fa-github"></i> گیت‌هاب
               </a>
             </div>
             <div class="project-tech">
@@ -914,8 +962,15 @@
               <span class="tech-badge">Static Export</span>
             </div>
             <ul class="exp-desc">
-              <li>Built a client-side wizard for documenting front-end architecture decisions, from framework and folder structure to design tokens and testing standards.</li>
-              <li>Implemented selection-conflict detection, live design-system previews, and ZIP output for starting new projects.</li>
+              <li>
+                ساخت ویزارد client-side برای مستندسازی تصمیم‌های معماری
+                فرانت‌اند؛ از framework و ساختار پوشه تا design token و
+                استاندارد تست.
+              </li>
+              <li>
+                پیاده‌سازی تشخیص تعارض انتخاب‌ها، پیش‌نمایش زنده design system و
+                تولید خروجی ZIP برای شروع پروژه.
+              </li>
             </ul>
           </div>
         </div>

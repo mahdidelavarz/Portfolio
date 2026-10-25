@@ -167,7 +167,7 @@ const ContactMe = memo<ContactMeProps>(() => {
     {
       id: "telegram",
       label: "Telegram",
-      value: "@mahdi_delavar",
+      value: "Mahdi Delavar",
       icon: MingcuteTelegramLine,
       color: "from-sky-500 to-blue-600",
       borderColor: "border-sky-400/50",

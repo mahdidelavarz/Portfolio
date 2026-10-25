@@ -94,7 +94,6 @@ export const metadata: Metadata = {
     title: "Mahdi Delavar | Frontend Developer",
     description:
       "React and TypeScript frontend development focused on reusable architecture, data-intensive interfaces, and real business workflows.",
-    creator: "@mahdi_delavar",
     images: ["https://mahdidelavar.ir/portfolio.png"],
   },
   robots: { index: true, follow: true },
@@ -144,16 +143,15 @@ const structuredData = {
       telephone: "+989025574357",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Tehran",
-        addressRegion: "Tehran Province",
+        addressLocality: "Tabriz",
+        addressRegion: "East Azerbaijan",
         addressCountry: "IR",
       },
       sameAs: [
         "https://github.com/mahdidelavarz",
         "https://www.linkedin.com/in/mahdi-delavar-5338ba280",
-        "https://twitter.com/mahdi_delavar",
         "https://t.me/osis13",
-        "https://wa.me/09025574357"
+        "https://wa.me/989025574357"
       ],
       knowsAbout: [
         "Frontend Development",

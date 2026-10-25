@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Portfolio",
     "Web Development",
     "Software Engineer",
-    "Tehran Developer",
+    "Tabriz Developer",
     "Iran Developer",
     "Freelance Developer",
     "Remote Developer",
@@ -79,8 +79,6 @@ export const metadata: Metadata = {
     title: "Mahdi Delavar - Frontend Developer Portfolio",
     description:
       "Experienced Frontend Developer specializing in React, Next.js, and modern web technologies.",
-    creator: "@mahdi_delavar",
-    site: "@mahdi_delavar",
     images: ["/portfolio.png"],
   },
   robots: {
@@ -156,12 +154,6 @@ export default function RootLayout({
         <meta name="rating" content="general" />
         <meta name="distribution" content="global" />
         <meta name="revisit-after" content="7 days" />
-
-        {/* Geo tags for local SEO */}
-        <meta name="geo.region" content="IR-07" />
-        <meta name="geo.placename" content="Tehran" />
-        <meta name="geo.position" content="35.6892;51.3890" />
-        <meta name="ICBM" content="35.6892, 51.3890" />
 
         {/* DNS Prefetch for performance */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
