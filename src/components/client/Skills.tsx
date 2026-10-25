@@ -90,6 +90,8 @@ const SKILL_STACKS: SkillStackMap = {
       { name: "Azure", icon: "logos:microsoft-azure" },
       { name: "CI/CD", icon: "simple-icons:githubactions" },
       { name: "Stimulsoft Report", icon: "mdi:file-chart-outline" },
+      { name: "Claude Code / Codex", icon: "mdi:robot-outline" },
+      { name: "Agent skills & MCP", icon: "mdi:connection" },
     ],
   },
 };

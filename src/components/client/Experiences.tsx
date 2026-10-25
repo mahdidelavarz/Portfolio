@@ -33,6 +33,7 @@ const EXPERIENCES = [
       "Built a multi-tab workspace on React Router with pinned and temporary tabs, drag reordering and persisted state, so users can keep several records open at once.",
       "Implemented the engineering revision flow after the sales-to-engineering handoff: automatic revision numbers, workflow gating and revision-aware part-list edits.",
       "Replaced modal-only admin screens with nested, parent-aware routes, and wrote supporting .NET Core / EF Core endpoints when my features needed them.",
+      "Codified the ERP's frontend and backend architecture as agent skills and docs, so new modules built with Codex and Claude Code follow the same conventions as the hand-written code.",
     ],
     tags: [
       "React",
