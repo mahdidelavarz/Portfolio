@@ -8,6 +8,7 @@ import {
   getPublishedChallenges,
   toPublicChallenge,
 } from "@/lib/challenges/repository";
+import { OG_IMAGE } from "@/lib/seo";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: challenge.description,
     alternates: { canonical },
     openGraph: {
+      images: [OG_IMAGE],
       title: challenge.title,
       description: challenge.description,
       url: canonical,

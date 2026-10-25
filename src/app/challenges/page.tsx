@@ -5,12 +5,14 @@ import LabFeature from "@/components/challenges/hub/LabFeature";
 import LabSteps from "@/components/challenges/hub/LabSteps";
 import { getPublishedPublicChallenges } from "@/lib/challenges/repository";
 import { getLabShowcase, getLabSummary } from "@/lib/lab/repository";
+import { OG_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "چالش‌های فرانت‌اند",
   description: "آزمایشگاه پرفورمنس با تیکت‌های واقعی و سؤال‌های کوتاه JavaScript و React همراه با پاسخ تشریحی.",
   alternates: { canonical: "https://mahdidelavar.ir/challenges" },
   openGraph: {
+    images: [OG_IMAGE],
     title: "چالش‌های فرانت‌اند | مهدی دلاور",
     description: "مشکل‌های پرفورمنس را در یک اپ زنده پیدا و حل کنید، یا دانشتان را با سؤال‌های کوتاه محک بزنید.",
     url: "https://mahdidelavar.ir/challenges",

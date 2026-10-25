@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import ChallengeShell from "@/components/challenges/ChallengeShell";
 import ChallengesExplorer from "@/components/challenges/ChallengesExplorer";
 import { getPublishedPublicChallenges } from "@/lib/challenges/repository";
+import { OG_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "سؤال‌های کوتاه فرانت‌اند",
   description: "سؤال‌های کوتاه و تعاملی JavaScript و React همراه با پاسخ تشریحی و رتبه‌بندی ماهانه.",
   alternates: { canonical: "https://mahdidelavar.ir/challenges/quiz" },
   openGraph: {
+    images: [OG_IMAGE],
     title: "سؤال‌های کوتاه فرانت‌اند | مهدی دلاور",
     description: "دانشتان را با چالش‌های کوتاه JavaScript و React محک بزنید.",
     url: "https://mahdidelavar.ir/challenges/quiz",

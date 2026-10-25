@@ -91,7 +91,7 @@ const socialLinks: SocialLink[] = [
     icon: LineWhatsapp,
     color: "text-green-500 hover:text-green-400",
     bg: "hover:bg-green-900/30",
-    link: "https://wa.me/09025574357",
+    link: "https://wa.me/989025574357",
     label: "WhatsApp",
   },
 ];
