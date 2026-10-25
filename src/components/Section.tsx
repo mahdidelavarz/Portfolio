@@ -10,7 +10,7 @@ const Section: React.FC<SectionProps> = memo(({ id, title, children }) => {
   return (
     <section
       id={id}
-      className="min-h-screen flex items-center justify-center relative"
+      className="relative scroll-mt-16"
       aria-label={title}
     >
       <div className="w-full text-center text-white">
