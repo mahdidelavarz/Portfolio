@@ -194,7 +194,7 @@ export default function Projects() {
   );
 
   return (
-    <div className="relative py-20 md:py-28 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
+    <div className="relative py-20 md:py-28 bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Projects"

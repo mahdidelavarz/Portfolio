@@ -7,7 +7,7 @@ export default function ChallengesPreview() {
 
   return (
     <section
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950 py-12 sm:py-20"
+      className="relative min-h-screen overflow-hidden bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950 py-12 sm:py-20"
       aria-labelledby="frontend-challenges-title"
     >
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
@@ -32,14 +32,14 @@ export default function ChallengesPreview() {
           </h2>
         </header>
 
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12">
-          <div className="text-left">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-10">
+          <div className="text-center">
             <p className="mb-8 text-lg leading-8 text-slate-300 md:text-xl md:leading-9">
               A simulated online store with real performance tickets: you find
               what makes it slow, change the code, and watch the numbers drop.
             </p>
 
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
               <Link
                 href="/challenges/lab"
                 className="group rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-3.5 font-semibold text-white transition hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/30"
@@ -62,16 +62,19 @@ export default function ChallengesPreview() {
               </Link>
             </div>
             <p className="mt-5 text-xs text-slate-500">
-              {preview ? `${preview.tickets} tickets open · ` : ""}Free, in Persian, no sign-up.
+              {preview ? `${preview.tickets} tickets open · ` : ""}Free, in
+              Persian, no sign-up.
             </p>
           </div>
 
           {preview && (
-            <LabWaterfallPreview
-              before={preview.before}
-              after={preview.after}
-              targetMs={preview.targetMs}
-            />
+            <div className="w-full">
+              <LabWaterfallPreview
+                before={preview.before}
+                after={preview.after}
+                targetMs={preview.targetMs}
+              />
+            </div>
           )}
         </div>
       </div>
