@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import HeaderMenu from "../components/HeaderMenu";
 import Section from "../components/Section";
 import HomeSection from "@/components/HomeSection";
@@ -7,54 +6,12 @@ import BurgerMenu from "@/components/BurgerMenu";
 import ChallengesPreview from "@/components/server/ChallengesPreview.server";
 import ArticlesPreview from "@/components/server/ArticlesPreview.server";
 
-// Dynamic imports for better performance
-const About = dynamic(() => import("../components/client/About"), {
-  loading: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      Loading...
-    </div>
-  ),
-});
-
-const ContactMe = dynamic(() => import("../components/client/ContactMe"), {
-  loading: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      Loading...
-    </div>
-  ),
-});
-
-const Experiences = dynamic(() => import("../components/client/Experiences"), {
-  loading: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      Loading...
-    </div>
-  ),
-});
-
-const Projects = dynamic(() => import("../components/client/Projects"), {
-  loading: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      Loading...
-    </div>
-  ),
-});
-
-const Skills = dynamic(() => import("../components/client/Skills"), {
-  loading: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      Loading...
-    </div>
-  ),
-});
-
-const Education = dynamic(() => import("@/components/client/Education"), {
-  loading: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      Loading...
-    </div>
-  ),
-});
+import About from "@/components/client/About";
+import Experiences from "@/components/client/Experiences";
+import Projects from "@/components/client/Projects";
+import Skills from "@/components/client/Skills";
+import Education from "@/components/client/Education";
+import ContactMe from "@/components/client/ContactMe";
 
 export const metadata: Metadata = {
   title: { absolute: "Mahdi Delavar | Frontend Developer" },
@@ -162,14 +119,6 @@ export default function Page() {
             <About />
           </Section>
 
-          {/* Education Section */}
-          <Section
-            id="educations"
-            title="Education"
-            aria-label="Education Section"
-          >
-            <Education />
-          </Section>
 
           {/* Experience Section */}
           <Section
@@ -216,6 +165,15 @@ export default function Page() {
             <ArticlesPreview />
           </Section>
 
+          {/* Education Section */}
+          <Section
+            id="educations"
+            title="Education"
+            aria-label="Education Section"
+          >
+            <Education />
+          </Section>
+
           {/* Contact Section */}
           <Section
             id="contactme"
@@ -228,7 +186,7 @@ export default function Page() {
 
         {/* Footer */}
         <footer
-          className="h-25 flex flex-col items-center justify-center text-center text-slate-400 border-t border-slate-800 absolute bottom-0 w-full z-50"
+          className="py-8 flex flex-col items-center justify-center text-center text-slate-400 border-t border-slate-800 bg-gray-950"
           role="contentinfo"
           aria-label="Footer"
         >

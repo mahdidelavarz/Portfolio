@@ -34,24 +34,20 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 lg:flex flex-col gap-3 transition-all duration-1000 hidden">
         <div className="w-px h-16 bg-gradient-to-b from-transparent via-white to-transparent mx-auto"></div>
 
-        {socialLinks.map((social, index) => (
+        {socialLinks.map((social) => (
           <a
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"
-            key={index}
+            key={social.label}
+            aria-label={social.label}
+            className={`group relative flex items-center justify-center w-12 h-12 rounded-xl backdrop-blur-md bg-black/20 border border-white/10 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-white/20`}
           >
-            <button
-              className={`group relative w-12 h-12 rounded-xl backdrop-blur-md bg-black/20 border border-white/10 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 hover:shadow-lg hover:border-white/20 cursor-pointer`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-              aria-label={social.label}
-            >
-              <social.icon
-                width="20"
-                height="20"
-                className="mx-auto transition-all duration-300"
-              />
-            </button>
+            <social.icon
+              width="20"
+              height="20"
+              className="transition-all duration-300"
+            />
           </a>
         ))}
 

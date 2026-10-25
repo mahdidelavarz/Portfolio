@@ -23,7 +23,6 @@ interface NavItem {
 const NAVIGATION_ITEMS: NavItem[] = [
   { id: "home", title: "Home", iconName: SolarHome2BoldIcon },
   { id: "aboutme", title: "About Me", iconName: MingcuteUserWarningFill },
-  { id: "educations", title: "Educations", iconName: MdiAccountStudent },
   {
     id: "experiences",
     title: "Experiences",
@@ -49,6 +48,7 @@ const NAVIGATION_ITEMS: NavItem[] = [
     title: "Articles",
     iconName: SolarDocumentText,
   },
+  { id: "educations", title: "Education", iconName: MdiAccountStudent },
   {
     id: "contactme",
     title: "Contact Me",

@@ -36,7 +36,6 @@ interface SocialLink {
 const navItems: NavItem[] = [
   { id: "home", title: "Home", icon: SolarHome2BoldIcon },
   { id: "aboutme", title: "About Me", icon: MingcuteUserWarningFill },
-  { id: "educations", title: "Educations", icon: MdiAccountStudent },
   { id: "experiences", title: "Experiences", icon: MingcuteUserStarFill },
   {
     id: "projects",
@@ -58,6 +57,7 @@ const navItems: NavItem[] = [
     title: "Articles",
     icon: SolarDocumentText,
   },
+  { id: "educations", title: "Education", icon: MdiAccountStudent },
   {
     id: "contactme",
     title: "Contact Me",
