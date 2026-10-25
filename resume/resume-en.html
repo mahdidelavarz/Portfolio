@@ -3,923 +3,353 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mahdi Delavar – Resume</title>
-
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-
+    <title>Mahdi Delavar – Frontend Developer – Resume</title>
+    <!--
+      One-page, single-column resume built for ATS parsing:
+      real text only (no icon fonts or images), standard section names,
+      and no tables or multi-column layout.
+      To export: open in Chrome → Print → Save as PDF, paper A4,
+      margins "Default", scale 100%, "Background graphics" off.
+    -->
     <style>
-      /* ========== Vazir Font (CDN) ========== */
-      @font-face {
-        font-family: "Vazir";
-        font-style: normal;
-        font-weight: 400;
-        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2") format("woff2");
-      }
-
-      @font-face {
-        font-family: "Vazir";
-        font-style: normal;
-        font-weight: 700;
-        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2") format("woff2");
-      }
-
-      @font-face {
-        font-family: "Vazir";
-        font-style: normal;
-        font-weight: 900;
-        src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Black.woff2") format("woff2");
-      }
-
-      /* ========== Main Styles (LTR) ========== */
       * {
         box-sizing: border-box;
       }
 
+      :root {
+        --ink: #111827;
+        --muted: #4b5563;
+        --accent: #0f4c75;
+        --rule: #d1d5db;
+      }
+
+      html {
+        background: #f3f4f6;
+      }
+
       body {
         margin: 0;
-        padding: 40px;
-        font-family: "Vazir", sans-serif;
-        background: #f5f7fa;
-        color: #1d2d3a;
-        line-height: 1.75;
-        direction: ltr;
+        padding: 32px 16px;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-size: 9.6pt;
+        line-height: 1.35;
+        color: var(--ink);
       }
 
-      .resume {
-        position: relative;
-        max-width: 1050px;
+      .page {
+        max-width: 210mm;
         margin: 0 auto;
-        background: white;
-        border-radius: 18px;
-        padding: 50px 60px;
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
+        padding: 11mm 14mm;
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       }
 
-      .resume::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 6px;
-        background: linear-gradient(90deg, #0b2b44, #0f4c75, #3a8dc0);
-      }
-
-      /* Header */
-      .header-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 26px;
-        border-bottom: 2px solid #e9eff4;
-        padding-bottom: 24px;
-      }
-
-      .name-title h1 {
-        font-size: 2.9rem;
-        font-weight: 700;
-        letter-spacing: -0.6px;
-        color: #0b2b44;
-        margin-bottom: 8px;
-        line-height: 1.2;
-      }
-
-      .name-title .tagline {
-        display: inline-block;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #1e5a7c;
-        border-left: 3px solid #0f4c75;
-        padding-left: 10px;
-        letter-spacing: 0.2px;
-      }
-
-      .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        align-items: flex-end;
-        font-size: 0.85rem;
-        color: #2a3b4e;
-        padding-top: 6px;
-      }
-
-      .contact-row {
-        display: flex;
-        gap: 18px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .contact-row span {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        white-space: nowrap;
-      }
-
-      .contact-info i {
-        width: 16px;
-        color: #1d6f9c;
-        font-size: 0.9rem;
-        text-align: center;
-      }
-
-      .contact-info a {
-        color: #1e3b54;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-        border-bottom: 1px solid transparent;
-      }
-
-      .contact-info a:hover {
-        color: #0b5e86;
-        border-bottom: 1px solid #0b5e86;
-      }
-
-      /* Layout */
-      .grid {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-      }
-
-      .grid > div:first-child {
-        flex: 0 0 28%;
-        min-width: 0;
-      }
-
-      .grid > div:last-child {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .section {
-        margin-bottom: 26px;
-      }
-
-      .section-title {
-        font-size: 1.15rem;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: #0f4c75;
-        border-left: 4px solid #0f4c75;
-        padding-left: 10px;
-        letter-spacing: 0.5px;
-      }
-
-      /* Skills */
-      .skill-group {
-        margin-bottom: 14px;
-      }
-
-      .skill-title {
-        font-weight: 600;
-        font-size: 0.9rem;
-        margin-bottom: 6px;
-        color: #22394b;
-      }
-
-      .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      .badge {
-        padding: 5px 12px;
-        background: #eef3f7;
-        border-radius: 20px;
-        font-size: 0.78rem;
-        border: 1px solid #dce5ee;
-        font-weight: 500;
-        line-height: 1.3;
-        white-space: nowrap;
-      }
-
-      /* Experience */
-      .exp-item {
-        margin-bottom: 22px;
-      }
-
-      .exp-header {
-        display: flex;
-        justify-content: space-between;
-        font-weight: 600;
-        font-size: 1rem;
-        margin-bottom: 4px;
-        color: #0f1c2e;
-      }
-
-      .exp-company {
-        color: #26648e;
-        margin-bottom: 8px;
-        font-size: 0.95rem;
-        font-weight: 500;
-      }
-
-      .exp-desc {
-        margin: 0;
-        padding-left: 18px;
-      }
-
-      .exp-desc li {
-        margin-bottom: 6px;
-        font-size: 0.9rem;
-        list-style: none;
-        position: relative;
-        padding-left: 16px;
-      }
-
-      .exp-desc li::before {
-        content: "▸";
-        color: #0f4c75;
-        font-weight: bold;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      /* Architecture Highlight */
-      .arch-highlight {
-        background: #f0f6fb;
-        border-left: 3px solid #0f4c75;
-        padding: 14px 16px;
-        margin-top: 14px;
-        border-radius: 6px;
-      }
-
-      .arch-highlight .arch-title {
-        font-weight: 700;
-        font-size: 0.88rem;
-        color: #0f1c2e;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .arch-block {
-        margin-bottom: 8px;
-      }
-
-      .arch-subtitle {
-        font-weight: 700;
-        font-size: 0.85rem;
-        color: #0f1c2e;
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .arch-subtitle::before {
-        content: "▸";
-        color: #0f4c75;
-        font-weight: bold;
-      }
-
-      .arch-sublist {
-        margin: 0;
-        padding-left: 20px;
-        font-size: 0.82rem;
-        color: #375063;
-        line-height: 1.7;
-      }
-
-      .arch-sublist li {
-        list-style: none;
-        position: relative;
-        padding-left: 14px;
-      }
-
-      .arch-sublist li::before {
-        content: "•";
-        color: #0f4c75;
-        font-weight: bold;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      .arch-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 10px;
-      }
-
-      .arch-tag {
-        padding: 4px 10px;
-        background: white;
-        border: 1px solid #c4d7e6;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #1a4d6e;
-      }
-
-      /* Projects */
-      .projects-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .project-item {
-        padding: 18px 20px;
-        background: #fafcfd;
-        border-radius: 12px;
-        border: 1px solid #e6edf3;
-        transition: all 0.2s ease;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .project-item:hover {
-        border-color: #c4d7e6;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      }
-
-      .project-header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        gap: 6px;
-      }
-
-      .project-name {
-        font-weight: 700;
-        font-size: 1.05rem;
-        color: #0f1c2e;
-      }
-
-      .project-link {
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: #0f4c75;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+      a {
+        color: inherit;
         text-decoration: none;
       }
 
-      .project-link:hover {
-        color: #1a6fa0;
-        text-decoration: none;
+      header {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 7px;
+        margin-bottom: 9px;
       }
 
-      .project-tech {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 10px;
+      h1 {
+        margin: 0;
+        font-size: 21pt;
+        line-height: 1.1;
+        letter-spacing: -0.2px;
       }
 
-      .tech-badge {
-        padding: 4px 10px;
-        background: #e8f0f8;
-        color: #0f4c75;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.3px;
+      .headline {
+        margin: 2px 0 5px;
+        font-size: 11.5pt;
+        font-weight: bold;
+        color: var(--accent);
       }
 
-      .project-desc {
-        font-size: 0.88rem;
-        color: #375063;
-        line-height: 1.7;
+      .contact {
+        margin: 0;
+        font-size: 9pt;
+        color: var(--muted);
+      }
+
+      .contact span + span::before {
+        content: " | ";
+        color: var(--rule);
+      }
+
+      h2 {
+        margin: 8px 0 3px;
+        padding-bottom: 2px;
+        border-bottom: 1px solid var(--rule);
+        font-size: 10.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: var(--accent);
+      }
+
+      p {
         margin: 0;
       }
 
-      .primary {
-        background: #dfe9f3;
-        color: rgb(36, 33, 33);
+      ul {
+        margin: 3px 0 0;
+        padding-left: 15px;
       }
 
-      .fas {
-        color: #1a6fa0;
+      li {
+        margin-bottom: 2px;
       }
 
-      hr {
-        border: 0;
-        height: 1px;
-        background: #e6edf3;
-        margin: 20px 0;
+      .entry {
+        margin-bottom: 7px;
       }
 
-      /* ========== Print / PDF – optimized for A4 and 1-2 pages ========== */
+      .entry:last-child {
+        margin-bottom: 0;
+      }
+
+      .entry-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: bold;
+      }
+
+      .entry-head .date {
+        flex-shrink: 0;
+        font-weight: normal;
+        color: var(--muted);
+      }
+
+      .entry-sub {
+        color: var(--muted);
+      }
+
+      .stack {
+        font-size: 9pt;
+        color: var(--muted);
+      }
+
+      .skills p {
+        margin-bottom: 2px;
+      }
+
       @page {
         size: A4;
-        margin: 10mm;
+        margin: 0;
       }
 
       @media print {
         html,
         body {
-          print-color-adjust: exact;
-          -webkit-print-color-adjust: exact;
+          background: #fff;
         }
 
         body {
           padding: 0;
-          background: white;
-          font-size: 13px;
-          line-height: 1.5;
         }
 
-        .resume {
-          max-width: 100%;
+        .page {
+          max-width: none;
           box-shadow: none;
-          border-radius: 0;
-          padding: 10mm 12mm;
-          overflow: visible;
         }
 
-        .header-row {
-          margin-bottom: 10px;
-          padding-bottom: 10px;
-          page-break-inside: avoid;
-          page-break-after: avoid;
-          flex-wrap: nowrap;
-          gap: 12px;
+        .entry,
+        h2 {
+          break-inside: avoid;
         }
 
-        .name-title {
-          min-width: 0;
-        }
-
-        .name-title h1 {
-          font-size: 1.7rem;
-          margin-bottom: 3px;
-        }
-
-        .name-title .tagline {
-          font-size: 0.74rem;
-          padding-left: 8px;
-        }
-
-        .contact-info {
-          font-size: 0.68rem;
-          gap: 3px;
-          padding-top: 2px;
-        }
-
-        .contact-row {
-          gap: 10px;
-        }
-
-        .contact-info i {
-          width: 12px;
-          font-size: 0.74rem;
-        }
-
-        .grid {
-          gap: 12px;
-        }
-
-        .section {
-          margin-bottom: 14px;
-        }
-
-        .section-title {
-          font-size: 1rem;
-          margin-bottom: 8px;
-          page-break-after: avoid;
-        }
-
-        .skills {
-          gap: 4px;
-        }
-
-        .badge {
-          padding: 3px 8px;
-          font-size: 0.68rem;
-        }
-
-        .skill-title {
-          font-size: 0.8rem;
-          margin-bottom: 4px;
-        }
-
-        .skill-group {
-          margin-bottom: 8px;
-          page-break-inside: avoid;
-        }
-
-        .exp-item {
-          margin-bottom: 14px;
-        }
-
-        .exp-header {
-          font-size: 0.9rem;
-          page-break-after: avoid;
-        }
-
-        .exp-company {
-          font-size: 0.85rem;
-          margin-bottom: 4px;
-        }
-
-        .exp-desc li {
-          font-size: 0.8rem;
-          margin-bottom: 3px;
-        }
-
-        .arch-highlight {
-          padding: 8px 12px;
-          margin-top: 8px;
-        }
-
-        .arch-highlight .arch-title {
-          font-size: 0.8rem;
-          margin-bottom: 6px;
-        }
-
-        .arch-block {
-          margin-bottom: 5px;
-        }
-
-        .arch-subtitle {
-          font-size: 0.78rem;
-          margin-bottom: 2px;
-        }
-
-        .arch-sublist li {
-          font-size: 0.74rem;
-        }
-
-        .arch-tag {
-          font-size: 0.68rem;
-          padding: 2px 8px;
-        }
-
-        .projects-grid {
-          gap: 10px;
-        }
-
-        .project-item {
-          padding: 10px 14px;
-          page-break-inside: avoid;
-        }
-
-        .project-name {
-          font-size: 0.9rem;
-        }
-
-        .project-desc {
-          font-size: 0.76rem;
-        }
-
-        .project-link {
-          font-size: 0.76rem;
-        }
-
-        a {
-          color: black;
-          text-decoration: none;
+        h2 {
+          break-after: avoid;
         }
       }
     </style>
   </head>
 
   <body>
-    <div class="resume">
-      <!-- Header -->
-      <div class="header-row">
-        <div class="name-title">
-          <h1>Mahdi Delavar</h1>
-          <div class="tagline">Front-End Developer</div>
-        </div>
-        <div class="contact-info">
-          <div class="contact-row">
-            <span>
-              <i class="fas fa-envelope"></i>
-              <a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a>
-            </span>
-            <span><i class="fas fa-phone-alt"></i> +98 902 557 4357</span>
+    <main class="page">
+      <header>
+        <h1>Mahdi Delavar</h1>
+        <p class="headline">Frontend Developer · React &amp; TypeScript</p>
+        <p class="contact">
+          <span>Tabriz, Iran · Open to remote work &amp; relocation</span>
+          <span>+98 902 557 4357</span>
+          <span><a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a></span>
+        </p>
+        <p class="contact">
+          <span><a href="https://mahdidelavar.ir">mahdidelavar.ir</a></span>
+          <span
+            ><a href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
+              >linkedin.com/in/mahdi-delavar-5338ba280</a
+            ></span
+          >
+          <span><a href="https://github.com/mahdidelavarz">github.com/mahdidelavarz</a></span>
+        </p>
+      </header>
+
+      <section>
+        <h2>Summary</h2>
+        <p>
+          Frontend developer with 3+ years of professional React and TypeScript experience, including two years
+          on an enterprise ERP of about 80 pages. I build reusable architecture for data-heavy business apps: typed
+          page composition, shared tables and forms, and routed workflows. I can also read and extend .NET /
+          SQL Server backends and deploy with Docker and Nginx.
+        </p>
+      </section>
+
+      <section class="skills">
+        <h2>Skills</h2>
+        <p>
+          <strong>Frontend:</strong> React, TypeScript, JavaScript, Next.js, TanStack Query, TanStack
+          Router, React Router, Zustand, React Hook Form, Zod, Tailwind CSS, Vite
+        </p>
+        <p>
+          <strong>UI engineering:</strong> data-heavy tables and forms, component architecture, RTL / Persian UI, responsive design
+        </p>
+        <p>
+          <strong>Backend (supporting):</strong> .NET Core, EF Core, Node.js, Express, SQL Server,
+          PostgreSQL, REST APIs
+        </p>
+        <p><strong>Tools:</strong> Git, Docker, Nginx, CDN, Azure, Stimulsoft Reports</p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span>Frontend Developer, Pump Turbine Co. (Petco)</span>
+            <span class="date">Aug 2024 – Present</span>
           </div>
-          <div class="contact-row">
-            <span>
-              <i class="fab fa-linkedin"></i>
-              <a
-                href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
-                target="_blank"
-                >linkedin.com/in/mahdi-delavar-5338ba280</a
-              >
-            </span>
-            <span>
-              <i class="fab fa-github"></i>
-              <a href="https://github.com/mahdidelavarz" target="_blank"
-                >github.com/mahdidelavarz</a
-              >
-            </span>
+          <div class="entry-sub">
+            Tabriz, Iran · Full-time · In-house ERP for a pump and turbine manufacturer (new React system since Nov 2024)
           </div>
-        </div>
-      </div>
-
-      <!-- Main -->
-      <div class="grid">
-        <!-- Sidebar -->
-        <div>
-          <div class="section">
-            <div class="section-title">
-              <span><i class="fas fa-code"></i></span> Technical Skills
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-atom"></i></span> Core Front-End Skills
-              </div>
-              <div class="skills">
-                <span class="badge primary">React.js</span>
-                <span class="badge primary">Next.js</span>
-                <span class="badge primary">TypeScript</span>
-                <span class="badge primary">Tailwind CSS</span>
-                <span class="badge primary">TanStack Query</span>
-                <span class="badge primary">Zustand</span>
-                <span class="badge primary">React Hook Form</span>
-                <span class="badge primary">React Router</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-layer-group"></i></span> Front-End UI & Architecture
-              </div>
-              <div class="skills">
-                <span class="badge">Vite</span>
-                <span class="badge">Axios</span>
-                <span class="badge">Data-Intensive UI</span>
-                <span class="badge">Reusable Architecture</span>
-                <span class="badge">RTL Support</span>
-                <span class="badge">Responsive UI</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-cog"></i></span> Backend & DevOps
-                (Basic)
-              </div>
-              <div class="skills">
-                <span class="badge">Node.js</span>
-                <span class="badge">Express</span>
-                <span class="badge">Docker</span>
-                <span class="badge">Docker Compose</span>
-                <span class="badge">SQL Server</span>
-                <span class="badge">PostgreSQL</span>
-                <span class="badge">REST APIs</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-tools"></i></span> Tools
-              </div>
-              <div class="skills">
-                <span class="badge">Git / GitHub</span>
-                <span class="badge">Azure</span>
-                <span class="badge">Basic CI/CD</span>
-                <span class="badge">Stimulsoft Report</span>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="section">
-            <div class="section-title">Education</div>
-            <div>
-              <div style="font-weight: 600">B.Sc. in Computer Engineering</div>
-              <div style="color: #375063; font-size: 0.9rem">
-                Islamic Azad University, Tabriz | 2023 – Present
-              </div>
-              <div style="margin-top: 6px; font-size: 0.85rem">
-                GPA: 16/20. Focus on Software Engineering & Web Development.
-              </div>
-            </div>
-          </div>
+          <ul>
+            <li>
+              Designed PageShell, a typed, metadata-driven page layer that composes data hooks,
+              forms, server/client tables and pluggable features (uploads, signatures, reports,
+              nested routes). It now powers 57 of the ERP's ~80 pages.
+            </li>
+            <li>
+              Built the shared data-table system: server-side paging, sorting and filtering,
+              multi-condition search, per-table persisted state, bulk actions, permission-aware row
+              actions and a mobile card view.
+            </li>
+            <li>
+              Built a multi-tab workspace on React Router with pinned and temporary tabs, drag
+              reordering and persisted state, so users can keep several records open at once.
+            </li>
+            <li>
+              Implemented the engineering revision flow after the sales-to-engineering handoff:
+              automatic revision numbers, workflow gating and revision-aware part-list edits.
+            </li>
+            <li>
+              Replaced modal-only admin screens with nested, parent-aware routes, and wrote
+              supporting .NET Core / EF Core endpoints when my features needed them.
+            </li>
+          </ul>
         </div>
 
-        <!-- Main Content -->
-        <div>
-          <div class="section">
-            <div class="section-title">Professional Summary</div>
-            <p class="project-desc">
-              Front-end developer with more than three years of experience building web products, including around two years working on a large, multi-module enterprise ERP. Focused on React and TypeScript, reusable architecture, data-intensive interfaces, complex forms and tables, and state and query management; experienced in turning business workflows into maintainable, extensible user interfaces.
-            </p>
+        <div class="entry">
+          <div class="entry-head">
+            <span>Frontend Developer, LoveCode (web agency)</span>
+            <span class="date">Apr 2023 – Sep 2024</span>
           </div>
-
-          <div class="section">
-            <div class="section-title">Professional Experience</div>
-
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>Front-End Developer</span>
-                <span>August 2024 – Present</span>
-              </div>
-              <div class="exp-company">Petco · Tabriz</div>
-              <ul class="exp-desc">
-                <li>
-                  Developed the front end of a multi-module enterprise ERP with
-                  React and TypeScript, including data-intensive pages,
-                  multi-step workflows, and shared infrastructure used across
-                  different areas of the system.
-                </li>
-                <li>
-                  Designed and evolved a typed, metadata-driven PageShell
-                  architecture for reusable composition of tables, forms,
-                  actions, and page policies, with nested-resource support and
-                  opt-in capabilities.
-                </li>
-                <li>
-                  Developed shared table and form infrastructure for client and
-                  server modes, filtering, sorting, pagination, selection,
-                  permission-aware actions, dynamic fields, and async/cascade
-                  selects.
-                </li>
-                <li>
-                  Moved hierarchical resources from deeply nested modals to
-                  parent-aware routed pages and integrated them with a
-                  multi-tab workspace, breadcrumbs, and table state.
-                </li>
-                <li>
-                  Implemented the front-end interface for a revision-based
-                  engineering workflow, separating the current Edition from
-                  history and presenting Added, Removed, and Modified changes
-                  across later revisions.
-                </li>
-              </ul>
-
-              <div class="arch-highlight">
-                <div class="arch-title">
-                  <i class="fas fa-layer-group"></i> Front-End Engineering Focus in ERP
-                </div>
-
-                <div class="arch-tags">
-                  <span class="arch-tag">PageShell Architecture</span>
-                  <span class="arch-tag">Data-Intensive UI</span>
-                  <span class="arch-tag">Server / Client Tables</span>
-                  <span class="arch-tag">Routed Workspaces</span>
-                  <span class="arch-tag">Nested Resources</span>
-                  <span class="arch-tag">Dynamic Forms</span>
-                  <span class="arch-tag">Workflow UI</span>
-                  <span class="arch-tag">File / Report Integration</span>
-                  <span class="arch-tag">RTL Enterprise UI</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>Front-End Developer</span>
-                <span>April 2023 – July 2024</span>
-              </div>
-              <div class="exp-company">LoveCode · Remote</div>
-              <ul class="exp-desc">
-                <li>
-                  Built responsive web apps using React, TypeScript, Redux,
-                  and Tailwind CSS.
-                </li>
-                <li>
-                  Delivered clean, maintainable code & collaborated with
-                  designers/backend teams.
-                </li>
-                <li>
-                  Converted UI/UX designs into production-ready
-                  pixel-perfect interfaces.
-                </li>
-              </ul>
-            </div>
-          </div>
+          <div class="entry-sub">Remote · Contract · Client work, mostly under NDA</div>
+          <ul>
+            <li>
+              Turned the agency's designs into responsive React + TypeScript frontends for client
+              websites and web apps.
+            </li>
+            <li>
+              Integrated client REST APIs and payment gateways, including loading, empty and error
+              states.
+            </li>
+            <li>
+              Worked with the agency's designers and backend developers to ship features on client
+              schedules.
+            </li>
+          </ul>
         </div>
-      </div>
+      </section>
 
-      <div class="section">
-        <div class="section-title">
-          <span><i class="fas fa-star"></i></span> Featured Projects
+      <section>
+        <h2>Projects</h2>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span>TidySense: AI-assisted personal planner</span>
+            <span class="date"
+              ><a href="https://tidysense.ir">tidysense.ir</a> ·
+              <a href="https://github.com/mahdidelavarz/tidysense">GitHub</a></span
+            >
+          </div>
+          <div class="stack">
+            React 19, TypeScript, TanStack Router &amp; Query, Zustand, React Hook Form, Zod, .NET
+            10, PostgreSQL
+          </div>
+          <ul>
+            <li>
+              Persian planner where AI drafts a week of tasks and routines from a goal; the user reviews the
+              draft before anything is saved. Today view, task dependencies, routines and phone OTP login.
+            </li>
+          </ul>
         </div>
 
-        <div class="projects-grid">
-          <div class="project-item project-item--featured">
-            <div class="project-header">
-              <span class="project-name">NeoVault – Personal Knowledge Vault</span>
-              <div style="display: flex; gap: 12px; align-items: center">
-                <a href="https://github.com/mahdidelavarz/neovault" class="project-link">
-                  <i class="fab fa-github"></i> GitHub
-                </a>
-                <a href="https://neovault.ir" class="project-link" target="_blank">
-                  <i class="fas fa-external-link-alt"></i> neovault.ir
-                </a>
-              </div>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">TanStack Query</span>
-              <span class="tech-badge">CodeMirror</span>
-              <span class="tech-badge">Express</span>
-              <span class="tech-badge">TypeORM</span>
-              <span class="tech-badge">PostgreSQL</span>
-              <span class="tech-badge">Docker</span>
-              <span class="tech-badge">PWA</span>
-              <span class="tech-badge">JWT</span>
-            </div>
-            <ul class="exp-desc">
-              <li>Developed a self-hosted full-stack application for organizing links, notes, code snippets, API requests, and personal knowledge in one workspace.</li>
-              <li>Implemented PostgreSQL full-text search, hierarchical categories, bulk operations, and JWT/refresh-token authentication.</li>
-              <li>Added client-side encryption, offline PWA support, a synchronization queue, and containerized deployment with Docker Compose and Nginx.</li>
-            </ul>
+        <div class="entry">
+          <div class="entry-head">
+            <span>NeoVault: self-hosted knowledge workspace</span>
+            <span class="date"
+              ><a href="https://neovault.ir">neovault.ir</a> ·
+              <a href="https://github.com/mahdidelavarz/linkvault">GitHub</a></span
+            >
           </div>
-
-          <div class="project-item">
-            <div class="project-header">
-              <span class="project-name">AranazShop – Persian E-Commerce Platform</span>
-              <div style="display: flex; gap: 12px; align-items: center">
-                <a href="https://github.com/mahdidelavarz/nazishop" class="project-link">
-                  <i class="fab fa-github"></i> GitHub
-                </a>
-                <a href="https://aranazshop.ir" class="project-link" target="_blank">
-                  <i class="fas fa-external-link-alt"></i> aranazshop.ir
-                </a>
-              </div>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">TanStack Query</span>
-              <span class="tech-badge">Zustand</span>
-              <span class="tech-badge">React Hook Form</span>
-              <span class="tech-badge">Zod</span>
-              <span class="tech-badge">Express</span>
-              <span class="tech-badge">TypeORM</span>
-              <span class="tech-badge">PostgreSQL</span>
-              <span class="tech-badge">Docker</span>
-            </div>
-            <ul class="exp-desc">
-              <li>Developed a Persian full-stack store with product variants, search and filtering, shopping cart, and order submission and tracking flows.</li>
-              <li>Implemented OTP login, role-based access, and an administration panel for products, orders, and inventory with Express, TypeORM, and PostgreSQL.</li>
-              <li>Designed an RTL, responsive interface with dark mode and guest/user cart state management.</li>
-            </ul>
+          <div class="stack">
+            Next.js 16, TypeScript, TanStack Query, Express, TypeORM, PostgreSQL, Docker, PWA
           </div>
-
-          <div class="project-item">
-            <div class="project-header">
-              <span class="project-name">Portfolio Website</span>
-              <a href="https://mahdidelavar.ir" class="project-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> mahdidelavar.ir
-              </a>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js 15</span>
-              <span class="tech-badge">React 19</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS 4</span>
-              <span class="tech-badge">Drizzle ORM</span>
-              <span class="tech-badge">PostgreSQL</span>
-            </div>
-            <ul class="exp-desc">
-              <li>Developed a personal portfolio with Next.js App Router, responsive dark UI, technical SEO, metadata, and sitemap support.</li>
-              <li>Built Persian and English engineering article sections for in-depth case studies on front-end architecture, ERP work, and real technical decisions.</li>
-              <li>Built interactive JavaScript and React challenges with categories, filtering, answer submission, saved progress, and a leaderboard.</li>
-            </ul>
-          </div>
-
-          <div class="project-item">
-            <div class="project-header">
-              <span class="project-name">FrontForge – Front-End Decision Engine</span>
-              <a href="https://github.com/mahdidelavarz/Frontend-Decision-Engine" class="project-link">
-                <i class="fab fa-github"></i> GitHub
-              </a>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">Zustand</span>
-              <span class="tech-badge">JSZip</span>
-              <span class="tech-badge">Static Export</span>
-            </div>
-            <ul class="exp-desc">
-              <li>Built a client-side wizard for documenting front-end architecture decisions, from framework and folder structure to design tokens and testing standards.</li>
-              <li>Implemented selection-conflict detection, live design-system previews, and ZIP output for starting new projects.</li>
-            </ul>
-          </div>
+          <ul>
+            <li>
+              Links, notes, snippets and API requests in nested collections; trigram-indexed search, offline
+              PWA with queued sync, deployed with Docker Compose and Nginx.
+            </li>
+          </ul>
         </div>
-      </div>
-    </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span>AranazShop: Persian e-commerce storefront and admin</span>
+            <span class="date"
+              ><a href="https://aranazshop.ir">aranazshop.ir</a> ·
+              <a href="https://github.com/mahdidelavarz/nazishop">GitHub</a></span
+            >
+          </div>
+          <div class="stack">
+            Next.js 16, TypeScript, Supabase (PostgreSQL), TanStack Query, Zustand, React Hook
+            Form, Zod
+          </div>
+          <ul>
+            <li>
+              RTL storefront with product variants, search and filtering, cart, checkout and order
+              tracking; OTP login, role-based admin and inventory management.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education &amp; Languages</h2>
+        <div class="entry-head">
+          <span>B.Sc. Computer Engineering, Islamic Azad University, Tabriz</span>
+          <span class="date">2023 – expected 2028</span>
+        </div>
+        <p>
+          Persian (native) · English (B2–C1, professional working proficiency) · Military service
+          completed
+        </p>
+      </section>
+    </main>
   </body>
 </html>

@@ -3,978 +3,401 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مهدی دلاور – رزومه</title>
-
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-
+    <title>مهدی دلاور – توسعه‌دهنده فرانت‌اند – رزومه</title>
+    <!--
+      Persian counterpart of resume-en.html: same content, one A4 page, single column.
+      Vazirmatn loads from jsDelivr, so export while online:
+      Chrome → Print → Save as PDF, paper A4, margins "Default", scale 100%.
+    -->
     <style>
-      /* ========== فونت وزیرمتن (لوکال) ========== */
       @font-face {
-        font-family: "Vazir";
+        font-family: "Vazirmatn";
         font-style: normal;
-        font-weight: 400;
-        src: url("../fonts/Vazirmatn-Regular.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+        src: url("https://cdn.jsdelivr.net/npm/@fontsource-variable/vazirmatn@5.3.0/files/vazirmatn-arabic-wght-normal.woff2")
+          format("woff2-variations");
+        unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1,
+          U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74,
+          U+FE76-FEFC;
       }
 
       @font-face {
-        font-family: "Vazir";
+        font-family: "Vazirmatn";
         font-style: normal;
-        font-weight: 700;
-        src: url("../fonts/Vazirmatn-Bold.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: block;
+        src: url("https://cdn.jsdelivr.net/npm/@fontsource-variable/vazirmatn@5.3.0/files/vazirmatn-latin-wght-normal.woff2")
+          format("woff2-variations");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+          U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+          U+FEFF, U+FFFD;
       }
 
-      @font-face {
-        font-family: "Vazir";
-        font-style: normal;
-        font-weight: 900;
-        src: url("../fonts/Vazirmatn-Black.woff2") format("woff2");
-      }
-
-      /* ========== استایل‌های اصلی ========== */
       * {
         box-sizing: border-box;
       }
 
+      :root {
+        --ink: #111827;
+        --muted: #4b5563;
+        --accent: #0f4c75;
+        --rule: #d1d5db;
+      }
+
+      html {
+        background: #f3f4f6;
+      }
+
       body {
         margin: 0;
-        padding: 40px;
-        font-family: "Vazir", sans-serif;
-        background: #f5f7fa;
-        color: #1d2d3a;
-        line-height: 1.75;
-        direction: rtl;
+        padding: 32px 16px;
+        font-family: "Vazirmatn", Tahoma, sans-serif;
+        font-size: 9.3pt;
+        line-height: 1.43;
+        color: var(--ink);
       }
 
-      .resume {
-        position: relative;
-        max-width: 1050px;
+      .page {
+        max-width: 210mm;
         margin: 0 auto;
-        background: white;
-        border-radius: 18px;
-        padding: 50px 60px;
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
+        padding: 11mm 14mm;
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       }
 
-      /* Header */
-      .header-row {
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* Latin runs (URLs, phone, tech names in lists) stay left-to-right. */
+      .ltr {
+        direction: ltr;
+        unicode-bidi: isolate;
+      }
+
+      header {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 6px;
+        margin-bottom: 8px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 20pt;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+
+      .headline {
+        margin: 0 0 4px;
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .contact {
+        margin: 0;
+        font-size: 8.6pt;
+        color: var(--muted);
+      }
+
+      .contact .sep {
+        color: var(--rule);
+      }
+
+      .contact.links {
+        direction: ltr;
+        text-align: right;
+      }
+
+      h2 {
+        margin: 7px 0 3px;
+        padding-bottom: 1px;
+        border-bottom: 1px solid var(--rule);
+        font-size: 10.5pt;
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      ul {
+        margin: 2px 0 0;
+        padding-right: 15px;
+        padding-left: 0;
+      }
+
+      li {
+        margin-bottom: 1px;
+      }
+
+      .entry {
+        margin-bottom: 6px;
+      }
+
+      .entry:last-child {
+        margin-bottom: 0;
+      }
+
+      .entry-head {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 26px;
-        border-bottom: 2px solid #e9eff4;
-        padding-bottom: 24px;
-        gap: 24px;
-      }
-
-      .name-title h1 {
-        font-size: 2.9rem;
+        gap: 12px;
         font-weight: 700;
-        letter-spacing: -0.6px;
-        color: #0b2b44;
-        margin-bottom: 8px;
-        line-height: 1.2;
       }
 
-      .name-title .tagline {
-        display: inline-block;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #1e5a7c;
-        border-right: 3px solid #0f4c75;
-        padding-right: 10px;
-        letter-spacing: 0.2px;
+      .entry-head .date {
+        flex-shrink: 0;
+        font-weight: 400;
+        color: var(--muted);
       }
 
-      .contact-info {
+      .entry-sub {
+        color: var(--muted);
+      }
+
+      .stack {
+        direction: ltr;
+        text-align: right;
+        font-size: 8.6pt;
+        color: var(--muted);
+      }
+
+      .skills p {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 7px;
-        font-size: 0.85rem;
-        color: #2a3b4e;
+        gap: 5px;
+        margin-bottom: 1px;
+      }
+
+      .skills strong {
         flex-shrink: 0;
       }
 
-      .contact-info span {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
+      .skills .ltr {
+        display: block;
+        text-align: right;
       }
 
-      .contact-info i {
-        width: 15px;
-        color: #1d6f9c;
-        font-size: 0.85rem;
-        text-align: center;
-        flex-shrink: 0;
-      }
-
-      .contact-info a {
-        color: #1e3b54;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-        border-bottom: 1px solid transparent;
-      }
-
-      .contact-info a:hover {
-        color: #0b5e86;
-        border-bottom: 1px solid #0b5e86;
-      }
-
-      /* Layout */
-      .grid {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-      }
-
-      .grid > div:first-child {
-        flex: 0 0 28%;
-        min-width: 0;
-      }
-
-      .grid > div:last-child {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .section {
-        margin-bottom: 36px;
-      }
-
-      .section-title {
-        font-size: 1.15rem;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: #0f4c75;
-        border-right: 4px solid #0f4c75;
-        padding-right: 10px;
-        letter-spacing: 0.5px;
-      }
-
-      /* Skills */
-      .skill-group {
-        margin-bottom: 14px;
-      }
-
-      .skill-title {
-        font-weight: 600;
-        font-size: 0.9rem;
-        margin-bottom: 6px;
-        color: #22394b;
-      }
-
-      .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      .badge {
-        padding: 5px 12px;
-        background: #eef3f7;
-        border-radius: 20px;
-        font-size: 0.78rem;
-        border: 1px solid #dce5ee;
-        font-weight: 500;
-        line-height: 1.3;
-        white-space: nowrap;
-      }
-
-      /* Experience */
-      .exp-item {
-        margin-bottom: 52px;
-      }
-
-      .exp-header {
-        display: flex;
-        justify-content: space-between;
-        font-weight: 600;
-        font-size: 1rem;
-        margin-bottom: 4px;
-        color: #0f1c2e;
-      }
-
-      .exp-company {
-        color: #26648e;
-        margin-bottom: 8px;
-        font-size: 0.95rem;
-        font-weight: 500;
-      }
-
-      .exp-desc {
-        margin: 0;
-        padding-right: 18px;
-      }
-
-      .exp-desc li {
-        margin-bottom: 6px;
-        font-size: 0.9rem;
-        list-style: none;
-        position: relative;
-        padding-right: 16px;
-      }
-
-      .exp-desc li::before {
-        content: "◂";
-        color: #0f4c75;
-        font-weight: bold;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      /* معماری ERP هایلایت */
-      .arch-highlight {
-        background: #f0f6fb;
-        border-right: 3px solid #0f4c75;
-        padding: 14px 16px;
-        margin-top: 14px;
-        margin-right: 20px;
-        border-radius: 6px;
-      }
-
-      .arch-highlight .arch-title {
-        font-weight: 700;
-        font-size: 0.88rem;
-        color: #0f1c2e;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .arch-block {
-        margin-bottom: 8px;
-      }
-
-      .arch-subtitle {
-        font-weight: 700;
-        font-size: 0.85rem;
-        color: #0f1c2e;
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .arch-subtitle::before {
-        content: "◂";
-        color: #0f4c75;
-        font-weight: bold;
-      }
-
-      .arch-sublist {
-        margin: 0;
-        padding-right: 20px;
-        font-size: 0.82rem;
-        color: #375063;
-        line-height: 1.7;
-      }
-
-      .arch-sublist li {
-        list-style: none;
-        position: relative;
-        padding-right: 14px;
-      }
-
-      .arch-sublist li::before {
-        content: "•";
-        color: #0f4c75;
-        font-weight: bold;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      .arch-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 10px;
-      }
-
-      .arch-tag {
-        padding: 4px 10px;
-        background: white;
-        border: 1px solid #c4d7e6;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #1a4d6e;
-      }
-
-      /* Projects */
-      .projects-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .project-item {
-        padding: 18px 20px;
-        background: #fafcfd;
-        border-radius: 12px;
-        border: 1px solid #e6edf3;
-        transition: all 0.2s ease;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .project-item:hover {
-        border-color: #c4d7e6;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      }
-
-      .project-header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        gap: 6px;
-      }
-
-      .project-name {
-        font-weight: 700;
-        font-size: 1.05rem;
-        color: #0f1c2e;
-      }
-
-      .project-link {
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: #0f4c75;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        text-decoration: none;
-      }
-
-      .project-link:hover {
-        color: #1a6fa0;
-        text-decoration: none;
-      }
-
-      .project-tech {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 10px;
-      }
-
-      .tech-badge {
-        padding: 4px 10px;
-        background: #e8f0f8;
-        color: #0f4c75;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-      }
-
-      .project-desc {
-        font-size: 0.88rem;
-        color: #375063;
-        line-height: 1.7;
-        margin: 0;
-      }
-
-      .primary {
-        background: #dfe9f3;
-        color: rgb(36, 33, 33);
-      }
-
-      .fas {
-        color: #1a6fa0;
-      }
-
-      hr {
-        border: 0;
-        height: 1px;
-        background: #e6edf3;
-        margin: 20px 0;
-      }
-
-      /* ========== Print / PDF – بهینه برای A4 و ۱-۲ صفحه ========== */
       @page {
         size: A4;
-        margin: 10mm;
+        margin: 0;
       }
 
       @media print {
         html,
         body {
-          print-color-adjust: exact;
-          -webkit-print-color-adjust: exact;
+          background: #fff;
         }
 
         body {
           padding: 0;
-          background: white;
-          font-size: 13px;
-          line-height: 1.5;
         }
 
-        .resume {
-          max-width: 100%;
+        .page {
+          max-width: none;
           box-shadow: none;
-          border-radius: 0;
-          padding: 10mm 12mm;
-          overflow: visible;
         }
 
-        .header-row {
-          margin-bottom: 10px;
-          padding-bottom: 10px;
-          page-break-inside: avoid;
-          page-break-after: avoid;
-          flex-wrap: nowrap;
-          gap: 12px;
+        .entry,
+        h2 {
+          break-inside: avoid;
         }
 
-        .name-title {
-          min-width: 0;
-        }
-
-        .name-title h1 {
-          font-size: 1.7rem;
-          margin-bottom: 3px;
-        }
-
-        .name-title .tagline {
-          font-size: 0.74rem;
-          padding-right: 8px;
-        }
-
-        .contact-info {
-          font-size: 0.68rem;
-          gap: 3px;
-          padding-top: 2px;
-        }
-
-        .contact-row {
-          gap: 10px;
-        }
-
-        .contact-info i {
-          width: 12px;
-          font-size: 0.74rem;
-        }
-
-        .grid {
-          gap: 12px;
-        }
-
-        .section {
-          margin-bottom: 14px;
-        }
-
-        .section-title {
-          font-size: 1rem;
-          margin-bottom: 8px;
-          page-break-after: avoid;
-        }
-
-        .skills {
-          gap: 4px;
-        }
-
-        .badge {
-          padding: 3px 8px;
-          font-size: 0.68rem;
-        }
-
-        .skill-title {
-          font-size: 0.8rem;
-          margin-bottom: 4px;
-        }
-
-        .skill-group {
-          margin-bottom: 8px;
-          page-break-inside: avoid;
-        }
-
-        .exp-item {
-          margin-bottom: 14px;
-        }
-
-        .exp-header {
-          font-size: 0.9rem;
-          page-break-after: avoid;
-        }
-
-        .exp-company {
-          font-size: 0.85rem;
-          margin-bottom: 4px;
-        }
-
-        .exp-desc li {
-          font-size: 0.8rem;
-          margin-bottom: 3px;
-        }
-
-        .arch-highlight {
-          padding: 8px 12px;
-          margin-top: 8px;
-        }
-
-        .arch-highlight .arch-title {
-          font-size: 0.8rem;
-          margin-bottom: 6px;
-        }
-
-        .arch-block {
-          margin-bottom: 5px;
-        }
-
-        .arch-subtitle {
-          font-size: 0.78rem;
-          margin-bottom: 2px;
-        }
-
-        .arch-sublist li {
-          font-size: 0.74rem;
-        }
-
-        .arch-tag {
-          font-size: 0.68rem;
-          padding: 2px 8px;
-        }
-
-        .projects-grid {
-          gap: 10px;
-        }
-
-        .project-item {
-          padding: 10px 14px;
-          page-break-inside: avoid;
-        }
-
-        .project-name {
-          font-size: 0.9rem;
-        }
-
-        .project-desc {
-          font-size: 0.76rem;
-        }
-
-        .project-link {
-          font-size: 0.76rem;
-        }
-
-        a {
-          color: black;
-          text-decoration: none;
+        h2 {
+          break-after: avoid;
         }
       }
     </style>
   </head>
 
   <body>
-    <div class="resume">
-      <!-- Header -->
-      <div class="header-row">
-        <div class="name-title">
-          <h1>مهدی دلاور</h1>
-          <div class="tagline">توسعه‌دهنده فرانت‌اند</div>
-        </div>
-        <div class="contact-info">
-          <span
-            ><a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a
-            ><i class="fas fa-envelope"></i
-          ></span>
-          <span> ۰۹۰۲۵۵۷۴۳۵۷ <i class="fas fa-phone-alt"></i></span>
-          <span
-            ><a
-              href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
-              target="_blank"
-              >linkedin.com/in/mahdi-delavar-5338ba280</a
-            ><i class="fab fa-linkedin"></i
-          ></span>
-          <span
-            ><a href="https://github.com/mahdidelavarz" target="_blank"
-              >github.com/mahdidelavarz</a
-            ><i class="fab fa-github"></i
-          ></span>
-        </div>
-      </div>
+    <main class="page">
+      <header>
+        <h1>مهدی دلاور</h1>
+        <p class="headline">توسعه‌دهنده‌ی فرانت‌اند (React و TypeScript)</p>
+        <p class="contact">
+          تبریز · آماده‌ی همکاری دورکاری و جابه‌جایی <span class="sep">|</span>
+          <span class="ltr">0902 557 4357</span> <span class="sep">|</span>
+          <span class="ltr"><a href="mailto:mdelever77@gmail.com">mdelever77@gmail.com</a></span>
+        </p>
+        <p class="contact links">
+          <a href="https://mahdidelavar.ir">mahdidelavar.ir</a> <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
+            >linkedin.com/in/mahdi-delavar-5338ba280</a
+          >
+          <span class="sep">|</span>
+          <a href="https://github.com/mahdidelavarz">github.com/mahdidelavarz</a>
+        </p>
+      </header>
 
-      <!-- Main -->
-      <div class="grid">
-        <!-- ستون کناری -->
-        <div>
-          <div class="section">
-            <div class="section-title">
-              <span><i class="fas fa-code"></i></span> مهارت‌های فنی
-            </div>
+      <section>
+        <h2>خلاصه</h2>
+        <p>
+          توسعه‌دهنده‌ی فرانت‌اند با بیش از سه سال سابقه‌ی حرفه‌ای در React و TypeScript، که دو سال
+          آن روی یک ERP سازمانی با حدود ۸۰ صفحه گذشته است. برای اپلیکیشن‌های تجاری پرداده معماری
+          قابل‌استفاده‌ی مجدد می‌سازم: ترکیب تایپ‌شده‌ی صفحه‌ها، جدول و فرم مشترک، و workflowهای
+          مبتنی بر route. بک‌اند ASP.NET Core و SQL Server را می‌خوانم و توسعه می‌دهم و با Docker و Nginx
+          استقرار انجام می‌دهم.
+        </p>
+      </section>
 
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-atom"></i></span> مهارت‌های اصلی
-                فرانت‌اند
-              </div>
-              <div class="skills">
-                <span class="badge primary">React.js</span>
-                <span class="badge primary">Next.js</span>
-                <span class="badge primary">TypeScript</span>
-                <span class="badge primary">Tailwind CSS</span>
-                <span class="badge primary">Zustand</span>
-                <span class="badge primary">TanStack Query</span>
-                <span class="badge primary">React Hook Form</span>
-                <span class="badge primary">React Router</span>
-              </div>
-            </div>
+      <section class="skills">
+        <h2>مهارت‌ها</h2>
+        <p>
+          <strong>فرانت‌اند:</strong>
+          <span class="ltr"
+            >React, TypeScript, JavaScript, Next.js, TanStack Query, TanStack Router, React Router,
+            Zustand, React Hook Form, Zod, Tailwind CSS, Vite</span
+          >
+        </p>
+        <p>
+          <strong>مهندسی UI:</strong> جدول و فرم‌های پرداده، معماری کامپوننت، رابط راست‌چین فارسی،
+          طراحی واکنش‌گرا
+        </p>
+        <p>
+          <strong>بک‌اند (مکمل):</strong>
+          <span class="ltr"
+            >.NET Core, EF Core, Node.js, Express, SQL Server, PostgreSQL, REST APIs</span
+          >
+        </p>
+        <p>
+          <strong>ابزارها:</strong>
+          <span class="ltr">Git, Docker, Nginx, CDN, Azure, Stimulsoft Reports</span>
+        </p>
+      </section>
 
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-layer-group"></i></span> UI و معماری
-                فرانت‌اند
-              </div>
-              <div class="skills">
-                <span class="badge">Vite</span>
-                <span class="badge">Axios</span>
-                <span class="badge">Data-Intensive UI</span>
-                <span class="badge">Reusable Architecture</span>
-                <span class="badge">RTL Support</span>
-                <span class="badge">Responsive UI</span>
-              </div>
-            </div>
+      <section>
+        <h2>سوابق کاری</h2>
 
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-cog"></i></span> بک‌اند و زیرساخت
-                (مقدماتی)
-              </div>
-              <div class="skills">
-                <span class="badge">Node.js</span>
-                <span class="badge">Express</span>
-                <span class="badge">Docker</span>
-                <span class="badge">Docker Compose</span>
-                <span class="badge">SQL Server</span>
-                <span class="badge">PostgreSQL</span>
-                <span class="badge">REST APIs</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-title">
-                <span><i class="fas fa-tools"></i></span> ابزارها
-              </div>
-              <div class="skills">
-                <span class="badge">Git / GitHub</span>
-                <span class="badge">Azure</span>
-                <span class="badge">CI/CD مقدماتی</span>
-                <span class="badge">Stimulsoft Report</span>
-              </div>
-            </div>
+        <div class="entry">
+          <div class="entry-head">
+            <span>توسعه‌دهنده‌ی فرانت‌اند، شرکت پمپ توربین (پتکو)</span>
+            <span class="date">مرداد ۱۴۰۳ – اکنون</span>
           </div>
-
-          <div class="section">
-            <div class="section-title">تحصیلات</div>
-            <div>
-              <div style="font-weight: 600">کارشناسی مهندسی کامپیوتر</div>
-              <div style="color: #375063; font-size: 0.9rem">
-                دانشگاه آزاد اسلامی، تبریز | ۱۴۰۲ – تاکنون
-              </div>
-              <div style="margin-top: 6px; font-size: 0.85rem">
-                معدل: ۱۶/۲۰. تمرکز بر مهندسی نرم‌افزار و توسعه وب.
-              </div>
-            </div>
+          <div class="entry-sub">
+            تبریز · تمام‌وقت · ERP داخلی یک تولیدکننده‌ی پمپ و توربین (سیستم جدید React از آبان
+            ۱۴۰۳)
           </div>
-
-          <div class="section">
-            <div class="section-title">زبان‌ها</div>
-            <div>
-              <div style="font-weight: 600; margin-top: 8px">انگلیسی</div>
-              <div style="color: #375063; font-size: 0.9rem">
-                تسلط کاری در مطالعه مستندات فنی و ارتباطات تخصصی
-              </div>
-            </div>
-          </div>
+          <ul>
+            <li>
+              طراحی PageShell: لایه‌ی تایپ‌شده و metadata-driven برای ساخت صفحه که داده، فرم، جدول
+              سرور/کلاینت و قابلیت‌های افزودنی (آپلود، امضا، گزارش، routeهای تودرتو) را کنار هم
+              می‌گذارد. الان ۵۷ صفحه از حدود ۸۰ صفحه‌ی ERP روی آن ساخته شده‌اند.
+            </li>
+            <li>
+              ساخت سیستم جدول مشترک: صفحه‌بندی، مرتب‌سازی و فیلتر سمت سرور، جستجوی چندشرطی، ذخیره‌ی
+              وضعیت هر جدول، عملیات گروهی، دسترسی‌محور کردن actionها و نمای کارتی برای موبایل.
+            </li>
+            <li>
+              ساخت workspace چندتبی روی React Router با تب‌های موقت و سنجاق‌شده، جابه‌جایی با کشیدن
+              و ذخیره‌ی وضعیت، تا کاربر بتواند چند رکورد را هم‌زمان باز نگه دارد.
+            </li>
+            <li>
+              پیاده‌سازی فرایند بازنگری (revision) مهندسی بعد از تحویل پروژه از فروش به مهندسی:
+              شماره‌گذاری خودکار بازنگری، کنترل با workflow و ویرایش لیست قطعات بر اساس بازنگری.
+            </li>
+            <li>
+              تبدیل صفحه‌های مدیریتی مبتنی بر مودال به routeهای تودرتو و آگاه از والد، و نوشتن
+              endpointهای پشتیبان با ASP.NET Core و EF Core هر جا قابلیت‌هایم لازم داشتند.
+            </li>
+          </ul>
         </div>
 
-        <!-- ستون اصلی -->
-        <div>
-          <div class="section">
-            <div class="section-title">خلاصه حرفه‌ای</div>
-            <p class="project-desc">
-              توسعه‌دهنده فرانت‌اند با بیش از سه سال تجربه در توسعه محصولات وب،
-              شامل حدود دو سال فعالیت در یک ERP سازمانی چندماژوله. متمرکز بر
-              React و TypeScript، معماری reusable، رابط‌های داده‌محور، form و
-              tableهای پیچیده و مدیریت state و query؛ با تجربه تبدیل workflowهای
-              کسب‌وکار به رابط‌هایی قابل نگهداری و توسعه.
-            </p>
+        <div class="entry">
+          <div class="entry-head">
+            <span>توسعه‌دهنده‌ی فرانت‌اند، لاوکد (آژانس طراحی وب)</span>
+            <span class="date">فروردین ۱۴۰۲ – شهریور ۱۴۰۳</span>
           </div>
-
-          <div class="section">
-            <div class="section-title">تجربیات حرفه‌ای</div>
-
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>توسعه‌دهنده فرانت‌اند</span>
-                <span>مرداد ۱۴۰۳ – تاکنون</span>
-              </div>
-              <div class="exp-company">پتکو · تبریز</div>
-              <ul class="exp-desc">
-                <li>
-                  توسعه فرانت‌اند یک ERP سازمانی چندماژوله با React و TypeScript،
-                  شامل صفحات داده‌محور، workflowهای چندمرحله‌ای و زیرساخت‌های
-                  مشترک مورد استفاده در بخش‌های مختلف سیستم.
-                </li>
-                <li>
-                  طراحی و تکامل معماری typed و metadata-driven با نام PageShell
-                  برای ترکیب reusableِ table، form، action و policyهای صفحه، با
-                  پشتیبانی از nested resource و قابلیت‌های opt-in.
-                </li>
-                <li>
-                  توسعه زیرساخت مشترک table و form برای حالت‌های client/server،
-                  filtering، sorting، pagination، selection و actionهای
-                  permission-aware، همراه با dynamic field و async/cascade select.
-                </li>
-                <li>
-                  انتقال resourceهای سلسله‌مراتبی از modalهای تودرتو به صفحات
-                  parent-aware مبتنی بر route و یکپارچه‌سازی آن‌ها با workspace
-                  چندتبی، breadcrumb و state جدول.
-                </li>
-                <li>
-                  پیاده‌سازی رابط frontend برای workflow مهندسی revision-based،
-                  با تفکیک Edition جاری از history و نمایش تغییرات Added، Removed
-                  و Modified در revisionهای بعدی.
-                </li>
-                <li>
-                  یکپارچه‌سازی قابلیت‌های contextual فایل و گزارش با رکوردهای ERP
-                  و اتصال frontend به APIهای موجود .NET و SQL Server، با پشتیبانی
-                  از RTL و responsive UI.
-                </li>
-              </ul>
-
-              <div class="arch-highlight">
-                <div class="arch-title">
-                  <i class="fas fa-layer-group"></i> محورهای مهندسی فرانت‌اند در
-                  ERP
-                </div>
-                <div class="arch-tags">
-                  <span class="arch-tag">PageShell Architecture</span>
-                  <span class="arch-tag">Data-Intensive UI</span>
-                  <span class="arch-tag">Server / Client Tables</span>
-                  <span class="arch-tag">Routed Workspaces</span>
-                  <span class="arch-tag">Nested Resources</span>
-                  <span class="arch-tag">Dynamic Forms</span>
-                  <span class="arch-tag">Workflow UI</span>
-                  <span class="arch-tag">File / Report Integration</span>
-                  <span class="arch-tag">RTL Enterprise UI</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="exp-item">
-              <div class="exp-header">
-                <span>توسعه‌دهنده فرانت‌اند</span>
-                <span>فروردین ۱۴۰۲ – تیر ۱۴۰۳</span>
-              </div>
-              <div class="exp-company">لاول‌کد · دورکاری</div>
-              <ul class="exp-desc">
-                <li>
-                  ساخت رابط‌های واکنش‌گرا و آماده تولید با React، TypeScript،
-                  Redux و Tailwind CSS برای پروژه‌های وب متنوع.
-                </li>
-                <li>
-                  تبدیل دقیق طرح‌های UI/UX به کامپوننت‌های قابل نگهداری و هماهنگ
-                  با نیازهای محصول.
-                </li>
-                <li>
-                  همکاری با تیم طراحی و بک‌اند برای تحویل صفحات تمیز، قابل توسعه
-                  و سازگار با API.
-                </li>
-              </ul>
-            </div>
-          </div>
+          <div class="entry-sub">دورکاری · قراردادی · پروژه‌های مشتریان، بیشتر تحت NDA</div>
+          <ul>
+            <li>
+              تبدیل طراحی‌های آژانس به فرانت‌اند واکنش‌گرا با React و TypeScript برای سایت‌ها و
+              وب‌اپلیکیشن‌های مشتریان.
+            </li>
+            <li>
+              اتصال به REST APIهای مشتریان و درگاه‌های پرداخت، همراه با حالت‌های بارگذاری، خالی و خطا.
+            </li>
+            <li>همکاری با طراحان و توسعه‌دهندگان بک‌اند آژانس برای تحویل قابلیت‌ها طبق زمان‌بندی مشتری.</li>
+          </ul>
         </div>
-      </div>
+      </section>
 
-      <div class="section">
-        <div class="section-title">
-          <span><i class="fas fa-star"></i></span> پروژه‌های شاخص
+      <section>
+        <h2>پروژه‌ها</h2>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span>TidySense: برنامه‌ریز شخصی با کمک هوش مصنوعی</span>
+            <span class="date ltr"
+              ><a href="https://tidysense.ir">tidysense.ir</a> ·
+              <a href="https://github.com/mahdidelavarz/tidysense">GitHub</a></span
+            >
+          </div>
+          <div class="stack">
+            React 19, TypeScript, TanStack Router &amp; Query, Zustand, React Hook Form, Zod, .NET
+            10, PostgreSQL
+          </div>
+          <ul>
+            <li>
+              برنامه‌ریز فارسی که از روی یک هدف، برنامه‌ی یک هفته کار و روتین را با هوش مصنوعی
+              پیش‌نویس می‌کند و تا کاربر آن را بررسی و تأیید نکند چیزی ذخیره نمی‌شود. نمای «امروز»،
+              وابستگی بین کارها، روتین‌ها و ورود با کد یک‌بارمصرف.
+            </li>
+          </ul>
         </div>
 
-        <div class="projects-grid">
-          <div class="project-item project-item--featured">
-            <div class="project-header">
-              <span class="project-name">NeoVault – خزانه دانش شخصی</span>
-              <div style="display: flex; gap: 12px; align-items: center">
-                <a
-                  href="https://github.com/mahdidelavarz/neovault"
-                  class="project-link"
-                >
-                  <i class="fab fa-github"></i> گیت‌هاب
-                </a>
-                <a
-                  href="https://neovault.ir"
-                  class="project-link"
-                  target="_blank"
-                >
-                  <i class="fas fa-external-link-alt"></i> neovault.ir
-                </a>
-              </div>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">TanStack Query</span>
-              <span class="tech-badge">CodeMirror</span>
-              <span class="tech-badge">Express</span>
-              <span class="tech-badge">TypeORM</span>
-              <span class="tech-badge">PostgreSQL</span>
-              <span class="tech-badge">Docker</span>
-              <span class="tech-badge">PWA</span>
-              <span class="tech-badge">JWT</span>
-            </div>
-            <ul class="exp-desc">
-              <li>
-                توسعه یک اپلیکیشن self-hosted و full-stack برای سازمان‌دهی لینک،
-                یادداشت، code snippet، درخواست API و دانش شخصی در یک فضای
-                یکپارچه.
-              </li>
-              <li>
-                پیاده‌سازی جست‌وجوی متن‌کامل PostgreSQL، دسته‌بندی سلسله‌مراتبی،
-                عملیات گروهی و احراز هویت مبتنی بر JWT و refresh token.
-              </li>
-              <li>
-                افزودن رمزگذاری سمت کلاینت، تجربه PWA آفلاین و صف همگام‌سازی؛
-                همراه با استقرار containerized توسط Docker Compose و Nginx.
-              </li>
-            </ul>
+        <div class="entry">
+          <div class="entry-head">
+            <span>NeoVault: فضای کاری شخصی و self-hosted برای دانش</span>
+            <span class="date ltr"
+              ><a href="https://neovault.ir">neovault.ir</a> ·
+              <a href="https://github.com/mahdidelavarz/linkvault">GitHub</a></span
+            >
           </div>
-
-          <div class="project-item">
-            <div class="project-header">
-              <span class="project-name"
-                >AranazShop – پلتفرم فروشگاه اینترنتی فارسی</span
-              >
-              <div style="display: flex; gap: 12px; align-items: center">
-                <a
-                  href="https://github.com/mahdidelavarz/nazishop"
-                  class="project-link"
-                >
-                  <i class="fab fa-github"></i> گیت‌هاب
-                </a>
-                <a
-                  href="https://aranazshop.ir"
-                  class="project-link"
-                  target="_blank"
-                >
-                  <i class="fas fa-external-link-alt"></i> aranazshop.ir
-                </a>
-              </div>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">TanStack Query</span>
-              <span class="tech-badge">Zustand</span>
-              <span class="tech-badge">React Hook Form</span>
-              <span class="tech-badge">Zod</span>
-              <span class="tech-badge">Express</span>
-              <span class="tech-badge">TypeORM</span>
-              <span class="tech-badge">PostgreSQL</span>
-              <span class="tech-badge">Docker</span>
-            </div>
-            <ul class="exp-desc">
-              <li>
-                توسعه فروشگاه full-stack فارسی با کاتالوگ و variant محصول،
-                جست‌وجو و فیلتر، سبد خرید و جریان ثبت و پیگیری سفارش.
-              </li>
-              <li>
-                پیاده‌سازی ورود OTP، دسترسی مبتنی بر نقش و پنل مدیریت محصول،
-                سفارش و موجودی با Express، TypeORM و PostgreSQL.
-              </li>
-              <li>
-                طراحی رابط RTL و responsive، دارک‌مود و مدیریت stateهای سبد خرید
-                مهمان و کاربر.
-              </li>
-            </ul>
+          <div class="stack">
+            Next.js 16, TypeScript, TanStack Query, Express, TypeORM, PostgreSQL, Docker, PWA
           </div>
-
-          <div class="project-item">
-            <div class="project-header">
-              <span class="project-name">Portfolio - پورتفولیو</span>
-              <a
-                href="https://mahdidelavar.ir"
-                class="project-link"
-                target="_blank"
-              >
-                <i class="fas fa-external-link-alt"></i> mahdidelavar.ir
-              </a>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js 15</span>
-              <span class="tech-badge">React 19</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS 4</span>
-              <span class="tech-badge">Drizzle ORM</span>
-              <span class="tech-badge">PostgreSQL</span>
-            </div>
-            <ul class="exp-desc">
-              <li>
-                توسعه پورتفولیوی شخصی با Next.js App Router، طراحی responsive و
-                dark UI، همراه با SEO فنی، metadata و sitemap.
-              </li>
-              <li>
-                توسعه بخش مقاله‌های مهندسی فارسی و انگلیسی برای انتشار case
-                studyهای عمیق درباره معماری frontend، ERP و تصمیم‌های فنی واقعی.
-              </li>
-              <li>
-                ساخت بخش چالش‌های تعاملی JavaScript و React با دسته‌بندی، فیلتر،
-                ثبت پاسخ، ذخیره پیشرفت و leaderboard.
-              </li>
-            </ul>
-          </div>
-
-          <div class="project-item">
-            <div class="project-header">
-              <span class="project-name"
-                >FrontForge – موتور تصمیم‌گیری فرانت‌اند</span
-              >
-              <a
-                href="https://github.com/mahdidelavarz/Frontend-Decision-Engine"
-                class="project-link"
-              >
-                <i class="fab fa-github"></i> گیت‌هاب
-              </a>
-            </div>
-            <div class="project-tech">
-              <span class="tech-badge">Next.js</span>
-              <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Tailwind CSS</span>
-              <span class="tech-badge">Zustand</span>
-              <span class="tech-badge">JSZip</span>
-              <span class="tech-badge">Static Export</span>
-            </div>
-            <ul class="exp-desc">
-              <li>
-                ساخت ویزارد client-side برای مستندسازی تصمیم‌های معماری
-                فرانت‌اند؛ از framework و ساختار پوشه تا design token و
-                استاندارد تست.
-              </li>
-              <li>
-                پیاده‌سازی تشخیص تعارض انتخاب‌ها، پیش‌نمایش زنده design system و
-                تولید خروجی ZIP برای شروع پروژه.
-              </li>
-            </ul>
-          </div>
+          <ul>
+            <li>
+              لینک، یادداشت، قطعه‌کد و درخواست‌های API در مجموعه‌های تودرتو؛ جستجو با ایندکس trigram،
+              PWA آفلاین با صف همگام‌سازی، و استقرار با Docker Compose و Nginx.
+            </li>
+          </ul>
         </div>
-      </div>
-    </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span>آرانازشاپ: فروشگاه اینترنتی فارسی و پنل مدیریت</span>
+            <span class="date ltr"
+              ><a href="https://aranazshop.ir">aranazshop.ir</a> ·
+              <a href="https://github.com/mahdidelavarz/nazishop">GitHub</a></span
+            >
+          </div>
+          <div class="stack">
+            Next.js 16, TypeScript, Supabase (PostgreSQL), TanStack Query, Zustand, React Hook
+            Form, Zod
+          </div>
+          <ul>
+            <li>
+              فروشگاه راست‌چین با تنوع محصول، جستجو و فیلتر، سبد خرید، پرداخت و پیگیری سفارش؛ ورود
+              با کد یک‌بارمصرف، پنل مدیریت نقش‌محور و مدیریت موجودی.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>تحصیلات، زبان و سایر</h2>
+        <div class="entry-head">
+          <span>کارشناسی مهندسی کامپیوتر، دانشگاه آزاد اسلامی واحد تبریز</span>
+          <span class="date">۱۴۰۲ – فارغ‌التحصیلی ۱۴۰۷</span>
+        </div>
+        <p>انگلیسی: سطح B2–C1 (تسلط کاری) · وضعیت نظام وظیفه: پایان خدمت</p>
+      </section>
+    </main>
   </body>
 </html>

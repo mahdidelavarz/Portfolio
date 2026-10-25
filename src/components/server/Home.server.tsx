@@ -66,8 +66,12 @@ const Home = memo(function Home({ scrollToSection }: HomeProps) {
             </h1>
 
             {/* Role */}
-            <p className="text-xl sm:text-2xl lg:text-3xl font-medium mb-5 sm:mb-6 bg-gradient-to-r from-cyan-400 via-orange-400 to-purple-500 bg-clip-text text-transparent">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-medium mb-3 bg-gradient-to-r from-cyan-400 via-orange-400 to-purple-500 bg-clip-text text-transparent">
               Frontend Developer
+            </p>
+
+            <p className="mb-6 sm:mb-8 text-sm sm:text-base text-slate-300">
+              Based in Tabriz, Iran · Open to remote work &amp; relocation
             </p>
 
             {/* Engineering focus */}

@@ -1,188 +1,237 @@
+"use client";
+
 import {
+  SolarAltArrowLeftBold,
+  SolarAltArrowRightBold,
   SolarBuildingsBoldIcon,
   SolarCalendarBold,
   SolarCheckCircleBold,
   SolarCodeBold,
   SolarMapPoindBold,
-  SolarRocketBold,
 } from "@/icons/icons";
+import { useSlider } from "@/lib/useSlider";
 import SectionHeader from "@/components/SectionHeader";
 
 const EXPERIENCES = [
   {
     id: 0,
-    company: "Petco",
+    company: "Pump Turbine Co. (Petco)",
+    shortName: "Petco",
     role: "Frontend Developer",
-    period: "2024 - Present",
-    duration: "2+ Years",
-    location: "Tabriz",
-    type: "Full-Time",
+    period: "Aug 2024 – Present",
+    duration: "2+ years",
+    location: "Tabriz, Iran",
+    type: "Full-time",
     icon: SolarBuildingsBoldIcon,
     color: "from-cyan-500 to-blue-600",
     accentColor: "text-cyan-400",
     description:
-      "Developing a multi-module enterprise ERP frontend for complex, data-intensive workflows.",
+      "In-house ERP for a pump and turbine manufacturer, covering sales, engineering, planning, finance and office workflows. I started on the legacy system and have been building the new React + TypeScript ERP since November 2024.",
     highlights: [
-      "Developed a multi-module enterprise ERP frontend with React and TypeScript, implementing data-intensive interfaces and complex business workflows.",
-      "Designed reusable factories and a PageShell architecture, cutting development time by 70%+ for comparable, repetitive CRUD pages by removing duplicate wiring.",
-      "Built shared table and form infrastructure for server/client data, filtering, pagination, permissions, and dependent fields.",
-      "Replaced nested modals with routed workspaces and implemented revision-based engineering workflows that preserve context and change history.",
+      "Designed PageShell, a typed, metadata-driven page layer that composes data hooks, forms, server/client tables and pluggable features (uploads, signatures, reports, nested routes). It now powers 57 of the ERP's ~80 pages.",
+      "Built the shared data-table system: server-side paging, sorting and filtering, multi-condition search, per-table persisted state, bulk actions, permission-aware row actions and a mobile card view.",
+      "Built a multi-tab workspace on React Router with pinned and temporary tabs, drag reordering and persisted state, so users can keep several records open at once.",
+      "Implemented the engineering revision flow after the sales-to-engineering handoff: automatic revision numbers, workflow gating and revision-aware part-list edits.",
+      "Replaced modal-only admin screens with nested, parent-aware routes, and wrote supporting .NET Core / EF Core endpoints when my features needed them.",
     ],
     tags: [
-      "PageShell Architecture",
-      "Data-Intensive UI",
-      "Routed Workspaces",
-      "Workflow UI",
-      "Server / Client Tables",
-      "RTL Enterprise UI",
+      "React",
+      "TypeScript",
+      "TanStack Query",
+      "Zustand",
+      "React Hook Form",
+      "Tailwind CSS 4",
+      "RTL UI",
+      ".NET Core (supporting)",
     ],
   },
   {
     id: 1,
-    company: "LoveCode",
+    company: "LoveCode (web agency)",
+    shortName: "LoveCode",
     role: "Frontend Developer",
-    period: "2023 - 2024",
-    duration: "1 Year",
+    period: "Apr 2023 – Sep 2024",
+    duration: "1.5 years",
     location: "Remote",
-    type: "Full-Time",
+    type: "Contract",
     icon: SolarCodeBold,
     color: "from-rose-500 to-pink-600",
     accentColor: "text-rose-400",
     description:
-      "Developed responsive, production-ready web applications with React and TypeScript for a range of business needs.",
+      "Contract frontend work for a web agency, building websites and web apps for its clients. Most of this work is under NDA, so it isn't listed by name.",
     highlights: [
-      "Built responsive, production-ready interfaces that delivered consistent experiences across desktop, tablet, and mobile devices.",
-      "Collaborated closely with designers and backend developers to translate product requirements into polished, reliable features.",
-      "Created clean, reusable frontend components that improved maintainability and supported efficient development across projects.",
-      "Integrated payment gateways and application APIs, handling user feedback, loading states, and common error scenarios.",
+      "Turned the agency's designs into responsive React + TypeScript frontends for client websites and web apps.",
+      "Integrated client REST APIs and payment gateways, including loading, empty and error states.",
+      "Worked with the agency's designers and backend developers to ship features on client schedules.",
     ],
     tags: [
       "React",
       "TypeScript",
       "Responsive UI",
-      "API Integration",
+      "REST APIs",
       "Payment Gateways",
-      "Team Collaboration",
-    ],
-  },
-  {
-    id: 2,
-    company: "Freelance",
-    role: "Web Developer",
-    period: "2020 - 2021",
-    duration: "1+ Year",
-    location: "Remote",
-    type: "Contract",
-    icon: SolarRocketBold,
-    color: "from-purple-500 to-indigo-600",
-    accentColor: "text-purple-400",
-    description:
-      "Delivered and maintained custom client web applications from initial requirements through launch and ongoing support.",
-    highlights: [
-      "Implemented responsive frontend interfaces tailored to each client's goals, audience, and visual requirements.",
-      "Integrated application APIs and payment flows to support reliable, user-friendly interactions and business operations.",
-      "Managed projects from requirements and technical planning through implementation, testing, deployment, and client handoff.",
-      "Maintained applications after launch, resolving issues and delivering iterative performance and usability improvements.",
-    ],
-    tags: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "API Integration",
-      "Deployment",
-      "Client Projects",
     ],
   },
 ] as const;
 
 type Experience = (typeof EXPERIENCES)[number];
 
-function ExperienceItem({ experience }: { experience: Experience }) {
+function ExperienceCard({ experience }: { experience: Experience }) {
   return (
-    <li className="relative pl-12 md:pl-16">
-      {/* Timeline marker */}
-      <div
-        className={`absolute left-0 top-1 w-9 h-9 md:w-11 md:h-11 bg-gradient-to-br ${experience.color} rounded-xl flex items-center justify-center ring-4 ring-slate-950`}
-      >
-        <experience.icon width={20} height={20} className="text-white" />
-      </div>
-
-      <article className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 md:p-7 hover:border-cyan-400/30 transition-colors duration-300">
-        <header className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-          <div>
-            <h3 className="text-xl md:text-2xl font-bold text-white">
-              {experience.role}
-              <span className={`${experience.accentColor} font-semibold`}>
-                {" "}
-                · {experience.company}
-              </span>
-            </h3>
-            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <SolarCalendarBold width={14} height={14} />
-                {experience.period} · {experience.duration}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <SolarMapPoindBold width={14} height={14} />
-                {experience.location}
-              </span>
-            </div>
-          </div>
-          <span className="self-start shrink-0 px-2.5 py-1 border border-slate-600/60 rounded-full text-xs font-medium text-slate-300">
-            {experience.type}
-          </span>
-        </header>
-
-        <p className="text-slate-300 leading-relaxed text-sm md:text-base mb-4">
-          {experience.description}
-        </p>
-
-        <ul className="space-y-2.5 mb-5">
-          {experience.highlights.map((highlight) => (
-            <li
-              key={highlight}
-              className="flex items-start gap-2.5 text-sm md:text-base text-slate-300 leading-relaxed"
-            >
-              <SolarCheckCircleBold
-                width={16}
-                height={16}
-                className={`mt-1 shrink-0 ${experience.accentColor}`}
-              />
-              <span>{highlight}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex flex-wrap gap-2">
-          {experience.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 bg-slate-700/30 border border-slate-600/50 text-xs font-medium text-slate-300 rounded-lg"
-            >
-              {tag}
-            </span>
-          ))}
+    <article className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 md:p-7 text-left">
+      <header className="flex items-start gap-4 mb-5">
+        <div
+          className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br ${experience.color} rounded-xl flex items-center justify-center shrink-0`}
+        >
+          <experience.icon width={24} height={24} className="text-white" />
         </div>
-      </article>
-    </li>
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold text-white">
+                {experience.company}
+              </h3>
+              <p
+                className={`text-base md:text-lg font-medium ${experience.accentColor}`}
+              >
+                {experience.role}
+              </p>
+            </div>
+            <span className="self-start shrink-0 px-2.5 py-1 border border-slate-600/60 rounded-full text-xs font-medium text-slate-300">
+              {experience.type}
+            </span>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <SolarCalendarBold width={14} height={14} />
+              {experience.period} · {experience.duration}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <SolarMapPoindBold width={14} height={14} />
+              {experience.location}
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <p className="text-slate-300 leading-relaxed text-sm md:text-base mb-5">
+        {experience.description}
+      </p>
+
+      <ul className="space-y-2.5 mb-5">
+        {experience.highlights.map((highlight) => (
+          <li
+            key={highlight}
+            className="flex items-start gap-2.5 text-sm md:text-base text-slate-300 leading-relaxed"
+          >
+            <SolarCheckCircleBold
+              width={16}
+              height={16}
+              className={`mt-1 shrink-0 ${experience.accentColor}`}
+            />
+            <span>{highlight}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="flex flex-wrap gap-2">
+        {experience.tags.map((tag) => (
+          <span
+            key={tag}
+            className="px-2.5 py-1 bg-slate-700/30 border border-slate-600/50 text-xs font-medium text-slate-300 rounded-lg"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </article>
   );
 }
 
+const arrowClass =
+  "shrink-0 p-2.5 bg-slate-800/60 border border-slate-700/50 rounded-xl text-slate-300 hover:border-cyan-400/50 hover:text-cyan-400 transition-colors";
+
 export default function Experiences() {
+  // Petco (index 0) is shown first; slides only change on user action.
+  const { index, setIndex, previous, next, containerProps } = useSlider(
+    EXPERIENCES.length,
+  );
+
   return (
     <div className="relative py-20 md:py-28 bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Experience"
           title="Professional Journey"
           subtitle="Frontend experience across enterprise ERP and product delivery"
         />
 
-        <ol className="relative space-y-8 md:space-y-10 before:absolute before:left-[18px] md:before:left-[22px] before:top-2 before:bottom-2 before:w-px before:bg-slate-700/70">
-          {EXPERIENCES.map((experience) => (
-            <ExperienceItem key={experience.id} experience={experience} />
-          ))}
-        </ol>
+        <div
+          {...containerProps}
+          aria-label="Work experience"
+          className="rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+        >
+          {/* Company tabs */}
+          <div className="flex items-center justify-between gap-2 sm:gap-4 mb-6">
+            <button
+              type="button"
+              onClick={previous}
+              className={arrowClass}
+              aria-label="Previous experience"
+            >
+              <SolarAltArrowLeftBold width={20} height={20} />
+            </button>
+
+            <div className="flex flex-1 justify-center gap-2 sm:gap-3">
+              {EXPERIENCES.map((exp, i) => {
+                const active = i === index;
+                return (
+                  <button
+                    key={exp.id}
+                    type="button"
+                    onClick={() => setIndex(i)}
+                    aria-current={active}
+                    aria-label={exp.shortName}
+                    className={`flex items-center gap-2 rounded-xl px-2.5 py-2 sm:px-4 text-sm font-medium transition-all ${
+                      active
+                        ? "bg-slate-800/80 border border-cyan-400/40 text-white"
+                        : "border border-transparent text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    <span
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                        active
+                          ? `bg-gradient-to-br ${exp.color}`
+                          : "bg-slate-700/50"
+                      }`}
+                    >
+                      <exp.icon width={16} height={16} className="text-white" />
+                    </span>
+                    <span className="hidden sm:inline">{exp.shortName}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={next}
+              className={arrowClass}
+              aria-label="Next experience"
+            >
+              <SolarAltArrowRightBold width={20} height={20} />
+            </button>
+          </div>
+
+          <ExperienceCard
+            key={EXPERIENCES[index].id}
+            experience={EXPERIENCES[index]}
+          />
+
+          <p className="mt-4 text-center text-xs text-slate-500">
+            {index + 1} / {EXPERIENCES.length}
+          </p>
+        </div>
       </div>
     </div>
   );
