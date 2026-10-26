@@ -95,18 +95,31 @@
       }
 
       .contact {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 16px;
+        row-gap: 2px;
         margin: 0;
         font-size: 8.6pt;
         color: var(--muted);
       }
 
-      .contact .sep {
-        color: var(--rule);
+      .contact-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
       }
 
-      .contact.links {
-        direction: ltr;
-        text-align: right;
+      /* Decorative only: every value is still plain text for ATS parsers. */
+      .icon {
+        width: 10px;
+        height: 10px;
+        flex: none;
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       h2 {
@@ -212,28 +225,76 @@
   </head>
 
   <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+        <circle cx="12" cy="10" r="3" />
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <path
+          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+        />
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <rect width="20" height="16" x="2" y="4" rx="2" />
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+      </symbol>
+      <symbol id="i-web" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+        <path d="M2 12h20" />
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path
+          d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+        />
+        <rect width="4" height="12" x="2" y="9" />
+        <circle cx="4" cy="4" r="2" />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path
+          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+        />
+        <path d="M9 18c-4.51 2-5-2-8-3" />
+      </symbol>
+    </svg>
     <main class="page">
       <header>
         <h1>مهدی دلاور</h1>
         <p class="headline">توسعه‌دهنده‌ی فرانت‌اند (React و TypeScript)</p>
         <p class="contact">
-          تبریز · آماده‌ی همکاری دورکاری و جابه‌جایی <span class="sep">|</span>
-          <span class="ltr">0902 557 4357</span> <span class="sep">|</span>
-          <span class="ltr"
+          <span class="contact-item"
+            ><svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg
+            >تبریز · آماده‌ی همکاری دورکاری و جابه‌جایی</span
+          >
+          <span class="contact-item ltr"
+            ><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg
+            >0902 557 4357</span
+          >
+          <span class="contact-item ltr"
+            ><svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg
             ><a href="mailto:mdelever77@gmail.com"
               >mdelever77@gmail.com</a
             ></span
           >
         </p>
-        <p class="contact links">
-          <a href="https://mahdidelavar.ir">mahdidelavar.ir</a>
-          <span class="sep">|</span>
-          <a href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
-            >linkedin.com/in/mahdi-delavar-5338ba280</a
+        <p class="contact">
+          <span class="contact-item ltr"
+            ><svg class="icon" aria-hidden="true"><use href="#i-web" /></svg
+            ><a href="https://mahdidelavar.ir">mahdidelavar.ir</a></span
           >
-          <span class="sep">|</span>
-          <a href="https://github.com/mahdidelavarz"
-            >github.com/mahdidelavarz</a
+          <span class="contact-item ltr"
+            ><svg class="icon" aria-hidden="true">
+              <use href="#i-linkedin" /></svg
+            ><a href="https://www.linkedin.com/in/mahdi-delavar-5338ba280"
+              >linkedin.com/in/mahdi-delavar-5338ba280</a
+            ></span
+          >
+          <span class="contact-item ltr"
+            ><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg
+            ><a href="https://github.com/mahdidelavarz"
+              >github.com/mahdidelavarz</a
+            ></span
           >
         </p>
       </header>
@@ -416,9 +477,8 @@
           </div>
           <ul>
             <li>
-              فروشگاه با تنوع محصول، جستجو و فیلتر، سبد خرید، پرداخت و
-              پیگیری سفارش؛ ورود با کد یک‌بارمصرف، پنل مدیریت نقش‌محور و مدیریت
-              موجودی.
+              فروشگاه با تنوع محصول، جستجو و فیلتر، سبد خرید، پرداخت و پیگیری
+              سفارش؛ ورود با کد یک‌بارمصرف، پنل مدیریت نقش‌محور و مدیریت موجودی.
             </li>
           </ul>
         </div>
