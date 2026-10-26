@@ -268,7 +268,7 @@ body {
 @media (max-width: 639px) {
   .article-comparison { grid-template-columns: 1fr; }
   .article-comparison-arrow { transform: rotate(90deg); text-align: center; }
-  [dir="rtl"] .article-comparison-arrow { transform: rotate(90deg) scaleX(-1); }
+  [dir="rtl"] .article-comparison-arrow { transform: rotate(-90deg) scaleX(-1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -376,4 +376,70 @@ canvas {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.article-content .episode-box {
+  margin-block: 2rem;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 1rem;
+  background: rgba(139, 92, 246, 0.07);
+  padding: 1.1rem 1.35rem;
+  color: #ddd6fe;
+}
+
+.article-content .episode-box strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #c4b5fd;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.article-content .episode-box p {
+  margin: 0;
+}
+
+.article-content .episode-box-lessons {
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(8, 145, 178, 0.08);
+  color: #cffafe;
+}
+
+.article-content .episode-box-lessons strong {
+  color: #67e8f9;
+}
+
+.article-content .episode-box-lessons ul {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.episode-nav-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.episode-nav-card span {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.episode-nav-card strong {
+  color: #f1f5f9;
+  line-height: 1.5;
+}
+
+a.episode-nav-card:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+}
+
+.episode-nav-card-upcoming strong {
+  color: #64748b;
 }

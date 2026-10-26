@@ -5,6 +5,8 @@ import { versionedEngineeringArticleEn } from "./content/versioned-engineering.e
 import { versionedEngineeringArticleFa } from "./content/versioned-engineering.fa";
 import { routedWorkspacesArticleEn } from "./content/routed-workspaces.en";
 import { routedWorkspacesArticleFa } from "./content/routed-workspaces.fa";
+import { sharedDataTableArticleEn } from "./content/shared-data-table.en";
+import { sharedDataTableArticleFa } from "./content/shared-data-table.fa";
 
 const pageArchitectureArticleEn = (
   <>
@@ -305,6 +307,20 @@ export const articles = [
     content: routedWorkspacesArticleEn,
   },
   {
+    slug: "shared-data-table-state-ownership",
+    language: "en",
+    title: "Building a Shared Data Table for an ERP: Who Owns the State?",
+    summary:
+      "How a client-side list component grew into separate client and server tables, why TanStack Table was tried and not adopted, and how table state moved from the URL to per-table persisted stores.",
+    publishedAt: "2026-10-25",
+    readingTime: "9 min read",
+    tags: ["Frontend Architecture", "State Management", "TypeScript"],
+    featured: false,
+    project: "ERP",
+    status: "published",
+    content: sharedDataTableArticleEn,
+  },
+  {
     slug: "metadata-driven-page-architecture",
     language: "fa",
     title: "از CRUDهای تکراری تا PageShell در یک ERP واقعی",
@@ -345,5 +361,19 @@ export const articles = [
     project: "ERP",
     status: "published",
     content: routedWorkspacesArticleFa,
+  },
+  {
+    slug: "shared-data-table-state-ownership",
+    language: "fa",
+    title: "table مشترک در یک ERP: state مال کیست؟",
+    summary:
+      "اینکه یک table ساده‌ی client-side چطور به دو table جدا برای client و server رسید، چرا TanStack Table را امتحان کردم و نگه نداشتم، و state جدول‌ها چطور از URL به storeهای جدا برای هر table رسید.",
+    publishedAt: "2026-10-25",
+    readingTime: "حدود ۹ دقیقه",
+    tags: ["معماری فرانت‌اند", "مدیریت وضعیت", "TypeScript"],
+    featured: false,
+    project: "ERP",
+    status: "published",
+    content: sharedDataTableArticleFa,
   },
 ] satisfies Article[];

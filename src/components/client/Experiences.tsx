@@ -28,11 +28,11 @@ const EXPERIENCES = [
     description:
       "In-house ERP for a pump and turbine manufacturer, covering sales, engineering, planning, finance and office workflows. I started on the legacy system and have been building the new React + TypeScript ERP since November 2024.",
     highlights: [
-      "Designed PageShell, a typed, metadata-driven page layer that composes data hooks, forms, server/client tables and pluggable features (uploads, signatures, reports, nested routes). It now powers 57 of the ERP's ~80 pages.",
-      "Built the shared data-table system: server-side paging, sorting and filtering, multi-condition search, per-table persisted state, bulk actions, permission-aware row actions and a mobile card view.",
-      "Built a multi-tab workspace on React Router with pinned and temporary tabs, drag reordering and persisted state, so users can keep several records open at once.",
-      "Implemented the engineering revision flow after the sales-to-engineering handoff: automatic revision numbers, workflow gating and revision-aware part-list edits.",
-      "Replaced modal-only admin screens with nested, parent-aware routes, and wrote supporting .NET Core / EF Core endpoints when my features needed them.",
+      "Designed and built PageShell, a factory-based page system that removes repeated component wiring and CRUD logic across modules, cutting code size by 60%. It supports plugins such as file upload, digital signature and reporting, plus nested pages with parent context; 57 of the ERP's ~80 pages are built on it.",
+      "Designed and built the shared data-table system in client-side and server-side versions: server-side paging, sorting and filtering, multi-condition search, per-table persisted state, bulk actions, permission-aware actions and a responsive mobile card view.",
+      "Built a multi-tab workspace on React Router with temporary and pinned tabs, tab reordering and state that survives reloads, so users can work on several records at once.",
+      "Implemented the workflow system: approval inbox (cartable), signatures, revisions, request rejection and reset to the first step, with transactions handled at each step.",
+      "Codified the ERP's frontend and backend architecture as agent skills and docs, so new modules built with Codex and Claude Code follow the same conventions as the hand-written code.",
     ],
     tags: [
       "React",
@@ -158,7 +158,7 @@ export default function Experiences() {
   );
 
   return (
-    <div className="relative py-20 md:py-28 bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950">
+    <div className="relative py-20 md:py-28 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Experience"

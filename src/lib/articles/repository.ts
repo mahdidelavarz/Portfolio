@@ -60,3 +60,19 @@ export function getAlternateLanguageVersion(article: Article): Article | undefin
   const alternateLanguage: ArticleLanguage = article.language === "en" ? "fa" : "en";
   return getArticleBySlug(article.slug, alternateLanguage);
 }
+
+export function getSeriesEpisodes(language: ArticleLanguage): Article[] {
+  return getPublishedArticles(language)
+    .filter((article) => article.episode)
+    .sort((a, b) => a.episode!.number - b.episode!.number);
+}
+
+export function getAdjacentEpisodes(article: Article) {
+  const episodes = getSeriesEpisodes(article.language);
+  const index = episodes.findIndex((candidate) => candidate.slug === article.slug);
+
+  return {
+    previous: index > 0 ? episodes[index - 1] : null,
+    next: index >= 0 && index < episodes.length - 1 ? episodes[index + 1] : null,
+  };
+}

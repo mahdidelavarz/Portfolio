@@ -90,6 +90,8 @@ const SKILL_STACKS: SkillStackMap = {
       { name: "Azure", icon: "logos:microsoft-azure" },
       { name: "CI/CD", icon: "simple-icons:githubactions" },
       { name: "Stimulsoft Report", icon: "mdi:file-chart-outline" },
+      { name: "Claude Code / Codex", icon: "mdi:robot-outline" },
+      { name: "Agent skills & MCP", icon: "mdi:connection" },
     ],
   },
 };
@@ -125,7 +127,7 @@ function SkillGroup({ stack }: { stack: SkillStack }) {
 
 export default function Skills() {
   return (
-    <div className="relative py-20 md:py-28 bg-gradient-to-bl from-blue-950 via-gray-950 to-blue-950">
+    <div className="relative py-20 md:py-28 bg-gradient-to-br from-blue-950 via-gray-950 to-blue-950">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Skills"
