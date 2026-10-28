@@ -47,8 +47,8 @@ const EXPERIENCES = [
   },
   {
     id: 1,
-    company: "LoveCode (web agency)",
-    shortName: "LoveCode",
+    company: "LovelCode (web agency)",
+    shortName: "LovelCode",
     role: "Frontend Developer",
     period: "Apr 2023 – Sep 2024",
     duration: "1.5 years",
