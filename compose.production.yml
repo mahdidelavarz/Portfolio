@@ -27,7 +27,8 @@ services:
       web-proxy:
         aliases:
           - portfolio-app
-      database:
+      # اتصال به شبکه دیتابیس مرکزی به جای nazishop_default
+      shared-network:
 
   migrate:
     image: portfolio-migrate:latest
@@ -40,13 +41,14 @@ services:
     environment:
       NODE_ENV: production
     networks:
-      database:
+      # اتصال به شبکه دیتابیس مرکزی
+      - shared-network
     restart: "no"
 
 networks:
   web-proxy:
     external: true
     name: web-proxy
-  database:
+  shared-network:
     external: true
-    name: nazishop_default
+    name: shared-network
